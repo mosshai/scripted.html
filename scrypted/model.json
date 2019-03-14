@@ -1,0 +1,1378 @@
+{
+    "ColorSettingRgb": {
+        "methods": [
+            {
+                "name": "getRgb",
+                "arguments": [],
+                "type": "ColorRgb"
+            },
+            {
+                "name": "setRgb",
+                "arguments": [
+                    {
+                        "type": "int",
+                        "name": "r"
+                    },
+                    {
+                        "type": "int",
+                        "name": "g"
+                    },
+                    {
+                        "type": "int",
+                        "name": "b"
+                    }
+                ],
+                "type": "void"
+            }
+        ],
+        "fields": []
+    },
+    "ColorRgb": {
+        "methods": [
+            {
+                "name": "toString",
+                "arguments": [],
+                "type": "String"
+            }
+        ],
+        "fields": [
+            {
+                "name": "b",
+                "type": "int"
+            },
+            {
+                "name": "g",
+                "type": "int"
+            },
+            {
+                "name": "r",
+                "type": "int"
+            }
+        ]
+    },
+    "HumiditySensor": {
+        "methods": [
+            {
+                "name": "getHumidityAmbient",
+                "arguments": [],
+                "type": "double"
+            }
+        ],
+        "fields": []
+    },
+    "MediaPlayer": {
+        "methods": [
+            {
+                "name": "load",
+                "arguments": [
+                    {
+                        "type": "MediaObject",
+                        "name": "media"
+                    },
+                    {
+                        "type": "MediaPlayerOptions",
+                        "name": "options"
+                    }
+                ],
+                "type": "void"
+            },
+            {
+                "name": "load",
+                "arguments": [
+                    {
+                        "type": "String",
+                        "name": "mediaUrl"
+                    },
+                    {
+                        "type": "MediaPlayerOptions",
+                        "name": "options"
+                    }
+                ],
+                "type": "void"
+            },
+            {
+                "name": "pause",
+                "arguments": [],
+                "type": "void"
+            },
+            {
+                "name": "play",
+                "arguments": [],
+                "type": "void"
+            },
+            {
+                "name": "stop",
+                "arguments": [],
+                "type": "void"
+            }
+        ],
+        "fields": []
+    },
+    "MediaObject": {
+        "methods": [
+            {
+                "name": "getMimeType",
+                "arguments": [],
+                "type": "String"
+            }
+        ],
+        "fields": [
+            {
+                "name": "CANCELLED",
+                "type": "Cancellable"
+            },
+            {
+                "name": "COMPLETED",
+                "type": "Cancellable"
+            }
+        ]
+    },
+    "Cancellable": {
+        "methods": [
+            {
+                "name": "cancel",
+                "arguments": [],
+                "type": "boolean"
+            },
+            {
+                "name": "isCancelled",
+                "arguments": [],
+                "type": "boolean"
+            },
+            {
+                "name": "isDone",
+                "arguments": [],
+                "type": "boolean"
+            }
+        ],
+        "fields": []
+    },
+    "MediaPlayerOptions": {
+        "methods": [],
+        "fields": [
+            {
+                "name": "autoplay",
+                "type": "boolean"
+            },
+            {
+                "name": "mimeType",
+                "type": "String"
+            }
+        ]
+    },
+    "FaceDetector": {
+        "methods": [],
+        "fields": []
+    },
+    "EventListener": {
+        "methods": [
+            {
+                "name": "onEvent",
+                "arguments": [
+                    {
+                        "type": "ScryptedInterface",
+                        "name": "eventSource"
+                    },
+                    {
+                        "type": "Class",
+                        "name": "eventInterface"
+                    },
+                    {
+                        "type": "Object",
+                        "name": "eventData"
+                    }
+                ],
+                "type": "void",
+                "description": "This device type can be registered to listen for events. The event source, event type (interface), and event data are all passed to the listener as arguments."
+            }
+        ],
+        "fields": []
+    },
+    "Lock": {
+        "methods": [
+            {
+                "name": "isLocked",
+                "arguments": [],
+                "type": "boolean"
+            },
+            {
+                "name": "lock",
+                "arguments": [],
+                "type": "void"
+            },
+            {
+                "name": "unlock",
+                "arguments": [],
+                "type": "void"
+            }
+        ],
+        "fields": []
+    },
+    "IntrusionSensor": {
+        "methods": [
+            {
+                "name": "isIntrusionDetected",
+                "arguments": [],
+                "type": "boolean"
+            }
+        ],
+        "fields": []
+    },
+    "Notifier": {
+        "methods": [
+            {
+                "name": "sendNotification",
+                "arguments": [
+                    {
+                        "type": "String",
+                        "name": "title"
+                    },
+                    {
+                        "type": "String",
+                        "name": "body"
+                    }
+                ],
+                "type": "void"
+            },
+            {
+                "name": "sendNotification",
+                "arguments": [
+                    {
+                        "type": "String",
+                        "name": "title"
+                    },
+                    {
+                        "type": "String",
+                        "name": "body"
+                    },
+                    {
+                        "type": "MediaObject",
+                        "name": "media"
+                    },
+                    {
+                        "type": "String",
+                        "name": "mimeType"
+                    }
+                ],
+                "type": "void",
+                "description": "If a the media parameter is supplied, the mime type denotes how to send the media within notification. For example, specify 'image\/*' to send a video MediaObject as an image.\nPassing null uses the native type of the MediaObject. If that is not supported by the notifier, the media will be converted to a compatible type."
+            }
+        ],
+        "fields": []
+    },
+    "BinarySensor": {
+        "methods": [
+            {
+                "name": "getBinaryState",
+                "arguments": [],
+                "type": "boolean"
+            }
+        ],
+        "fields": []
+    },
+    "OauthClient": {
+        "methods": [
+            {
+                "name": "getOauthUrl",
+                "arguments": [],
+                "type": "String",
+                "description": "Get the Oauth URL to navigate to in the browser. The redirect_uri parameter is not needed and will be automatically set by Scrypted."
+            },
+            {
+                "name": "onOauthCallback",
+                "arguments": [
+                    {
+                        "type": "String",
+                        "name": "callbackUrl"
+                    }
+                ],
+                "type": "void",
+                "description": "When an oauth request by a plugin completes, the callback url, with the code\/token, will be passed to this method."
+            }
+        ],
+        "fields": [],
+        "description": "The OauthClient can be implemented to perform the browser based Oauth process from within a plugin."
+    },
+    "Thermometer": {
+        "methods": [
+            {
+                "name": "getTemperatureAmbient",
+                "arguments": [],
+                "type": "double",
+                "description": "Get the ambient temperature in Celsius."
+            },
+            {
+                "name": "getTemperatureUnit",
+                "arguments": [],
+                "type": "TemperatureUnit",
+                "description": "Get the user facing unit of measurement for this thermometer. This may be Fahrenheit, but getTemperatureAmbient will return results in Celsius."
+            }
+        ],
+        "fields": []
+    },
+    "TemperatureUnit": {
+        "values": [
+            "C",
+            "F"
+        ]
+    },
+    "PasswordControl": {
+        "methods": [
+            {
+                "name": "addPassword",
+                "arguments": [
+                    {
+                        "type": "String",
+                        "name": "password"
+                    }
+                ],
+                "type": "void"
+            },
+            {
+                "name": "getPasswords",
+                "arguments": [],
+                "type": "Set"
+            },
+            {
+                "name": "removePassword",
+                "arguments": [
+                    {
+                        "type": "String",
+                        "name": "password"
+                    }
+                ],
+                "type": "void"
+            }
+        ],
+        "fields": [],
+        "description": "PasswordControl represents devices that authorize users via a passcode or pin code."
+    },
+    "TemperatureSetting": {
+        "methods": [
+            {
+                "name": "getAvailableThermostatModes",
+                "arguments": [],
+                "type": "ThermostatMode[]"
+            },
+            {
+                "name": "getTemperatureSetpoint",
+                "arguments": [],
+                "type": "double"
+            },
+            {
+                "name": "getTemperatureSetpointHigh",
+                "arguments": [],
+                "type": "double"
+            },
+            {
+                "name": "getTemperatureSetpointLow",
+                "arguments": [],
+                "type": "double"
+            },
+            {
+                "name": "getThermostatMode",
+                "arguments": [],
+                "type": "ThermostatMode"
+            },
+            {
+                "name": "setTemperatureSetRange",
+                "arguments": [
+                    {
+                        "type": "double",
+                        "name": "low"
+                    },
+                    {
+                        "type": "double",
+                        "name": "high"
+                    }
+                ],
+                "type": "void"
+            },
+            {
+                "name": "setTemperatureSetpoint",
+                "arguments": [
+                    {
+                        "type": "double",
+                        "name": "degrees"
+                    }
+                ],
+                "type": "void"
+            },
+            {
+                "name": "setThermostatMode",
+                "arguments": [
+                    {
+                        "type": "ThermostatMode",
+                        "name": "mode"
+                    }
+                ],
+                "type": "void"
+            }
+        ],
+        "fields": [],
+        "description": "TemperatureSetting represents a thermostat device."
+    },
+    "ThermostatMode": {
+        "values": [
+            "Off",
+            "Cool",
+            "Heat",
+            "HeatCool",
+            "Auto",
+            "FanOnly",
+            "Purifier",
+            "Eco",
+            "Dry",
+            "On"
+        ]
+    },
+    "Brightness": {
+        "methods": [
+            {
+                "name": "getLevel",
+                "arguments": [],
+                "type": "int"
+            },
+            {
+                "name": "setLevel",
+                "arguments": [
+                    {
+                        "type": "int",
+                        "name": "brightness"
+                    }
+                ],
+                "type": "void"
+            }
+        ],
+        "fields": [],
+        "description": "Brightness is a lighting device that can be dimmed\/lit between 0 to 100."
+    },
+    "ColorSettingTemperature": {
+        "methods": [
+            {
+                "name": "getTemperature",
+                "arguments": [],
+                "type": "int"
+            },
+            {
+                "name": "getTemperatureMaxK",
+                "arguments": [],
+                "type": "int"
+            },
+            {
+                "name": "getTemperatureMinK",
+                "arguments": [],
+                "type": "int"
+            },
+            {
+                "name": "setTemperature",
+                "arguments": [
+                    {
+                        "type": "int",
+                        "name": "kelvin"
+                    }
+                ],
+                "type": "void"
+            }
+        ],
+        "fields": []
+    },
+    "HttpRequestHandler": {
+        "methods": [
+            {
+                "name": "getEndpoint",
+                "arguments": [],
+                "type": "String",
+                "description": "Get the preferred endpoint of this HttpRequestHandler. Local\/development scripts can set this to any value. This is ignored if the plugin is installed via npm: the endpoint will always be the npm package name."
+            },
+            {
+                "name": "onRequest",
+                "arguments": [
+                    {
+                        "type": "HttpRequest",
+                        "name": "request"
+                    },
+                    {
+                        "type": "HttpResponse",
+                        "name": "response"
+                    }
+                ],
+                "type": "void",
+                "description": "Callback to handle an incoming request."
+            }
+        ],
+        "fields": [],
+        "description": "The HttpRequestHandler allows handling of web requests under the endpoint path: \/endpoint\/<endpoint>\/*."
+    },
+    "HttpRequest": {
+        "methods": [],
+        "fields": [
+            {
+                "name": "body",
+                "type": "String"
+            },
+            {
+                "name": "headers",
+                "type": "Map"
+            },
+            {
+                "name": "method",
+                "type": "String"
+            },
+            {
+                "name": "rootPath",
+                "type": "String"
+            },
+            {
+                "name": "url",
+                "type": "String"
+            }
+        ]
+    },
+    "HttpResponse": {
+        "methods": [
+            {
+                "name": "send",
+                "arguments": [
+                    {
+                        "type": "HttpResponseOptions",
+                        "name": "options"
+                    },
+                    {
+                        "type": "String",
+                        "name": "body"
+                    }
+                ],
+                "type": "void"
+            },
+            {
+                "name": "send",
+                "arguments": [
+                    {
+                        "type": "HttpResponseOptions",
+                        "name": "options"
+                    },
+                    {
+                        "type": "ByteBuffer",
+                        "name": "body"
+                    }
+                ],
+                "type": "void"
+            },
+            {
+                "name": "send",
+                "arguments": [
+                    {
+                        "type": "String",
+                        "name": "body"
+                    }
+                ],
+                "type": "void"
+            },
+            {
+                "name": "send",
+                "arguments": [
+                    {
+                        "type": "ByteBuffer",
+                        "name": "body"
+                    }
+                ],
+                "type": "void"
+            }
+        ],
+        "fields": [],
+        "description": "Response object provided by the HttpRequestHandler."
+    },
+    "HttpResponseOptions": {
+        "methods": [],
+        "fields": [
+            {
+                "name": "asContent",
+                "type": "boolean"
+            },
+            {
+                "name": "code",
+                "type": "int"
+            },
+            {
+                "name": "headers",
+                "type": "Map"
+            }
+        ]
+    },
+    "Online": {
+        "methods": [
+            {
+                "name": "isOnline",
+                "arguments": [],
+                "type": "boolean"
+            }
+        ],
+        "fields": [],
+        "description": "Online denotes whether the device is online or unresponsive. It may be unresponsive due to being unplugged, network error, etc."
+    },
+    "Scene": {
+        "methods": [
+            {
+                "name": "activate",
+                "arguments": [],
+                "type": "void"
+            },
+            {
+                "name": "deactivate",
+                "arguments": [],
+                "type": "void"
+            },
+            {
+                "name": "isReversible",
+                "arguments": [],
+                "type": "boolean",
+                "description": "If a scene can be reversed, isReversible should return true. Otherwise deactivate will not be called."
+            }
+        ],
+        "fields": [],
+        "description": "Scenes control multiple different devices into a given state."
+    },
+    "LuminanceSensor": {
+        "methods": [
+            {
+                "name": "getLuminance",
+                "arguments": [],
+                "type": "double"
+            }
+        ],
+        "fields": []
+    },
+    "MediaSource": {
+        "methods": [
+            {
+                "name": "getMedia",
+                "arguments": [],
+                "type": "MediaObject",
+                "description": "Get a MediaObject that will be automatically converted for playback on other devices."
+            }
+        ],
+        "fields": []
+    },
+    "EventEmitter": {
+        "methods": [
+            {
+                "name": "on",
+                "arguments": [
+                    {
+                        "type": "String",
+                        "name": "event"
+                    },
+                    {
+                        "type": "JavaScriptObject",
+                        "name": "callback"
+                    }
+                ],
+                "type": "EventListenerRegister",
+                "description": "Subscribe to events from a specific interface on a device, such as 'OnOff' or 'Brightness'.\nThe callback function has the signature function(eventSource, eventData).\nThe eventSource is the interface from where the event originated, and eventData will contain data specific\nto that type of interface. OnOff would be boolean, while Brightness would be an integer between 0 and 100."
+            },
+            {
+                "name": "watch",
+                "arguments": [
+                    {
+                        "type": "String",
+                        "name": "event"
+                    },
+                    {
+                        "type": "JavaScriptObject",
+                        "name": "callback"
+                    }
+                ],
+                "type": "EventListenerRegister",
+                "description": "Similar to 'on', but will passively watch for events, and not initiate polling."
+            }
+        ],
+        "fields": []
+    },
+    "EventListenerRegister": {
+        "methods": [
+            {
+                "name": "getListener",
+                "arguments": [],
+                "type": "EventListener"
+            },
+            {
+                "name": "removeListener",
+                "arguments": [],
+                "type": "void"
+            }
+        ],
+        "fields": []
+    },
+    "CameraStream": {
+        "methods": [
+            {
+                "name": "createVideoCapturer",
+                "arguments": [],
+                "type": "Future"
+            }
+        ],
+        "fields": []
+    },
+    "UltravioletSensor": {
+        "methods": [
+            {
+                "name": "getUltraviolet",
+                "arguments": [],
+                "type": "double"
+            }
+        ],
+        "fields": []
+    },
+    "DeviceManager": {
+        "methods": [
+            {
+                "name": "getDeviceById",
+                "arguments": [
+                    {
+                        "type": "long",
+                        "name": "id"
+                    }
+                ],
+                "type": "ScryptedInterface"
+            },
+            {
+                "name": "getDeviceByName",
+                "arguments": [
+                    {
+                        "type": "String",
+                        "name": "name"
+                    }
+                ],
+                "type": "ScryptedInterface"
+            },
+            {
+                "name": "onDeviceDiscovered",
+                "arguments": [
+                    {
+                        "type": "JavaScriptObject",
+                        "name": "device"
+                    }
+                ],
+                "type": "void"
+            },
+            {
+                "name": "onDeviceEvent",
+                "arguments": [
+                    {
+                        "type": "Class",
+                        "name": "eventInterface"
+                    },
+                    {
+                        "type": "Object",
+                        "name": "eventData"
+                    }
+                ],
+                "type": "void"
+            },
+            {
+                "name": "onDeviceEvent",
+                "arguments": [
+                    {
+                        "type": "String",
+                        "name": "id"
+                    },
+                    {
+                        "type": "Class",
+                        "name": "eventInterface"
+                    },
+                    {
+                        "type": "Object",
+                        "name": "eventData"
+                    }
+                ],
+                "type": "void"
+            },
+            {
+                "name": "onDevicesChanged",
+                "arguments": [
+                    {
+                        "type": "JavaScriptObject",
+                        "name": "devices"
+                    }
+                ],
+                "type": "void"
+            }
+        ],
+        "fields": []
+    },
+    "Alarm": {
+        "methods": [
+            {
+                "name": "getClockType",
+                "arguments": [],
+                "type": "ClockType"
+            },
+            {
+                "name": "getHour",
+                "arguments": [],
+                "type": "int"
+            },
+            {
+                "name": "getMinute",
+                "arguments": [],
+                "type": "int"
+            },
+            {
+                "name": "isEnabled",
+                "arguments": [
+                    {
+                        "type": "int",
+                        "name": "day"
+                    }
+                ],
+                "type": "boolean"
+            }
+        ],
+        "fields": [],
+        "description": "Event data from the Scheduler component."
+    },
+    "ClockType": {
+        "values": [
+            "_AM",
+            "_PM",
+            "_24HourClock",
+            "_BeforeSunrise",
+            "_AfterSunrise",
+            "_BeforeSunset",
+            "_AfterSunset"
+        ]
+    },
+    "FloodSensor": {
+        "methods": [
+            {
+                "name": "isFlooded",
+                "arguments": [],
+                "type": "boolean"
+            }
+        ],
+        "fields": []
+    },
+    "Program": {
+        "methods": [
+            {
+                "name": "run",
+                "arguments": [
+                    {
+                        "type": "Object[]",
+                        "name": "args"
+                    }
+                ],
+                "type": "Object",
+                "description": "Synchronously run a script given the provided arguments."
+            },
+            {
+                "name": "runAsync",
+                "arguments": [
+                    {
+                        "type": "Object[]",
+                        "name": "args"
+                    }
+                ],
+                "type": "Object",
+                "description": "Asynchronously run a script given the provided arguments."
+            }
+        ],
+        "fields": []
+    },
+    "Dock": {
+        "methods": [
+            {
+                "name": "dock",
+                "arguments": [],
+                "type": "void"
+            },
+            {
+                "name": "isDocked",
+                "arguments": [],
+                "type": "boolean"
+            }
+        ],
+        "fields": []
+    },
+    "EntryHandleSensor": {
+        "methods": [
+            {
+                "name": "isDoorOpen",
+                "arguments": [],
+                "type": "boolean"
+            }
+        ],
+        "fields": []
+    },
+    "Battery": {
+        "methods": [
+            {
+                "name": "getBatteryLevel",
+                "arguments": [],
+                "type": "int"
+            }
+        ],
+        "fields": []
+    },
+    "ColorSettingHsv": {
+        "methods": [
+            {
+                "name": "getHsv",
+                "arguments": [],
+                "type": "ColorHsv"
+            },
+            {
+                "name": "setHsv",
+                "arguments": [
+                    {
+                        "type": "double",
+                        "name": "hue"
+                    },
+                    {
+                        "type": "double",
+                        "name": "saturation"
+                    },
+                    {
+                        "type": "double",
+                        "name": "value"
+                    }
+                ],
+                "type": "void"
+            }
+        ],
+        "fields": []
+    },
+    "ColorHsv": {
+        "methods": [
+            {
+                "name": "toString",
+                "arguments": [],
+                "type": "String"
+            }
+        ],
+        "fields": [
+            {
+                "name": "h",
+                "type": "double"
+            },
+            {
+                "name": "s",
+                "type": "double"
+            },
+            {
+                "name": "v",
+                "type": "double"
+            }
+        ]
+    },
+    "DeviceProvider": {
+        "methods": [
+            {
+                "name": "discoverDevices",
+                "arguments": [
+                    {
+                        "type": "long",
+                        "name": "duration"
+                    }
+                ],
+                "type": "void",
+                "description": "Initiate device discovery for the specified duration."
+            },
+            {
+                "name": "getDevice",
+                "arguments": [
+                    {
+                        "type": "String",
+                        "name": "id"
+                    }
+                ],
+                "type": "Object",
+                "description": "Get an instance of a previously discovered device that was reported to the device manager."
+            }
+        ],
+        "fields": [],
+        "description": "DeviceProvider acts as a controller\/hub and exposes multiple devices to Scrypted Device Manager."
+    },
+    "StartStop": {
+        "methods": [
+            {
+                "name": "isPausable",
+                "arguments": [],
+                "type": "boolean"
+            },
+            {
+                "name": "isPaused",
+                "arguments": [],
+                "type": "boolean"
+            },
+            {
+                "name": "isRunning",
+                "arguments": [],
+                "type": "boolean"
+            },
+            {
+                "name": "pause",
+                "arguments": [],
+                "type": "void"
+            },
+            {
+                "name": "resume",
+                "arguments": [],
+                "type": "void"
+            },
+            {
+                "name": "start",
+                "arguments": [],
+                "type": "void"
+            },
+            {
+                "name": "stop",
+                "arguments": [],
+                "type": "void"
+            }
+        ],
+        "fields": []
+    },
+    "MessagingEndpoint": {
+        "methods": [],
+        "fields": []
+    },
+    "Settings": {
+        "methods": [
+            {
+                "name": "getBoolean",
+                "arguments": [
+                    {
+                        "type": "String",
+                        "name": "key"
+                    }
+                ],
+                "type": "Boolean"
+            },
+            {
+                "name": "getBoolean",
+                "arguments": [
+                    {
+                        "type": "String",
+                        "name": "key"
+                    },
+                    {
+                        "type": "Boolean",
+                        "name": "defaultValue"
+                    }
+                ],
+                "type": "Boolean"
+            },
+            {
+                "name": "getConfigurationValueList",
+                "arguments": [
+                    {
+                        "type": "String",
+                        "name": "key"
+                    }
+                ],
+                "type": "List"
+            },
+            {
+                "name": "getDouble",
+                "arguments": [
+                    {
+                        "type": "String",
+                        "name": "key"
+                    }
+                ],
+                "type": "Double"
+            },
+            {
+                "name": "getFloat",
+                "arguments": [
+                    {
+                        "type": "String",
+                        "name": "key"
+                    }
+                ],
+                "type": "Float"
+            },
+            {
+                "name": "getInt",
+                "arguments": [
+                    {
+                        "type": "String",
+                        "name": "key"
+                    }
+                ],
+                "type": "Integer"
+            },
+            {
+                "name": "getKeyDescription",
+                "arguments": [
+                    {
+                        "type": "String",
+                        "name": "key"
+                    }
+                ],
+                "type": "String"
+            },
+            {
+                "name": "getKeys",
+                "arguments": [],
+                "type": "List"
+            },
+            {
+                "name": "getString",
+                "arguments": [
+                    {
+                        "type": "String",
+                        "name": "key"
+                    }
+                ],
+                "type": "String"
+            },
+            {
+                "name": "putBoolean",
+                "arguments": [
+                    {
+                        "type": "String",
+                        "name": "key"
+                    },
+                    {
+                        "type": "boolean",
+                        "name": "value"
+                    }
+                ],
+                "type": "void"
+            },
+            {
+                "name": "putDouble",
+                "arguments": [
+                    {
+                        "type": "String",
+                        "name": "key"
+                    },
+                    {
+                        "type": "double",
+                        "name": "value"
+                    }
+                ],
+                "type": "void"
+            },
+            {
+                "name": "putFloat",
+                "arguments": [
+                    {
+                        "type": "String",
+                        "name": "key"
+                    },
+                    {
+                        "type": "float",
+                        "name": "value"
+                    }
+                ],
+                "type": "void"
+            },
+            {
+                "name": "putInt",
+                "arguments": [
+                    {
+                        "type": "String",
+                        "name": "key"
+                    },
+                    {
+                        "type": "int",
+                        "name": "value"
+                    }
+                ],
+                "type": "void"
+            },
+            {
+                "name": "putString",
+                "arguments": [
+                    {
+                        "type": "String",
+                        "name": "key"
+                    },
+                    {
+                        "type": "String",
+                        "name": "value"
+                    }
+                ],
+                "type": "void"
+            }
+        ],
+        "fields": [],
+        "description": "Settings viewing and editing of device configurations that describe or modify behavior."
+    },
+    "Logger": {
+        "methods": [
+            {
+                "name": "a",
+                "arguments": [
+                    {
+                        "type": "String",
+                        "name": "msg"
+                    }
+                ],
+                "type": "void",
+                "description": "Alert. Alert level logs will be displayed as a notification in the management console."
+            },
+            {
+                "name": "clear",
+                "arguments": [],
+                "type": "void",
+                "description": "Clear the log"
+            },
+            {
+                "name": "clearAlert",
+                "arguments": [
+                    {
+                        "type": "String",
+                        "name": "msg"
+                    }
+                ],
+                "type": "void",
+                "description": "Clear a specific alert"
+            },
+            {
+                "name": "clearAlerts",
+                "arguments": [],
+                "type": "void",
+                "description": "Clear all alerts"
+            },
+            {
+                "name": "d",
+                "arguments": [
+                    {
+                        "type": "String",
+                        "name": "msg"
+                    }
+                ],
+                "type": "void",
+                "description": "Debug"
+            },
+            {
+                "name": "e",
+                "arguments": [
+                    {
+                        "type": "String",
+                        "name": "msg"
+                    }
+                ],
+                "type": "void",
+                "description": "Error"
+            },
+            {
+                "name": "i",
+                "arguments": [
+                    {
+                        "type": "String",
+                        "name": "msg"
+                    }
+                ],
+                "type": "void",
+                "description": "Info"
+            },
+            {
+                "name": "v",
+                "arguments": [
+                    {
+                        "type": "String",
+                        "name": "msg"
+                    }
+                ],
+                "type": "void",
+                "description": "Verbose"
+            },
+            {
+                "name": "w",
+                "arguments": [
+                    {
+                        "type": "String",
+                        "name": "msg"
+                    }
+                ],
+                "type": "void",
+                "description": "Warn"
+            }
+        ],
+        "fields": []
+    },
+    "OnOff": {
+        "methods": [
+            {
+                "name": "isOn",
+                "arguments": [],
+                "type": "boolean"
+            },
+            {
+                "name": "turnOff",
+                "arguments": [],
+                "type": "void"
+            },
+            {
+                "name": "turnOn",
+                "arguments": [],
+                "type": "void"
+            }
+        ],
+        "fields": [],
+        "description": "OnOff is a basic binary switch."
+    },
+    "Entry": {
+        "methods": [
+            {
+                "name": "closeEntry",
+                "arguments": [],
+                "type": "void"
+            },
+            {
+                "name": "isEntryOpen",
+                "arguments": [],
+                "type": "boolean"
+            },
+            {
+                "name": "openEntry",
+                "arguments": [],
+                "type": "void"
+            }
+        ],
+        "fields": []
+    },
+    "Refresh": {
+        "methods": [
+            {
+                "name": "getRefreshFrequency",
+                "arguments": [],
+                "type": "int",
+                "description": "Get the recommended refresh\/poll frequency in seconds for this device."
+            },
+            {
+                "name": "refresh",
+                "arguments": [
+                    {
+                        "type": "Class",
+                        "name": "refreshInterface"
+                    },
+                    {
+                        "type": "boolean",
+                        "name": "userInitiated"
+                    }
+                ],
+                "type": "void",
+                "description": "This method is called by Scrypted when the properties of the device need to be refreshed. When the device has completed the refresh, the appropriate events should be emitted. The parameters provide the specific interface that needs to be refreshed and whether it was user initiated (via UI or voice)."
+            }
+        ],
+        "fields": [],
+        "description": "Refresh indicates that this device has properties that are not automatically updated, and must be periodically refreshed."
+    },
+    "EntrySensor": {
+        "methods": [
+            {
+                "name": "isEntryOpen",
+                "arguments": [],
+                "type": "boolean"
+            }
+        ],
+        "fields": []
+    }
+}

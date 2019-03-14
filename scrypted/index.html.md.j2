@@ -1,0 +1,38 @@
+---
+title: Scrypted API Reference
+
+language_tabs: # must be one of https://git.io/vQNgJ
+  - javascript
+  - typescript
+
+search: true
+---
+# Types
+
+{% for name, c in classes %}
+# {{name}}
+{{ c.description }}
+{% if c.methods.length %}
+{% endif %}
+{% for method in c.methods %}
+## {{ method.name }}
+{{ method.type }} {{ method.name }}({{ method.arguments | join(', ') }})
+
+{% if method.arguments.length %}
+Parameter | Type
+--------- | ----
+{% for param in method.arguments %}{{ param.name }} | <a href='#{{ param.type | lower }}'>{{ param.type }}</a>
+{% endfor %}
+{% endif %}
+
+{{ method.description }}
+{% endfor %}
+
+{% if c.fields.length %}
+Name      | Type
+--------- | ----
+{% for property in c.fields %}{{ property.name }} | {{ property.type }}
+{% endfor %}
+{% endif %}
+
+{% endfor %}
