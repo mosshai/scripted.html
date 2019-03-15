@@ -1,0 +1,18 @@
+```javascript
+function HttpHandler() {
+}
+
+// See documentation! 
+// Will handle requests at https://<local-ip>:9443/endpoint/test/ (or /endpoint/@koush/test)
+HttpHandler.prototype.getEndpoint = function() {
+    return 'test';
+    // or, an npm user/org namespace works as well:
+    // return '@koush/test';
+};
+
+HttpHandler.prototype.onRequest = function(req, res) {
+    res.send('hello world!!')
+};
+
+export default = new HttpHandler();
+```

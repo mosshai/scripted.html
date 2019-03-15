@@ -1,0 +1,58 @@
+```javascript
+const {DeviceManager} = require('@scrypted/sdk');
+
+// Devices returned by the DeviceProvider
+function Device(id) {
+    this.id = id;
+}
+
+Device.prototype.isOn = function() {
+  return false;
+};
+
+Device.prototype.turnOff = function() {
+  log.i('turnOff was called!');
+};
+
+Device.prototype.turnOn = function() {
+  log.i('turnOn was called!');
+};
+
+// DeviceProvider handles discovery and device requests
+function DeviceProvider() {
+    // it is recommended to automatically perform discovery on startup
+    this.discoverDevices(30);
+}
+
+DeviceProvider.prototype.discoverDevices = function(duration) {
+    // Sync the following two lights with Scrypted. New devices unknown to Scrypted will be added
+    // while devices that were previously reported, and no longer exist, will be removed.
+    // onDevicesChanged should be called with the full sync list of devices.
+    DeviceManager.onDevicesChanged({
+        devices:[
+            {
+                id: '1',
+                name: 'Light 1',
+                type: 'Light',
+                interfaces: ['OnOff', 'Brightness', 'ColorSettingHsv'],
+                events: ['OnOff', 'Brightness', 'ColorSettingHsv']
+            },
+            {
+                id: '2',
+                name: 'Light 2',
+                type: 'Light',
+                interfaces: ['OnOff', 'Brightness', 'ColorSettingHsv'],
+                events: ['OnOff', 'Brightness', 'ColorSettingHsv']
+            }
+        ]
+    });
+};
+
+DeviceProvider.prototype.getDevice = function(id) {
+    return new Device(id);
+};
+
+
+
+export default new Device();
+```

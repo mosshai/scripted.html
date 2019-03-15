@@ -727,12 +727,13 @@
                     }
                 ],
                 "type": "void",
-                "description": "This device type can be registered to listen for events. The event source, event type (interface), and event data are all passed to the listener as arguments."
+                "description": "This device type can be hooked by Automation actions to handle events. The event source, event type (interface), and event data are all passed to the listener as arguments."
             }
         ]
     },
     "EventListenerRegister": {
-        "fields": []
+        "fields": [],
+        "description": "Returned when an event listener is attached to an EventEmitter. Call removeListener to unregister from events."
     },
     "Logger": {
         "methods": [
@@ -1037,7 +1038,8 @@
                         "name": "id"
                     }
                 ],
-                "type": "ScryptedInterface"
+                "type": "ScryptedInterface",
+                "description": "Find a Scrypted device by id."
             },
             {
                 "name": "getDeviceByName",
@@ -1047,17 +1049,19 @@
                         "name": "name"
                     }
                 ],
-                "type": "ScryptedInterface"
+                "type": "ScryptedInterface",
+                "description": "Find a Scrypted device by name."
             },
             {
                 "name": "onDeviceDiscovered",
                 "arguments": [
                     {
-                        "type": "JavaScriptObject",
+                        "type": "Device",
                         "name": "device"
                     }
                 ],
-                "type": "void"
+                "type": "void",
+                "description": "onDeviceDiscovered is used to report new devices that are trickle discovered, one by one, such as via a network broadcast."
             },
             {
                 "name": "onDeviceEvent",
@@ -1071,7 +1075,8 @@
                         "name": "eventData"
                     }
                 ],
-                "type": "void"
+                "type": "void",
+                "description": "Fire an event for this plugin's device."
             },
             {
                 "name": "onDeviceEvent",
@@ -1089,17 +1094,85 @@
                         "name": "eventData"
                     }
                 ],
-                "type": "void"
+                "type": "void",
+                "description": "Fire an event for a device provided by this plugin."
             },
             {
                 "name": "onDevicesChanged",
                 "arguments": [
                     {
-                        "type": "JavaScriptObject",
+                        "type": "DeviceManifest",
                         "name": "devices"
                     }
                 ],
-                "type": "void"
+                "type": "void",
+                "description": "onDevicesChanged is used to sync Scrypted with devices that are attached to a hub, such as Hue or SmartThings. All the devices should be reported at once."
+            }
+        ],
+        "description": "DeviceManager is the interface which plugins use to report devices and device events to Scrypted. It is also used to query Scrypted for other devices."
+    },
+    "Device": {
+        "fields": [
+            {
+                "name": "events",
+                "type": "String[]"
+            },
+            {
+                "name": "id",
+                "type": "String"
+            },
+            {
+                "name": "interfaces",
+                "type": "String[]"
+            },
+            {
+                "name": "model",
+                "type": "String"
+            },
+            {
+                "name": "name",
+                "type": "String"
+            },
+            {
+                "name": "room",
+                "type": "String"
+            },
+            {
+                "name": "type",
+                "type": "ScryptedThingType"
+            }
+        ],
+        "description": "Device provides information about a device that is handled by a DeviceProvider."
+    },
+    "ScryptedThingType": {
+        "values": [
+            "Camera",
+            "Fan",
+            "Light",
+            "Switch",
+            "Outlet",
+            "Sensor",
+            "Scene",
+            "Program",
+            "Automation",
+            "Vacuum",
+            "Notifier",
+            "Thermostat",
+            "Lock",
+            "PasswordControl",
+            "Display",
+            "Speaker",
+            "Event",
+            "Entry",
+            "DeviceProvider",
+            "Unknown"
+        ]
+    },
+    "DeviceManifest": {
+        "fields": [
+            {
+                "name": "devices",
+                "type": "Device[]"
             }
         ]
     },
@@ -1281,6 +1354,7 @@
                 "type": "EventListenerRegister",
                 "description": "Similar to 'on', but will passively watch for events, and not initiate polling."
             }
-        ]
+        ],
+        "description": "EventEmitter is implemented by most devices. Add listeners to subscribe to events from that device."
     }
 }

@@ -11,12 +11,35 @@ for (var iface in json) {
     }
 }
 
-function linkifyType(type) {
+const TypeMap = {
+    Boolean: 'boolean',
+    ByteBuffer: 'Buffer',
+    Object: 'object',
+    Map: 'object',
+    String: 'string',
+    int: 'number',
+    long: 'number',
+    JavaScriptObject: 'function',
+}
+
+function linkifyStrippedType(type) {
+    var mapped = TypeMap[type];
+    if (mapped) {
+        return mapped;
+    }
+
     if (!json[type]) {
         return type;
     }
 
     return `<a href='#${type.toLowerCase()}'>${type}</a>`;
+}
+
+function linkifyType(type) {
+    var baseType = type.replace('[]', '');
+    if (type === baseType)
+        return linkifyStrippedType(type);
+    return `${linkifyStrippedType(baseType)}[]`;
 }
 
 const nunjucks = require('nunjucks');

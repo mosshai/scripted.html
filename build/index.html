@@ -210,6 +210,7 @@
     </a>
     <div class="toc-wrapper">
       <img src="images/logo.png" class="logo" alt="Logo" />
+      <center><div style="color: white;">Scrypted</div></center>
         <div class="lang-selector">
               <a href="#" data-language-name="javascript">javascript</a>
               <a href="#" data-language-name="typescript">typescript</a>
@@ -369,6 +370,15 @@
                     <a href="#devicemanager" class="toc-h2 toc-link" data-title="DeviceManager">DeviceManager</a>
                   </li>
                   <li>
+                    <a href="#device" class="toc-h2 toc-link" data-title="Device">Device</a>
+                  </li>
+                  <li>
+                    <a href="#scryptedthingtype" class="toc-h2 toc-link" data-title="ScryptedThingType">ScryptedThingType</a>
+                  </li>
+                  <li>
+                    <a href="#devicemanifest" class="toc-h2 toc-link" data-title="DeviceManifest">DeviceManifest</a>
+                  </li>
+                  <li>
                     <a href="#deviceprovider" class="toc-h2 toc-link" data-title="DeviceProvider">DeviceProvider</a>
                   </li>
                   <li>
@@ -453,7 +463,7 @@ be synced to upstream integration providers, such as Google Home or Apple Homeki
 <li>Launch Scrypted Debugger in VS Code.</li>
 </ol>
 <h1 id='reference'>Reference</h1><h2 id='onoff'>OnOff</h2>
-<pre class="highlight javascript tab-javascript"><code><span class="c1">// Control an OnOff device</span>
+<pre class="highlight javascript tab-javascript"><code><span class="c1">// Toggle an OnOff device</span>
 <span class="k">if</span> <span class="p">(</span><span class="k">switch</span><span class="p">.</span><span class="nx">isOn</span><span class="p">())</span> <span class="p">{</span>
     <span class="k">switch</span><span class="p">.</span><span class="nx">turnOff</span><span class="p">();</span>
 <span class="p">}</span>
@@ -470,25 +480,25 @@ be synced to upstream integration providers, such as Google Home or Apple Homeki
 <h3 id='turnon'>turnOn</h3>
 <p>void turnOn()</p>
 <h2 id='brightness'>Brightness</h2>
-<pre class="highlight javascript tab-javascript"><code><span class="c1">// Control a Brightness device</span>
+<pre class="highlight javascript tab-javascript"><code><span class="c1">// Set a Brightness device to 50%</span>
 <span class="nx">dimmer</span><span class="p">.</span><span class="nx">setLevel</span><span class="p">(</span><span class="mi">50</span><span class="p">);</span>
 </code></pre>
 
 <p>Brightness is a lighting device that can be dimmed/lit between 0 to 100.</p>
 <h3 id='getlevel'>getLevel</h3>
-<p>int getLevel()</p>
+<p>number getLevel()</p>
 <h3 id='setlevel'>setLevel</h3>
-<p>void setLevel(brightness: int)</p>
+<p>void setLevel(brightness: number)</p>
 <h2 id='colorsettingtemperature'>ColorSettingTemperature</h2>
 <p>ColorSettingTemperature sets the color temperature of a light in Kelvin.</p>
 <h3 id='gettemperature'>getTemperature</h3>
-<p>int getTemperature()</p>
+<p>number getTemperature()</p>
 <h3 id='gettemperaturemaxk'>getTemperatureMaxK</h3>
-<p>int getTemperatureMaxK()</p>
+<p>number getTemperatureMaxK()</p>
 <h3 id='gettemperaturemink'>getTemperatureMinK</h3>
-<p>int getTemperatureMinK()</p>
+<p>number getTemperatureMinK()</p>
 <h3 id='settemperature'>setTemperature</h3>
-<p>void setTemperature(kelvin: int)</p>
+<p>void setTemperature(kelvin: number)</p>
 <h2 id='colorsettingrgb'>ColorSettingRgb</h2>
 <pre class="highlight javascript tab-javascript"><code><span class="c1">// set the color to red on a ColorSettingRgb device</span>
 <span class="nx">colorBulb</span><span class="p">.</span><span class="nx">setRgb</span><span class="p">({</span>
@@ -502,7 +512,7 @@ be synced to upstream integration providers, such as Google Home or Apple Homeki
 <h3 id='getrgb'>getRgb</h3>
 <p><a href='#colorrgb'>ColorRgb</a> getRgb()</p>
 <h3 id='setrgb'>setRgb</h3>
-<p>void setRgb(r: int, g: int, b: int)</p>
+<p>void setRgb(r: number, g: number, b: number)</p>
 <h2 id='colorrgb'>ColorRgb</h2>
 <p>Represents an RGB color value component values between 0 and 255.</p>
 <h3 id='properties'>Properties</h3>
@@ -514,15 +524,15 @@ be synced to upstream integration providers, such as Google Home or Apple Homeki
 </thead><tbody>
 <tr>
 <td>b</td>
-<td>int</td>
+<td>number</td>
 </tr>
 <tr>
 <td>g</td>
-<td>int</td>
+<td>number</td>
 </tr>
 <tr>
 <td>r</td>
-<td>int</td>
+<td>number</td>
 </tr>
 </tbody></table>
 <h2 id='colorsettinghsv'>ColorSettingHsv</h2>
@@ -587,9 +597,9 @@ be synced to upstream integration providers, such as Google Home or Apple Homeki
 
 <p>Notifier can be any endpoint that can receive messages, such as speakers, phone numbers, messaging clients, etc. The messages may optionally contain media.</p>
 <h3 id='sendnotification'>sendNotification</h3>
-<p>void sendNotification(title: String, body: String)</p>
+<p>void sendNotification(title: string, body: string)</p>
 <h3 id='sendnotification-2'>sendNotification</h3>
-<p>void sendNotification(title: String, body: String, media: <a href='#mediaobject'>MediaObject</a>, mimeType: String)</p>
+<p>void sendNotification(title: string, body: string, media: <a href='#mediaobject'>MediaObject</a>, mimeType: string)</p>
 
 <p>If a the media parameter is supplied, the mime type denotes how to send the media within notification. For example, specify &#39;image/*&#39; to send a video MediaObject as an image.
 Passing null uses the native type of the MediaObject. If that is not supported by the notifier, the media will be converted to a compatible type.</p>
@@ -618,17 +628,17 @@ Passing null uses the native type of the MediaObject. If that is not supported b
 <h3 id='isdocked'>isDocked</h3>
 <p>boolean isDocked()</p>
 <h2 id='program'>Program</h2><h3 id='run'>run</h3>
-<p>Object run(args: Object[])</p>
+<p>object run(args: object[])</p>
 
 <p>Synchronously run a script given the provided arguments.</p>
 <h3 id='runasync'>runAsync</h3>
-<p>Object runAsync(args: Object[])</p>
+<p>object runAsync(args: object[])</p>
 
 <p>Asynchronously run a script given the provided arguments.</p>
 <h2 id='temperaturesetting'>TemperatureSetting</h2>
 <p>TemperatureSetting represents a thermostat device.</p>
 <h3 id='getavailablethermostatmodes'>getAvailableThermostatModes</h3>
-<p>ThermostatMode[] getAvailableThermostatModes()</p>
+<p><a href='#thermostatmode'>ThermostatMode</a>[] getAvailableThermostatModes()</p>
 <h3 id='gettemperaturesetpoint'>getTemperatureSetpoint</h3>
 <p>double getTemperatureSetpoint()</p>
 <h3 id='gettemperaturesetpointhigh'>getTemperatureSetpointHigh</h3>
@@ -650,34 +660,34 @@ Passing null uses the native type of the MediaObject. If that is not supported b
 </tr>
 </thead><tbody>
 <tr>
-<td>Off</td>
+<td>&quot;Off&quot;</td>
 </tr>
 <tr>
-<td>Cool</td>
+<td>&quot;Cool&quot;</td>
 </tr>
 <tr>
-<td>Heat</td>
+<td>&quot;Heat&quot;</td>
 </tr>
 <tr>
-<td>HeatCool</td>
+<td>&quot;HeatCool&quot;</td>
 </tr>
 <tr>
-<td>Auto</td>
+<td>&quot;Auto&quot;</td>
 </tr>
 <tr>
-<td>FanOnly</td>
+<td>&quot;FanOnly&quot;</td>
 </tr>
 <tr>
-<td>Purifier</td>
+<td>&quot;Purifier&quot;</td>
 </tr>
 <tr>
-<td>Eco</td>
+<td>&quot;Eco&quot;</td>
 </tr>
 <tr>
-<td>Dry</td>
+<td>&quot;Dry&quot;</td>
 </tr>
 <tr>
-<td>On</td>
+<td>&quot;On&quot;</td>
 </tr>
 </tbody></table>
 <h2 id='lock'>Lock</h2>
@@ -691,11 +701,11 @@ Passing null uses the native type of the MediaObject. If that is not supported b
 <h2 id='passwordcontrol'>PasswordControl</h2>
 <p>PasswordControl represents devices that authorize users via a passcode or pin code.</p>
 <h3 id='addpassword'>addPassword</h3>
-<p>void addPassword(password: String)</p>
+<p>void addPassword(password: string)</p>
 <h3 id='getpasswords'>getPasswords</h3>
 <p>Set getPasswords()</p>
 <h3 id='removepassword'>removePassword</h3>
-<p>void removePassword(password: String)</p>
+<p>void removePassword(password: string)</p>
 <h2 id='camerastream'>CameraStream</h2><h3 id='createvideocapturer'>createVideoCapturer</h3>
 <p>Future createVideoCapturer()</p>
 <h2 id='thermometer'>Thermometer</h2><h3 id='gettemperatureambient'>getTemperatureAmbient</h3>
@@ -713,10 +723,10 @@ Passing null uses the native type of the MediaObject. If that is not supported b
 </tr>
 </thead><tbody>
 <tr>
-<td>C</td>
+<td>&quot;C&quot;</td>
 </tr>
 <tr>
-<td>F</td>
+<td>&quot;F&quot;</td>
 </tr>
 </tbody></table>
 <h2 id='humiditysensor'>HumiditySensor</h2><h3 id='gethumidityambient'>getHumidityAmbient</h3>
@@ -748,11 +758,11 @@ Passing null uses the native type of the MediaObject. If that is not supported b
 <h3 id='getclocktype'>getClockType</h3>
 <p><a href='#clocktype'>ClockType</a> getClockType()</p>
 <h3 id='gethour'>getHour</h3>
-<p>int getHour()</p>
+<p>number getHour()</p>
 <h3 id='getminute'>getMinute</h3>
-<p>int getMinute()</p>
+<p>number getMinute()</p>
 <h3 id='isenabled'>isEnabled</h3>
-<p>boolean isEnabled(day: int)</p>
+<p>boolean isEnabled(day: number)</p>
 <h2 id='clocktype'>ClockType</h2>
 <table><thead>
 <tr>
@@ -760,35 +770,35 @@ Passing null uses the native type of the MediaObject. If that is not supported b
 </tr>
 </thead><tbody>
 <tr>
-<td>_AM</td>
+<td>&quot;_AM&quot;</td>
 </tr>
 <tr>
-<td>_PM</td>
+<td>&quot;_PM&quot;</td>
 </tr>
 <tr>
-<td>_24HourClock</td>
+<td>&quot;_24HourClock&quot;</td>
 </tr>
 <tr>
-<td>_BeforeSunrise</td>
+<td>&quot;_BeforeSunrise&quot;</td>
 </tr>
 <tr>
-<td>_AfterSunrise</td>
+<td>&quot;_AfterSunrise&quot;</td>
 </tr>
 <tr>
-<td>_BeforeSunset</td>
+<td>&quot;_BeforeSunset&quot;</td>
 </tr>
 <tr>
-<td>_AfterSunset</td>
+<td>&quot;_AfterSunset&quot;</td>
 </tr>
 </tbody></table>
 <h2 id='battery'>Battery</h2>
 <p>Battery retrieves the battery level of battery powered devices.</p>
 <h3 id='getbatterylevel'>getBatteryLevel</h3>
-<p>int getBatteryLevel()</p>
+<p>number getBatteryLevel()</p>
 <h2 id='refresh'>Refresh</h2>
 <p>Refresh indicates that this device has properties that are not automatically updated, and must be periodically refreshed.</p>
 <h3 id='getrefreshfrequency'>getRefreshFrequency</h3>
-<p>int getRefreshFrequency()</p>
+<p>number getRefreshFrequency()</p>
 
 <p>Get the recommended refresh/poll frequency in seconds for this device.</p>
 <h3 id='refresh-2'>refresh</h3>
@@ -800,7 +810,7 @@ Passing null uses the native type of the MediaObject. If that is not supported b
 <h3 id='load'>load</h3>
 <p>void load(media: <a href='#mediaobject'>MediaObject</a>, options: <a href='#mediaplayeroptions'>MediaPlayerOptions</a>)</p>
 <h3 id='load-2'>load</h3>
-<p>void load(mediaUrl: String, options: <a href='#mediaplayeroptions'>MediaPlayerOptions</a>)</p>
+<p>void load(mediaUrl: string, options: <a href='#mediaplayeroptions'>MediaPlayerOptions</a>)</p>
 <h3 id='pause-2'>pause</h3>
 <p>void pause()</p>
 <h3 id='play'>play</h3>
@@ -820,7 +830,7 @@ Passing null uses the native type of the MediaObject. If that is not supported b
 </tr>
 <tr>
 <td>mimeType</td>
-<td>String</td>
+<td>string</td>
 </tr>
 </tbody></table>
 <h2 id='facedetector'>FaceDetector</h2><h2 id='online'>Online</h2>
@@ -828,13 +838,15 @@ Passing null uses the native type of the MediaObject. If that is not supported b
 <h3 id='isonline'>isOnline</h3>
 <p>boolean isOnline()</p>
 <h2 id='eventlistener'>EventListener</h2><h3 id='onevent'>onEvent</h3>
-<p>void onEvent(eventSource: ScryptedInterface, eventInterface: Class, eventData: Object)</p>
+<p>void onEvent(eventSource: ScryptedInterface, eventInterface: Class, eventData: object)</p>
 
-<p>This device type can be registered to listen for events. The event source, event type (interface), and event data are all passed to the listener as arguments.</p>
-<h2 id='eventlistenerregister'>EventListenerRegister</h2><h2 id='logger'>Logger</h2>
+<p>This device type can be hooked by Automation actions to handle events. The event source, event type (interface), and event data are all passed to the listener as arguments.</p>
+<h2 id='eventlistenerregister'>EventListenerRegister</h2>
+<p>Returned when an event listener is attached to an EventEmitter. Call removeListener to unregister from events.</p>
+<h2 id='logger'>Logger</h2>
 <p>Logger is exposed via log.* to allow writing to the Scrypted log.</p>
 <h3 id='a'>a</h3>
-<p>void a(msg: String)</p>
+<p>void a(msg: string)</p>
 
 <p>Alert. Alert level logs will be displayed as a notification in the management console.</p>
 <h3 id='clear'>clear</h3>
@@ -842,7 +854,7 @@ Passing null uses the native type of the MediaObject. If that is not supported b
 
 <p>Clear the log</p>
 <h3 id='clearalert'>clearAlert</h3>
-<p>void clearAlert(msg: String)</p>
+<p>void clearAlert(msg: string)</p>
 
 <p>Clear a specific alert</p>
 <h3 id='clearalerts'>clearAlerts</h3>
@@ -850,23 +862,23 @@ Passing null uses the native type of the MediaObject. If that is not supported b
 
 <p>Clear all alerts</p>
 <h3 id='d'>d</h3>
-<p>void d(msg: String)</p>
+<p>void d(msg: string)</p>
 
 <p>Debug</p>
 <h3 id='e'>e</h3>
-<p>void e(msg: String)</p>
+<p>void e(msg: string)</p>
 
 <p>Error</p>
 <h3 id='i'>i</h3>
-<p>void i(msg: String)</p>
+<p>void i(msg: string)</p>
 
 <p>Info</p>
 <h3 id='v'>v</h3>
-<p>void v(msg: String)</p>
+<p>void v(msg: string)</p>
 
 <p>Verbose</p>
 <h3 id='w'>w</h3>
-<p>void w(msg: String)</p>
+<p>void w(msg: string)</p>
 
 <p>Warn</p>
 <h2 id='mediasource'>MediaSource</h2><h3 id='getmedia'>getMedia</h3>
@@ -876,76 +888,338 @@ Passing null uses the native type of the MediaObject. If that is not supported b
 <h2 id='messagingendpoint'>MessagingEndpoint</h2><h2 id='settings'>Settings</h2>
 <p>Settings viewing and editing of device configurations that describe or modify behavior.</p>
 <h3 id='getboolean'>getBoolean</h3>
-<p>Boolean getBoolean(key: String)</p>
+<p>boolean getBoolean(key: string)</p>
 <h3 id='getboolean-2'>getBoolean</h3>
-<p>Boolean getBoolean(key: String, defaultValue: Boolean)</p>
+<p>boolean getBoolean(key: string, defaultValue: boolean)</p>
 <h3 id='getconfigurationvaluelist'>getConfigurationValueList</h3>
-<p>List getConfigurationValueList(key: String)</p>
+<p>List getConfigurationValueList(key: string)</p>
 <h3 id='getdouble'>getDouble</h3>
-<p>Double getDouble(key: String)</p>
+<p>Double getDouble(key: string)</p>
 <h3 id='getfloat'>getFloat</h3>
-<p>Float getFloat(key: String)</p>
+<p>Float getFloat(key: string)</p>
 <h3 id='getint'>getInt</h3>
-<p>Integer getInt(key: String)</p>
+<p>Integer getInt(key: string)</p>
 <h3 id='getkeydescription'>getKeyDescription</h3>
-<p>String getKeyDescription(key: String)</p>
+<p>string getKeyDescription(key: string)</p>
 <h3 id='getkeys'>getKeys</h3>
 <p>List getKeys()</p>
 <h3 id='getstring'>getString</h3>
-<p>String getString(key: String)</p>
+<p>string getString(key: string)</p>
 <h3 id='putboolean'>putBoolean</h3>
-<p>void putBoolean(key: String, value: boolean)</p>
+<p>void putBoolean(key: string, value: boolean)</p>
 <h3 id='putdouble'>putDouble</h3>
-<p>void putDouble(key: String, value: double)</p>
+<p>void putDouble(key: string, value: double)</p>
 <h3 id='putfloat'>putFloat</h3>
-<p>void putFloat(key: String, value: float)</p>
+<p>void putFloat(key: string, value: float)</p>
 <h3 id='putint'>putInt</h3>
-<p>void putInt(key: String, value: int)</p>
+<p>void putInt(key: string, value: number)</p>
 <h3 id='putstring'>putString</h3>
-<p>void putString(key: String, value: String)</p>
+<p>void putString(key: string, value: string)</p>
 <h2 id='oauthclient'>OauthClient</h2>
 <p>The OauthClient can be implemented to perform the browser based Oauth process from within a plugin.</p>
 <h3 id='getoauthurl'>getOauthUrl</h3>
-<p>String getOauthUrl()</p>
+<p>string getOauthUrl()</p>
 
 <p>Get the Oauth URL to navigate to in the browser. The redirect_uri parameter is not needed and will be automatically set by Scrypted.</p>
 <h3 id='onoauthcallback'>onOauthCallback</h3>
-<p>void onOauthCallback(callbackUrl: String)</p>
+<p>void onOauthCallback(callbackUrl: string)</p>
 
 <p>When an oauth request by a plugin completes, the callback url, with the code/token, will be passed to this method.</p>
-<h2 id='devicemanager'>DeviceManager</h2><h3 id='getdevicebyid'>getDeviceById</h3>
-<p>ScryptedInterface getDeviceById(id: long)</p>
+<h2 id='devicemanager'>DeviceManager</h2>
+<pre class="highlight javascript tab-javascript"><code><span class="c1">// in a plugin that implements DeviceProvider</span>
+<span class="kr">const</span> <span class="p">{</span> <span class="nx">DeviceManager</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'@scrypted/sdk'</span><span class="p">);</span>
+
+<span class="c1">// Sync the following two lights with Scrypted. New devices unknown to Scrypted will be added</span>
+<span class="c1">// while devices that were previously reported, and no longer exist, will be removed.</span>
+<span class="c1">// onDevicesChanged should be called with the full sync list of devices.</span>
+<span class="nx">DeviceManager</span><span class="p">.</span><span class="nx">onDevicesChanged</span><span class="p">({</span>
+    <span class="na">devices</span><span class="p">:[</span>
+        <span class="p">{</span>
+            <span class="na">id</span><span class="p">:</span> <span class="s1">'1'</span><span class="p">,</span>
+            <span class="na">name</span><span class="p">:</span> <span class="s1">'Light 1'</span><span class="p">,</span>
+            <span class="na">type</span><span class="p">:</span> <span class="s1">'Light'</span><span class="p">,</span>
+            <span class="na">interfaces</span><span class="p">:</span> <span class="p">[</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="s1">'Brightness'</span><span class="p">,</span> <span class="s1">'ColorSettingHsv'</span><span class="p">],</span>
+            <span class="na">events</span><span class="p">:</span> <span class="p">[</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="s1">'Brightness'</span><span class="p">,</span> <span class="s1">'ColorSettingHsv'</span><span class="p">]</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="na">id</span><span class="p">:</span> <span class="s1">'2'</span><span class="p">,</span>
+            <span class="na">name</span><span class="p">:</span> <span class="s1">'Light 2'</span><span class="p">,</span>
+            <span class="na">type</span><span class="p">:</span> <span class="s1">'Light'</span><span class="p">,</span>
+            <span class="na">interfaces</span><span class="p">:</span> <span class="p">[</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="s1">'Brightness'</span><span class="p">,</span> <span class="s1">'ColorSettingHsv'</span><span class="p">],</span>
+            <span class="na">events</span><span class="p">:</span> <span class="p">[</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="s1">'Brightness'</span><span class="p">,</span> <span class="s1">'ColorSettingHsv'</span><span class="p">]</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">});</span>
+</code></pre>
+
+<p>DeviceManager is the interface which plugins use to report devices and device events to Scrypted. It is also used to query Scrypted for other devices.</p>
+<h3 id='getdevicebyid'>getDeviceById</h3>
+<p>ScryptedInterface getDeviceById(id: number)</p>
+
+<p>Find a Scrypted device by id.</p>
 <h3 id='getdevicebyname'>getDeviceByName</h3>
-<p>ScryptedInterface getDeviceByName(name: String)</p>
+<p>ScryptedInterface getDeviceByName(name: string)</p>
+
+<p>Find a Scrypted device by name.</p>
 <h3 id='ondevicediscovered'>onDeviceDiscovered</h3>
-<p>void onDeviceDiscovered(device: JavaScriptObject)</p>
+<p>void onDeviceDiscovered(device: <a href='#device'>Device</a>)</p>
+
+<p>onDeviceDiscovered is used to report new devices that are trickle discovered, one by one, such as via a network broadcast.</p>
 <h3 id='ondeviceevent'>onDeviceEvent</h3>
-<p>void onDeviceEvent(eventInterface: Class, eventData: Object)</p>
+<p>void onDeviceEvent(eventInterface: Class, eventData: object)</p>
+
+<p>Fire an event for this plugin&#39;s device.</p>
 <h3 id='ondeviceevent-2'>onDeviceEvent</h3>
-<p>void onDeviceEvent(id: String, eventInterface: Class, eventData: Object)</p>
+<p>void onDeviceEvent(id: string, eventInterface: Class, eventData: object)</p>
+
+<p>Fire an event for a device provided by this plugin.</p>
 <h3 id='ondeviceschanged'>onDevicesChanged</h3>
-<p>void onDevicesChanged(devices: JavaScriptObject)</p>
+<p>void onDevicesChanged(devices: <a href='#devicemanifest'>DeviceManifest</a>)</p>
+
+<p>onDevicesChanged is used to sync Scrypted with devices that are attached to a hub, such as Hue or SmartThings. All the devices should be reported at once.</p>
+<h2 id='device'>Device</h2>
+<pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+    <span class="nl">id</span><span class="p">:</span> <span class="s1">'2'</span><span class="p">,</span>
+    <span class="nx">name</span><span class="p">:</span> <span class="s1">'Light 2'</span><span class="p">,</span>
+    <span class="nx">type</span><span class="p">:</span> <span class="s1">'Light'</span><span class="p">,</span>
+    <span class="nx">interfaces</span><span class="p">:</span> <span class="p">[</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="s1">'Brightness'</span><span class="p">,</span> <span class="s1">'ColorSettingHsv'</span><span class="p">],</span>
+    <span class="nx">events</span><span class="p">:</span> <span class="p">[</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="s1">'Brightness'</span><span class="p">,</span> <span class="s1">'ColorSettingHsv'</span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>Device provides information about a device that is handled by a DeviceProvider.</p>
+<h3 id='properties-4'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>events</td>
+<td>string[]</td>
+</tr>
+<tr>
+<td>id</td>
+<td>string</td>
+</tr>
+<tr>
+<td>interfaces</td>
+<td>string[]</td>
+</tr>
+<tr>
+<td>model</td>
+<td>string</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+</tr>
+<tr>
+<td>room</td>
+<td>string</td>
+</tr>
+<tr>
+<td>type</td>
+<td><a href='#scryptedthingtype'>ScryptedThingType</a></td>
+</tr>
+</tbody></table>
+<h2 id='scryptedthingtype'>ScryptedThingType</h2>
+<table><thead>
+<tr>
+<th>Enum</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>&quot;Camera&quot;</td>
+</tr>
+<tr>
+<td>&quot;Fan&quot;</td>
+</tr>
+<tr>
+<td>&quot;Light&quot;</td>
+</tr>
+<tr>
+<td>&quot;Switch&quot;</td>
+</tr>
+<tr>
+<td>&quot;Outlet&quot;</td>
+</tr>
+<tr>
+<td>&quot;Sensor&quot;</td>
+</tr>
+<tr>
+<td>&quot;Scene&quot;</td>
+</tr>
+<tr>
+<td>&quot;Program&quot;</td>
+</tr>
+<tr>
+<td>&quot;Automation&quot;</td>
+</tr>
+<tr>
+<td>&quot;Vacuum&quot;</td>
+</tr>
+<tr>
+<td>&quot;Notifier&quot;</td>
+</tr>
+<tr>
+<td>&quot;Thermostat&quot;</td>
+</tr>
+<tr>
+<td>&quot;Lock&quot;</td>
+</tr>
+<tr>
+<td>&quot;PasswordControl&quot;</td>
+</tr>
+<tr>
+<td>&quot;Display&quot;</td>
+</tr>
+<tr>
+<td>&quot;Speaker&quot;</td>
+</tr>
+<tr>
+<td>&quot;Event&quot;</td>
+</tr>
+<tr>
+<td>&quot;Entry&quot;</td>
+</tr>
+<tr>
+<td>&quot;DeviceProvider&quot;</td>
+</tr>
+<tr>
+<td>&quot;Unknown&quot;</td>
+</tr>
+</tbody></table>
+<h2 id='devicemanifest'>DeviceManifest</h2>
+<pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+    <span class="nl">devices</span><span class="p">:[</span>
+        <span class="p">{</span>
+            <span class="na">id</span><span class="p">:</span> <span class="s1">'1'</span><span class="p">,</span>
+            <span class="na">name</span><span class="p">:</span> <span class="s1">'Light 1'</span><span class="p">,</span>
+            <span class="na">type</span><span class="p">:</span> <span class="s1">'Light'</span><span class="p">,</span>
+            <span class="na">interfaces</span><span class="p">:</span> <span class="p">[</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="s1">'Brightness'</span><span class="p">,</span> <span class="s1">'ColorSettingHsv'</span><span class="p">],</span>
+            <span class="na">events</span><span class="p">:</span> <span class="p">[</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="s1">'Brightness'</span><span class="p">,</span> <span class="s1">'ColorSettingHsv'</span><span class="p">]</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="na">id</span><span class="p">:</span> <span class="s1">'2'</span><span class="p">,</span>
+            <span class="na">name</span><span class="p">:</span> <span class="s1">'Light 2'</span><span class="p">,</span>
+            <span class="na">type</span><span class="p">:</span> <span class="s1">'Light'</span><span class="p">,</span>
+            <span class="na">interfaces</span><span class="p">:</span> <span class="p">[</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="s1">'Brightness'</span><span class="p">,</span> <span class="s1">'ColorSettingHsv'</span><span class="p">],</span>
+            <span class="na">events</span><span class="p">:</span> <span class="p">[</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="s1">'Brightness'</span><span class="p">,</span> <span class="s1">'ColorSettingHsv'</span><span class="p">]</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</code></pre>
+<h3 id='properties-5'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>devices</td>
+<td><a href='#device'>Device</a>[]</td>
+</tr>
+</tbody></table>
 <h2 id='deviceprovider'>DeviceProvider</h2>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="p">{</span><span class="nx">DeviceManager</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'@scrypted/sdk'</span><span class="p">);</span>
+
+<span class="c1">// Devices returned by the DeviceProvider</span>
+<span class="kd">function</span> <span class="nx">Device</span><span class="p">(</span><span class="nx">id</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span> <span class="nx">id</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nx">Device</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">isOn</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="nx">Device</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">turnOff</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">log</span><span class="p">.</span><span class="nx">i</span><span class="p">(</span><span class="s1">'turnOff was called!'</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="nx">Device</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">turnOn</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">log</span><span class="p">.</span><span class="nx">i</span><span class="p">(</span><span class="s1">'turnOn was called!'</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="c1">// DeviceProvider handles discovery and device requests</span>
+<span class="kd">function</span> <span class="nx">DeviceProvider</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// it is recommended to automatically perform discovery on startup</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">discoverDevices</span><span class="p">(</span><span class="mi">30</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">DeviceProvider</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">discoverDevices</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">duration</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Sync the following two lights with Scrypted. New devices unknown to Scrypted will be added</span>
+    <span class="c1">// while devices that were previously reported, and no longer exist, will be removed.</span>
+    <span class="c1">// onDevicesChanged should be called with the full sync list of devices.</span>
+    <span class="nx">DeviceManager</span><span class="p">.</span><span class="nx">onDevicesChanged</span><span class="p">({</span>
+        <span class="na">devices</span><span class="p">:[</span>
+            <span class="p">{</span>
+                <span class="na">id</span><span class="p">:</span> <span class="s1">'1'</span><span class="p">,</span>
+                <span class="na">name</span><span class="p">:</span> <span class="s1">'Light 1'</span><span class="p">,</span>
+                <span class="na">type</span><span class="p">:</span> <span class="s1">'Light'</span><span class="p">,</span>
+                <span class="na">interfaces</span><span class="p">:</span> <span class="p">[</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="s1">'Brightness'</span><span class="p">,</span> <span class="s1">'ColorSettingHsv'</span><span class="p">],</span>
+                <span class="na">events</span><span class="p">:</span> <span class="p">[</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="s1">'Brightness'</span><span class="p">,</span> <span class="s1">'ColorSettingHsv'</span><span class="p">]</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="na">id</span><span class="p">:</span> <span class="s1">'2'</span><span class="p">,</span>
+                <span class="na">name</span><span class="p">:</span> <span class="s1">'Light 2'</span><span class="p">,</span>
+                <span class="na">type</span><span class="p">:</span> <span class="s1">'Light'</span><span class="p">,</span>
+                <span class="na">interfaces</span><span class="p">:</span> <span class="p">[</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="s1">'Brightness'</span><span class="p">,</span> <span class="s1">'ColorSettingHsv'</span><span class="p">],</span>
+                <span class="na">events</span><span class="p">:</span> <span class="p">[</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="s1">'Brightness'</span><span class="p">,</span> <span class="s1">'ColorSettingHsv'</span><span class="p">]</span>
+            <span class="p">}</span>
+        <span class="p">]</span>
+    <span class="p">});</span>
+<span class="p">};</span>
+
+<span class="nx">DeviceProvider</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">getDevice</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">id</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nx">Device</span><span class="p">(</span><span class="nx">id</span><span class="p">);</span>
+<span class="p">};</span>
+
+
+
+<span class="kr">export</span> <span class="k">default</span> <span class="k">new</span> <span class="nx">Device</span><span class="p">();</span>
+</code></pre>
+
 <p>DeviceProvider acts as a controller/hub and exposes multiple devices to Scrypted Device Manager.</p>
 <h3 id='discoverdevices'>discoverDevices</h3>
-<p>void discoverDevices(duration: long)</p>
+<p>void discoverDevices(duration: number)</p>
 
 <p>Initiate device discovery for the specified duration.</p>
 <h3 id='getdevice'>getDevice</h3>
-<p>Object getDevice(id: String)</p>
+<p>object getDevice(id: string)</p>
 
 <p>Get an instance of a previously discovered device that was reported to the device manager.</p>
 <h2 id='httprequesthandler'>HttpRequestHandler</h2>
+<pre class="highlight javascript tab-javascript"><code><span class="kd">function</span> <span class="nx">HttpHandler</span><span class="p">()</span> <span class="p">{</span>
+<span class="p">}</span>
+
+<span class="c1">// See documentation! </span>
+<span class="c1">// Will handle requests at https://&lt;local-ip&gt;:9443/endpoint/test/ (or /endpoint/@koush/test)</span>
+<span class="nx">HttpHandler</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">getEndpoint</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="s1">'test'</span><span class="p">;</span>
+    <span class="c1">// or, an npm user/org namespace works as well:</span>
+    <span class="c1">// return '@koush/test';</span>
+<span class="p">};</span>
+
+<span class="nx">HttpHandler</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">onRequest</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="s1">'hello world!!'</span><span class="p">)</span>
+<span class="p">};</span>
+
+<span class="kr">export</span> <span class="k">default</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">HttpHandler</span><span class="p">();</span>
+</code></pre>
+
 <p>The HttpRequestHandler allows handling of web requests under the endpoint path: /endpoint/<endpoint>/*.</p>
 <h3 id='getendpoint'>getEndpoint</h3>
-<p>String getEndpoint()</p>
+<p>string getEndpoint()</p>
 
 <p>Get the preferred endpoint of this HttpRequestHandler. Local/development scripts can set this to any value. This is ignored if the plugin is installed via npm: the endpoint will always be the npm package name.</p>
 <h3 id='onrequest'>onRequest</h3>
 <p>void onRequest(request: <a href='#httprequest'>HttpRequest</a>, response: <a href='#httpresponse'>HttpResponse</a>)</p>
 
 <p>Callback to handle an incoming request.</p>
-<h2 id='httprequest'>HttpRequest</h2><h3 id='properties-4'>Properties</h3>
+<h2 id='httprequest'>HttpRequest</h2><h3 id='properties-6'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -954,36 +1228,36 @@ Passing null uses the native type of the MediaObject. If that is not supported b
 </thead><tbody>
 <tr>
 <td>body</td>
-<td>String</td>
+<td>string</td>
 </tr>
 <tr>
 <td>headers</td>
-<td>Map</td>
+<td>object</td>
 </tr>
 <tr>
 <td>method</td>
-<td>String</td>
+<td>string</td>
 </tr>
 <tr>
 <td>rootPath</td>
-<td>String</td>
+<td>string</td>
 </tr>
 <tr>
 <td>url</td>
-<td>String</td>
+<td>string</td>
 </tr>
 </tbody></table>
 <h2 id='httpresponse'>HttpResponse</h2>
 <p>Response object provided by the HttpRequestHandler.</p>
 <h3 id='send'>send</h3>
-<p>void send(options: <a href='#httpresponseoptions'>HttpResponseOptions</a>, body: String)</p>
+<p>void send(options: <a href='#httpresponseoptions'>HttpResponseOptions</a>, body: string)</p>
 <h3 id='send-2'>send</h3>
-<p>void send(options: <a href='#httpresponseoptions'>HttpResponseOptions</a>, body: ByteBuffer)</p>
+<p>void send(options: <a href='#httpresponseoptions'>HttpResponseOptions</a>, body: Buffer)</p>
 <h3 id='send-3'>send</h3>
-<p>void send(body: String)</p>
+<p>void send(body: string)</p>
 <h3 id='send-4'>send</h3>
-<p>void send(body: ByteBuffer)</p>
-<h2 id='httpresponseoptions'>HttpResponseOptions</h2><h3 id='properties-5'>Properties</h3>
+<p>void send(body: Buffer)</p>
+<h2 id='httpresponseoptions'>HttpResponseOptions</h2><h3 id='properties-7'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -996,22 +1270,29 @@ Passing null uses the native type of the MediaObject. If that is not supported b
 </tr>
 <tr>
 <td>code</td>
-<td>int</td>
+<td>number</td>
 </tr>
 <tr>
 <td>headers</td>
-<td>Map</td>
+<td>object</td>
 </tr>
 </tbody></table>
-<h2 id='eventemitter'>EventEmitter</h2><h3 id='on'>on</h3>
-<p><a href='#eventlistenerregister'>EventListenerRegister</a> on(event: String, callback: JavaScriptObject)</p>
+<h2 id='eventemitter'>EventEmitter</h2>
+<pre class="highlight javascript tab-javascript"><code><span class="nx">light</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">eventSource</span><span class="p">,</span> <span class="nx">eventInterface</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">log</span><span class="p">.</span><span class="nx">i</span><span class="p">(</span><span class="s2">`The light state changed: </span><span class="p">${</span><span class="nx">eventData</span><span class="p">}</span><span class="s2">`</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre>
+
+<p>EventEmitter is implemented by most devices. Add listeners to subscribe to events from that device.</p>
+<h3 id='on'>on</h3>
+<p><a href='#eventlistenerregister'>EventListenerRegister</a> on(event: string, callback: function)</p>
 
 <p>Subscribe to events from a specific interface on a device, such as &#39;OnOff&#39; or &#39;Brightness&#39;.
 The callback function has the signature function(eventSource, eventData).
 The eventSource is the interface from where the event originated, and eventData will contain data specific
 to that type of interface. OnOff would be boolean, while Brightness would be an integer between 0 and 100.</p>
 <h3 id='watch'>watch</h3>
-<p><a href='#eventlistenerregister'>EventListenerRegister</a> watch(event: String, callback: JavaScriptObject)</p>
+<p><a href='#eventlistenerregister'>EventListenerRegister</a> watch(event: string, callback: function)</p>
 
 <p>Similar to &#39;on&#39;, but will passively watch for events, and not initiate polling.</p>
 

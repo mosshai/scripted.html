@@ -1,11 +1,5 @@
 ```javascript
-// in a plugin that implements DeviceProvider
-const { DeviceManager } = require('@scrypted/sdk');
-
-// Sync the following two lights with Scrypted. New devices unknown to Scrypted will be added
-// while devices that were previously reported, and no longer exist, will be removed.
-// onDevicesChanged should be called with the full sync list of devices.
-DeviceManager.onDevicesChanged({
+{
     devices:[
         {
             id: '1',
@@ -22,5 +16,5 @@ DeviceManager.onDevicesChanged({
             events: ['OnOff', 'Brightness', 'ColorSettingHsv']
         }
     ]
-});
+}
 ```

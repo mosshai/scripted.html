@@ -94,14 +94,14 @@ be synced to upstream integration providers, such as Google Home or Apple Homeki
 ### Properties
 Name      | Type
 --------- | ----
-{% for property in c.fields %}{{ property.name }} | {{ property.type }}
+{% for property in c.fields %}{{ property.name }} | {{ linkifyType(property.type) }}
 {% endfor %}
 {% endif %}
 
 {% if c.values.length %}
 Enum |
 ----
-{% for value in c.values %}{{ value }} |
+{% for value in c.values %}"{{ value }}" |
 {% endfor %}
 {% endif %}
 

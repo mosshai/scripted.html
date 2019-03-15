@@ -114,12 +114,12 @@ Brightness is a lighting device that can be dimmed/lit between 0 to 100.
 
 
 ### getLevel
-int getLevel()
+number getLevel()
 
 
 
 ### setLevel
-void setLevel(brightness: int)
+void setLevel(brightness: number)
 
 
 
@@ -138,22 +138,22 @@ ColorSettingTemperature sets the color temperature of a light in Kelvin.
 
 
 ### getTemperature
-int getTemperature()
+number getTemperature()
 
 
 
 ### getTemperatureMaxK
-int getTemperatureMaxK()
+number getTemperatureMaxK()
 
 
 
 ### getTemperatureMinK
-int getTemperatureMinK()
+number getTemperatureMinK()
 
 
 
 ### setTemperature
-void setTemperature(kelvin: int)
+void setTemperature(kelvin: number)
 
 
 
@@ -177,7 +177,7 @@ ColorSettingRgb sets the color of a colored light using the RGB representation.
 
 
 ### setRgb
-void setRgb(r: int, g: int, b: int)
+void setRgb(r: number, g: number, b: number)
 
 
 
@@ -199,9 +199,9 @@ Represents an RGB color value component values between 0 and 255.
 ### Properties
 Name      | Type
 --------- | ----
-b | int
-g | int
-r | int
+b | number
+g | number
+r | number
 
 
 
@@ -357,12 +357,12 @@ Notifier can be any endpoint that can receive messages, such as speakers, phone 
 
 
 ### sendNotification
-void sendNotification(title: String, body: String)
+void sendNotification(title: string, body: string)
 
 
 
 ### sendNotification
-void sendNotification(title: String, body: String, media: <a href='#mediaobject'>MediaObject</a>, mimeType: String)
+void sendNotification(title: string, body: string, media: <a href='#mediaobject'>MediaObject</a>, mimeType: string)
 
 If a the media parameter is supplied, the mime type denotes how to send the media within notification. For example, specify 'image/*' to send a video MediaObject as an image.
 Passing null uses the native type of the MediaObject. If that is not supported by the notifier, the media will be converted to a compatible type.
@@ -468,12 +468,12 @@ boolean isDocked()
 
 
 ### run
-Object run(args: Object[])
+object run(args: object[])
 
 Synchronously run a script given the provided arguments.
 
 ### runAsync
-Object runAsync(args: Object[])
+object runAsync(args: object[])
 
 Asynchronously run a script given the provided arguments.
 
@@ -492,7 +492,7 @@ TemperatureSetting represents a thermostat device.
 
 
 ### getAvailableThermostatModes
-ThermostatMode[] getAvailableThermostatModes()
+<a href='#thermostatmode'>ThermostatMode</a>[] getAvailableThermostatModes()
 
 
 
@@ -550,16 +550,16 @@ void setThermostatMode(mode: <a href='#thermostatmode'>ThermostatMode</a>)
 
 Enum |
 ----
-Off |
-Cool |
-Heat |
-HeatCool |
-Auto |
-FanOnly |
-Purifier |
-Eco |
-Dry |
-On |
+"Off" |
+"Cool" |
+"Heat" |
+"HeatCool" |
+"Auto" |
+"FanOnly" |
+"Purifier" |
+"Eco" |
+"Dry" |
+"On" |
 
 
 
@@ -602,7 +602,7 @@ PasswordControl represents devices that authorize users via a passcode or pin co
 
 
 ### addPassword
-void addPassword(password: String)
+void addPassword(password: string)
 
 
 
@@ -612,7 +612,7 @@ Set getPasswords()
 
 
 ### removePassword
-void removePassword(password: String)
+void removePassword(password: string)
 
 
 
@@ -678,8 +678,8 @@ Get the user facing unit of measurement for this thermometer. This may be Fahren
 
 Enum |
 ----
-C |
-F |
+"C" |
+"F" |
 
 
 
@@ -813,17 +813,17 @@ Event data from the Scheduler component.
 
 
 ### getHour
-int getHour()
+number getHour()
 
 
 
 ### getMinute
-int getMinute()
+number getMinute()
 
 
 
 ### isEnabled
-boolean isEnabled(day: int)
+boolean isEnabled(day: number)
 
 
 
@@ -846,13 +846,13 @@ boolean isEnabled(day: int)
 
 Enum |
 ----
-_AM |
-_PM |
-_24HourClock |
-_BeforeSunrise |
-_AfterSunrise |
-_BeforeSunset |
-_AfterSunset |
+"_AM" |
+"_PM" |
+"_24HourClock" |
+"_BeforeSunrise" |
+"_AfterSunrise" |
+"_BeforeSunset" |
+"_AfterSunset" |
 
 
 
@@ -866,7 +866,7 @@ Battery retrieves the battery level of battery powered devices.
 
 
 ### getBatteryLevel
-int getBatteryLevel()
+number getBatteryLevel()
 
 
 
@@ -885,7 +885,7 @@ Refresh indicates that this device has properties that are not automatically upd
 
 
 ### getRefreshFrequency
-int getRefreshFrequency()
+number getRefreshFrequency()
 
 Get the recommended refresh/poll frequency in seconds for this device.
 
@@ -914,7 +914,7 @@ void load(media: <a href='#mediaobject'>MediaObject</a>, options: <a href='#medi
 
 
 ### load
-void load(mediaUrl: String, options: <a href='#mediaplayeroptions'>MediaPlayerOptions</a>)
+void load(mediaUrl: string, options: <a href='#mediaplayeroptions'>MediaPlayerOptions</a>)
 
 
 
@@ -952,7 +952,7 @@ void stop()
 Name      | Type
 --------- | ----
 autoplay | boolean
-mimeType | String
+mimeType | string
 
 
 
@@ -1000,9 +1000,9 @@ boolean isOnline()
 
 
 ### onEvent
-void onEvent(eventSource: ScryptedInterface, eventInterface: Class, eventData: Object)
+void onEvent(eventSource: ScryptedInterface, eventInterface: Class, eventData: object)
 
-This device type can be registered to listen for events. The event source, event type (interface), and event data are all passed to the listener as arguments.
+This device type can be hooked by Automation actions to handle events. The event source, event type (interface), and event data are all passed to the listener as arguments.
 
 
 
@@ -1014,7 +1014,7 @@ This device type can be registered to listen for events. The event source, event
 
 <%= partial "includes/scrypted/EventListenerRegister.md.erb" %>
 
-
+Returned when an event listener is attached to an EventEmitter. Call removeListener to unregister from events.
 
 
 
@@ -1032,7 +1032,7 @@ Logger is exposed via log.* to allow writing to the Scrypted log.
 
 
 ### a
-void a(msg: String)
+void a(msg: string)
 
 Alert. Alert level logs will be displayed as a notification in the management console.
 
@@ -1042,7 +1042,7 @@ void clear()
 Clear the log
 
 ### clearAlert
-void clearAlert(msg: String)
+void clearAlert(msg: string)
 
 Clear a specific alert
 
@@ -1052,27 +1052,27 @@ void clearAlerts()
 Clear all alerts
 
 ### d
-void d(msg: String)
+void d(msg: string)
 
 Debug
 
 ### e
-void e(msg: String)
+void e(msg: string)
 
 Error
 
 ### i
-void i(msg: String)
+void i(msg: string)
 
 Info
 
 ### v
-void v(msg: String)
+void v(msg: string)
 
 Verbose
 
 ### w
-void w(msg: String)
+void w(msg: string)
 
 Warn
 
@@ -1123,37 +1123,37 @@ Settings viewing and editing of device configurations that describe or modify be
 
 
 ### getBoolean
-Boolean getBoolean(key: String)
+boolean getBoolean(key: string)
 
 
 
 ### getBoolean
-Boolean getBoolean(key: String, defaultValue: Boolean)
+boolean getBoolean(key: string, defaultValue: boolean)
 
 
 
 ### getConfigurationValueList
-List getConfigurationValueList(key: String)
+List getConfigurationValueList(key: string)
 
 
 
 ### getDouble
-Double getDouble(key: String)
+Double getDouble(key: string)
 
 
 
 ### getFloat
-Float getFloat(key: String)
+Float getFloat(key: string)
 
 
 
 ### getInt
-Integer getInt(key: String)
+Integer getInt(key: string)
 
 
 
 ### getKeyDescription
-String getKeyDescription(key: String)
+string getKeyDescription(key: string)
 
 
 
@@ -1163,32 +1163,32 @@ List getKeys()
 
 
 ### getString
-String getString(key: String)
+string getString(key: string)
 
 
 
 ### putBoolean
-void putBoolean(key: String, value: boolean)
+void putBoolean(key: string, value: boolean)
 
 
 
 ### putDouble
-void putDouble(key: String, value: double)
+void putDouble(key: string, value: double)
 
 
 
 ### putFloat
-void putFloat(key: String, value: float)
+void putFloat(key: string, value: float)
 
 
 
 ### putInt
-void putInt(key: String, value: int)
+void putInt(key: string, value: number)
 
 
 
 ### putString
-void putString(key: String, value: String)
+void putString(key: string, value: string)
 
 
 
@@ -1207,12 +1207,12 @@ The OauthClient can be implemented to perform the browser based Oauth process fr
 
 
 ### getOauthUrl
-String getOauthUrl()
+string getOauthUrl()
 
 Get the Oauth URL to navigate to in the browser. The redirect_uri parameter is not needed and will be automatically set by Scrypted.
 
 ### onOauthCallback
-void onOauthCallback(callbackUrl: String)
+void onOauthCallback(callbackUrl: string)
 
 When an oauth request by a plugin completes, the callback url, with the code/token, will be passed to this method.
 
@@ -1226,40 +1226,121 @@ When an oauth request by a plugin completes, the callback url, with the code/tok
 
 <%= partial "includes/scrypted/DeviceManager.md.erb" %>
 
-
+DeviceManager is the interface which plugins use to report devices and device events to Scrypted. It is also used to query Scrypted for other devices.
 
 
 
 ### getDeviceById
-ScryptedInterface getDeviceById(id: long)
+ScryptedInterface getDeviceById(id: number)
 
-
+Find a Scrypted device by id.
 
 ### getDeviceByName
-ScryptedInterface getDeviceByName(name: String)
+ScryptedInterface getDeviceByName(name: string)
 
-
+Find a Scrypted device by name.
 
 ### onDeviceDiscovered
-void onDeviceDiscovered(device: JavaScriptObject)
+void onDeviceDiscovered(device: <a href='#device'>Device</a>)
 
-
-
-### onDeviceEvent
-void onDeviceEvent(eventInterface: Class, eventData: Object)
-
-
+onDeviceDiscovered is used to report new devices that are trickle discovered, one by one, such as via a network broadcast.
 
 ### onDeviceEvent
-void onDeviceEvent(id: String, eventInterface: Class, eventData: Object)
+void onDeviceEvent(eventInterface: Class, eventData: object)
 
+Fire an event for this plugin's device.
 
+### onDeviceEvent
+void onDeviceEvent(id: string, eventInterface: Class, eventData: object)
+
+Fire an event for a device provided by this plugin.
 
 ### onDevicesChanged
-void onDevicesChanged(devices: JavaScriptObject)
+void onDevicesChanged(devices: <a href='#devicemanifest'>DeviceManifest</a>)
+
+onDevicesChanged is used to sync Scrypted with devices that are attached to a hub, such as Hue or SmartThings. All the devices should be reported at once.
 
 
 
+
+
+
+
+## Device
+
+<%= partial "includes/scrypted/Device.md.erb" %>
+
+Device provides information about a device that is handled by a DeviceProvider.
+
+
+
+
+### Properties
+Name      | Type
+--------- | ----
+events | string[]
+id | string
+interfaces | string[]
+model | string
+name | string
+room | string
+type | <a href='#scryptedthingtype'>ScryptedThingType</a>
+
+
+
+
+
+
+## ScryptedThingType
+
+<%= partial "includes/scrypted/ScryptedThingType.md.erb" %>
+
+
+
+
+
+
+
+
+Enum |
+----
+"Camera" |
+"Fan" |
+"Light" |
+"Switch" |
+"Outlet" |
+"Sensor" |
+"Scene" |
+"Program" |
+"Automation" |
+"Vacuum" |
+"Notifier" |
+"Thermostat" |
+"Lock" |
+"PasswordControl" |
+"Display" |
+"Speaker" |
+"Event" |
+"Entry" |
+"DeviceProvider" |
+"Unknown" |
+
+
+
+
+## DeviceManifest
+
+<%= partial "includes/scrypted/DeviceManifest.md.erb" %>
+
+
+
+
+
+
+### Properties
+Name      | Type
+--------- | ----
+devices | <a href='#device'>Device</a>[]
 
 
 
@@ -1275,12 +1356,12 @@ DeviceProvider acts as a controller/hub and exposes multiple devices to Scrypted
 
 
 ### discoverDevices
-void discoverDevices(duration: long)
+void discoverDevices(duration: number)
 
 Initiate device discovery for the specified duration.
 
 ### getDevice
-Object getDevice(id: String)
+object getDevice(id: string)
 
 Get an instance of a previously discovered device that was reported to the device manager.
 
@@ -1299,7 +1380,7 @@ The HttpRequestHandler allows handling of web requests under the endpoint path: 
 
 
 ### getEndpoint
-String getEndpoint()
+string getEndpoint()
 
 Get the preferred endpoint of this HttpRequestHandler. Local/development scripts can set this to any value. This is ignored if the plugin is installed via npm: the endpoint will always be the npm package name.
 
@@ -1326,11 +1407,11 @@ Callback to handle an incoming request.
 ### Properties
 Name      | Type
 --------- | ----
-body | String
-headers | Map
-method | String
-rootPath | String
-url | String
+body | string
+headers | object
+method | string
+rootPath | string
+url | string
 
 
 
@@ -1346,22 +1427,22 @@ Response object provided by the HttpRequestHandler.
 
 
 ### send
-void send(options: <a href='#httpresponseoptions'>HttpResponseOptions</a>, body: String)
+void send(options: <a href='#httpresponseoptions'>HttpResponseOptions</a>, body: string)
 
 
 
 ### send
-void send(options: <a href='#httpresponseoptions'>HttpResponseOptions</a>, body: ByteBuffer)
+void send(options: <a href='#httpresponseoptions'>HttpResponseOptions</a>, body: Buffer)
 
 
 
 ### send
-void send(body: String)
+void send(body: string)
 
 
 
 ### send
-void send(body: ByteBuffer)
+void send(body: Buffer)
 
 
 
@@ -1384,8 +1465,8 @@ void send(body: ByteBuffer)
 Name      | Type
 --------- | ----
 asContent | boolean
-code | int
-headers | Map
+code | number
+headers | object
 
 
 
@@ -1396,12 +1477,12 @@ headers | Map
 
 <%= partial "includes/scrypted/EventEmitter.md.erb" %>
 
-
+EventEmitter is implemented by most devices. Add listeners to subscribe to events from that device.
 
 
 
 ### on
-<a href='#eventlistenerregister'>EventListenerRegister</a> on(event: String, callback: JavaScriptObject)
+<a href='#eventlistenerregister'>EventListenerRegister</a> on(event: string, callback: function)
 
 Subscribe to events from a specific interface on a device, such as 'OnOff' or 'Brightness'.
 The callback function has the signature function(eventSource, eventData).
@@ -1409,7 +1490,7 @@ The eventSource is the interface from where the event originated, and eventData 
 to that type of interface. OnOff would be boolean, while Brightness would be an integer between 0 and 100.
 
 ### watch
-<a href='#eventlistenerregister'>EventListenerRegister</a> watch(event: String, callback: JavaScriptObject)
+<a href='#eventlistenerregister'>EventListenerRegister</a> watch(event: string, callback: function)
 
 Similar to 'on', but will passively watch for events, and not initiate polling.
 
