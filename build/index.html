@@ -399,6 +399,9 @@
                   <li>
                     <a href="#eventemitter" class="toc-h2 toc-link" data-title="EventEmitter">EventEmitter</a>
                   </li>
+                  <li>
+                    <a href="#scryptedinterface" class="toc-h2 toc-link" data-title="ScryptedInterface">ScryptedInterface</a>
+                  </li>
               </ul>
           </li>
       </ul>
@@ -930,7 +933,7 @@ Lock controls devices that can lock or unlock entries. Often works in tandem wit
 </blockquote>
 <pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">PasswordControl</span>  <span class="p">{</span>
   <span class="nx">addPassword</span><span class="p">(</span><span class="nx">password</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">getPasswords</span><span class="p">():</span> <span class="nx">Set</span><span class="p">;</span>
+  <span class="nx">getPasswords</span><span class="p">():</span> <span class="nx">string</span><span class="p">[];</span>
   <span class="nx">removePassword</span><span class="p">(</span><span class="nx">password</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
@@ -940,7 +943,7 @@ PasswordControl represents devices that authorize users via a passcode or pin co
 <h3 id='addpassword'>addPassword</h3>
 <p>void addPassword(password: string)</p>
 <h3 id='getpasswords'>getPasswords</h3>
-<p>Set getPasswords()</p>
+<p>string[] getPasswords()</p>
 <h3 id='removepassword'>removePassword</h3>
 <p>void removePassword(password: string)</p>
 <h2 id='camerastream'>CameraStream</h2>
@@ -948,10 +951,10 @@ PasswordControl represents devices that authorize users via a passcode or pin co
 <p>Definition</p>
 </blockquote>
 <pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">CameraStream</span> <span class="kr">implements</span> <span class="nx">ReferenceId</span> <span class="p">{</span>
-  <span class="nx">createVideoCapturer</span><span class="p">():</span> <span class="nx">Future</span><span class="p">;</span>
+  <span class="nx">createVideoCapturer</span><span class="p">():</span> <span class="nx">MediaObject</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><h3 id='createvideocapturer'>createVideoCapturer</h3>
-<p>Future createVideoCapturer()</p>
+<p>MediaObject createVideoCapturer()</p>
 <h2 id='referenceid'>ReferenceId</h2>
 <blockquote>
 <p>Definition</p>
@@ -1088,7 +1091,7 @@ Battery retrieves the battery level of battery powered devices.
 </blockquote>
 <pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Refresh</span>  <span class="p">{</span>
   <span class="nx">getRefreshFrequency</span><span class="p">():</span> <span class="nx">number</span><span class="p">;</span>
-  <span class="nx">refresh</span><span class="p">(</span><span class="nx">refreshInterface</span><span class="p">:</span> <span class="nx">Class</span><span class="p">,</span> <span class="nx">userInitiated</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">refresh</span><span class="p">(</span><span class="nx">refreshInterface</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">userInitiated</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
 <aside class="notice">
@@ -1099,7 +1102,7 @@ Refresh indicates that this device has properties that are not automatically upd
 
 <p>Get the recommended refresh/poll frequency in seconds for this device.</p>
 <h3 id='refresh-2'>refresh</h3>
-<p>void refresh(refreshInterface: Class, userInitiated: boolean)</p>
+<p>void refresh(refreshInterface: string, userInitiated: boolean)</p>
 
 <p>This method is called by Scrypted when the properties of the device need to be refreshed. When the device has completed the refresh, the appropriate events should be emitted. The parameters provide the specific interface that needs to be refreshed and whether it was user initiated (via UI or voice).</p>
 <h2 id='mediaplayer'>MediaPlayer</h2>
@@ -1169,10 +1172,10 @@ Online denotes whether the device is online or unresponsive. It may be unrespons
 <p>Definition</p>
 </blockquote>
 <pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">EventListener</span>  <span class="p">{</span>
-  <span class="nx">onEvent</span><span class="p">(</span><span class="nx">eventSource</span><span class="p">:</span> <span class="nx">ScryptedInterface</span><span class="p">,</span> <span class="nx">eventInterface</span><span class="p">:</span> <span class="nx">Class</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="nx">object</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">onEvent</span><span class="p">(</span><span class="nx">eventSource</span><span class="p">:</span> <span class="nx">ScryptedInterface</span><span class="p">,</span> <span class="nx">eventInterface</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="nx">object</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><h3 id='onevent'>onEvent</h3>
-<p>void onEvent(eventSource: ScryptedInterface, eventInterface: Class, eventData: object)</p>
+<p>void onEvent(eventSource: <a href='#scryptedinterface'>ScryptedInterface</a>, eventInterface: string, eventData: object)</p>
 
 <p>This device type can be hooked by Automation actions to handle events. The event source, event type (interface), and event data are all passed to the listener as arguments.</p>
 <h2 id='eventlistenerregister'>EventListenerRegister</h2>
@@ -1252,16 +1255,16 @@ Logger is exposed via log.* to allow writing to the Scrypted log.
 <pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Settings</span>  <span class="p">{</span>
   <span class="nx">getBoolean</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="kr">boolean</span><span class="p">;</span>
   <span class="nx">getBoolean</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">defaultValue</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">):</span> <span class="kr">boolean</span><span class="p">;</span>
-  <span class="nx">getConfigurationValueList</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">List</span><span class="p">;</span>
+  <span class="nx">getConfigurationValueList</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">string</span><span class="p">[];</span>
   <span class="nx">getDouble</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">number</span><span class="p">;</span>
-  <span class="nx">getFloat</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">Float</span><span class="p">;</span>
-  <span class="nx">getInt</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">Integer</span><span class="p">;</span>
+  <span class="nx">getFloat</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">number</span><span class="p">;</span>
+  <span class="nx">getInt</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">number</span><span class="p">;</span>
   <span class="nx">getKeyDescription</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">string</span><span class="p">;</span>
-  <span class="nx">getKeys</span><span class="p">():</span> <span class="nx">List</span><span class="p">;</span>
+  <span class="nx">getKeys</span><span class="p">():</span> <span class="nx">string</span><span class="p">[];</span>
   <span class="nx">getString</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">string</span><span class="p">;</span>
   <span class="nx">putBoolean</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">value</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
   <span class="nx">putDouble</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">value</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">putFloat</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">value</span><span class="p">:</span> <span class="kr">float</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">putFloat</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">value</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
   <span class="nx">putInt</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">value</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
   <span class="nx">putString</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">value</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
 <span class="p">}</span>
@@ -1274,17 +1277,17 @@ Settings viewing and editing of device configurations that describe or modify be
 <h3 id='getboolean-2'>getBoolean</h3>
 <p>boolean getBoolean(key: string, defaultValue: boolean)</p>
 <h3 id='getconfigurationvaluelist'>getConfigurationValueList</h3>
-<p>List getConfigurationValueList(key: string)</p>
+<p>string[] getConfigurationValueList(key: string)</p>
 <h3 id='getdouble'>getDouble</h3>
 <p>number getDouble(key: string)</p>
 <h3 id='getfloat'>getFloat</h3>
-<p>Float getFloat(key: string)</p>
+<p>number getFloat(key: string)</p>
 <h3 id='getint'>getInt</h3>
-<p>Integer getInt(key: string)</p>
+<p>number getInt(key: string)</p>
 <h3 id='getkeydescription'>getKeyDescription</h3>
 <p>string getKeyDescription(key: string)</p>
 <h3 id='getkeys'>getKeys</h3>
-<p>List getKeys()</p>
+<p>string[] getKeys()</p>
 <h3 id='getstring'>getString</h3>
 <p>string getString(key: string)</p>
 <h3 id='putboolean'>putBoolean</h3>
@@ -1292,7 +1295,7 @@ Settings viewing and editing of device configurations that describe or modify be
 <h3 id='putdouble'>putDouble</h3>
 <p>void putDouble(key: string, value: number)</p>
 <h3 id='putfloat'>putFloat</h3>
-<p>void putFloat(key: string, value: float)</p>
+<p>void putFloat(key: string, value: number)</p>
 <h3 id='putint'>putInt</h3>
 <p>void putInt(key: string, value: number)</p>
 <h3 id='putstring'>putString</h3>
@@ -1351,8 +1354,8 @@ The OauthClient can be implemented to perform the browser based Oauth process fr
   <span class="nx">getDeviceById</span><span class="p">(</span><span class="nx">id</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="nx">ScryptedInterface</span><span class="p">;</span>
   <span class="nx">getDeviceByName</span><span class="p">(</span><span class="nx">name</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">ScryptedInterface</span><span class="p">;</span>
   <span class="nx">onDeviceDiscovered</span><span class="p">(</span><span class="nx">device</span><span class="p">:</span> <span class="nx">Device</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">onDeviceEvent</span><span class="p">(</span><span class="nx">eventInterface</span><span class="p">:</span> <span class="nx">Class</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="nx">object</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">onDeviceEvent</span><span class="p">(</span><span class="nx">id</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">eventInterface</span><span class="p">:</span> <span class="nx">Class</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="nx">object</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">onDeviceEvent</span><span class="p">(</span><span class="nx">eventInterface</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="nx">object</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">onDeviceEvent</span><span class="p">(</span><span class="nx">id</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">eventInterface</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="nx">object</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
   <span class="nx">onDevicesChanged</span><span class="p">(</span><span class="nx">devices</span><span class="p">:</span> <span class="nx">DeviceManifest</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
@@ -1360,11 +1363,11 @@ The OauthClient can be implemented to perform the browser based Oauth process fr
 DeviceManager is the interface which plugins use to report devices and device events to Scrypted. It is also used to query Scrypted for other devices.
 </aside>
 <h3 id='getdevicebyid'>getDeviceById</h3>
-<p>ScryptedInterface getDeviceById(id: number)</p>
+<p><a href='#scryptedinterface'>ScryptedInterface</a> getDeviceById(id: number)</p>
 
 <p>Find a Scrypted device by id.</p>
 <h3 id='getdevicebyname'>getDeviceByName</h3>
-<p>ScryptedInterface getDeviceByName(name: string)</p>
+<p><a href='#scryptedinterface'>ScryptedInterface</a> getDeviceByName(name: string)</p>
 
 <p>Find a Scrypted device by name.</p>
 <h3 id='ondevicediscovered'>onDeviceDiscovered</h3>
@@ -1372,11 +1375,11 @@ DeviceManager is the interface which plugins use to report devices and device ev
 
 <p>onDeviceDiscovered is used to report new devices that are trickle discovered, one by one, such as via a network broadcast.</p>
 <h3 id='ondeviceevent'>onDeviceEvent</h3>
-<p>void onDeviceEvent(eventInterface: Class, eventData: object)</p>
+<p>void onDeviceEvent(eventInterface: string, eventData: object)</p>
 
 <p>Fire an event for this plugin&#39;s device.</p>
 <h3 id='ondeviceevent-2'>onDeviceEvent</h3>
-<p>void onDeviceEvent(id: string, eventInterface: Class, eventData: object)</p>
+<p>void onDeviceEvent(id: string, eventInterface: string, eventData: object)</p>
 
 <p>Fire an event for a device provided by this plugin.</p>
 <h3 id='ondeviceschanged'>onDevicesChanged</h3>
@@ -1772,24 +1775,39 @@ Response object provided by the HttpRequestHandler.
 <p>Definition</p>
 </blockquote>
 <pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">EventEmitter</span>  <span class="p">{</span>
-  <span class="nx">on</span><span class="p">(</span><span class="nx">event</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">callback</span><span class="p">:</span> <span class="kd">function</span><span class="p">):</span> <span class="nx">EventListenerRegister</span><span class="p">;</span>
-  <span class="nx">watch</span><span class="p">(</span><span class="nx">event</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">callback</span><span class="p">:</span> <span class="kd">function</span><span class="p">):</span> <span class="nx">EventListenerRegister</span><span class="p">;</span>
+  <span class="nx">on</span><span class="p">(</span><span class="nx">event</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">callback</span><span class="p">:</span> <span class="p">(</span><span class="nx">eventSource</span><span class="p">:</span> <span class="nx">ScryptedInterface</span><span class="p">,</span> <span class="nx">eventInterface</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="nx">object</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">):</span> <span class="nx">EventListenerRegister</span><span class="p">;</span>
+  <span class="nx">watch</span><span class="p">(</span><span class="nx">event</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">callback</span><span class="p">:</span> <span class="p">(</span><span class="nx">eventSource</span><span class="p">:</span> <span class="nx">ScryptedInterface</span><span class="p">,</span> <span class="nx">eventInterface</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="nx">object</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">):</span> <span class="nx">EventListenerRegister</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
 <aside class="notice">
 EventEmitter is implemented by most devices. Add listeners to subscribe to events from that device.
 </aside>
 <h3 id='on'>on</h3>
-<p><a href='#eventlistenerregister'>EventListenerRegister</a> on(event: string, callback: function)</p>
+<p><a href='#eventlistenerregister'>EventListenerRegister</a> on(event: string, EventListener: function)</p>
 
 <p>Subscribe to events from a specific interface on a device, such as &#39;OnOff&#39; or &#39;Brightness&#39;.
 The callback function has the signature function(eventSource, eventData).
 The eventSource is the interface from where the event originated, and eventData will contain data specific
 to that type of interface. OnOff would be boolean, while Brightness would be an integer between 0 and 100.</p>
 <h3 id='watch'>watch</h3>
-<p><a href='#eventlistenerregister'>EventListenerRegister</a> watch(event: string, callback: function)</p>
+<p><a href='#eventlistenerregister'>EventListenerRegister</a> watch(event: string, EventListener: function)</p>
 
 <p>Similar to &#39;on&#39;, but will passively watch for events, and not initiate polling.</p>
+<h2 id='scryptedinterface'>ScryptedInterface</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">ScryptedInterface</span>  <span class="p">{</span>
+  <span class="nx">id</span><span class="p">():</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nx">name</span><span class="p">():</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nx">type</span><span class="p">():</span> <span class="nx">ScryptedThingType</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><h3 id='id'>id</h3>
+<p>string id()</p>
+<h3 id='name'>name</h3>
+<p>string name()</p>
+<h3 id='type'>type</h3>
+<p><a href='#scryptedthingtype'>ScryptedThingType</a> type()</p>
 
       </div>
       <div class="dark-box">
