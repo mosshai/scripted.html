@@ -11,6 +11,8 @@ search: true
 
 ## Controlling a Device
 
+<aside class="warning">You must have Visual Studio Code and the <a href='https://marketplace.visualstudio.com/items?itemName=koush.duk-debug'>Duktape Debugger Plugin</a> installed.</aside>
+
 1. Create a new Script under Plugins.
 2. Set the type to Library.
 3. Assign an device that supports OnOff to a variable "switch".
@@ -80,7 +82,12 @@ be synced to upstream integration providers, such as Google Home or Apple Homeki
 
 <%= partial "includes/scrypted/{{name}}.md.erb" %>
 
+{% if c.description %}
+<aside class="notice">
 {{ c.description }}
+</aside>
+{% endif %}
+
 {% if c.methods.length %}
 {% endif %}
 {% for method in c.methods %}

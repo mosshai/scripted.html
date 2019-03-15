@@ -1142,7 +1142,7 @@
                 "type": "ScryptedThingType"
             }
         ],
-        "description": "Device provides information about a device that is handled by a DeviceProvider."
+        "description": "Device objects are created by DeviceProviders when new devices are discover and synced to Scrypted via the DeviceManager."
     },
     "ScryptedThingType": {
         "values": [
@@ -1174,7 +1174,8 @@
                 "name": "devices",
                 "type": "Device[]"
             }
-        ]
+        ],
+        "description": "DeviceManifest is passed to DeviceManager.onDevicesChanged to sync a full list of devices from the controller\/hub (Hue, SmartThings, etc)"
     },
     "DeviceProvider": {
         "methods": [

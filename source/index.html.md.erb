@@ -11,6 +11,8 @@ search: true
 
 ## Controlling a Device
 
+<aside class="warning">You must have Visual Studio Code and the <a href='https://marketplace.visualstudio.com/items?itemName=koush.duk-debug'>Duktape Debugger Plugin</a> installed.</aside>
+
 1. Create a new Script under Plugins.
 2. Set the type to Library.
 3. Assign an device that supports OnOff to a variable "switch".
@@ -80,7 +82,12 @@ be synced to upstream integration providers, such as Google Home or Apple Homeki
 
 <%= partial "includes/scrypted/OnOff.md.erb" %>
 
+
+<aside class="notice">
 OnOff is a basic binary switch.
+</aside>
+
+
 
 
 
@@ -109,7 +116,12 @@ void turnOn()
 
 <%= partial "includes/scrypted/Brightness.md.erb" %>
 
+
+<aside class="notice">
 Brightness is a lighting device that can be dimmed/lit between 0 to 100.
+</aside>
+
+
 
 
 
@@ -133,7 +145,12 @@ void setLevel(brightness: number)
 
 <%= partial "includes/scrypted/ColorSettingTemperature.md.erb" %>
 
+
+<aside class="notice">
 ColorSettingTemperature sets the color temperature of a light in Kelvin.
+</aside>
+
+
 
 
 
@@ -167,7 +184,12 @@ void setTemperature(kelvin: number)
 
 <%= partial "includes/scrypted/ColorSettingRgb.md.erb" %>
 
+
+<aside class="notice">
 ColorSettingRgb sets the color of a colored light using the RGB representation.
+</aside>
+
+
 
 
 
@@ -191,7 +213,12 @@ void setRgb(r: number, g: number, b: number)
 
 <%= partial "includes/scrypted/ColorRgb.md.erb" %>
 
+
+<aside class="notice">
 Represents an RGB color value component values between 0 and 255.
+</aside>
+
+
 
 
 
@@ -212,7 +239,12 @@ r | number
 
 <%= partial "includes/scrypted/ColorSettingHsv.md.erb" %>
 
+
+<aside class="notice">
 ColorSettingHsv sets the color of a colored light using the HSV representation.
+</aside>
+
+
 
 
 
@@ -236,7 +268,12 @@ void setHsv(hue: double, saturation: double, value: double)
 
 <%= partial "includes/scrypted/ColorHsv.md.erb" %>
 
+
+<aside class="notice">
 Represents an HSV color value component values between 0 and 1.
+</aside>
+
+
 
 
 
@@ -261,6 +298,7 @@ v | double
 
 
 
+
 ### getBinaryState
 boolean getBinaryState()
 
@@ -275,6 +313,7 @@ boolean getBinaryState()
 ## EntrySensor
 
 <%= partial "includes/scrypted/EntrySensor.md.erb" %>
+
 
 
 
@@ -299,6 +338,7 @@ boolean isEntryOpen()
 
 
 
+
 ### isDoorOpen
 boolean isDoorOpen()
 
@@ -313,6 +353,7 @@ boolean isDoorOpen()
 ## IntrusionSensor
 
 <%= partial "includes/scrypted/IntrusionSensor.md.erb" %>
+
 
 
 
@@ -337,6 +378,7 @@ boolean isIntrusionDetected()
 
 
 
+
 ### isFlooded
 boolean isFlooded()
 
@@ -352,7 +394,12 @@ boolean isFlooded()
 
 <%= partial "includes/scrypted/Notifier.md.erb" %>
 
+
+<aside class="notice">
 Notifier can be any endpoint that can receive messages, such as speakers, phone numbers, messaging clients, etc. The messages may optionally contain media.
+</aside>
+
+
 
 
 
@@ -377,7 +424,12 @@ Passing null uses the native type of the MediaObject. If that is not supported b
 
 <%= partial "includes/scrypted/MediaObject.md.erb" %>
 
+
+<aside class="notice">
 MediaObject is an intermediate object within Scrypted to represent all media objects. Plugins should use the MediaConverter to convert the Scrypted MediaObject into a desired type, whether it is a externally accessible URL, a Buffer, etc.
+</aside>
+
+
 
 
 
@@ -390,7 +442,12 @@ MediaObject is an intermediate object within Scrypted to represent all media obj
 
 <%= partial "includes/scrypted/StartStop.md.erb" %>
 
+
+<aside class="notice">
 StartStop represents a device that can be started, stopped, and possibly paused and resumed. Typically vacuum cleaners or washers.
+</aside>
+
+
 
 
 
@@ -439,7 +496,12 @@ void stop()
 
 <%= partial "includes/scrypted/Dock.md.erb" %>
 
+
+<aside class="notice">
 Dock instructs devices that have a base station or charger, to return to their home.
+</aside>
+
+
 
 
 
@@ -467,6 +529,7 @@ boolean isDocked()
 
 
 
+
 ### run
 object run(args: object[])
 
@@ -487,7 +550,12 @@ Asynchronously run a script given the provided arguments.
 
 <%= partial "includes/scrypted/TemperatureSetting.md.erb" %>
 
+
+<aside class="notice">
 TemperatureSetting represents a thermostat device.
+</aside>
+
+
 
 
 
@@ -548,6 +616,7 @@ void setThermostatMode(mode: <a href='#thermostatmode'>ThermostatMode</a>)
 
 
 
+
 Enum |
 ----
 "Off" |
@@ -568,7 +637,12 @@ Enum |
 
 <%= partial "includes/scrypted/Lock.md.erb" %>
 
+
+<aside class="notice">
 Lock controls devices that can lock or unlock entries. Often works in tandem with PasswordControl.
+</aside>
+
+
 
 
 
@@ -597,7 +671,12 @@ void unlock()
 
 <%= partial "includes/scrypted/PasswordControl.md.erb" %>
 
+
+<aside class="notice">
 PasswordControl represents devices that authorize users via a passcode or pin code.
+</aside>
+
+
 
 
 
@@ -630,6 +709,7 @@ void removePassword(password: string)
 
 
 
+
 ### createVideoCapturer
 Future createVideoCapturer()
 
@@ -644,6 +724,7 @@ Future createVideoCapturer()
 ## Thermometer
 
 <%= partial "includes/scrypted/Thermometer.md.erb" %>
+
 
 
 
@@ -676,6 +757,7 @@ Get the user facing unit of measurement for this thermometer. This may be Fahren
 
 
 
+
 Enum |
 ----
 "C" |
@@ -687,6 +769,7 @@ Enum |
 ## HumiditySensor
 
 <%= partial "includes/scrypted/HumiditySensor.md.erb" %>
+
 
 
 
@@ -711,6 +794,7 @@ double getHumidityAmbient()
 
 
 
+
 ### getUltraviolet
 double getUltraviolet()
 
@@ -725,6 +809,7 @@ double getUltraviolet()
 ## LuminanceSensor
 
 <%= partial "includes/scrypted/LuminanceSensor.md.erb" %>
+
 
 
 
@@ -745,7 +830,12 @@ double getLuminance()
 
 <%= partial "includes/scrypted/Scene.md.erb" %>
 
+
+<aside class="notice">
 Scenes control multiple different devices into a given state.
+</aside>
+
+
 
 
 
@@ -774,7 +864,12 @@ If a scene can be reversed, isReversible should return true. Otherwise deactivat
 
 <%= partial "includes/scrypted/Entry.md.erb" %>
 
+
+<aside class="notice">
 Entry represents devices that can open and close barriers, such as garage doors.
+</aside>
+
+
 
 
 
@@ -803,7 +898,12 @@ void openEntry()
 
 <%= partial "includes/scrypted/Alarm.md.erb" %>
 
+
+<aside class="notice">
 Event data from the Scheduler component.
+</aside>
+
+
 
 
 
@@ -844,6 +944,7 @@ boolean isEnabled(day: number)
 
 
 
+
 Enum |
 ----
 "_AM" |
@@ -861,7 +962,12 @@ Enum |
 
 <%= partial "includes/scrypted/Battery.md.erb" %>
 
+
+<aside class="notice">
 Battery retrieves the battery level of battery powered devices.
+</aside>
+
+
 
 
 
@@ -880,7 +986,12 @@ number getBatteryLevel()
 
 <%= partial "includes/scrypted/Refresh.md.erb" %>
 
+
+<aside class="notice">
 Refresh indicates that this device has properties that are not automatically updated, and must be periodically refreshed.
+</aside>
+
+
 
 
 
@@ -904,7 +1015,12 @@ This method is called by Scrypted when the properties of the device need to be r
 
 <%= partial "includes/scrypted/MediaPlayer.md.erb" %>
 
+
+<aside class="notice">
 MediaPlayer allows media playback on screen or speaker devices, such as Chromecasts or TVs.
+</aside>
+
+
 
 
 
@@ -948,6 +1064,7 @@ void stop()
 
 
 
+
 ### Properties
 Name      | Type
 --------- | ----
@@ -972,11 +1089,17 @@ mimeType | string
 
 
 
+
 ## Online
 
 <%= partial "includes/scrypted/Online.md.erb" %>
 
+
+<aside class="notice">
 Online denotes whether the device is online or unresponsive. It may be unresponsive due to being unplugged, network error, etc.
+</aside>
+
+
 
 
 
@@ -999,6 +1122,7 @@ boolean isOnline()
 
 
 
+
 ### onEvent
 void onEvent(eventSource: ScryptedInterface, eventInterface: Class, eventData: object)
 
@@ -1014,7 +1138,12 @@ This device type can be hooked by Automation actions to handle events. The event
 
 <%= partial "includes/scrypted/EventListenerRegister.md.erb" %>
 
+
+<aside class="notice">
 Returned when an event listener is attached to an EventEmitter. Call removeListener to unregister from events.
+</aside>
+
+
 
 
 
@@ -1027,7 +1156,12 @@ Returned when an event listener is attached to an EventEmitter. Call removeListe
 
 <%= partial "includes/scrypted/Logger.md.erb" %>
 
+
+<aside class="notice">
 Logger is exposed via log.* to allow writing to the Scrypted log.
+</aside>
+
+
 
 
 
@@ -1090,6 +1224,7 @@ Warn
 
 
 
+
 ### getMedia
 <a href='#mediaobject'>MediaObject</a> getMedia()
 
@@ -1114,11 +1249,17 @@ Get a MediaObject that will be automatically converted for playback on other dev
 
 
 
+
 ## Settings
 
 <%= partial "includes/scrypted/Settings.md.erb" %>
 
+
+<aside class="notice">
 Settings viewing and editing of device configurations that describe or modify behavior.
+</aside>
+
+
 
 
 
@@ -1202,7 +1343,12 @@ void putString(key: string, value: string)
 
 <%= partial "includes/scrypted/OauthClient.md.erb" %>
 
+
+<aside class="notice">
 The OauthClient can be implemented to perform the browser based Oauth process from within a plugin.
+</aside>
+
+
 
 
 
@@ -1226,7 +1372,12 @@ When an oauth request by a plugin completes, the callback url, with the code/tok
 
 <%= partial "includes/scrypted/DeviceManager.md.erb" %>
 
+
+<aside class="notice">
 DeviceManager is the interface which plugins use to report devices and device events to Scrypted. It is also used to query Scrypted for other devices.
+</aside>
+
+
 
 
 
@@ -1270,7 +1421,12 @@ onDevicesChanged is used to sync Scrypted with devices that are attached to a hu
 
 <%= partial "includes/scrypted/Device.md.erb" %>
 
-Device provides information about a device that is handled by a DeviceProvider.
+
+<aside class="notice">
+Device objects are created by DeviceProviders when new devices are discover and synced to Scrypted via the DeviceManager.
+</aside>
+
+
 
 
 
@@ -1294,6 +1450,7 @@ type | <a href='#scryptedthingtype'>ScryptedThingType</a>
 ## ScryptedThingType
 
 <%= partial "includes/scrypted/ScryptedThingType.md.erb" %>
+
 
 
 
@@ -1333,6 +1490,11 @@ Enum |
 <%= partial "includes/scrypted/DeviceManifest.md.erb" %>
 
 
+<aside class="notice">
+DeviceManifest is passed to DeviceManager.onDevicesChanged to sync a full list of devices from the controller/hub (Hue, SmartThings, etc)
+</aside>
+
+
 
 
 
@@ -1351,7 +1513,12 @@ devices | <a href='#device'>Device</a>[]
 
 <%= partial "includes/scrypted/DeviceProvider.md.erb" %>
 
+
+<aside class="notice">
 DeviceProvider acts as a controller/hub and exposes multiple devices to Scrypted Device Manager.
+</aside>
+
+
 
 
 
@@ -1375,7 +1542,12 @@ Get an instance of a previously discovered device that was reported to the devic
 
 <%= partial "includes/scrypted/HttpRequestHandler.md.erb" %>
 
+
+<aside class="notice">
 The HttpRequestHandler allows handling of web requests under the endpoint path: /endpoint/<endpoint>/*.
+</aside>
+
+
 
 
 
@@ -1404,6 +1576,7 @@ Callback to handle an incoming request.
 
 
 
+
 ### Properties
 Name      | Type
 --------- | ----
@@ -1422,7 +1595,12 @@ url | string
 
 <%= partial "includes/scrypted/HttpResponse.md.erb" %>
 
+
+<aside class="notice">
 Response object provided by the HttpRequestHandler.
+</aside>
+
+
 
 
 
@@ -1461,6 +1639,7 @@ void send(body: Buffer)
 
 
 
+
 ### Properties
 Name      | Type
 --------- | ----
@@ -1477,7 +1656,12 @@ headers | object
 
 <%= partial "includes/scrypted/EventEmitter.md.erb" %>
 
+
+<aside class="notice">
 EventEmitter is implemented by most devices. Add listeners to subscribe to events from that device.
+</aside>
+
+
 
 
 

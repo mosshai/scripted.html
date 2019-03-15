@@ -210,7 +210,7 @@
     </a>
     <div class="toc-wrapper">
       <img src="images/logo.png" class="logo" alt="Logo" />
-      <center><div style="color: white;">Scrypted</div></center>
+      <center><div style="color: white;">Scrypted Documentation</div></center>
         <div class="lang-selector">
               <a href="#" data-language-name="javascript">javascript</a>
               <a href="#" data-language-name="typescript">typescript</a>
@@ -404,6 +404,8 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='getting-started'>Getting Started <br/></h1><h2 id='controlling-a-device'>Controlling a Device</h2>
+<aside class="warning">You must have Visual Studio Code and the <a href='https://marketplace.visualstudio.com/items?itemName=koush.duk-debug'>Duktape Debugger Plugin</a> installed.</aside>
+
 <ol>
 <li>Create a new Script under Plugins.</li>
 <li>Set the type to Library.</li>
@@ -472,7 +474,9 @@ be synced to upstream integration providers, such as Google Home or Apple Homeki
 <span class="p">}</span>
 </code></pre>
 
-<p>OnOff is a basic binary switch.</p>
+<aside class="notice">
+OnOff is a basic binary switch.
+</aside>
 <h3 id='ison'>isOn</h3>
 <p>boolean isOn()</p>
 <h3 id='turnoff'>turnOff</h3>
@@ -484,13 +488,17 @@ be synced to upstream integration providers, such as Google Home or Apple Homeki
 <span class="nx">dimmer</span><span class="p">.</span><span class="nx">setLevel</span><span class="p">(</span><span class="mi">50</span><span class="p">);</span>
 </code></pre>
 
-<p>Brightness is a lighting device that can be dimmed/lit between 0 to 100.</p>
+<aside class="notice">
+Brightness is a lighting device that can be dimmed/lit between 0 to 100.
+</aside>
 <h3 id='getlevel'>getLevel</h3>
 <p>number getLevel()</p>
 <h3 id='setlevel'>setLevel</h3>
 <p>void setLevel(brightness: number)</p>
 <h2 id='colorsettingtemperature'>ColorSettingTemperature</h2>
-<p>ColorSettingTemperature sets the color temperature of a light in Kelvin.</p>
+<aside class="notice">
+ColorSettingTemperature sets the color temperature of a light in Kelvin.
+</aside>
 <h3 id='gettemperature'>getTemperature</h3>
 <p>number getTemperature()</p>
 <h3 id='gettemperaturemaxk'>getTemperatureMaxK</h3>
@@ -508,13 +516,17 @@ be synced to upstream integration providers, such as Google Home or Apple Homeki
 <span class="p">})</span>
 </code></pre>
 
-<p>ColorSettingRgb sets the color of a colored light using the RGB representation.</p>
+<aside class="notice">
+ColorSettingRgb sets the color of a colored light using the RGB representation.
+</aside>
 <h3 id='getrgb'>getRgb</h3>
 <p><a href='#colorrgb'>ColorRgb</a> getRgb()</p>
 <h3 id='setrgb'>setRgb</h3>
 <p>void setRgb(r: number, g: number, b: number)</p>
 <h2 id='colorrgb'>ColorRgb</h2>
-<p>Represents an RGB color value component values between 0 and 255.</p>
+<aside class="notice">
+Represents an RGB color value component values between 0 and 255.
+</aside>
 <h3 id='properties'>Properties</h3>
 <table><thead>
 <tr>
@@ -544,13 +556,17 @@ be synced to upstream integration providers, such as Google Home or Apple Homeki
 <span class="p">})</span>
 </code></pre>
 
-<p>ColorSettingHsv sets the color of a colored light using the HSV representation.</p>
+<aside class="notice">
+ColorSettingHsv sets the color of a colored light using the HSV representation.
+</aside>
 <h3 id='gethsv'>getHsv</h3>
 <p><a href='#colorhsv'>ColorHsv</a> getHsv()</p>
 <h3 id='sethsv'>setHsv</h3>
 <p>void setHsv(hue: double, saturation: double, value: double)</p>
 <h2 id='colorhsv'>ColorHsv</h2>
-<p>Represents an HSV color value component values between 0 and 1.</p>
+<aside class="notice">
+Represents an HSV color value component values between 0 and 1.
+</aside>
 <h3 id='properties-2'>Properties</h3>
 <table><thead>
 <tr>
@@ -595,7 +611,9 @@ be synced to upstream integration providers, such as Google Home or Apple Homeki
 <span class="nx">twilioNumber</span><span class="p">.</span><span class="nx">sendNotification</span><span class="p">(</span><span class="s1">'Alert!'</span><span class="p">,</span> <span class="s1">'Something Happened!'</span><span class="p">,</span> <span class="s1">'http://example.org/video.mp4'</span><span class="p">,</span> <span class="s1">'video'</span><span class="p">);</span>
 </code></pre>
 
-<p>Notifier can be any endpoint that can receive messages, such as speakers, phone numbers, messaging clients, etc. The messages may optionally contain media.</p>
+<aside class="notice">
+Notifier can be any endpoint that can receive messages, such as speakers, phone numbers, messaging clients, etc. The messages may optionally contain media.
+</aside>
 <h3 id='sendnotification'>sendNotification</h3>
 <p>void sendNotification(title: string, body: string)</p>
 <h3 id='sendnotification-2'>sendNotification</h3>
@@ -604,9 +622,13 @@ be synced to upstream integration providers, such as Google Home or Apple Homeki
 <p>If a the media parameter is supplied, the mime type denotes how to send the media within notification. For example, specify &#39;image/*&#39; to send a video MediaObject as an image.
 Passing null uses the native type of the MediaObject. If that is not supported by the notifier, the media will be converted to a compatible type.</p>
 <h2 id='mediaobject'>MediaObject</h2>
-<p>MediaObject is an intermediate object within Scrypted to represent all media objects. Plugins should use the MediaConverter to convert the Scrypted MediaObject into a desired type, whether it is a externally accessible URL, a Buffer, etc.</p>
+<aside class="notice">
+MediaObject is an intermediate object within Scrypted to represent all media objects. Plugins should use the MediaConverter to convert the Scrypted MediaObject into a desired type, whether it is a externally accessible URL, a Buffer, etc.
+</aside>
 <h2 id='startstop'>StartStop</h2>
-<p>StartStop represents a device that can be started, stopped, and possibly paused and resumed. Typically vacuum cleaners or washers.</p>
+<aside class="notice">
+StartStop represents a device that can be started, stopped, and possibly paused and resumed. Typically vacuum cleaners or washers.
+</aside>
 <h3 id='ispausable'>isPausable</h3>
 <p>boolean isPausable()</p>
 <h3 id='ispaused'>isPaused</h3>
@@ -622,7 +644,9 @@ Passing null uses the native type of the MediaObject. If that is not supported b
 <h3 id='stop'>stop</h3>
 <p>void stop()</p>
 <h2 id='dock'>Dock</h2>
-<p>Dock instructs devices that have a base station or charger, to return to their home.</p>
+<aside class="notice">
+Dock instructs devices that have a base station or charger, to return to their home.
+</aside>
 <h3 id='dock-2'>dock</h3>
 <p>void dock()</p>
 <h3 id='isdocked'>isDocked</h3>
@@ -636,7 +660,9 @@ Passing null uses the native type of the MediaObject. If that is not supported b
 
 <p>Asynchronously run a script given the provided arguments.</p>
 <h2 id='temperaturesetting'>TemperatureSetting</h2>
-<p>TemperatureSetting represents a thermostat device.</p>
+<aside class="notice">
+TemperatureSetting represents a thermostat device.
+</aside>
 <h3 id='getavailablethermostatmodes'>getAvailableThermostatModes</h3>
 <p><a href='#thermostatmode'>ThermostatMode</a>[] getAvailableThermostatModes()</p>
 <h3 id='gettemperaturesetpoint'>getTemperatureSetpoint</h3>
@@ -691,7 +717,9 @@ Passing null uses the native type of the MediaObject. If that is not supported b
 </tr>
 </tbody></table>
 <h2 id='lock'>Lock</h2>
-<p>Lock controls devices that can lock or unlock entries. Often works in tandem with PasswordControl.</p>
+<aside class="notice">
+Lock controls devices that can lock or unlock entries. Often works in tandem with PasswordControl.
+</aside>
 <h3 id='islocked'>isLocked</h3>
 <p>boolean isLocked()</p>
 <h3 id='lock-2'>lock</h3>
@@ -699,7 +727,9 @@ Passing null uses the native type of the MediaObject. If that is not supported b
 <h3 id='unlock'>unlock</h3>
 <p>void unlock()</p>
 <h2 id='passwordcontrol'>PasswordControl</h2>
-<p>PasswordControl represents devices that authorize users via a passcode or pin code.</p>
+<aside class="notice">
+PasswordControl represents devices that authorize users via a passcode or pin code.
+</aside>
 <h3 id='addpassword'>addPassword</h3>
 <p>void addPassword(password: string)</p>
 <h3 id='getpasswords'>getPasswords</h3>
@@ -736,7 +766,9 @@ Passing null uses the native type of the MediaObject. If that is not supported b
 <h2 id='luminancesensor'>LuminanceSensor</h2><h3 id='getluminance'>getLuminance</h3>
 <p>double getLuminance()</p>
 <h2 id='scene'>Scene</h2>
-<p>Scenes control multiple different devices into a given state.</p>
+<aside class="notice">
+Scenes control multiple different devices into a given state.
+</aside>
 <h3 id='activate'>activate</h3>
 <p>void activate()</p>
 <h3 id='deactivate'>deactivate</h3>
@@ -746,7 +778,9 @@ Passing null uses the native type of the MediaObject. If that is not supported b
 
 <p>If a scene can be reversed, isReversible should return true. Otherwise deactivate will not be called.</p>
 <h2 id='entry'>Entry</h2>
-<p>Entry represents devices that can open and close barriers, such as garage doors.</p>
+<aside class="notice">
+Entry represents devices that can open and close barriers, such as garage doors.
+</aside>
 <h3 id='closeentry'>closeEntry</h3>
 <p>void closeEntry()</p>
 <h3 id='isentryopen-2'>isEntryOpen</h3>
@@ -754,7 +788,9 @@ Passing null uses the native type of the MediaObject. If that is not supported b
 <h3 id='openentry'>openEntry</h3>
 <p>void openEntry()</p>
 <h2 id='alarm'>Alarm</h2>
-<p>Event data from the Scheduler component.</p>
+<aside class="notice">
+Event data from the Scheduler component.
+</aside>
 <h3 id='getclocktype'>getClockType</h3>
 <p><a href='#clocktype'>ClockType</a> getClockType()</p>
 <h3 id='gethour'>getHour</h3>
@@ -792,11 +828,15 @@ Passing null uses the native type of the MediaObject. If that is not supported b
 </tr>
 </tbody></table>
 <h2 id='battery'>Battery</h2>
-<p>Battery retrieves the battery level of battery powered devices.</p>
+<aside class="notice">
+Battery retrieves the battery level of battery powered devices.
+</aside>
 <h3 id='getbatterylevel'>getBatteryLevel</h3>
 <p>number getBatteryLevel()</p>
 <h2 id='refresh'>Refresh</h2>
-<p>Refresh indicates that this device has properties that are not automatically updated, and must be periodically refreshed.</p>
+<aside class="notice">
+Refresh indicates that this device has properties that are not automatically updated, and must be periodically refreshed.
+</aside>
 <h3 id='getrefreshfrequency'>getRefreshFrequency</h3>
 <p>number getRefreshFrequency()</p>
 
@@ -806,7 +846,9 @@ Passing null uses the native type of the MediaObject. If that is not supported b
 
 <p>This method is called by Scrypted when the properties of the device need to be refreshed. When the device has completed the refresh, the appropriate events should be emitted. The parameters provide the specific interface that needs to be refreshed and whether it was user initiated (via UI or voice).</p>
 <h2 id='mediaplayer'>MediaPlayer</h2>
-<p>MediaPlayer allows media playback on screen or speaker devices, such as Chromecasts or TVs.</p>
+<aside class="notice">
+MediaPlayer allows media playback on screen or speaker devices, such as Chromecasts or TVs.
+</aside>
 <h3 id='load'>load</h3>
 <p>void load(media: <a href='#mediaobject'>MediaObject</a>, options: <a href='#mediaplayeroptions'>MediaPlayerOptions</a>)</p>
 <h3 id='load-2'>load</h3>
@@ -834,7 +876,9 @@ Passing null uses the native type of the MediaObject. If that is not supported b
 </tr>
 </tbody></table>
 <h2 id='facedetector'>FaceDetector</h2><h2 id='online'>Online</h2>
-<p>Online denotes whether the device is online or unresponsive. It may be unresponsive due to being unplugged, network error, etc.</p>
+<aside class="notice">
+Online denotes whether the device is online or unresponsive. It may be unresponsive due to being unplugged, network error, etc.
+</aside>
 <h3 id='isonline'>isOnline</h3>
 <p>boolean isOnline()</p>
 <h2 id='eventlistener'>EventListener</h2><h3 id='onevent'>onEvent</h3>
@@ -842,9 +886,13 @@ Passing null uses the native type of the MediaObject. If that is not supported b
 
 <p>This device type can be hooked by Automation actions to handle events. The event source, event type (interface), and event data are all passed to the listener as arguments.</p>
 <h2 id='eventlistenerregister'>EventListenerRegister</h2>
-<p>Returned when an event listener is attached to an EventEmitter. Call removeListener to unregister from events.</p>
+<aside class="notice">
+Returned when an event listener is attached to an EventEmitter. Call removeListener to unregister from events.
+</aside>
 <h2 id='logger'>Logger</h2>
-<p>Logger is exposed via log.* to allow writing to the Scrypted log.</p>
+<aside class="notice">
+Logger is exposed via log.* to allow writing to the Scrypted log.
+</aside>
 <h3 id='a'>a</h3>
 <p>void a(msg: string)</p>
 
@@ -886,7 +934,9 @@ Passing null uses the native type of the MediaObject. If that is not supported b
 
 <p>Get a MediaObject that will be automatically converted for playback on other devices.</p>
 <h2 id='messagingendpoint'>MessagingEndpoint</h2><h2 id='settings'>Settings</h2>
-<p>Settings viewing and editing of device configurations that describe or modify behavior.</p>
+<aside class="notice">
+Settings viewing and editing of device configurations that describe or modify behavior.
+</aside>
 <h3 id='getboolean'>getBoolean</h3>
 <p>boolean getBoolean(key: string)</p>
 <h3 id='getboolean-2'>getBoolean</h3>
@@ -916,7 +966,9 @@ Passing null uses the native type of the MediaObject. If that is not supported b
 <h3 id='putstring'>putString</h3>
 <p>void putString(key: string, value: string)</p>
 <h2 id='oauthclient'>OauthClient</h2>
-<p>The OauthClient can be implemented to perform the browser based Oauth process from within a plugin.</p>
+<aside class="notice">
+The OauthClient can be implemented to perform the browser based Oauth process from within a plugin.
+</aside>
 <h3 id='getoauthurl'>getOauthUrl</h3>
 <p>string getOauthUrl()</p>
 
@@ -952,7 +1004,9 @@ Passing null uses the native type of the MediaObject. If that is not supported b
 <span class="p">});</span>
 </code></pre>
 
-<p>DeviceManager is the interface which plugins use to report devices and device events to Scrypted. It is also used to query Scrypted for other devices.</p>
+<aside class="notice">
+DeviceManager is the interface which plugins use to report devices and device events to Scrypted. It is also used to query Scrypted for other devices.
+</aside>
 <h3 id='getdevicebyid'>getDeviceById</h3>
 <p>ScryptedInterface getDeviceById(id: number)</p>
 
@@ -987,7 +1041,9 @@ Passing null uses the native type of the MediaObject. If that is not supported b
 <span class="p">}</span>
 </code></pre>
 
-<p>Device provides information about a device that is handled by a DeviceProvider.</p>
+<aside class="notice">
+Device objects are created by DeviceProviders when new devices are discover and synced to Scrypted via the DeviceManager.
+</aside>
 <h3 id='properties-4'>Properties</h3>
 <table><thead>
 <tr>
@@ -1111,6 +1167,10 @@ Passing null uses the native type of the MediaObject. If that is not supported b
     <span class="p">]</span>
 <span class="p">}</span>
 </code></pre>
+
+<aside class="notice">
+DeviceManifest is passed to DeviceManager.onDevicesChanged to sync a full list of devices from the controller/hub (Hue, SmartThings, etc)
+</aside>
 <h3 id='properties-5'>Properties</h3>
 <table><thead>
 <tr>
@@ -1182,7 +1242,9 @@ Passing null uses the native type of the MediaObject. If that is not supported b
 <span class="kr">export</span> <span class="k">default</span> <span class="k">new</span> <span class="nx">Device</span><span class="p">();</span>
 </code></pre>
 
-<p>DeviceProvider acts as a controller/hub and exposes multiple devices to Scrypted Device Manager.</p>
+<aside class="notice">
+DeviceProvider acts as a controller/hub and exposes multiple devices to Scrypted Device Manager.
+</aside>
 <h3 id='discoverdevices'>discoverDevices</h3>
 <p>void discoverDevices(duration: number)</p>
 
@@ -1210,7 +1272,9 @@ Passing null uses the native type of the MediaObject. If that is not supported b
 <span class="kr">export</span> <span class="k">default</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">HttpHandler</span><span class="p">();</span>
 </code></pre>
 
-<p>The HttpRequestHandler allows handling of web requests under the endpoint path: /endpoint/<endpoint>/*.</p>
+<aside class="notice">
+The HttpRequestHandler allows handling of web requests under the endpoint path: /endpoint/<endpoint>/*.
+</aside>
 <h3 id='getendpoint'>getEndpoint</h3>
 <p>string getEndpoint()</p>
 
@@ -1248,7 +1312,9 @@ Passing null uses the native type of the MediaObject. If that is not supported b
 </tr>
 </tbody></table>
 <h2 id='httpresponse'>HttpResponse</h2>
-<p>Response object provided by the HttpRequestHandler.</p>
+<aside class="notice">
+Response object provided by the HttpRequestHandler.
+</aside>
 <h3 id='send'>send</h3>
 <p>void send(options: <a href='#httpresponseoptions'>HttpResponseOptions</a>, body: string)</p>
 <h3 id='send-2'>send</h3>
@@ -1283,7 +1349,9 @@ Passing null uses the native type of the MediaObject. If that is not supported b
 <span class="p">});</span>
 </code></pre>
 
-<p>EventEmitter is implemented by most devices. Add listeners to subscribe to events from that device.</p>
+<aside class="notice">
+EventEmitter is implemented by most devices. Add listeners to subscribe to events from that device.
+</aside>
 <h3 id='on'>on</h3>
 <p><a href='#eventlistenerregister'>EventListenerRegister</a> on(event: string, callback: function)</p>
 
