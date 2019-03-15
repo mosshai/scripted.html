@@ -94,6 +94,16 @@ interface {{ name }} {% if c.superclass.length %}implements {{ mapSupers(c.super
 ```
 {% endif %}
 
+{%- if c.values.length %}
+```javascript
+enum {{ name }} {
+{%- for value in c.values %}
+  {{ value }} = "{{ value }}",
+{%- endfor %}
+}
+```
+{% endif %}
+
 {% if c.fields.length %}
 > Definition
 

@@ -915,6 +915,13 @@ Get the user facing unit of measurement for this thermometer. This may be Fahren
 <%= partial "includes/scrypted/TemperatureUnit.md.erb" %>
 
 
+```javascript
+enum TemperatureUnit {
+  C = "C",
+  F = "F",
+}
+```
+
 
 
 
@@ -971,6 +978,21 @@ number getHumidityAmbient()
 
 <%= partial "includes/scrypted/ThermostatMode.md.erb" %>
 
+
+```javascript
+enum ThermostatMode {
+  Off = "Off",
+  Cool = "Cool",
+  Heat = "Heat",
+  HeatCool = "HeatCool",
+  Auto = "Auto",
+  FanOnly = "FanOnly",
+  Purifier = "Purifier",
+  Eco = "Eco",
+  Dry = "Dry",
+  On = "On",
+}
+```
 
 
 
@@ -1394,6 +1416,18 @@ boolean isEnabled(day: number)
 
 <%= partial "includes/scrypted/ClockType.md.erb" %>
 
+
+```javascript
+enum ClockType {
+  _AM = "_AM",
+  _PM = "_PM",
+  _24HourClock = "_24HourClock",
+  _BeforeSunrise = "_BeforeSunrise",
+  _AfterSunrise = "_AfterSunrise",
+  _BeforeSunset = "_BeforeSunset",
+  _AfterSunset = "_AfterSunset",
+}
+```
 
 
 
@@ -2121,6 +2155,31 @@ type | <a href='#scryptedthingtype'>ScryptedThingType</a>
 
 <%= partial "includes/scrypted/ScryptedThingType.md.erb" %>
 
+
+```javascript
+enum ScryptedThingType {
+  Camera = "Camera",
+  Fan = "Fan",
+  Light = "Light",
+  Switch = "Switch",
+  Outlet = "Outlet",
+  Sensor = "Sensor",
+  Scene = "Scene",
+  Program = "Program",
+  Automation = "Automation",
+  Vacuum = "Vacuum",
+  Notifier = "Notifier",
+  Thermostat = "Thermostat",
+  Lock = "Lock",
+  PasswordControl = "PasswordControl",
+  Display = "Display",
+  Speaker = "Speaker",
+  Event = "Event",
+  Entry = "Entry",
+  DeviceProvider = "DeviceProvider",
+  Unknown = "Unknown",
+}
+```
 
 
 

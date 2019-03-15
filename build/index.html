@@ -849,7 +849,11 @@ TemperatureSetting represents a thermostat device.
 <p><a href='#temperatureunit'>TemperatureUnit</a> getTemperatureUnit()</p>
 
 <p>Get the user facing unit of measurement for this thermometer. This may be Fahrenheit, but getTemperatureAmbient will return results in Celsius.</p>
-<h2 id='temperatureunit'>TemperatureUnit</h2>
+<h2 id='temperatureunit'>TemperatureUnit</h2><pre class="highlight javascript tab-javascript"><code><span class="kr">enum</span> <span class="nx">TemperatureUnit</span> <span class="p">{</span>
+  <span class="nx">C</span> <span class="o">=</span> <span class="s2">"C"</span><span class="p">,</span>
+  <span class="nx">F</span> <span class="o">=</span> <span class="s2">"F"</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre>
 <table><thead>
 <tr>
 <th>Enum</th>
@@ -871,7 +875,19 @@ TemperatureSetting represents a thermostat device.
 <span class="p">}</span>
 </code></pre><h3 id='gethumidityambient'>getHumidityAmbient</h3>
 <p>number getHumidityAmbient()</p>
-<h2 id='thermostatmode'>ThermostatMode</h2>
+<h2 id='thermostatmode'>ThermostatMode</h2><pre class="highlight javascript tab-javascript"><code><span class="kr">enum</span> <span class="nx">ThermostatMode</span> <span class="p">{</span>
+  <span class="nx">Off</span> <span class="o">=</span> <span class="s2">"Off"</span><span class="p">,</span>
+  <span class="nx">Cool</span> <span class="o">=</span> <span class="s2">"Cool"</span><span class="p">,</span>
+  <span class="nx">Heat</span> <span class="o">=</span> <span class="s2">"Heat"</span><span class="p">,</span>
+  <span class="nx">HeatCool</span> <span class="o">=</span> <span class="s2">"HeatCool"</span><span class="p">,</span>
+  <span class="nx">Auto</span> <span class="o">=</span> <span class="s2">"Auto"</span><span class="p">,</span>
+  <span class="nx">FanOnly</span> <span class="o">=</span> <span class="s2">"FanOnly"</span><span class="p">,</span>
+  <span class="nx">Purifier</span> <span class="o">=</span> <span class="s2">"Purifier"</span><span class="p">,</span>
+  <span class="nx">Eco</span> <span class="o">=</span> <span class="s2">"Eco"</span><span class="p">,</span>
+  <span class="nx">Dry</span> <span class="o">=</span> <span class="s2">"Dry"</span><span class="p">,</span>
+  <span class="nx">On</span> <span class="o">=</span> <span class="s2">"On"</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre>
 <table><thead>
 <tr>
 <th>Enum</th>
@@ -1044,7 +1060,16 @@ Event data from the Scheduler component.
 <p>number getMinute()</p>
 <h3 id='isenabled'>isEnabled</h3>
 <p>boolean isEnabled(day: number)</p>
-<h2 id='clocktype'>ClockType</h2>
+<h2 id='clocktype'>ClockType</h2><pre class="highlight javascript tab-javascript"><code><span class="kr">enum</span> <span class="nx">ClockType</span> <span class="p">{</span>
+  <span class="nx">_AM</span> <span class="o">=</span> <span class="s2">"_AM"</span><span class="p">,</span>
+  <span class="nx">_PM</span> <span class="o">=</span> <span class="s2">"_PM"</span><span class="p">,</span>
+  <span class="nx">_24HourClock</span> <span class="o">=</span> <span class="s2">"_24HourClock"</span><span class="p">,</span>
+  <span class="nx">_BeforeSunrise</span> <span class="o">=</span> <span class="s2">"_BeforeSunrise"</span><span class="p">,</span>
+  <span class="nx">_AfterSunrise</span> <span class="o">=</span> <span class="s2">"_AfterSunrise"</span><span class="p">,</span>
+  <span class="nx">_BeforeSunset</span> <span class="o">=</span> <span class="s2">"_BeforeSunset"</span><span class="p">,</span>
+  <span class="nx">_AfterSunset</span> <span class="o">=</span> <span class="s2">"_AfterSunset"</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre>
 <table><thead>
 <tr>
 <th>Enum</th>
@@ -1448,7 +1473,29 @@ Device objects are created by DeviceProviders when new devices are discover and 
 <td><a href='#scryptedthingtype'>ScryptedThingType</a></td>
 </tr>
 </tbody></table>
-<h2 id='scryptedthingtype'>ScryptedThingType</h2>
+<h2 id='scryptedthingtype'>ScryptedThingType</h2><pre class="highlight javascript tab-javascript"><code><span class="kr">enum</span> <span class="nx">ScryptedThingType</span> <span class="p">{</span>
+  <span class="nx">Camera</span> <span class="o">=</span> <span class="s2">"Camera"</span><span class="p">,</span>
+  <span class="nx">Fan</span> <span class="o">=</span> <span class="s2">"Fan"</span><span class="p">,</span>
+  <span class="nx">Light</span> <span class="o">=</span> <span class="s2">"Light"</span><span class="p">,</span>
+  <span class="nx">Switch</span> <span class="o">=</span> <span class="s2">"Switch"</span><span class="p">,</span>
+  <span class="nx">Outlet</span> <span class="o">=</span> <span class="s2">"Outlet"</span><span class="p">,</span>
+  <span class="nx">Sensor</span> <span class="o">=</span> <span class="s2">"Sensor"</span><span class="p">,</span>
+  <span class="nx">Scene</span> <span class="o">=</span> <span class="s2">"Scene"</span><span class="p">,</span>
+  <span class="nx">Program</span> <span class="o">=</span> <span class="s2">"Program"</span><span class="p">,</span>
+  <span class="nx">Automation</span> <span class="o">=</span> <span class="s2">"Automation"</span><span class="p">,</span>
+  <span class="nx">Vacuum</span> <span class="o">=</span> <span class="s2">"Vacuum"</span><span class="p">,</span>
+  <span class="nx">Notifier</span> <span class="o">=</span> <span class="s2">"Notifier"</span><span class="p">,</span>
+  <span class="nx">Thermostat</span> <span class="o">=</span> <span class="s2">"Thermostat"</span><span class="p">,</span>
+  <span class="nx">Lock</span> <span class="o">=</span> <span class="s2">"Lock"</span><span class="p">,</span>
+  <span class="nx">PasswordControl</span> <span class="o">=</span> <span class="s2">"PasswordControl"</span><span class="p">,</span>
+  <span class="nx">Display</span> <span class="o">=</span> <span class="s2">"Display"</span><span class="p">,</span>
+  <span class="nx">Speaker</span> <span class="o">=</span> <span class="s2">"Speaker"</span><span class="p">,</span>
+  <span class="nx">Event</span> <span class="o">=</span> <span class="s2">"Event"</span><span class="p">,</span>
+  <span class="nx">Entry</span> <span class="o">=</span> <span class="s2">"Entry"</span><span class="p">,</span>
+  <span class="nx">DeviceProvider</span> <span class="o">=</span> <span class="s2">"DeviceProvider"</span><span class="p">,</span>
+  <span class="nx">Unknown</span> <span class="o">=</span> <span class="s2">"Unknown"</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre>
 <table><thead>
 <tr>
 <th>Enum</th>
