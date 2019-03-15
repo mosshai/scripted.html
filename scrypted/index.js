@@ -11,13 +11,22 @@ for (var iface in json) {
     }
 }
 
+function linkifyType(type) {
+    if (!json[type]) {
+        return type;
+    }
+
+    return `<a href='#${type.toLowerCase()}'>${type}</a>`;
+}
+
 const nunjucks = require('nunjucks');
 nunjucks.configure({ autoescape: false });
 var output = nunjucks.renderString(template, {
     classes: json,
     methodArguments: function(args) {
-        return args.map(arg => `${arg.name}: ${arg.type}`);
-    }
+        return args.map(arg => `${arg.name}: ${linkifyType(arg.type)}`);
+    },
+    linkifyType,
 });
 
 fs.writeFileSync('../source/index.html.md.erb', output);

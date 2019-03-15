@@ -1,0 +1,2053 @@
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Scrypted API Reference</title>
+
+    <style>
+      .highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight .gh {
+  color: #999999;
+}
+.highlight .sr {
+  color: #f6aa11;
+}
+.highlight .go {
+  color: #888888;
+}
+.highlight .gp {
+  color: #555555;
+}
+.highlight .gs {
+}
+.highlight .gu {
+  color: #aaaaaa;
+}
+.highlight .nb {
+  color: #f6aa11;
+}
+.highlight .cm {
+  color: #75715e;
+}
+.highlight .cp {
+  color: #75715e;
+}
+.highlight .c1 {
+  color: #75715e;
+}
+.highlight .cs {
+  color: #75715e;
+}
+.highlight .c, .highlight .cd {
+  color: #75715e;
+}
+.highlight .err {
+  color: #960050;
+}
+.highlight .gr {
+  color: #960050;
+}
+.highlight .gt {
+  color: #960050;
+}
+.highlight .gd {
+  color: #49483e;
+}
+.highlight .gi {
+  color: #49483e;
+}
+.highlight .ge {
+  color: #49483e;
+}
+.highlight .kc {
+  color: #66d9ef;
+}
+.highlight .kd {
+  color: #66d9ef;
+}
+.highlight .kr {
+  color: #66d9ef;
+}
+.highlight .no {
+  color: #66d9ef;
+}
+.highlight .kt {
+  color: #66d9ef;
+}
+.highlight .mf {
+  color: #ae81ff;
+}
+.highlight .mh {
+  color: #ae81ff;
+}
+.highlight .il {
+  color: #ae81ff;
+}
+.highlight .mi {
+  color: #ae81ff;
+}
+.highlight .mo {
+  color: #ae81ff;
+}
+.highlight .m, .highlight .mb, .highlight .mx {
+  color: #ae81ff;
+}
+.highlight .sc {
+  color: #ae81ff;
+}
+.highlight .se {
+  color: #ae81ff;
+}
+.highlight .ss {
+  color: #ae81ff;
+}
+.highlight .sd {
+  color: #e6db74;
+}
+.highlight .s2 {
+  color: #e6db74;
+}
+.highlight .sb {
+  color: #e6db74;
+}
+.highlight .sh {
+  color: #e6db74;
+}
+.highlight .si {
+  color: #e6db74;
+}
+.highlight .sx {
+  color: #e6db74;
+}
+.highlight .s1 {
+  color: #e6db74;
+}
+.highlight .s {
+  color: #e6db74;
+}
+.highlight .na {
+  color: #a6e22e;
+}
+.highlight .nc {
+  color: #a6e22e;
+}
+.highlight .nd {
+  color: #a6e22e;
+}
+.highlight .ne {
+  color: #a6e22e;
+}
+.highlight .nf {
+  color: #a6e22e;
+}
+.highlight .vc {
+  color: #ffffff;
+}
+.highlight .nn {
+  color: #ffffff;
+}
+.highlight .nl {
+  color: #ffffff;
+}
+.highlight .ni {
+  color: #ffffff;
+}
+.highlight .bp {
+  color: #ffffff;
+}
+.highlight .vg {
+  color: #ffffff;
+}
+.highlight .vi {
+  color: #ffffff;
+}
+.highlight .nv {
+  color: #ffffff;
+}
+.highlight .w {
+  color: #ffffff;
+}
+.highlight {
+  color: #ffffff;
+}
+.highlight .n, .highlight .py, .highlight .nx {
+  color: #ffffff;
+}
+.highlight .ow {
+  color: #f92672;
+}
+.highlight .nt {
+  color: #f92672;
+}
+.highlight .k, .highlight .kv {
+  color: #f92672;
+}
+.highlight .kn {
+  color: #f92672;
+}
+.highlight .kp {
+  color: #f92672;
+}
+.highlight .o {
+  color: #f92672;
+}
+    </style>
+    <link href="stylesheets/screen.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/print.css" rel="stylesheet" media="print" />
+      <script src="javascripts/all.js"></script>
+  </head>
+
+  <body class="index" data-languages="[&quot;javascript&quot;,&quot;typescript&quot;]">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="images/navbar.png" alt="Navbar" />
+      </span>
+    </a>
+    <div class="toc-wrapper">
+      <img src="images/logo.png" class="logo" alt="Logo" />
+        <div class="lang-selector">
+              <a href="#" data-language-name="javascript">javascript</a>
+              <a href="#" data-language-name="typescript">typescript</a>
+        </div>
+        <div class="search">
+          <input type="text" class="search" id="input-search" placeholder="Search">
+        </div>
+        <ul class="search-results"></ul>
+      <ul id="toc" class="toc-list-h1">
+          <li>
+            <a href="#types" class="toc-h1 toc-link" data-title="Types">Types</a>
+          </li>
+          <li>
+            <a href="#colorsettingrgb" class="toc-h1 toc-link" data-title="ColorSettingRgb">ColorSettingRgb</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#getrgb" class="toc-h2 toc-link" data-title="getRgb">getRgb</a>
+                  </li>
+                  <li>
+                    <a href="#setrgb" class="toc-h2 toc-link" data-title="setRgb">setRgb</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#colorrgb" class="toc-h1 toc-link" data-title="ColorRgb">ColorRgb</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#tostring" class="toc-h2 toc-link" data-title="toString">toString</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#humiditysensor" class="toc-h1 toc-link" data-title="HumiditySensor">HumiditySensor</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#gethumidityambient" class="toc-h2 toc-link" data-title="getHumidityAmbient">getHumidityAmbient</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#mediaplayer" class="toc-h1 toc-link" data-title="MediaPlayer">MediaPlayer</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#load" class="toc-h2 toc-link" data-title="load">load</a>
+                  </li>
+                  <li>
+                    <a href="#load-2" class="toc-h2 toc-link" data-title="load">load</a>
+                  </li>
+                  <li>
+                    <a href="#pause" class="toc-h2 toc-link" data-title="pause">pause</a>
+                  </li>
+                  <li>
+                    <a href="#play" class="toc-h2 toc-link" data-title="play">play</a>
+                  </li>
+                  <li>
+                    <a href="#stop" class="toc-h2 toc-link" data-title="stop">stop</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#mediaobject" class="toc-h1 toc-link" data-title="MediaObject">MediaObject</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#getmimetype" class="toc-h2 toc-link" data-title="getMimeType">getMimeType</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#cancellable" class="toc-h1 toc-link" data-title="Cancellable">Cancellable</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#cancel" class="toc-h2 toc-link" data-title="cancel">cancel</a>
+                  </li>
+                  <li>
+                    <a href="#iscancelled" class="toc-h2 toc-link" data-title="isCancelled">isCancelled</a>
+                  </li>
+                  <li>
+                    <a href="#isdone" class="toc-h2 toc-link" data-title="isDone">isDone</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#mediaplayeroptions" class="toc-h1 toc-link" data-title="MediaPlayerOptions">MediaPlayerOptions</a>
+          </li>
+          <li>
+            <a href="#facedetector" class="toc-h1 toc-link" data-title="FaceDetector">FaceDetector</a>
+          </li>
+          <li>
+            <a href="#eventlistener" class="toc-h1 toc-link" data-title="EventListener">EventListener</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#onevent" class="toc-h2 toc-link" data-title="onEvent">onEvent</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#lock" class="toc-h1 toc-link" data-title="Lock">Lock</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#islocked" class="toc-h2 toc-link" data-title="isLocked">isLocked</a>
+                  </li>
+                  <li>
+                    <a href="#lock-2" class="toc-h2 toc-link" data-title="lock">lock</a>
+                  </li>
+                  <li>
+                    <a href="#unlock" class="toc-h2 toc-link" data-title="unlock">unlock</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#intrusionsensor" class="toc-h1 toc-link" data-title="IntrusionSensor">IntrusionSensor</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#isintrusiondetected" class="toc-h2 toc-link" data-title="isIntrusionDetected">isIntrusionDetected</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#notifier" class="toc-h1 toc-link" data-title="Notifier">Notifier</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#sendnotification" class="toc-h2 toc-link" data-title="sendNotification">sendNotification</a>
+                  </li>
+                  <li>
+                    <a href="#sendnotification-2" class="toc-h2 toc-link" data-title="sendNotification">sendNotification</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#binarysensor" class="toc-h1 toc-link" data-title="BinarySensor">BinarySensor</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#getbinarystate" class="toc-h2 toc-link" data-title="getBinaryState">getBinaryState</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#oauthclient" class="toc-h1 toc-link" data-title="OauthClient">OauthClient</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#getoauthurl" class="toc-h2 toc-link" data-title="getOauthUrl">getOauthUrl</a>
+                  </li>
+                  <li>
+                    <a href="#onoauthcallback" class="toc-h2 toc-link" data-title="onOauthCallback">onOauthCallback</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#thermometer" class="toc-h1 toc-link" data-title="Thermometer">Thermometer</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#gettemperatureambient" class="toc-h2 toc-link" data-title="getTemperatureAmbient">getTemperatureAmbient</a>
+                  </li>
+                  <li>
+                    <a href="#gettemperatureunit" class="toc-h2 toc-link" data-title="getTemperatureUnit">getTemperatureUnit</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#temperatureunit" class="toc-h1 toc-link" data-title="TemperatureUnit">TemperatureUnit</a>
+          </li>
+          <li>
+            <a href="#passwordcontrol" class="toc-h1 toc-link" data-title="PasswordControl">PasswordControl</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#addpassword" class="toc-h2 toc-link" data-title="addPassword">addPassword</a>
+                  </li>
+                  <li>
+                    <a href="#getpasswords" class="toc-h2 toc-link" data-title="getPasswords">getPasswords</a>
+                  </li>
+                  <li>
+                    <a href="#removepassword" class="toc-h2 toc-link" data-title="removePassword">removePassword</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#temperaturesetting" class="toc-h1 toc-link" data-title="TemperatureSetting">TemperatureSetting</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#getavailablethermostatmodes" class="toc-h2 toc-link" data-title="getAvailableThermostatModes">getAvailableThermostatModes</a>
+                  </li>
+                  <li>
+                    <a href="#gettemperaturesetpoint" class="toc-h2 toc-link" data-title="getTemperatureSetpoint">getTemperatureSetpoint</a>
+                  </li>
+                  <li>
+                    <a href="#gettemperaturesetpointhigh" class="toc-h2 toc-link" data-title="getTemperatureSetpointHigh">getTemperatureSetpointHigh</a>
+                  </li>
+                  <li>
+                    <a href="#gettemperaturesetpointlow" class="toc-h2 toc-link" data-title="getTemperatureSetpointLow">getTemperatureSetpointLow</a>
+                  </li>
+                  <li>
+                    <a href="#getthermostatmode" class="toc-h2 toc-link" data-title="getThermostatMode">getThermostatMode</a>
+                  </li>
+                  <li>
+                    <a href="#settemperaturesetrange" class="toc-h2 toc-link" data-title="setTemperatureSetRange">setTemperatureSetRange</a>
+                  </li>
+                  <li>
+                    <a href="#settemperaturesetpoint" class="toc-h2 toc-link" data-title="setTemperatureSetpoint">setTemperatureSetpoint</a>
+                  </li>
+                  <li>
+                    <a href="#setthermostatmode" class="toc-h2 toc-link" data-title="setThermostatMode">setThermostatMode</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#thermostatmode" class="toc-h1 toc-link" data-title="ThermostatMode">ThermostatMode</a>
+          </li>
+          <li>
+            <a href="#brightness" class="toc-h1 toc-link" data-title="Brightness">Brightness</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#getlevel" class="toc-h2 toc-link" data-title="getLevel">getLevel</a>
+                  </li>
+                  <li>
+                    <a href="#setlevel" class="toc-h2 toc-link" data-title="setLevel">setLevel</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#colorsettingtemperature" class="toc-h1 toc-link" data-title="ColorSettingTemperature">ColorSettingTemperature</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#gettemperature" class="toc-h2 toc-link" data-title="getTemperature">getTemperature</a>
+                  </li>
+                  <li>
+                    <a href="#gettemperaturemaxk" class="toc-h2 toc-link" data-title="getTemperatureMaxK">getTemperatureMaxK</a>
+                  </li>
+                  <li>
+                    <a href="#gettemperaturemink" class="toc-h2 toc-link" data-title="getTemperatureMinK">getTemperatureMinK</a>
+                  </li>
+                  <li>
+                    <a href="#settemperature" class="toc-h2 toc-link" data-title="setTemperature">setTemperature</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#httprequesthandler" class="toc-h1 toc-link" data-title="HttpRequestHandler">HttpRequestHandler</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#getendpoint" class="toc-h2 toc-link" data-title="getEndpoint">getEndpoint</a>
+                  </li>
+                  <li>
+                    <a href="#onrequest" class="toc-h2 toc-link" data-title="onRequest">onRequest</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#httprequest" class="toc-h1 toc-link" data-title="HttpRequest">HttpRequest</a>
+          </li>
+          <li>
+            <a href="#httpresponse" class="toc-h1 toc-link" data-title="HttpResponse">HttpResponse</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#send" class="toc-h2 toc-link" data-title="send">send</a>
+                  </li>
+                  <li>
+                    <a href="#send-2" class="toc-h2 toc-link" data-title="send">send</a>
+                  </li>
+                  <li>
+                    <a href="#send-3" class="toc-h2 toc-link" data-title="send">send</a>
+                  </li>
+                  <li>
+                    <a href="#send-4" class="toc-h2 toc-link" data-title="send">send</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#httpresponseoptions" class="toc-h1 toc-link" data-title="HttpResponseOptions">HttpResponseOptions</a>
+          </li>
+          <li>
+            <a href="#online" class="toc-h1 toc-link" data-title="Online">Online</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#isonline" class="toc-h2 toc-link" data-title="isOnline">isOnline</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#scene" class="toc-h1 toc-link" data-title="Scene">Scene</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#activate" class="toc-h2 toc-link" data-title="activate">activate</a>
+                  </li>
+                  <li>
+                    <a href="#deactivate" class="toc-h2 toc-link" data-title="deactivate">deactivate</a>
+                  </li>
+                  <li>
+                    <a href="#isreversible" class="toc-h2 toc-link" data-title="isReversible">isReversible</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#luminancesensor" class="toc-h1 toc-link" data-title="LuminanceSensor">LuminanceSensor</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#getluminance" class="toc-h2 toc-link" data-title="getLuminance">getLuminance</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#mediasource" class="toc-h1 toc-link" data-title="MediaSource">MediaSource</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#getmedia" class="toc-h2 toc-link" data-title="getMedia">getMedia</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#eventemitter" class="toc-h1 toc-link" data-title="EventEmitter">EventEmitter</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#on" class="toc-h2 toc-link" data-title="on">on</a>
+                  </li>
+                  <li>
+                    <a href="#watch" class="toc-h2 toc-link" data-title="watch">watch</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#eventlistenerregister" class="toc-h1 toc-link" data-title="EventListenerRegister">EventListenerRegister</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#getlistener" class="toc-h2 toc-link" data-title="getListener">getListener</a>
+                  </li>
+                  <li>
+                    <a href="#removelistener" class="toc-h2 toc-link" data-title="removeListener">removeListener</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#camerastream" class="toc-h1 toc-link" data-title="CameraStream">CameraStream</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#createvideocapturer" class="toc-h2 toc-link" data-title="createVideoCapturer">createVideoCapturer</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#ultravioletsensor" class="toc-h1 toc-link" data-title="UltravioletSensor">UltravioletSensor</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#getultraviolet" class="toc-h2 toc-link" data-title="getUltraviolet">getUltraviolet</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#devicemanager" class="toc-h1 toc-link" data-title="DeviceManager">DeviceManager</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#getdevicebyid" class="toc-h2 toc-link" data-title="getDeviceById">getDeviceById</a>
+                  </li>
+                  <li>
+                    <a href="#getdevicebyname" class="toc-h2 toc-link" data-title="getDeviceByName">getDeviceByName</a>
+                  </li>
+                  <li>
+                    <a href="#ondevicediscovered" class="toc-h2 toc-link" data-title="onDeviceDiscovered">onDeviceDiscovered</a>
+                  </li>
+                  <li>
+                    <a href="#ondeviceevent" class="toc-h2 toc-link" data-title="onDeviceEvent">onDeviceEvent</a>
+                  </li>
+                  <li>
+                    <a href="#ondeviceevent-2" class="toc-h2 toc-link" data-title="onDeviceEvent">onDeviceEvent</a>
+                  </li>
+                  <li>
+                    <a href="#ondeviceschanged" class="toc-h2 toc-link" data-title="onDevicesChanged">onDevicesChanged</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#alarm" class="toc-h1 toc-link" data-title="Alarm">Alarm</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#getclocktype" class="toc-h2 toc-link" data-title="getClockType">getClockType</a>
+                  </li>
+                  <li>
+                    <a href="#gethour" class="toc-h2 toc-link" data-title="getHour">getHour</a>
+                  </li>
+                  <li>
+                    <a href="#getminute" class="toc-h2 toc-link" data-title="getMinute">getMinute</a>
+                  </li>
+                  <li>
+                    <a href="#isenabled" class="toc-h2 toc-link" data-title="isEnabled">isEnabled</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#clocktype" class="toc-h1 toc-link" data-title="ClockType">ClockType</a>
+          </li>
+          <li>
+            <a href="#floodsensor" class="toc-h1 toc-link" data-title="FloodSensor">FloodSensor</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#isflooded" class="toc-h2 toc-link" data-title="isFlooded">isFlooded</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#program" class="toc-h1 toc-link" data-title="Program">Program</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#run" class="toc-h2 toc-link" data-title="run">run</a>
+                  </li>
+                  <li>
+                    <a href="#runasync" class="toc-h2 toc-link" data-title="runAsync">runAsync</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#dock" class="toc-h1 toc-link" data-title="Dock">Dock</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#dock-2" class="toc-h2 toc-link" data-title="dock">dock</a>
+                  </li>
+                  <li>
+                    <a href="#isdocked" class="toc-h2 toc-link" data-title="isDocked">isDocked</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#entryhandlesensor" class="toc-h1 toc-link" data-title="EntryHandleSensor">EntryHandleSensor</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#isdooropen" class="toc-h2 toc-link" data-title="isDoorOpen">isDoorOpen</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#battery" class="toc-h1 toc-link" data-title="Battery">Battery</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#getbatterylevel" class="toc-h2 toc-link" data-title="getBatteryLevel">getBatteryLevel</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#colorsettinghsv" class="toc-h1 toc-link" data-title="ColorSettingHsv">ColorSettingHsv</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#gethsv" class="toc-h2 toc-link" data-title="getHsv">getHsv</a>
+                  </li>
+                  <li>
+                    <a href="#sethsv" class="toc-h2 toc-link" data-title="setHsv">setHsv</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#colorhsv" class="toc-h1 toc-link" data-title="ColorHsv">ColorHsv</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#tostring-2" class="toc-h2 toc-link" data-title="toString">toString</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#deviceprovider" class="toc-h1 toc-link" data-title="DeviceProvider">DeviceProvider</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#discoverdevices" class="toc-h2 toc-link" data-title="discoverDevices">discoverDevices</a>
+                  </li>
+                  <li>
+                    <a href="#getdevice" class="toc-h2 toc-link" data-title="getDevice">getDevice</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#startstop" class="toc-h1 toc-link" data-title="StartStop">StartStop</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#ispausable" class="toc-h2 toc-link" data-title="isPausable">isPausable</a>
+                  </li>
+                  <li>
+                    <a href="#ispaused" class="toc-h2 toc-link" data-title="isPaused">isPaused</a>
+                  </li>
+                  <li>
+                    <a href="#isrunning" class="toc-h2 toc-link" data-title="isRunning">isRunning</a>
+                  </li>
+                  <li>
+                    <a href="#pause-2" class="toc-h2 toc-link" data-title="pause">pause</a>
+                  </li>
+                  <li>
+                    <a href="#resume" class="toc-h2 toc-link" data-title="resume">resume</a>
+                  </li>
+                  <li>
+                    <a href="#start" class="toc-h2 toc-link" data-title="start">start</a>
+                  </li>
+                  <li>
+                    <a href="#stop-2" class="toc-h2 toc-link" data-title="stop">stop</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#messagingendpoint" class="toc-h1 toc-link" data-title="MessagingEndpoint">MessagingEndpoint</a>
+          </li>
+          <li>
+            <a href="#settings" class="toc-h1 toc-link" data-title="Settings">Settings</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#getboolean" class="toc-h2 toc-link" data-title="getBoolean">getBoolean</a>
+                  </li>
+                  <li>
+                    <a href="#getboolean-2" class="toc-h2 toc-link" data-title="getBoolean">getBoolean</a>
+                  </li>
+                  <li>
+                    <a href="#getconfigurationvaluelist" class="toc-h2 toc-link" data-title="getConfigurationValueList">getConfigurationValueList</a>
+                  </li>
+                  <li>
+                    <a href="#getdouble" class="toc-h2 toc-link" data-title="getDouble">getDouble</a>
+                  </li>
+                  <li>
+                    <a href="#getfloat" class="toc-h2 toc-link" data-title="getFloat">getFloat</a>
+                  </li>
+                  <li>
+                    <a href="#getint" class="toc-h2 toc-link" data-title="getInt">getInt</a>
+                  </li>
+                  <li>
+                    <a href="#getkeydescription" class="toc-h2 toc-link" data-title="getKeyDescription">getKeyDescription</a>
+                  </li>
+                  <li>
+                    <a href="#getkeys" class="toc-h2 toc-link" data-title="getKeys">getKeys</a>
+                  </li>
+                  <li>
+                    <a href="#getstring" class="toc-h2 toc-link" data-title="getString">getString</a>
+                  </li>
+                  <li>
+                    <a href="#putboolean" class="toc-h2 toc-link" data-title="putBoolean">putBoolean</a>
+                  </li>
+                  <li>
+                    <a href="#putdouble" class="toc-h2 toc-link" data-title="putDouble">putDouble</a>
+                  </li>
+                  <li>
+                    <a href="#putfloat" class="toc-h2 toc-link" data-title="putFloat">putFloat</a>
+                  </li>
+                  <li>
+                    <a href="#putint" class="toc-h2 toc-link" data-title="putInt">putInt</a>
+                  </li>
+                  <li>
+                    <a href="#putstring" class="toc-h2 toc-link" data-title="putString">putString</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#logger" class="toc-h1 toc-link" data-title="Logger">Logger</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#a" class="toc-h2 toc-link" data-title="a">a</a>
+                  </li>
+                  <li>
+                    <a href="#clear" class="toc-h2 toc-link" data-title="clear">clear</a>
+                  </li>
+                  <li>
+                    <a href="#clearalert" class="toc-h2 toc-link" data-title="clearAlert">clearAlert</a>
+                  </li>
+                  <li>
+                    <a href="#clearalerts" class="toc-h2 toc-link" data-title="clearAlerts">clearAlerts</a>
+                  </li>
+                  <li>
+                    <a href="#d" class="toc-h2 toc-link" data-title="d">d</a>
+                  </li>
+                  <li>
+                    <a href="#e" class="toc-h2 toc-link" data-title="e">e</a>
+                  </li>
+                  <li>
+                    <a href="#i" class="toc-h2 toc-link" data-title="i">i</a>
+                  </li>
+                  <li>
+                    <a href="#v" class="toc-h2 toc-link" data-title="v">v</a>
+                  </li>
+                  <li>
+                    <a href="#w" class="toc-h2 toc-link" data-title="w">w</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#onoff" class="toc-h1 toc-link" data-title="OnOff">OnOff</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#ison" class="toc-h2 toc-link" data-title="isOn">isOn</a>
+                  </li>
+                  <li>
+                    <a href="#turnoff" class="toc-h2 toc-link" data-title="turnOff">turnOff</a>
+                  </li>
+                  <li>
+                    <a href="#turnon" class="toc-h2 toc-link" data-title="turnOn">turnOn</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#entry" class="toc-h1 toc-link" data-title="Entry">Entry</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#closeentry" class="toc-h2 toc-link" data-title="closeEntry">closeEntry</a>
+                  </li>
+                  <li>
+                    <a href="#isentryopen" class="toc-h2 toc-link" data-title="isEntryOpen">isEntryOpen</a>
+                  </li>
+                  <li>
+                    <a href="#openentry" class="toc-h2 toc-link" data-title="openEntry">openEntry</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#refresh" class="toc-h1 toc-link" data-title="Refresh">Refresh</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#getrefreshfrequency" class="toc-h2 toc-link" data-title="getRefreshFrequency">getRefreshFrequency</a>
+                  </li>
+                  <li>
+                    <a href="#refresh-2" class="toc-h2 toc-link" data-title="refresh">refresh</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#entrysensor" class="toc-h1 toc-link" data-title="EntrySensor">EntrySensor</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#isentryopen-2" class="toc-h2 toc-link" data-title="isEntryOpen">isEntryOpen</a>
+                  </li>
+              </ul>
+          </li>
+      </ul>
+    </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+        <h1 id='types'>Types</h1><h1 id='colorsettingrgb'>ColorSettingRgb</h1><h2 id='getrgb'>getRgb</h2>
+<p>ColorRgb getRgb()</p>
+<h2 id='setrgb'>setRgb</h2>
+<p>void setRgb([object Object], [object Object], [object Object])</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>r</td>
+<td><a href='#int'>int</a></td>
+</tr>
+<tr>
+<td>g</td>
+<td><a href='#int'>int</a></td>
+</tr>
+<tr>
+<td>b</td>
+<td><a href='#int'>int</a></td>
+</tr>
+</tbody></table>
+<h1 id='colorrgb'>ColorRgb</h1><h2 id='tostring'>toString</h2>
+<p>String toString()</p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>b</td>
+<td>int</td>
+</tr>
+<tr>
+<td>g</td>
+<td>int</td>
+</tr>
+<tr>
+<td>r</td>
+<td>int</td>
+</tr>
+</tbody></table>
+<h1 id='humiditysensor'>HumiditySensor</h1><h2 id='gethumidityambient'>getHumidityAmbient</h2>
+<p>double getHumidityAmbient()</p>
+<h1 id='mediaplayer'>MediaPlayer</h1><h2 id='load'>load</h2>
+<p>void load([object Object], [object Object])</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>media</td>
+<td><a href='#mediaobject'>MediaObject</a></td>
+</tr>
+<tr>
+<td>options</td>
+<td><a href='#mediaplayeroptions'>MediaPlayerOptions</a></td>
+</tr>
+</tbody></table>
+<h2 id='load-2'>load</h2>
+<p>void load([object Object], [object Object])</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>mediaUrl</td>
+<td><a href='#string'>String</a></td>
+</tr>
+<tr>
+<td>options</td>
+<td><a href='#mediaplayeroptions'>MediaPlayerOptions</a></td>
+</tr>
+</tbody></table>
+<h2 id='pause'>pause</h2>
+<p>void pause()</p>
+<h2 id='play'>play</h2>
+<p>void play()</p>
+<h2 id='stop'>stop</h2>
+<p>void stop()</p>
+<h1 id='mediaobject'>MediaObject</h1><h2 id='getmimetype'>getMimeType</h2>
+<p>String getMimeType()</p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>CANCELLED</td>
+<td>Cancellable</td>
+</tr>
+<tr>
+<td>COMPLETED</td>
+<td>Cancellable</td>
+</tr>
+</tbody></table>
+<h1 id='cancellable'>Cancellable</h1><h2 id='cancel'>cancel</h2>
+<p>boolean cancel()</p>
+<h2 id='iscancelled'>isCancelled</h2>
+<p>boolean isCancelled()</p>
+<h2 id='isdone'>isDone</h2>
+<p>boolean isDone()</p>
+<h1 id='mediaplayeroptions'>MediaPlayerOptions</h1>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>autoplay</td>
+<td>boolean</td>
+</tr>
+<tr>
+<td>mimeType</td>
+<td>String</td>
+</tr>
+</tbody></table>
+<h1 id='facedetector'>FaceDetector</h1><h1 id='eventlistener'>EventListener</h1><h2 id='onevent'>onEvent</h2>
+<p>void onEvent([object Object], [object Object], [object Object])</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>eventSource</td>
+<td><a href='#scryptedinterface'>ScryptedInterface</a></td>
+</tr>
+<tr>
+<td>eventInterface</td>
+<td><a href='#class'>Class</a></td>
+</tr>
+<tr>
+<td>eventData</td>
+<td><a href='#object'>Object</a></td>
+</tr>
+</tbody></table>
+
+<p>This device type can be registered to listen for events. The event source, event type (interface), and event data are all passed to the listener as arguments.</p>
+<h1 id='lock'>Lock</h1><h2 id='islocked'>isLocked</h2>
+<p>boolean isLocked()</p>
+<h2 id='lock-2'>lock</h2>
+<p>void lock()</p>
+<h2 id='unlock'>unlock</h2>
+<p>void unlock()</p>
+<h1 id='intrusionsensor'>IntrusionSensor</h1><h2 id='isintrusiondetected'>isIntrusionDetected</h2>
+<p>boolean isIntrusionDetected()</p>
+<h1 id='notifier'>Notifier</h1><h2 id='sendnotification'>sendNotification</h2>
+<p>void sendNotification([object Object], [object Object])</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>title</td>
+<td><a href='#string'>String</a></td>
+</tr>
+<tr>
+<td>body</td>
+<td><a href='#string'>String</a></td>
+</tr>
+</tbody></table>
+<h2 id='sendnotification-2'>sendNotification</h2>
+<p>void sendNotification([object Object], [object Object], [object Object], [object Object])</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>title</td>
+<td><a href='#string'>String</a></td>
+</tr>
+<tr>
+<td>body</td>
+<td><a href='#string'>String</a></td>
+</tr>
+<tr>
+<td>media</td>
+<td><a href='#mediaobject'>MediaObject</a></td>
+</tr>
+<tr>
+<td>mimeType</td>
+<td><a href='#string'>String</a></td>
+</tr>
+</tbody></table>
+
+<p>If a the media parameter is supplied, the mime type denotes how to send the media within notification. For example, specify &#39;image/*&#39; to send a video MediaObject as an image.
+Passing null uses the native type of the MediaObject. If that is not supported by the notifier, the media will be converted to a compatible type.</p>
+<h1 id='binarysensor'>BinarySensor</h1><h2 id='getbinarystate'>getBinaryState</h2>
+<p>boolean getBinaryState()</p>
+<h1 id='oauthclient'>OauthClient</h1>
+<p>The OauthClient can be implemented to perform the browser based Oauth process from within a plugin.</p>
+<h2 id='getoauthurl'>getOauthUrl</h2>
+<p>String getOauthUrl()</p>
+
+<p>Get the Oauth URL to navigate to in the browser. The redirect_uri parameter is not needed and will be automatically set by Scrypted.</p>
+<h2 id='onoauthcallback'>onOauthCallback</h2>
+<p>void onOauthCallback([object Object])</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>callbackUrl</td>
+<td><a href='#string'>String</a></td>
+</tr>
+</tbody></table>
+
+<p>When an oauth request by a plugin completes, the callback url, with the code/token, will be passed to this method.</p>
+<h1 id='thermometer'>Thermometer</h1><h2 id='gettemperatureambient'>getTemperatureAmbient</h2>
+<p>double getTemperatureAmbient()</p>
+
+<p>Get the ambient temperature in Celsius.</p>
+<h2 id='gettemperatureunit'>getTemperatureUnit</h2>
+<p>TemperatureUnit getTemperatureUnit()</p>
+
+<p>Get the user facing unit of measurement for this thermometer. This may be Fahrenheit, but getTemperatureAmbient will return results in Celsius.</p>
+<h1 id='temperatureunit'>TemperatureUnit</h1><h1 id='passwordcontrol'>PasswordControl</h1>
+<p>PasswordControl represents devices that authorize users via a passcode or pin code.</p>
+<h2 id='addpassword'>addPassword</h2>
+<p>void addPassword([object Object])</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>password</td>
+<td><a href='#string'>String</a></td>
+</tr>
+</tbody></table>
+<h2 id='getpasswords'>getPasswords</h2>
+<p>Set getPasswords()</p>
+<h2 id='removepassword'>removePassword</h2>
+<p>void removePassword([object Object])</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>password</td>
+<td><a href='#string'>String</a></td>
+</tr>
+</tbody></table>
+<h1 id='temperaturesetting'>TemperatureSetting</h1>
+<p>TemperatureSetting represents a thermostat device.</p>
+<h2 id='getavailablethermostatmodes'>getAvailableThermostatModes</h2>
+<p>ThermostatMode[] getAvailableThermostatModes()</p>
+<h2 id='gettemperaturesetpoint'>getTemperatureSetpoint</h2>
+<p>double getTemperatureSetpoint()</p>
+<h2 id='gettemperaturesetpointhigh'>getTemperatureSetpointHigh</h2>
+<p>double getTemperatureSetpointHigh()</p>
+<h2 id='gettemperaturesetpointlow'>getTemperatureSetpointLow</h2>
+<p>double getTemperatureSetpointLow()</p>
+<h2 id='getthermostatmode'>getThermostatMode</h2>
+<p>ThermostatMode getThermostatMode()</p>
+<h2 id='settemperaturesetrange'>setTemperatureSetRange</h2>
+<p>void setTemperatureSetRange([object Object], [object Object])</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>low</td>
+<td><a href='#double'>double</a></td>
+</tr>
+<tr>
+<td>high</td>
+<td><a href='#double'>double</a></td>
+</tr>
+</tbody></table>
+<h2 id='settemperaturesetpoint'>setTemperatureSetpoint</h2>
+<p>void setTemperatureSetpoint([object Object])</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>degrees</td>
+<td><a href='#double'>double</a></td>
+</tr>
+</tbody></table>
+<h2 id='setthermostatmode'>setThermostatMode</h2>
+<p>void setThermostatMode([object Object])</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>mode</td>
+<td><a href='#thermostatmode'>ThermostatMode</a></td>
+</tr>
+</tbody></table>
+<h1 id='thermostatmode'>ThermostatMode</h1><h1 id='brightness'>Brightness</h1>
+<p>Brightness is a lighting device that can be dimmed/lit between 0 to 100.</p>
+<h2 id='getlevel'>getLevel</h2>
+<p>int getLevel()</p>
+<h2 id='setlevel'>setLevel</h2>
+<p>void setLevel([object Object])</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>brightness</td>
+<td><a href='#int'>int</a></td>
+</tr>
+</tbody></table>
+<h1 id='colorsettingtemperature'>ColorSettingTemperature</h1><h2 id='gettemperature'>getTemperature</h2>
+<p>int getTemperature()</p>
+<h2 id='gettemperaturemaxk'>getTemperatureMaxK</h2>
+<p>int getTemperatureMaxK()</p>
+<h2 id='gettemperaturemink'>getTemperatureMinK</h2>
+<p>int getTemperatureMinK()</p>
+<h2 id='settemperature'>setTemperature</h2>
+<p>void setTemperature([object Object])</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>kelvin</td>
+<td><a href='#int'>int</a></td>
+</tr>
+</tbody></table>
+<h1 id='httprequesthandler'>HttpRequestHandler</h1>
+<p>The HttpRequestHandler allows handling of web requests under the endpoint path: /endpoint/&lt;endpoint&gt;/*.</p>
+<h2 id='getendpoint'>getEndpoint</h2>
+<p>String getEndpoint()</p>
+
+<p>Get the preferred endpoint of this HttpRequestHandler. Local/development scripts can set this to any value. This is ignored if the plugin is installed via npm: the endpoint will always be the npm package name.</p>
+<h2 id='onrequest'>onRequest</h2>
+<p>void onRequest([object Object], [object Object])</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>request</td>
+<td><a href='#httprequest'>HttpRequest</a></td>
+</tr>
+<tr>
+<td>response</td>
+<td><a href='#httpresponse'>HttpResponse</a></td>
+</tr>
+</tbody></table>
+
+<p>Callback to handle an incoming request.</p>
+<h1 id='httprequest'>HttpRequest</h1>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>body</td>
+<td>String</td>
+</tr>
+<tr>
+<td>headers</td>
+<td>Map</td>
+</tr>
+<tr>
+<td>method</td>
+<td>String</td>
+</tr>
+<tr>
+<td>rootPath</td>
+<td>String</td>
+</tr>
+<tr>
+<td>url</td>
+<td>String</td>
+</tr>
+</tbody></table>
+<h1 id='httpresponse'>HttpResponse</h1>
+<p>Response object provided by the HttpRequestHandler.</p>
+<h2 id='send'>send</h2>
+<p>void send([object Object], [object Object])</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>options</td>
+<td><a href='#httpresponseoptions'>HttpResponseOptions</a></td>
+</tr>
+<tr>
+<td>body</td>
+<td><a href='#string'>String</a></td>
+</tr>
+</tbody></table>
+<h2 id='send-2'>send</h2>
+<p>void send([object Object], [object Object])</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>options</td>
+<td><a href='#httpresponseoptions'>HttpResponseOptions</a></td>
+</tr>
+<tr>
+<td>body</td>
+<td><a href='#bytebuffer'>ByteBuffer</a></td>
+</tr>
+</tbody></table>
+<h2 id='send-3'>send</h2>
+<p>void send([object Object])</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>body</td>
+<td><a href='#string'>String</a></td>
+</tr>
+</tbody></table>
+<h2 id='send-4'>send</h2>
+<p>void send([object Object])</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>body</td>
+<td><a href='#bytebuffer'>ByteBuffer</a></td>
+</tr>
+</tbody></table>
+<h1 id='httpresponseoptions'>HttpResponseOptions</h1>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>asContent</td>
+<td>boolean</td>
+</tr>
+<tr>
+<td>code</td>
+<td>int</td>
+</tr>
+<tr>
+<td>headers</td>
+<td>Map</td>
+</tr>
+</tbody></table>
+<h1 id='online'>Online</h1>
+<p>Online denotes whether the device is online or unresponsive. It may be unresponsive due to being unplugged, network error, etc.</p>
+<h2 id='isonline'>isOnline</h2>
+<p>boolean isOnline()</p>
+<h1 id='scene'>Scene</h1>
+<p>Scenes control multiple different devices into a given state.</p>
+<h2 id='activate'>activate</h2>
+<p>void activate()</p>
+<h2 id='deactivate'>deactivate</h2>
+<p>void deactivate()</p>
+<h2 id='isreversible'>isReversible</h2>
+<p>boolean isReversible()</p>
+
+<p>If a scene can be reversed, isReversible should return true. Otherwise deactivate will not be called.</p>
+<h1 id='luminancesensor'>LuminanceSensor</h1><h2 id='getluminance'>getLuminance</h2>
+<p>double getLuminance()</p>
+<h1 id='mediasource'>MediaSource</h1><h2 id='getmedia'>getMedia</h2>
+<p>MediaObject getMedia()</p>
+
+<p>Get a MediaObject that will be automatically converted for playback on other devices.</p>
+<h1 id='eventemitter'>EventEmitter</h1><h2 id='on'>on</h2>
+<p>EventListenerRegister on([object Object], [object Object])</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>event</td>
+<td><a href='#string'>String</a></td>
+</tr>
+<tr>
+<td>callback</td>
+<td><a href='#javascriptobject'>JavaScriptObject</a></td>
+</tr>
+</tbody></table>
+
+<p>Subscribe to events from a specific interface on a device, such as &#39;OnOff&#39; or &#39;Brightness&#39;.
+The callback function has the signature function(eventSource, eventData).
+The eventSource is the interface from where the event originated, and eventData will contain data specific
+to that type of interface. OnOff would be boolean, while Brightness would be an integer between 0 and 100.</p>
+<h2 id='watch'>watch</h2>
+<p>EventListenerRegister watch([object Object], [object Object])</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>event</td>
+<td><a href='#string'>String</a></td>
+</tr>
+<tr>
+<td>callback</td>
+<td><a href='#javascriptobject'>JavaScriptObject</a></td>
+</tr>
+</tbody></table>
+
+<p>Similar to &#39;on&#39;, but will passively watch for events, and not initiate polling.</p>
+<h1 id='eventlistenerregister'>EventListenerRegister</h1><h2 id='getlistener'>getListener</h2>
+<p>EventListener getListener()</p>
+<h2 id='removelistener'>removeListener</h2>
+<p>void removeListener()</p>
+<h1 id='camerastream'>CameraStream</h1><h2 id='createvideocapturer'>createVideoCapturer</h2>
+<p>Future createVideoCapturer()</p>
+<h1 id='ultravioletsensor'>UltravioletSensor</h1><h2 id='getultraviolet'>getUltraviolet</h2>
+<p>double getUltraviolet()</p>
+<h1 id='devicemanager'>DeviceManager</h1><h2 id='getdevicebyid'>getDeviceById</h2>
+<p>ScryptedInterface getDeviceById([object Object])</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td><a href='#long'>long</a></td>
+</tr>
+</tbody></table>
+<h2 id='getdevicebyname'>getDeviceByName</h2>
+<p>ScryptedInterface getDeviceByName([object Object])</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>name</td>
+<td><a href='#string'>String</a></td>
+</tr>
+</tbody></table>
+<h2 id='ondevicediscovered'>onDeviceDiscovered</h2>
+<p>void onDeviceDiscovered([object Object])</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>device</td>
+<td><a href='#javascriptobject'>JavaScriptObject</a></td>
+</tr>
+</tbody></table>
+<h2 id='ondeviceevent'>onDeviceEvent</h2>
+<p>void onDeviceEvent([object Object], [object Object])</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>eventInterface</td>
+<td><a href='#class'>Class</a></td>
+</tr>
+<tr>
+<td>eventData</td>
+<td><a href='#object'>Object</a></td>
+</tr>
+</tbody></table>
+<h2 id='ondeviceevent-2'>onDeviceEvent</h2>
+<p>void onDeviceEvent([object Object], [object Object], [object Object])</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td><a href='#string'>String</a></td>
+</tr>
+<tr>
+<td>eventInterface</td>
+<td><a href='#class'>Class</a></td>
+</tr>
+<tr>
+<td>eventData</td>
+<td><a href='#object'>Object</a></td>
+</tr>
+</tbody></table>
+<h2 id='ondeviceschanged'>onDevicesChanged</h2>
+<p>void onDevicesChanged([object Object])</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>devices</td>
+<td><a href='#javascriptobject'>JavaScriptObject</a></td>
+</tr>
+</tbody></table>
+<h1 id='alarm'>Alarm</h1>
+<p>Event data from the Scheduler component.</p>
+<h2 id='getclocktype'>getClockType</h2>
+<p>ClockType getClockType()</p>
+<h2 id='gethour'>getHour</h2>
+<p>int getHour()</p>
+<h2 id='getminute'>getMinute</h2>
+<p>int getMinute()</p>
+<h2 id='isenabled'>isEnabled</h2>
+<p>boolean isEnabled([object Object])</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>day</td>
+<td><a href='#int'>int</a></td>
+</tr>
+</tbody></table>
+<h1 id='clocktype'>ClockType</h1><h1 id='floodsensor'>FloodSensor</h1><h2 id='isflooded'>isFlooded</h2>
+<p>boolean isFlooded()</p>
+<h1 id='program'>Program</h1><h2 id='run'>run</h2>
+<p>Object run([object Object])</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>args</td>
+<td><a href='#object[]'>Object[]</a></td>
+</tr>
+</tbody></table>
+
+<p>Synchronously run a script given the provided arguments.</p>
+<h2 id='runasync'>runAsync</h2>
+<p>Object runAsync([object Object])</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>args</td>
+<td><a href='#object[]'>Object[]</a></td>
+</tr>
+</tbody></table>
+
+<p>Asynchronously run a script given the provided arguments.</p>
+<h1 id='dock'>Dock</h1><h2 id='dock-2'>dock</h2>
+<p>void dock()</p>
+<h2 id='isdocked'>isDocked</h2>
+<p>boolean isDocked()</p>
+<h1 id='entryhandlesensor'>EntryHandleSensor</h1><h2 id='isdooropen'>isDoorOpen</h2>
+<p>boolean isDoorOpen()</p>
+<h1 id='battery'>Battery</h1><h2 id='getbatterylevel'>getBatteryLevel</h2>
+<p>int getBatteryLevel()</p>
+<h1 id='colorsettinghsv'>ColorSettingHsv</h1><h2 id='gethsv'>getHsv</h2>
+<p>ColorHsv getHsv()</p>
+<h2 id='sethsv'>setHsv</h2>
+<p>void setHsv([object Object], [object Object], [object Object])</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>hue</td>
+<td><a href='#double'>double</a></td>
+</tr>
+<tr>
+<td>saturation</td>
+<td><a href='#double'>double</a></td>
+</tr>
+<tr>
+<td>value</td>
+<td><a href='#double'>double</a></td>
+</tr>
+</tbody></table>
+<h1 id='colorhsv'>ColorHsv</h1><h2 id='tostring-2'>toString</h2>
+<p>String toString()</p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>h</td>
+<td>double</td>
+</tr>
+<tr>
+<td>s</td>
+<td>double</td>
+</tr>
+<tr>
+<td>v</td>
+<td>double</td>
+</tr>
+</tbody></table>
+<h1 id='deviceprovider'>DeviceProvider</h1>
+<p>DeviceProvider acts as a controller/hub and exposes multiple devices to Scrypted Device Manager.</p>
+<h2 id='discoverdevices'>discoverDevices</h2>
+<p>void discoverDevices([object Object])</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>duration</td>
+<td><a href='#long'>long</a></td>
+</tr>
+</tbody></table>
+
+<p>Initiate device discovery for the specified duration.</p>
+<h2 id='getdevice'>getDevice</h2>
+<p>Object getDevice([object Object])</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td><a href='#string'>String</a></td>
+</tr>
+</tbody></table>
+
+<p>Get an instance of a previously discovered device that was reported to the device manager.</p>
+<h1 id='startstop'>StartStop</h1><h2 id='ispausable'>isPausable</h2>
+<p>boolean isPausable()</p>
+<h2 id='ispaused'>isPaused</h2>
+<p>boolean isPaused()</p>
+<h2 id='isrunning'>isRunning</h2>
+<p>boolean isRunning()</p>
+<h2 id='pause-2'>pause</h2>
+<p>void pause()</p>
+<h2 id='resume'>resume</h2>
+<p>void resume()</p>
+<h2 id='start'>start</h2>
+<p>void start()</p>
+<h2 id='stop-2'>stop</h2>
+<p>void stop()</p>
+<h1 id='messagingendpoint'>MessagingEndpoint</h1><h1 id='settings'>Settings</h1>
+<p>Settings viewing and editing of device configurations that describe or modify behavior.</p>
+<h2 id='getboolean'>getBoolean</h2>
+<p>Boolean getBoolean([object Object])</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>key</td>
+<td><a href='#string'>String</a></td>
+</tr>
+</tbody></table>
+<h2 id='getboolean-2'>getBoolean</h2>
+<p>Boolean getBoolean([object Object], [object Object])</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>key</td>
+<td><a href='#string'>String</a></td>
+</tr>
+<tr>
+<td>defaultValue</td>
+<td><a href='#boolean'>Boolean</a></td>
+</tr>
+</tbody></table>
+<h2 id='getconfigurationvaluelist'>getConfigurationValueList</h2>
+<p>List getConfigurationValueList([object Object])</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>key</td>
+<td><a href='#string'>String</a></td>
+</tr>
+</tbody></table>
+<h2 id='getdouble'>getDouble</h2>
+<p>Double getDouble([object Object])</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>key</td>
+<td><a href='#string'>String</a></td>
+</tr>
+</tbody></table>
+<h2 id='getfloat'>getFloat</h2>
+<p>Float getFloat([object Object])</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>key</td>
+<td><a href='#string'>String</a></td>
+</tr>
+</tbody></table>
+<h2 id='getint'>getInt</h2>
+<p>Integer getInt([object Object])</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>key</td>
+<td><a href='#string'>String</a></td>
+</tr>
+</tbody></table>
+<h2 id='getkeydescription'>getKeyDescription</h2>
+<p>String getKeyDescription([object Object])</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>key</td>
+<td><a href='#string'>String</a></td>
+</tr>
+</tbody></table>
+<h2 id='getkeys'>getKeys</h2>
+<p>List getKeys()</p>
+<h2 id='getstring'>getString</h2>
+<p>String getString([object Object])</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>key</td>
+<td><a href='#string'>String</a></td>
+</tr>
+</tbody></table>
+<h2 id='putboolean'>putBoolean</h2>
+<p>void putBoolean([object Object], [object Object])</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>key</td>
+<td><a href='#string'>String</a></td>
+</tr>
+<tr>
+<td>value</td>
+<td><a href='#boolean'>boolean</a></td>
+</tr>
+</tbody></table>
+<h2 id='putdouble'>putDouble</h2>
+<p>void putDouble([object Object], [object Object])</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>key</td>
+<td><a href='#string'>String</a></td>
+</tr>
+<tr>
+<td>value</td>
+<td><a href='#double'>double</a></td>
+</tr>
+</tbody></table>
+<h2 id='putfloat'>putFloat</h2>
+<p>void putFloat([object Object], [object Object])</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>key</td>
+<td><a href='#string'>String</a></td>
+</tr>
+<tr>
+<td>value</td>
+<td><a href='#float'>float</a></td>
+</tr>
+</tbody></table>
+<h2 id='putint'>putInt</h2>
+<p>void putInt([object Object], [object Object])</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>key</td>
+<td><a href='#string'>String</a></td>
+</tr>
+<tr>
+<td>value</td>
+<td><a href='#int'>int</a></td>
+</tr>
+</tbody></table>
+<h2 id='putstring'>putString</h2>
+<p>void putString([object Object], [object Object])</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>key</td>
+<td><a href='#string'>String</a></td>
+</tr>
+<tr>
+<td>value</td>
+<td><a href='#string'>String</a></td>
+</tr>
+</tbody></table>
+<h1 id='logger'>Logger</h1><h2 id='a'>a</h2>
+<p>void a([object Object])</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>msg</td>
+<td><a href='#string'>String</a></td>
+</tr>
+</tbody></table>
+
+<p>Alert. Alert level logs will be displayed as a notification in the management console.</p>
+<h2 id='clear'>clear</h2>
+<p>void clear()</p>
+
+<p>Clear the log</p>
+<h2 id='clearalert'>clearAlert</h2>
+<p>void clearAlert([object Object])</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>msg</td>
+<td><a href='#string'>String</a></td>
+</tr>
+</tbody></table>
+
+<p>Clear a specific alert</p>
+<h2 id='clearalerts'>clearAlerts</h2>
+<p>void clearAlerts()</p>
+
+<p>Clear all alerts</p>
+<h2 id='d'>d</h2>
+<p>void d([object Object])</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>msg</td>
+<td><a href='#string'>String</a></td>
+</tr>
+</tbody></table>
+
+<p>Debug</p>
+<h2 id='e'>e</h2>
+<p>void e([object Object])</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>msg</td>
+<td><a href='#string'>String</a></td>
+</tr>
+</tbody></table>
+
+<p>Error</p>
+<h2 id='i'>i</h2>
+<p>void i([object Object])</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>msg</td>
+<td><a href='#string'>String</a></td>
+</tr>
+</tbody></table>
+
+<p>Info</p>
+<h2 id='v'>v</h2>
+<p>void v([object Object])</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>msg</td>
+<td><a href='#string'>String</a></td>
+</tr>
+</tbody></table>
+
+<p>Verbose</p>
+<h2 id='w'>w</h2>
+<p>void w([object Object])</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>msg</td>
+<td><a href='#string'>String</a></td>
+</tr>
+</tbody></table>
+
+<p>Warn</p>
+<h1 id='onoff'>OnOff</h1>
+<p>OnOff is a basic binary switch.</p>
+<h2 id='ison'>isOn</h2>
+<p>boolean isOn()</p>
+<h2 id='turnoff'>turnOff</h2>
+<p>void turnOff()</p>
+<h2 id='turnon'>turnOn</h2>
+<p>void turnOn()</p>
+<h1 id='entry'>Entry</h1><h2 id='closeentry'>closeEntry</h2>
+<p>void closeEntry()</p>
+<h2 id='isentryopen'>isEntryOpen</h2>
+<p>boolean isEntryOpen()</p>
+<h2 id='openentry'>openEntry</h2>
+<p>void openEntry()</p>
+<h1 id='refresh'>Refresh</h1>
+<p>Refresh indicates that this device has properties that are not automatically updated, and must be periodically refreshed.</p>
+<h2 id='getrefreshfrequency'>getRefreshFrequency</h2>
+<p>int getRefreshFrequency()</p>
+
+<p>Get the recommended refresh/poll frequency in seconds for this device.</p>
+<h2 id='refresh-2'>refresh</h2>
+<p>void refresh([object Object], [object Object])</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>refreshInterface</td>
+<td><a href='#class'>Class</a></td>
+</tr>
+<tr>
+<td>userInitiated</td>
+<td><a href='#boolean'>boolean</a></td>
+</tr>
+</tbody></table>
+
+<p>This method is called by Scrypted when the properties of the device need to be refreshed. When the device has completed the refresh, the appropriate events should be emitted. The parameters provide the specific interface that needs to be refreshed and whether it was user initiated (via UI or voice).</p>
+<h1 id='entrysensor'>EntrySensor</h1><h2 id='isentryopen-2'>isEntryOpen</h2>
+<p>boolean isEntryOpen()</p>
+
+      </div>
+      <div class="dark-box">
+          <div class="lang-selector">
+                <a href="#" data-language-name="javascript">javascript</a>
+                <a href="#" data-language-name="typescript">typescript</a>
+          </div>
+      </div>
+    </div>
+  </body>
+</html>

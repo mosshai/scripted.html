@@ -9,7 +9,23 @@ search: true
 ---
 # Getting Started <br/>
 
-## Creating An OnOff Device
+## Controlling a Device
+
+1. Create a new Script under Plugins.
+2. Set the type to Library.
+3. Assign an device that supports OnOff to a variable "switch".
+4. Run the example code using the "Test" button.
+
+```javascript
+if (switch.isOn()) {
+    switch.turnOff();
+}
+else {
+    switch.turnOn();
+}
+```
+
+## Creating a Device
 ```javascript
 import axios from 'axios';
 
@@ -46,6 +62,9 @@ Device.prototype.turnOn = async function () {
 export default = new Device();
 ```
 
+This sample creates a simple OnOff device that retrieves your IP when the On button is clicked. This virtual device will
+be synced to upstream integration providers, such as Google Home or Apple Homekit.
+
 1. Create a new Script under Plugins.
 2. Set the type to Device.
 3. Select/check the OnOff interface.
@@ -54,7 +73,7 @@ export default = new Device();
 6. Edit .vcode/settings.json and set the value of "scrypted.debugHost": "THIS.IS.MY.IP"
 7. Launch Scrypted Debugger in VS Code.
 
-# Types
+# Reference
 
 {% for name, c in classes %}
 ## {{name}}
@@ -66,22 +85,23 @@ export default = new Device();
 {% endif %}
 {% for method in c.methods %}
 ### {{ method.name }}
-{{ method.type }} {{ method.name }}({{ methodArguments(method.arguments) | join(', ') }})
-
-{% if method.arguments.length %}
-Parameter | Type
---------- | ----
-{% for param in method.arguments %}{{ param.name }} | <a href='#{{ param.type | lower }}'>{{ param.type }}</a>
-{% endfor %}
-{% endif %}
+{{ linkifyType(method.type) }} {{ method.name }}({{ methodArguments(method.arguments) | join(', ') }})
 
 {{ method.description }}
 {% endfor %}
 
 {% if c.fields.length %}
+### Properties
 Name      | Type
 --------- | ----
 {% for property in c.fields %}{{ property.name }} | {{ property.type }}
+{% endfor %}
+{% endif %}
+
+{% if c.values.length %}
+Enum |
+----
+{% for value in c.values %}{{ value }} |
 {% endfor %}
 {% endif %}
 
