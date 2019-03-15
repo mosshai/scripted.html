@@ -2011,7 +2011,7 @@ When an oauth request by a plugin completes, the callback url, with the code/tok
 
 ```javascript
 interface DeviceManager  {
-  getDeviceById(id: number): ScryptedInterface;
+  getDeviceById(id: string): ScryptedInterface;
   getDeviceByName(name: string): ScryptedInterface;
   onDeviceDiscovered(device: Device): void;
   onDeviceEvent(eventInterface: string, eventData: object): void;
@@ -2033,7 +2033,7 @@ DeviceManager is the interface which plugins use to report devices and device ev
 
 
 ### getDeviceById
-<a href='#scryptedinterface'>ScryptedInterface</a> getDeviceById(id: number)
+<a href='#scryptedinterface'>ScryptedInterface</a> getDeviceById(id: string)
 
 Find a Scrypted device by id.
 

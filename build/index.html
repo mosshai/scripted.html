@@ -1351,7 +1351,7 @@ The OauthClient can be implemented to perform the browser based Oauth process fr
 <p>Definition</p>
 </blockquote>
 <pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">DeviceManager</span>  <span class="p">{</span>
-  <span class="nx">getDeviceById</span><span class="p">(</span><span class="nx">id</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="nx">ScryptedInterface</span><span class="p">;</span>
+  <span class="nx">getDeviceById</span><span class="p">(</span><span class="nx">id</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">ScryptedInterface</span><span class="p">;</span>
   <span class="nx">getDeviceByName</span><span class="p">(</span><span class="nx">name</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">ScryptedInterface</span><span class="p">;</span>
   <span class="nx">onDeviceDiscovered</span><span class="p">(</span><span class="nx">device</span><span class="p">:</span> <span class="nx">Device</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
   <span class="nx">onDeviceEvent</span><span class="p">(</span><span class="nx">eventInterface</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="nx">object</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
@@ -1363,7 +1363,7 @@ The OauthClient can be implemented to perform the browser based Oauth process fr
 DeviceManager is the interface which plugins use to report devices and device events to Scrypted. It is also used to query Scrypted for other devices.
 </aside>
 <h3 id='getdevicebyid'>getDeviceById</h3>
-<p><a href='#scryptedinterface'>ScryptedInterface</a> getDeviceById(id: number)</p>
+<p><a href='#scryptedinterface'>ScryptedInterface</a> getDeviceById(id: string)</p>
 
 <p>Find a Scrypted device by id.</p>
 <h3 id='getdevicebyname'>getDeviceByName</h3>
