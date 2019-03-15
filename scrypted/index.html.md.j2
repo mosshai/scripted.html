@@ -88,8 +88,18 @@ be synced to upstream integration providers, such as Google Home or Apple Homeki
 > Definition
 
 ```javascript
-interface {{ name }} {
+interface {{ name }} {% if c.superclass.length %}implements {{ mapSupers(c.superclass) }}{% endif %} {
 {% for method in c.methods %}  {{ method.name }}({{ mapMethodArguments(method.arguments) | join(', ') }}): {{ mapType(method.type) }};
+{% endfor %}}
+```
+{% endif %}
+
+{% if c.fields.length %}
+> Definition
+
+```javascript
+interface {{ name }} {
+{% for field in c.fields %}  {{ field.name }}: {{ mapType(field.type) }};
 {% endfor %}}
 ```
 {% endif %}

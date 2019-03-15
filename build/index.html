@@ -289,6 +289,15 @@
                     <a href="#temperaturesetting" class="toc-h2 toc-link" data-title="TemperatureSetting">TemperatureSetting</a>
                   </li>
                   <li>
+                    <a href="#thermometer" class="toc-h2 toc-link" data-title="Thermometer">Thermometer</a>
+                  </li>
+                  <li>
+                    <a href="#temperatureunit" class="toc-h2 toc-link" data-title="TemperatureUnit">TemperatureUnit</a>
+                  </li>
+                  <li>
+                    <a href="#humiditysensor" class="toc-h2 toc-link" data-title="HumiditySensor">HumiditySensor</a>
+                  </li>
+                  <li>
                     <a href="#thermostatmode" class="toc-h2 toc-link" data-title="ThermostatMode">ThermostatMode</a>
                   </li>
                   <li>
@@ -301,13 +310,7 @@
                     <a href="#camerastream" class="toc-h2 toc-link" data-title="CameraStream">CameraStream</a>
                   </li>
                   <li>
-                    <a href="#thermometer" class="toc-h2 toc-link" data-title="Thermometer">Thermometer</a>
-                  </li>
-                  <li>
-                    <a href="#temperatureunit" class="toc-h2 toc-link" data-title="TemperatureUnit">TemperatureUnit</a>
-                  </li>
-                  <li>
-                    <a href="#humiditysensor" class="toc-h2 toc-link" data-title="HumiditySensor">HumiditySensor</a>
+                    <a href="#referenceid" class="toc-h2 toc-link" data-title="ReferenceId">ReferenceId</a>
                   </li>
                   <li>
                     <a href="#ultravioletsensor" class="toc-h2 toc-link" data-title="UltravioletSensor">UltravioletSensor</a>
@@ -478,7 +481,7 @@ be synced to upstream integration providers, such as Google Home or Apple Homeki
 <blockquote>
 <p>Definition</p>
 </blockquote>
-<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">OnOff</span> <span class="p">{</span>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">OnOff</span>  <span class="p">{</span>
   <span class="nx">isOn</span><span class="p">():</span> <span class="kr">boolean</span><span class="p">;</span>
   <span class="nx">turnOff</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
   <span class="nx">turnOn</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
@@ -501,7 +504,7 @@ OnOff is a basic binary switch.
 <blockquote>
 <p>Definition</p>
 </blockquote>
-<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Brightness</span> <span class="p">{</span>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Brightness</span>  <span class="p">{</span>
   <span class="nx">getLevel</span><span class="p">():</span> <span class="nx">number</span><span class="p">;</span>
   <span class="nx">setLevel</span><span class="p">(</span><span class="nx">brightness</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
 <span class="p">}</span>
@@ -517,7 +520,7 @@ Brightness is a lighting device that can be dimmed/lit between 0 to 100.
 <blockquote>
 <p>Definition</p>
 </blockquote>
-<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">ColorSettingTemperature</span> <span class="p">{</span>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">ColorSettingTemperature</span>  <span class="p">{</span>
   <span class="nx">getTemperature</span><span class="p">():</span> <span class="nx">number</span><span class="p">;</span>
   <span class="nx">getTemperatureMaxK</span><span class="p">():</span> <span class="nx">number</span><span class="p">;</span>
   <span class="nx">getTemperatureMinK</span><span class="p">():</span> <span class="nx">number</span><span class="p">;</span>
@@ -547,7 +550,7 @@ ColorSettingTemperature sets the color temperature of a light in Kelvin.
 <blockquote>
 <p>Definition</p>
 </blockquote>
-<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">ColorSettingRgb</span> <span class="p">{</span>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">ColorSettingRgb</span>  <span class="p">{</span>
   <span class="nx">getRgb</span><span class="p">():</span> <span class="nx">ColorRgb</span><span class="p">;</span>
   <span class="nx">setRgb</span><span class="p">(</span><span class="nx">r</span><span class="p">:</span> <span class="nx">number</span><span class="p">,</span> <span class="nx">g</span><span class="p">:</span> <span class="nx">number</span><span class="p">,</span> <span class="nx">b</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
 <span class="p">}</span>
@@ -560,6 +563,15 @@ ColorSettingRgb sets the color of a colored light using the RGB representation.
 <h3 id='setrgb'>setRgb</h3>
 <p>void setRgb(r: number, g: number, b: number)</p>
 <h2 id='colorrgb'>ColorRgb</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">ColorRgb</span> <span class="p">{</span>
+  <span class="nl">b</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
+  <span class="nl">g</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
+  <span class="nl">r</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
 <aside class="notice">
 Represents an RGB color value component values between 0 and 255.
 </aside>
@@ -595,9 +607,9 @@ Represents an RGB color value component values between 0 and 255.
 <blockquote>
 <p>Definition</p>
 </blockquote>
-<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">ColorSettingHsv</span> <span class="p">{</span>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">ColorSettingHsv</span>  <span class="p">{</span>
   <span class="nx">getHsv</span><span class="p">():</span> <span class="nx">ColorHsv</span><span class="p">;</span>
-  <span class="nx">setHsv</span><span class="p">(</span><span class="nx">hue</span><span class="p">:</span> <span class="kr">double</span><span class="p">,</span> <span class="nx">saturation</span><span class="p">:</span> <span class="kr">double</span><span class="p">,</span> <span class="nx">value</span><span class="p">:</span> <span class="kr">double</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">setHsv</span><span class="p">(</span><span class="nx">hue</span><span class="p">:</span> <span class="nx">number</span><span class="p">,</span> <span class="nx">saturation</span><span class="p">:</span> <span class="nx">number</span><span class="p">,</span> <span class="nx">value</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
 <aside class="notice">
@@ -606,8 +618,17 @@ ColorSettingHsv sets the color of a colored light using the HSV representation.
 <h3 id='gethsv'>getHsv</h3>
 <p><a href='#colorhsv'>ColorHsv</a> getHsv()</p>
 <h3 id='sethsv'>setHsv</h3>
-<p>void setHsv(hue: double, saturation: double, value: double)</p>
+<p>void setHsv(hue: number, saturation: number, value: number)</p>
 <h2 id='colorhsv'>ColorHsv</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">ColorHsv</span> <span class="p">{</span>
+  <span class="nl">h</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
+  <span class="nl">s</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
+  <span class="nl">v</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
 <aside class="notice">
 Represents an HSV color value component values between 0 and 1.
 </aside>
@@ -620,22 +641,22 @@ Represents an HSV color value component values between 0 and 1.
 </thead><tbody>
 <tr>
 <td>h</td>
-<td>double</td>
+<td>number</td>
 </tr>
 <tr>
 <td>s</td>
-<td>double</td>
+<td>number</td>
 </tr>
 <tr>
 <td>v</td>
-<td>double</td>
+<td>number</td>
 </tr>
 </tbody></table>
 <h2 id='binarysensor'>BinarySensor</h2>
 <blockquote>
 <p>Definition</p>
 </blockquote>
-<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">BinarySensor</span> <span class="p">{</span>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">BinarySensor</span>  <span class="p">{</span>
   <span class="nx">getBinaryState</span><span class="p">():</span> <span class="kr">boolean</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><h3 id='getbinarystate'>getBinaryState</h3>
@@ -644,7 +665,7 @@ Represents an HSV color value component values between 0 and 1.
 <blockquote>
 <p>Definition</p>
 </blockquote>
-<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">EntrySensor</span> <span class="p">{</span>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">EntrySensor</span>  <span class="p">{</span>
   <span class="nx">isEntryOpen</span><span class="p">():</span> <span class="kr">boolean</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><h3 id='isentryopen'>isEntryOpen</h3>
@@ -653,7 +674,7 @@ Represents an HSV color value component values between 0 and 1.
 <blockquote>
 <p>Definition</p>
 </blockquote>
-<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">EntryHandleSensor</span> <span class="p">{</span>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">EntryHandleSensor</span>  <span class="p">{</span>
   <span class="nx">isDoorOpen</span><span class="p">():</span> <span class="kr">boolean</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><h3 id='isdooropen'>isDoorOpen</h3>
@@ -662,7 +683,7 @@ Represents an HSV color value component values between 0 and 1.
 <blockquote>
 <p>Definition</p>
 </blockquote>
-<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">IntrusionSensor</span> <span class="p">{</span>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">IntrusionSensor</span>  <span class="p">{</span>
   <span class="nx">isIntrusionDetected</span><span class="p">():</span> <span class="kr">boolean</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><h3 id='isintrusiondetected'>isIntrusionDetected</h3>
@@ -671,7 +692,7 @@ Represents an HSV color value component values between 0 and 1.
 <blockquote>
 <p>Definition</p>
 </blockquote>
-<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">FloodSensor</span> <span class="p">{</span>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">FloodSensor</span>  <span class="p">{</span>
   <span class="nx">isFlooded</span><span class="p">():</span> <span class="kr">boolean</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><h3 id='isflooded'>isFlooded</h3>
@@ -693,7 +714,7 @@ Represents an HSV color value component values between 0 and 1.
 <blockquote>
 <p>Definition</p>
 </blockquote>
-<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Notifier</span> <span class="p">{</span>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Notifier</span>  <span class="p">{</span>
   <span class="nx">sendNotification</span><span class="p">(</span><span class="nx">title</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">body</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
   <span class="nx">sendNotification</span><span class="p">(</span><span class="nx">title</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">body</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">media</span><span class="p">:</span> <span class="nx">MediaObject</span><span class="p">,</span> <span class="nx">mimeType</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
 <span class="p">}</span>
@@ -716,7 +737,7 @@ MediaObject is an intermediate object within Scrypted to represent all media obj
 <blockquote>
 <p>Definition</p>
 </blockquote>
-<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">StartStop</span> <span class="p">{</span>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">StartStop</span>  <span class="p">{</span>
   <span class="nx">isPausable</span><span class="p">():</span> <span class="kr">boolean</span><span class="p">;</span>
   <span class="nx">isPaused</span><span class="p">():</span> <span class="kr">boolean</span><span class="p">;</span>
   <span class="nx">isRunning</span><span class="p">():</span> <span class="kr">boolean</span><span class="p">;</span>
@@ -747,7 +768,7 @@ StartStop represents a device that can be started, stopped, and possibly paused 
 <blockquote>
 <p>Definition</p>
 </blockquote>
-<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Dock</span> <span class="p">{</span>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Dock</span>  <span class="p">{</span>
   <span class="nx">dock</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
   <span class="nx">isDocked</span><span class="p">():</span> <span class="kr">boolean</span><span class="p">;</span>
 <span class="p">}</span>
@@ -763,9 +784,9 @@ Dock instructs devices that have a base station or charger, to return to their h
 <blockquote>
 <p>Definition</p>
 </blockquote>
-<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Program</span> <span class="p">{</span>
-  <span class="nx">run</span><span class="p">(</span><span class="nx">args</span><span class="p">:</span> <span class="nb">Object</span><span class="p">[]):</span> <span class="nx">object</span><span class="p">;</span>
-  <span class="nx">runAsync</span><span class="p">(</span><span class="nx">args</span><span class="p">:</span> <span class="nb">Object</span><span class="p">[]):</span> <span class="nx">object</span><span class="p">;</span>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Program</span>  <span class="p">{</span>
+  <span class="nx">run</span><span class="p">(</span><span class="nx">args</span><span class="p">:</span> <span class="nx">object</span><span class="p">[]):</span> <span class="nx">object</span><span class="p">;</span>
+  <span class="nx">runAsync</span><span class="p">(</span><span class="nx">args</span><span class="p">:</span> <span class="nx">object</span><span class="p">[]):</span> <span class="nx">object</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><h3 id='run'>run</h3>
 <p>object run(args: object[])</p>
@@ -779,14 +800,14 @@ Dock instructs devices that have a base station or charger, to return to their h
 <blockquote>
 <p>Definition</p>
 </blockquote>
-<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">TemperatureSetting</span> <span class="p">{</span>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">TemperatureSetting</span> <span class="kr">implements</span> <span class="nx">Thermometer</span><span class="p">,</span> <span class="nx">HumiditySensor</span> <span class="p">{</span>
   <span class="nx">getAvailableThermostatModes</span><span class="p">():</span> <span class="nx">ThermostatMode</span><span class="p">[];</span>
-  <span class="nx">getTemperatureSetpoint</span><span class="p">():</span> <span class="kr">double</span><span class="p">;</span>
-  <span class="nx">getTemperatureSetpointHigh</span><span class="p">():</span> <span class="kr">double</span><span class="p">;</span>
-  <span class="nx">getTemperatureSetpointLow</span><span class="p">():</span> <span class="kr">double</span><span class="p">;</span>
+  <span class="nx">getTemperatureSetpoint</span><span class="p">():</span> <span class="nx">number</span><span class="p">;</span>
+  <span class="nx">getTemperatureSetpointHigh</span><span class="p">():</span> <span class="nx">number</span><span class="p">;</span>
+  <span class="nx">getTemperatureSetpointLow</span><span class="p">():</span> <span class="nx">number</span><span class="p">;</span>
   <span class="nx">getThermostatMode</span><span class="p">():</span> <span class="nx">ThermostatMode</span><span class="p">;</span>
-  <span class="nx">setTemperatureSetRange</span><span class="p">(</span><span class="nx">low</span><span class="p">:</span> <span class="kr">double</span><span class="p">,</span> <span class="nx">high</span><span class="p">:</span> <span class="kr">double</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">setTemperatureSetpoint</span><span class="p">(</span><span class="nx">degrees</span><span class="p">:</span> <span class="kr">double</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">setTemperatureSetRange</span><span class="p">(</span><span class="nx">low</span><span class="p">:</span> <span class="nx">number</span><span class="p">,</span> <span class="nx">high</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">setTemperatureSetpoint</span><span class="p">(</span><span class="nx">degrees</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
   <span class="nx">setThermostatMode</span><span class="p">(</span><span class="nx">mode</span><span class="p">:</span> <span class="nx">ThermostatMode</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
@@ -796,19 +817,57 @@ TemperatureSetting represents a thermostat device.
 <h3 id='getavailablethermostatmodes'>getAvailableThermostatModes</h3>
 <p><a href='#thermostatmode'>ThermostatMode</a>[] getAvailableThermostatModes()</p>
 <h3 id='gettemperaturesetpoint'>getTemperatureSetpoint</h3>
-<p>double getTemperatureSetpoint()</p>
+<p>number getTemperatureSetpoint()</p>
 <h3 id='gettemperaturesetpointhigh'>getTemperatureSetpointHigh</h3>
-<p>double getTemperatureSetpointHigh()</p>
+<p>number getTemperatureSetpointHigh()</p>
 <h3 id='gettemperaturesetpointlow'>getTemperatureSetpointLow</h3>
-<p>double getTemperatureSetpointLow()</p>
+<p>number getTemperatureSetpointLow()</p>
 <h3 id='getthermostatmode'>getThermostatMode</h3>
 <p><a href='#thermostatmode'>ThermostatMode</a> getThermostatMode()</p>
 <h3 id='settemperaturesetrange'>setTemperatureSetRange</h3>
-<p>void setTemperatureSetRange(low: double, high: double)</p>
+<p>void setTemperatureSetRange(low: number, high: number)</p>
 <h3 id='settemperaturesetpoint'>setTemperatureSetpoint</h3>
-<p>void setTemperatureSetpoint(degrees: double)</p>
+<p>void setTemperatureSetpoint(degrees: number)</p>
 <h3 id='setthermostatmode'>setThermostatMode</h3>
 <p>void setThermostatMode(mode: <a href='#thermostatmode'>ThermostatMode</a>)</p>
+<h2 id='thermometer'>Thermometer</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Thermometer</span>  <span class="p">{</span>
+  <span class="nx">getTemperatureAmbient</span><span class="p">():</span> <span class="nx">number</span><span class="p">;</span>
+  <span class="nx">getTemperatureUnit</span><span class="p">():</span> <span class="nx">TemperatureUnit</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><h3 id='gettemperatureambient'>getTemperatureAmbient</h3>
+<p>number getTemperatureAmbient()</p>
+
+<p>Get the ambient temperature in Celsius.</p>
+<h3 id='gettemperatureunit'>getTemperatureUnit</h3>
+<p><a href='#temperatureunit'>TemperatureUnit</a> getTemperatureUnit()</p>
+
+<p>Get the user facing unit of measurement for this thermometer. This may be Fahrenheit, but getTemperatureAmbient will return results in Celsius.</p>
+<h2 id='temperatureunit'>TemperatureUnit</h2>
+<table><thead>
+<tr>
+<th>Enum</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>&quot;C&quot;</td>
+</tr>
+<tr>
+<td>&quot;F&quot;</td>
+</tr>
+</tbody></table>
+<h2 id='humiditysensor'>HumiditySensor</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">HumiditySensor</span>  <span class="p">{</span>
+  <span class="nx">getHumidityAmbient</span><span class="p">():</span> <span class="nx">number</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><h3 id='gethumidityambient'>getHumidityAmbient</h3>
+<p>number getHumidityAmbient()</p>
 <h2 id='thermostatmode'>ThermostatMode</h2>
 <table><thead>
 <tr>
@@ -850,7 +909,7 @@ TemperatureSetting represents a thermostat device.
 <blockquote>
 <p>Definition</p>
 </blockquote>
-<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Lock</span> <span class="p">{</span>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Lock</span>  <span class="p">{</span>
   <span class="nx">isLocked</span><span class="p">():</span> <span class="kr">boolean</span><span class="p">;</span>
   <span class="nx">lock</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
   <span class="nx">unlock</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
@@ -869,7 +928,7 @@ Lock controls devices that can lock or unlock entries. Often works in tandem wit
 <blockquote>
 <p>Definition</p>
 </blockquote>
-<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">PasswordControl</span> <span class="p">{</span>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">PasswordControl</span>  <span class="p">{</span>
   <span class="nx">addPassword</span><span class="p">(</span><span class="nx">password</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
   <span class="nx">getPasswords</span><span class="p">():</span> <span class="nx">Set</span><span class="p">;</span>
   <span class="nx">removePassword</span><span class="p">(</span><span class="nx">password</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
@@ -888,72 +947,43 @@ PasswordControl represents devices that authorize users via a passcode or pin co
 <blockquote>
 <p>Definition</p>
 </blockquote>
-<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">CameraStream</span> <span class="p">{</span>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">CameraStream</span> <span class="kr">implements</span> <span class="nx">ReferenceId</span> <span class="p">{</span>
   <span class="nx">createVideoCapturer</span><span class="p">():</span> <span class="nx">Future</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><h3 id='createvideocapturer'>createVideoCapturer</h3>
 <p>Future createVideoCapturer()</p>
-<h2 id='thermometer'>Thermometer</h2>
+<h2 id='referenceid'>ReferenceId</h2>
 <blockquote>
 <p>Definition</p>
 </blockquote>
-<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Thermometer</span> <span class="p">{</span>
-  <span class="nx">getTemperatureAmbient</span><span class="p">():</span> <span class="kr">double</span><span class="p">;</span>
-  <span class="nx">getTemperatureUnit</span><span class="p">():</span> <span class="nx">TemperatureUnit</span><span class="p">;</span>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">ReferenceId</span>  <span class="p">{</span>
+  <span class="nx">getRefId</span><span class="p">():</span> <span class="nx">number</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='gettemperatureambient'>getTemperatureAmbient</h3>
-<p>double getTemperatureAmbient()</p>
-
-<p>Get the ambient temperature in Celsius.</p>
-<h3 id='gettemperatureunit'>getTemperatureUnit</h3>
-<p><a href='#temperatureunit'>TemperatureUnit</a> getTemperatureUnit()</p>
-
-<p>Get the user facing unit of measurement for this thermometer. This may be Fahrenheit, but getTemperatureAmbient will return results in Celsius.</p>
-<h2 id='temperatureunit'>TemperatureUnit</h2>
-<table><thead>
-<tr>
-<th>Enum</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>&quot;C&quot;</td>
-</tr>
-<tr>
-<td>&quot;F&quot;</td>
-</tr>
-</tbody></table>
-<h2 id='humiditysensor'>HumiditySensor</h2>
-<blockquote>
-<p>Definition</p>
-</blockquote>
-<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">HumiditySensor</span> <span class="p">{</span>
-  <span class="nx">getHumidityAmbient</span><span class="p">():</span> <span class="kr">double</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre><h3 id='gethumidityambient'>getHumidityAmbient</h3>
-<p>double getHumidityAmbient()</p>
+</code></pre><h3 id='getrefid'>getRefId</h3>
+<p>number getRefId()</p>
 <h2 id='ultravioletsensor'>UltravioletSensor</h2>
 <blockquote>
 <p>Definition</p>
 </blockquote>
-<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">UltravioletSensor</span> <span class="p">{</span>
-  <span class="nx">getUltraviolet</span><span class="p">():</span> <span class="kr">double</span><span class="p">;</span>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">UltravioletSensor</span>  <span class="p">{</span>
+  <span class="nx">getUltraviolet</span><span class="p">():</span> <span class="nx">number</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><h3 id='getultraviolet'>getUltraviolet</h3>
-<p>double getUltraviolet()</p>
+<p>number getUltraviolet()</p>
 <h2 id='luminancesensor'>LuminanceSensor</h2>
 <blockquote>
 <p>Definition</p>
 </blockquote>
-<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">LuminanceSensor</span> <span class="p">{</span>
-  <span class="nx">getLuminance</span><span class="p">():</span> <span class="kr">double</span><span class="p">;</span>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">LuminanceSensor</span>  <span class="p">{</span>
+  <span class="nx">getLuminance</span><span class="p">():</span> <span class="nx">number</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><h3 id='getluminance'>getLuminance</h3>
-<p>double getLuminance()</p>
+<p>number getLuminance()</p>
 <h2 id='scene'>Scene</h2>
 <blockquote>
 <p>Definition</p>
 </blockquote>
-<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Scene</span> <span class="p">{</span>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Scene</span>  <span class="p">{</span>
   <span class="nx">activate</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
   <span class="nx">deactivate</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
   <span class="nx">isReversible</span><span class="p">():</span> <span class="kr">boolean</span><span class="p">;</span>
@@ -974,7 +1004,7 @@ Scenes control multiple different devices into a given state.
 <blockquote>
 <p>Definition</p>
 </blockquote>
-<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Entry</span> <span class="p">{</span>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Entry</span>  <span class="p">{</span>
   <span class="nx">closeEntry</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
   <span class="nx">isEntryOpen</span><span class="p">():</span> <span class="kr">boolean</span><span class="p">;</span>
   <span class="nx">openEntry</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
@@ -993,7 +1023,7 @@ Entry represents devices that can open and close barriers, such as garage doors.
 <blockquote>
 <p>Definition</p>
 </blockquote>
-<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Alarm</span> <span class="p">{</span>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Alarm</span>  <span class="p">{</span>
   <span class="nx">getClockType</span><span class="p">():</span> <span class="nx">ClockType</span><span class="p">;</span>
   <span class="nx">getHour</span><span class="p">():</span> <span class="nx">number</span><span class="p">;</span>
   <span class="nx">getMinute</span><span class="p">():</span> <span class="nx">number</span><span class="p">;</span>
@@ -1043,7 +1073,7 @@ Event data from the Scheduler component.
 <blockquote>
 <p>Definition</p>
 </blockquote>
-<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Battery</span> <span class="p">{</span>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Battery</span>  <span class="p">{</span>
   <span class="nx">getBatteryLevel</span><span class="p">():</span> <span class="nx">number</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
@@ -1056,7 +1086,7 @@ Battery retrieves the battery level of battery powered devices.
 <blockquote>
 <p>Definition</p>
 </blockquote>
-<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Refresh</span> <span class="p">{</span>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Refresh</span>  <span class="p">{</span>
   <span class="nx">getRefreshFrequency</span><span class="p">():</span> <span class="nx">number</span><span class="p">;</span>
   <span class="nx">refresh</span><span class="p">(</span><span class="nx">refreshInterface</span><span class="p">:</span> <span class="nx">Class</span><span class="p">,</span> <span class="nx">userInitiated</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
 <span class="p">}</span>
@@ -1076,7 +1106,7 @@ Refresh indicates that this device has properties that are not automatically upd
 <blockquote>
 <p>Definition</p>
 </blockquote>
-<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">MediaPlayer</span> <span class="p">{</span>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">MediaPlayer</span>  <span class="p">{</span>
   <span class="nx">load</span><span class="p">(</span><span class="nx">media</span><span class="p">:</span> <span class="nx">MediaObject</span><span class="p">,</span> <span class="nx">options</span><span class="p">:</span> <span class="nx">MediaPlayerOptions</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
   <span class="nx">load</span><span class="p">(</span><span class="nx">mediaUrl</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">options</span><span class="p">:</span> <span class="nx">MediaPlayerOptions</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
   <span class="nx">pause</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
@@ -1097,7 +1127,15 @@ MediaPlayer allows media playback on screen or speaker devices, such as Chromeca
 <p>void play()</p>
 <h3 id='stop-2'>stop</h3>
 <p>void stop()</p>
-<h2 id='mediaplayeroptions'>MediaPlayerOptions</h2><h3 id='properties-3'>Properties</h3>
+<h2 id='mediaplayeroptions'>MediaPlayerOptions</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">MediaPlayerOptions</span> <span class="p">{</span>
+  <span class="nl">autoplay</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
+  <span class="nl">mimeType</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><h3 id='properties-3'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -1117,7 +1155,7 @@ MediaPlayer allows media playback on screen or speaker devices, such as Chromeca
 <blockquote>
 <p>Definition</p>
 </blockquote>
-<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Online</span> <span class="p">{</span>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Online</span>  <span class="p">{</span>
   <span class="nx">isOnline</span><span class="p">():</span> <span class="kr">boolean</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
@@ -1130,7 +1168,7 @@ Online denotes whether the device is online or unresponsive. It may be unrespons
 <blockquote>
 <p>Definition</p>
 </blockquote>
-<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">EventListener</span> <span class="p">{</span>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">EventListener</span>  <span class="p">{</span>
   <span class="nx">onEvent</span><span class="p">(</span><span class="nx">eventSource</span><span class="p">:</span> <span class="nx">ScryptedInterface</span><span class="p">,</span> <span class="nx">eventInterface</span><span class="p">:</span> <span class="nx">Class</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="nx">object</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><h3 id='onevent'>onEvent</h3>
@@ -1145,7 +1183,7 @@ Returned when an event listener is attached to an EventEmitter. Call removeListe
 <blockquote>
 <p>Definition</p>
 </blockquote>
-<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Logger</span> <span class="p">{</span>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Logger</span>  <span class="p">{</span>
   <span class="nx">a</span><span class="p">(</span><span class="nx">msg</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
   <span class="nx">clear</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
   <span class="nx">clearAlert</span><span class="p">(</span><span class="nx">msg</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
@@ -1200,7 +1238,7 @@ Logger is exposed via log.* to allow writing to the Scrypted log.
 <blockquote>
 <p>Definition</p>
 </blockquote>
-<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">MediaSource</span> <span class="p">{</span>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">MediaSource</span>  <span class="p">{</span>
   <span class="nx">getMedia</span><span class="p">():</span> <span class="nx">MediaObject</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><h3 id='getmedia'>getMedia</h3>
@@ -1211,18 +1249,18 @@ Logger is exposed via log.* to allow writing to the Scrypted log.
 <blockquote>
 <p>Definition</p>
 </blockquote>
-<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Settings</span> <span class="p">{</span>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Settings</span>  <span class="p">{</span>
   <span class="nx">getBoolean</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="kr">boolean</span><span class="p">;</span>
   <span class="nx">getBoolean</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">defaultValue</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">):</span> <span class="kr">boolean</span><span class="p">;</span>
   <span class="nx">getConfigurationValueList</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">List</span><span class="p">;</span>
-  <span class="nx">getDouble</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">Double</span><span class="p">;</span>
+  <span class="nx">getDouble</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">number</span><span class="p">;</span>
   <span class="nx">getFloat</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">Float</span><span class="p">;</span>
   <span class="nx">getInt</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">Integer</span><span class="p">;</span>
   <span class="nx">getKeyDescription</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">string</span><span class="p">;</span>
   <span class="nx">getKeys</span><span class="p">():</span> <span class="nx">List</span><span class="p">;</span>
   <span class="nx">getString</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">string</span><span class="p">;</span>
   <span class="nx">putBoolean</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">value</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">putDouble</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">value</span><span class="p">:</span> <span class="kr">double</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">putDouble</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">value</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
   <span class="nx">putFloat</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">value</span><span class="p">:</span> <span class="kr">float</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
   <span class="nx">putInt</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">value</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
   <span class="nx">putString</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">value</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
@@ -1238,7 +1276,7 @@ Settings viewing and editing of device configurations that describe or modify be
 <h3 id='getconfigurationvaluelist'>getConfigurationValueList</h3>
 <p>List getConfigurationValueList(key: string)</p>
 <h3 id='getdouble'>getDouble</h3>
-<p>Double getDouble(key: string)</p>
+<p>number getDouble(key: string)</p>
 <h3 id='getfloat'>getFloat</h3>
 <p>Float getFloat(key: string)</p>
 <h3 id='getint'>getInt</h3>
@@ -1252,7 +1290,7 @@ Settings viewing and editing of device configurations that describe or modify be
 <h3 id='putboolean'>putBoolean</h3>
 <p>void putBoolean(key: string, value: boolean)</p>
 <h3 id='putdouble'>putDouble</h3>
-<p>void putDouble(key: string, value: double)</p>
+<p>void putDouble(key: string, value: number)</p>
 <h3 id='putfloat'>putFloat</h3>
 <p>void putFloat(key: string, value: float)</p>
 <h3 id='putint'>putInt</h3>
@@ -1263,7 +1301,7 @@ Settings viewing and editing of device configurations that describe or modify be
 <blockquote>
 <p>Definition</p>
 </blockquote>
-<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">OauthClient</span> <span class="p">{</span>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">OauthClient</span>  <span class="p">{</span>
   <span class="nx">getOauthUrl</span><span class="p">():</span> <span class="nx">string</span><span class="p">;</span>
   <span class="nx">onOauthCallback</span><span class="p">(</span><span class="nx">callbackUrl</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
 <span class="p">}</span>
@@ -1309,7 +1347,7 @@ The OauthClient can be implemented to perform the browser based Oauth process fr
 <blockquote>
 <p>Definition</p>
 </blockquote>
-<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">DeviceManager</span> <span class="p">{</span>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">DeviceManager</span>  <span class="p">{</span>
   <span class="nx">getDeviceById</span><span class="p">(</span><span class="nx">id</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="nx">ScryptedInterface</span><span class="p">;</span>
   <span class="nx">getDeviceByName</span><span class="p">(</span><span class="nx">name</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">ScryptedInterface</span><span class="p">;</span>
   <span class="nx">onDeviceDiscovered</span><span class="p">(</span><span class="nx">device</span><span class="p">:</span> <span class="nx">Device</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
@@ -1355,6 +1393,19 @@ DeviceManager is the interface which plugins use to report devices and device ev
 <span class="p">}</span>
 </code></pre>
 
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Device</span> <span class="p">{</span>
+  <span class="nl">events</span><span class="p">:</span> <span class="nx">string</span><span class="p">[];</span>
+  <span class="nl">id</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nl">interfaces</span><span class="p">:</span> <span class="nx">string</span><span class="p">[];</span>
+  <span class="nl">model</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nl">name</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nl">room</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nl">type</span><span class="p">:</span> <span class="nx">ScryptedThingType</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
 <aside class="notice">
 Device objects are created by DeviceProviders when new devices are discover and synced to Scrypted via the DeviceManager.
 </aside>
@@ -1482,6 +1533,13 @@ Device objects are created by DeviceProviders when new devices are discover and 
 <span class="p">}</span>
 </code></pre>
 
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">DeviceManifest</span> <span class="p">{</span>
+  <span class="nl">devices</span><span class="p">:</span> <span class="nx">Device</span><span class="p">[];</span>
+<span class="p">}</span>
+</code></pre>
 <aside class="notice">
 DeviceManifest is passed to DeviceManager.onDevicesChanged to sync a full list of devices from the controller/hub (Hue, SmartThings, etc)
 </aside>
@@ -1548,18 +1606,19 @@ DeviceManifest is passed to DeviceManager.onDevicesChanged to sync a full list o
 <span class="p">};</span>
 
 <span class="nx">DeviceProvider</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">getDevice</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">id</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// typically the id should be validated and mapped to a specific device</span>
     <span class="k">return</span> <span class="k">new</span> <span class="nx">Device</span><span class="p">(</span><span class="nx">id</span><span class="p">);</span>
 <span class="p">};</span>
 
 
 
-<span class="kr">export</span> <span class="k">default</span> <span class="k">new</span> <span class="nx">Device</span><span class="p">();</span>
+<span class="kr">export</span> <span class="k">default</span> <span class="k">new</span> <span class="nx">DeviceProvider</span><span class="p">();</span>
 </code></pre>
 
 <blockquote>
 <p>Definition</p>
 </blockquote>
-<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">DeviceProvider</span> <span class="p">{</span>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">DeviceProvider</span>  <span class="p">{</span>
   <span class="nx">discoverDevices</span><span class="p">(</span><span class="nx">duration</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
   <span class="nx">getDevice</span><span class="p">(</span><span class="nx">id</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">object</span><span class="p">;</span>
 <span class="p">}</span>
@@ -1597,7 +1656,7 @@ DeviceProvider acts as a controller/hub and exposes multiple devices to Scrypted
 <blockquote>
 <p>Definition</p>
 </blockquote>
-<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">HttpRequestHandler</span> <span class="p">{</span>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">HttpRequestHandler</span>  <span class="p">{</span>
   <span class="nx">getEndpoint</span><span class="p">():</span> <span class="nx">string</span><span class="p">;</span>
   <span class="nx">onRequest</span><span class="p">(</span><span class="nx">request</span><span class="p">:</span> <span class="nx">HttpRequest</span><span class="p">,</span> <span class="nx">response</span><span class="p">:</span> <span class="nx">HttpResponse</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
 <span class="p">}</span>
@@ -1613,7 +1672,18 @@ The HttpRequestHandler allows handling of web requests under the endpoint path: 
 <p>void onRequest(request: <a href='#httprequest'>HttpRequest</a>, response: <a href='#httpresponse'>HttpResponse</a>)</p>
 
 <p>Callback to handle an incoming request.</p>
-<h2 id='httprequest'>HttpRequest</h2><h3 id='properties-6'>Properties</h3>
+<h2 id='httprequest'>HttpRequest</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">HttpRequest</span> <span class="p">{</span>
+  <span class="nl">body</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nl">headers</span><span class="p">:</span> <span class="nx">object</span><span class="p">;</span>
+  <span class="nl">method</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nl">rootPath</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nl">url</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><h3 id='properties-6'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -1645,7 +1715,7 @@ The HttpRequestHandler allows handling of web requests under the endpoint path: 
 <blockquote>
 <p>Definition</p>
 </blockquote>
-<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">HttpResponse</span> <span class="p">{</span>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">HttpResponse</span>  <span class="p">{</span>
   <span class="nx">send</span><span class="p">(</span><span class="nx">options</span><span class="p">:</span> <span class="nx">HttpResponseOptions</span><span class="p">,</span> <span class="nx">body</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
   <span class="nx">send</span><span class="p">(</span><span class="nx">options</span><span class="p">:</span> <span class="nx">HttpResponseOptions</span><span class="p">,</span> <span class="nx">body</span><span class="p">:</span> <span class="nx">Buffer</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
   <span class="nx">send</span><span class="p">(</span><span class="nx">body</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
@@ -1663,7 +1733,16 @@ Response object provided by the HttpRequestHandler.
 <p>void send(body: string)</p>
 <h3 id='send-4'>send</h3>
 <p>void send(body: Buffer)</p>
-<h2 id='httpresponseoptions'>HttpResponseOptions</h2><h3 id='properties-7'>Properties</h3>
+<h2 id='httpresponseoptions'>HttpResponseOptions</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">HttpResponseOptions</span> <span class="p">{</span>
+  <span class="nl">asContent</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
+  <span class="nl">code</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
+  <span class="nl">headers</span><span class="p">:</span> <span class="nx">object</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><h3 id='properties-7'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -1692,7 +1771,7 @@ Response object provided by the HttpRequestHandler.
 <blockquote>
 <p>Definition</p>
 </blockquote>
-<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">EventEmitter</span> <span class="p">{</span>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">EventEmitter</span>  <span class="p">{</span>
   <span class="nx">on</span><span class="p">(</span><span class="nx">event</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">callback</span><span class="p">:</span> <span class="kd">function</span><span class="p">):</span> <span class="nx">EventListenerRegister</span><span class="p">;</span>
   <span class="nx">watch</span><span class="p">(</span><span class="nx">event</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">callback</span><span class="p">:</span> <span class="kd">function</span><span class="p">):</span> <span class="nx">EventListenerRegister</span><span class="p">;</span>
 <span class="p">}</span>

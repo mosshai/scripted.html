@@ -19,15 +19,25 @@ const TypeMap = {
     String: 'string',
     int: 'number',
     long: 'number',
+    double: 'number',
+    Double: 'number',
     JavaScriptObject: 'function',
 }
 
-function mapType(type) {
+
+function mapStrippedType(type) {
     var mapped = TypeMap[type];
     if (mapped) {
         return mapped;
     }
     return type;
+}
+
+function mapType(type) {
+    var baseType = type.replace('[]', '');
+    if (type === baseType)
+        return mapStrippedType(type);
+    return `${mapStrippedType(baseType)}[]`;
 }
 
 function linkifyStrippedType(type) {
@@ -54,6 +64,9 @@ const nunjucks = require('nunjucks');
 nunjucks.configure({ autoescape: false });
 var output = nunjucks.renderString(template, {
     classes: json,
+    mapSupers: function(supers) {
+        return supers.join(', ');
+    },
     methodArguments: function(args) {
         return args.map(arg => `${arg.name}: ${linkifyType(arg.type)}`);
     },

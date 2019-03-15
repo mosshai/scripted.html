@@ -49,10 +49,11 @@ DeviceProvider.prototype.discoverDevices = function(duration) {
 };
 
 DeviceProvider.prototype.getDevice = function(id) {
+    // typically the id should be validated and mapped to a specific device
     return new Device(id);
 };
 
 
 
-export default new Device();
+export default new DeviceProvider();
 ```

@@ -1,5 +1,6 @@
 {
     "OnOff": {
+        "superclass": [],
         "methods": [
             {
                 "name": "isOn",
@@ -20,6 +21,7 @@
         "description": "OnOff is a basic binary switch."
     },
     "Brightness": {
+        "superclass": [],
         "methods": [
             {
                 "name": "getLevel",
@@ -40,6 +42,7 @@
         "description": "Brightness is a lighting device that can be dimmed\/lit between 0 to 100."
     },
     "ColorSettingTemperature": {
+        "superclass": [],
         "methods": [
             {
                 "name": "getTemperature",
@@ -70,6 +73,7 @@
         "description": "ColorSettingTemperature sets the color temperature of a light in Kelvin."
     },
     "ColorSettingRgb": {
+        "superclass": [],
         "methods": [
             {
                 "name": "getRgb",
@@ -115,6 +119,7 @@
         "description": "Represents an RGB color value component values between 0 and 255."
     },
     "ColorSettingHsv": {
+        "superclass": [],
         "methods": [
             {
                 "name": "getHsv",
@@ -160,6 +165,7 @@
         "description": "Represents an HSV color value component values between 0 and 1."
     },
     "BinarySensor": {
+        "superclass": [],
         "methods": [
             {
                 "name": "getBinaryState",
@@ -169,6 +175,7 @@
         ]
     },
     "EntrySensor": {
+        "superclass": [],
         "methods": [
             {
                 "name": "isEntryOpen",
@@ -178,6 +185,7 @@
         ]
     },
     "EntryHandleSensor": {
+        "superclass": [],
         "methods": [
             {
                 "name": "isDoorOpen",
@@ -187,6 +195,7 @@
         ]
     },
     "IntrusionSensor": {
+        "superclass": [],
         "methods": [
             {
                 "name": "isIntrusionDetected",
@@ -196,6 +205,7 @@
         ]
     },
     "FloodSensor": {
+        "superclass": [],
         "methods": [
             {
                 "name": "isFlooded",
@@ -205,6 +215,7 @@
         ]
     },
     "Notifier": {
+        "superclass": [],
         "methods": [
             {
                 "name": "sendNotification",
@@ -251,6 +262,7 @@
         "description": "MediaObject is an intermediate object within Scrypted to represent all media objects. Plugins should use the MediaConverter to convert the Scrypted MediaObject into a desired type, whether it is a externally accessible URL, a Buffer, etc."
     },
     "StartStop": {
+        "superclass": [],
         "methods": [
             {
                 "name": "isPausable",
@@ -291,6 +303,7 @@
         "description": "StartStop represents a device that can be started, stopped, and possibly paused and resumed. Typically vacuum cleaners or washers."
     },
     "Dock": {
+        "superclass": [],
         "methods": [
             {
                 "name": "dock",
@@ -306,6 +319,7 @@
         "description": "Dock instructs devices that have a base station or charger, to return to their home."
     },
     "Program": {
+        "superclass": [],
         "methods": [
             {
                 "name": "run",
@@ -332,6 +346,10 @@
         ]
     },
     "TemperatureSetting": {
+        "superclass": [
+            "Thermometer",
+            "HumiditySensor"
+        ],
         "methods": [
             {
                 "name": "getAvailableThermostatModes",
@@ -395,6 +413,39 @@
         ],
         "description": "TemperatureSetting represents a thermostat device."
     },
+    "Thermometer": {
+        "superclass": [],
+        "methods": [
+            {
+                "name": "getTemperatureAmbient",
+                "arguments": [],
+                "type": "double",
+                "description": "Get the ambient temperature in Celsius."
+            },
+            {
+                "name": "getTemperatureUnit",
+                "arguments": [],
+                "type": "TemperatureUnit",
+                "description": "Get the user facing unit of measurement for this thermometer. This may be Fahrenheit, but getTemperatureAmbient will return results in Celsius."
+            }
+        ]
+    },
+    "TemperatureUnit": {
+        "values": [
+            "C",
+            "F"
+        ]
+    },
+    "HumiditySensor": {
+        "superclass": [],
+        "methods": [
+            {
+                "name": "getHumidityAmbient",
+                "arguments": [],
+                "type": "double"
+            }
+        ]
+    },
     "ThermostatMode": {
         "values": [
             "Off",
@@ -410,6 +461,7 @@
         ]
     },
     "Lock": {
+        "superclass": [],
         "methods": [
             {
                 "name": "isLocked",
@@ -430,6 +482,7 @@
         "description": "Lock controls devices that can lock or unlock entries. Often works in tandem with PasswordControl."
     },
     "PasswordControl": {
+        "superclass": [],
         "methods": [
             {
                 "name": "addPassword",
@@ -460,6 +513,9 @@
         "description": "PasswordControl represents devices that authorize users via a passcode or pin code."
     },
     "CameraStream": {
+        "superclass": [
+            "ReferenceId"
+        ],
         "methods": [
             {
                 "name": "createVideoCapturer",
@@ -468,38 +524,18 @@
             }
         ]
     },
-    "Thermometer": {
+    "ReferenceId": {
+        "superclass": [],
         "methods": [
             {
-                "name": "getTemperatureAmbient",
+                "name": "getRefId",
                 "arguments": [],
-                "type": "double",
-                "description": "Get the ambient temperature in Celsius."
-            },
-            {
-                "name": "getTemperatureUnit",
-                "arguments": [],
-                "type": "TemperatureUnit",
-                "description": "Get the user facing unit of measurement for this thermometer. This may be Fahrenheit, but getTemperatureAmbient will return results in Celsius."
-            }
-        ]
-    },
-    "TemperatureUnit": {
-        "values": [
-            "C",
-            "F"
-        ]
-    },
-    "HumiditySensor": {
-        "methods": [
-            {
-                "name": "getHumidityAmbient",
-                "arguments": [],
-                "type": "double"
+                "type": "long"
             }
         ]
     },
     "UltravioletSensor": {
+        "superclass": [],
         "methods": [
             {
                 "name": "getUltraviolet",
@@ -509,6 +545,7 @@
         ]
     },
     "LuminanceSensor": {
+        "superclass": [],
         "methods": [
             {
                 "name": "getLuminance",
@@ -518,6 +555,7 @@
         ]
     },
     "Scene": {
+        "superclass": [],
         "methods": [
             {
                 "name": "activate",
@@ -539,6 +577,7 @@
         "description": "Scenes control multiple different devices into a given state."
     },
     "Entry": {
+        "superclass": [],
         "methods": [
             {
                 "name": "closeEntry",
@@ -559,6 +598,7 @@
         "description": "Entry represents devices that can open and close barriers, such as garage doors."
     },
     "Alarm": {
+        "superclass": [],
         "methods": [
             {
                 "name": "getClockType",
@@ -600,6 +640,7 @@
         ]
     },
     "Battery": {
+        "superclass": [],
         "methods": [
             {
                 "name": "getBatteryLevel",
@@ -610,6 +651,7 @@
         "description": "Battery retrieves the battery level of battery powered devices."
     },
     "Refresh": {
+        "superclass": [],
         "methods": [
             {
                 "name": "getRefreshFrequency",
@@ -636,6 +678,7 @@
         "description": "Refresh indicates that this device has properties that are not automatically updated, and must be periodically refreshed."
     },
     "MediaPlayer": {
+        "superclass": [],
         "methods": [
             {
                 "name": "load",
@@ -696,9 +739,11 @@
         ]
     },
     "FaceDetector": {
+        "superclass": [],
         "methods": []
     },
     "Online": {
+        "superclass": [],
         "methods": [
             {
                 "name": "isOnline",
@@ -709,6 +754,7 @@
         "description": "Online denotes whether the device is online or unresponsive. It may be unresponsive due to being unplugged, network error, etc."
     },
     "EventListener": {
+        "superclass": [],
         "methods": [
             {
                 "name": "onEvent",
@@ -736,6 +782,7 @@
         "description": "Returned when an event listener is attached to an EventEmitter. Call removeListener to unregister from events."
     },
     "Logger": {
+        "superclass": [],
         "methods": [
             {
                 "name": "a",
@@ -830,6 +877,7 @@
         "description": "Logger is exposed via log.* to allow writing to the Scrypted log."
     },
     "MediaSource": {
+        "superclass": [],
         "methods": [
             {
                 "name": "getMedia",
@@ -840,9 +888,11 @@
         ]
     },
     "MessagingEndpoint": {
+        "superclass": [],
         "methods": []
     },
     "Settings": {
+        "superclass": [],
         "methods": [
             {
                 "name": "getBoolean",
@@ -1007,6 +1057,7 @@
         "description": "Settings viewing and editing of device configurations that describe or modify behavior."
     },
     "OauthClient": {
+        "superclass": [],
         "methods": [
             {
                 "name": "getOauthUrl",
@@ -1029,6 +1080,7 @@
         "description": "The OauthClient can be implemented to perform the browser based Oauth process from within a plugin."
     },
     "DeviceManager": {
+        "superclass": [],
         "methods": [
             {
                 "name": "getDeviceById",
@@ -1178,6 +1230,7 @@
         "description": "DeviceManifest is passed to DeviceManager.onDevicesChanged to sync a full list of devices from the controller\/hub (Hue, SmartThings, etc)"
     },
     "DeviceProvider": {
+        "superclass": [],
         "methods": [
             {
                 "name": "discoverDevices",
@@ -1205,6 +1258,7 @@
         "description": "DeviceProvider acts as a controller\/hub and exposes multiple devices to Scrypted Device Manager."
     },
     "HttpRequestHandler": {
+        "superclass": [],
         "methods": [
             {
                 "name": "getEndpoint",
@@ -1255,6 +1309,7 @@
         ]
     },
     "HttpResponse": {
+        "superclass": [],
         "methods": [
             {
                 "name": "send",
@@ -1324,6 +1379,7 @@
         ]
     },
     "EventEmitter": {
+        "superclass": [],
         "methods": [
             {
                 "name": "on",

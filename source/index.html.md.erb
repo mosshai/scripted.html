@@ -88,12 +88,14 @@ be synced to upstream integration providers, such as Google Home or Apple Homeki
 > Definition
 
 ```javascript
-interface OnOff {
+interface OnOff  {
   isOn(): boolean;
   turnOff(): void;
   turnOn(): void;
 }
 ```
+
+
 
 
 
@@ -136,11 +138,13 @@ void turnOn()
 > Definition
 
 ```javascript
-interface Brightness {
+interface Brightness  {
   getLevel(): number;
   setLevel(brightness: number): void;
 }
 ```
+
+
 
 
 
@@ -178,13 +182,15 @@ void setLevel(brightness: number)
 > Definition
 
 ```javascript
-interface ColorSettingTemperature {
+interface ColorSettingTemperature  {
   getTemperature(): number;
   getTemperatureMaxK(): number;
   getTemperatureMinK(): number;
   setTemperature(kelvin: number): void;
 }
 ```
+
+
 
 
 
@@ -232,11 +238,13 @@ void setTemperature(kelvin: number)
 > Definition
 
 ```javascript
-interface ColorSettingRgb {
+interface ColorSettingRgb  {
   getRgb(): ColorRgb;
   setRgb(r: number, g: number, b: number): void;
 }
 ```
+
+
 
 
 
@@ -273,6 +281,18 @@ void setRgb(r: number, g: number, b: number)
 
 
 
+> Definition
+
+```javascript
+interface ColorRgb {
+  b: number;
+  g: number;
+  r: number;
+}
+```
+
+
+
 <aside class="notice">
 Represents an RGB color value component values between 0 and 255.
 </aside>
@@ -301,11 +321,13 @@ r | number
 > Definition
 
 ```javascript
-interface ColorSettingHsv {
+interface ColorSettingHsv  {
   getHsv(): ColorHsv;
-  setHsv(hue: double, saturation: double, value: double): void;
+  setHsv(hue: number, saturation: number, value: number): void;
 }
 ```
+
+
 
 
 
@@ -323,7 +345,7 @@ ColorSettingHsv sets the color of a colored light using the HSV representation.
 
 
 ### setHsv
-void setHsv(hue: double, saturation: double, value: double)
+void setHsv(hue: number, saturation: number, value: number)
 
 
 
@@ -342,6 +364,18 @@ void setHsv(hue: double, saturation: double, value: double)
 
 
 
+> Definition
+
+```javascript
+interface ColorHsv {
+  h: number;
+  s: number;
+  v: number;
+}
+```
+
+
+
 <aside class="notice">
 Represents an HSV color value component values between 0 and 1.
 </aside>
@@ -353,9 +387,9 @@ Represents an HSV color value component values between 0 and 1.
 ### Properties
 Name      | Type
 --------- | ----
-h | double
-s | double
-v | double
+h | number
+s | number
+v | number
 
 
 
@@ -370,10 +404,12 @@ v | double
 > Definition
 
 ```javascript
-interface BinarySensor {
+interface BinarySensor  {
   getBinaryState(): boolean;
 }
 ```
+
+
 
 
 
@@ -402,10 +438,12 @@ boolean getBinaryState()
 > Definition
 
 ```javascript
-interface EntrySensor {
+interface EntrySensor  {
   isEntryOpen(): boolean;
 }
 ```
+
+
 
 
 
@@ -434,10 +472,12 @@ boolean isEntryOpen()
 > Definition
 
 ```javascript
-interface EntryHandleSensor {
+interface EntryHandleSensor  {
   isDoorOpen(): boolean;
 }
 ```
+
+
 
 
 
@@ -466,10 +506,12 @@ boolean isDoorOpen()
 > Definition
 
 ```javascript
-interface IntrusionSensor {
+interface IntrusionSensor  {
   isIntrusionDetected(): boolean;
 }
 ```
+
+
 
 
 
@@ -498,10 +540,12 @@ boolean isIntrusionDetected()
 > Definition
 
 ```javascript
-interface FloodSensor {
+interface FloodSensor  {
   isFlooded(): boolean;
 }
 ```
+
+
 
 
 
@@ -530,11 +574,13 @@ boolean isFlooded()
 > Definition
 
 ```javascript
-interface Notifier {
+interface Notifier  {
   sendNotification(title: string, body: string): void;
   sendNotification(title: string, body: string, media: MediaObject, mimeType: string): void;
 }
 ```
+
+
 
 
 
@@ -572,6 +618,8 @@ Passing null uses the native type of the MediaObject. If that is not supported b
 
 
 
+
+
 <aside class="notice">
 MediaObject is an intermediate object within Scrypted to represent all media objects. Plugins should use the MediaConverter to convert the Scrypted MediaObject into a desired type, whether it is a externally accessible URL, a Buffer, etc.
 </aside>
@@ -592,7 +640,7 @@ MediaObject is an intermediate object within Scrypted to represent all media obj
 > Definition
 
 ```javascript
-interface StartStop {
+interface StartStop  {
   isPausable(): boolean;
   isPaused(): boolean;
   isRunning(): boolean;
@@ -602,6 +650,8 @@ interface StartStop {
   stop(): void;
 }
 ```
+
+
 
 
 
@@ -664,11 +714,13 @@ void stop()
 > Definition
 
 ```javascript
-interface Dock {
+interface Dock  {
   dock(): void;
   isDocked(): boolean;
 }
 ```
+
+
 
 
 
@@ -706,11 +758,13 @@ boolean isDocked()
 > Definition
 
 ```javascript
-interface Program {
-  run(args: Object[]): object;
-  runAsync(args: Object[]): object;
+interface Program  {
+  run(args: object[]): object;
+  runAsync(args: object[]): object;
 }
 ```
+
+
 
 
 
@@ -744,17 +798,19 @@ Asynchronously run a script given the provided arguments.
 > Definition
 
 ```javascript
-interface TemperatureSetting {
+interface TemperatureSetting implements Thermometer, HumiditySensor {
   getAvailableThermostatModes(): ThermostatMode[];
-  getTemperatureSetpoint(): double;
-  getTemperatureSetpointHigh(): double;
-  getTemperatureSetpointLow(): double;
+  getTemperatureSetpoint(): number;
+  getTemperatureSetpointHigh(): number;
+  getTemperatureSetpointLow(): number;
   getThermostatMode(): ThermostatMode;
-  setTemperatureSetRange(low: double, high: double): void;
-  setTemperatureSetpoint(degrees: double): void;
+  setTemperatureSetRange(low: number, high: number): void;
+  setTemperatureSetpoint(degrees: number): void;
   setThermostatMode(mode: ThermostatMode): void;
 }
 ```
+
+
 
 
 
@@ -772,17 +828,17 @@ TemperatureSetting represents a thermostat device.
 
 
 ### getTemperatureSetpoint
-double getTemperatureSetpoint()
+number getTemperatureSetpoint()
 
 
 
 ### getTemperatureSetpointHigh
-double getTemperatureSetpointHigh()
+number getTemperatureSetpointHigh()
 
 
 
 ### getTemperatureSetpointLow
-double getTemperatureSetpointLow()
+number getTemperatureSetpointLow()
 
 
 
@@ -792,12 +848,12 @@ double getTemperatureSetpointLow()
 
 
 ### setTemperatureSetRange
-void setTemperatureSetRange(low: double, high: double)
+void setTemperatureSetRange(low: number, high: number)
 
 
 
 ### setTemperatureSetpoint
-void setTemperatureSetpoint(degrees: double)
+void setTemperatureSetpoint(degrees: number)
 
 
 
@@ -814,9 +870,108 @@ void setThermostatMode(mode: <a href='#thermostatmode'>ThermostatMode</a>)
 
 
 
+## Thermometer
+
+<%= partial "includes/scrypted/Thermometer.md.erb" %>
+
+
+> Definition
+
+```javascript
+interface Thermometer  {
+  getTemperatureAmbient(): number;
+  getTemperatureUnit(): TemperatureUnit;
+}
+```
+
+
+
+
+
+
+
+
+
+### getTemperatureAmbient
+number getTemperatureAmbient()
+
+Get the ambient temperature in Celsius.
+
+### getTemperatureUnit
+<a href='#temperatureunit'>TemperatureUnit</a> getTemperatureUnit()
+
+Get the user facing unit of measurement for this thermometer. This may be Fahrenheit, but getTemperatureAmbient will return results in Celsius.
+
+
+
+
+
+
+
+
+
+## TemperatureUnit
+
+<%= partial "includes/scrypted/TemperatureUnit.md.erb" %>
+
+
+
+
+
+
+
+
+
+
+
+
+Enum |
+----
+"C" |
+"F" |
+
+
+
+
+## HumiditySensor
+
+<%= partial "includes/scrypted/HumiditySensor.md.erb" %>
+
+
+> Definition
+
+```javascript
+interface HumiditySensor  {
+  getHumidityAmbient(): number;
+}
+```
+
+
+
+
+
+
+
+
+
+### getHumidityAmbient
+number getHumidityAmbient()
+
+
+
+
+
+
+
+
+
+
+
 ## ThermostatMode
 
 <%= partial "includes/scrypted/ThermostatMode.md.erb" %>
+
+
 
 
 
@@ -851,12 +1006,14 @@ Enum |
 > Definition
 
 ```javascript
-interface Lock {
+interface Lock  {
   isLocked(): boolean;
   lock(): void;
   unlock(): void;
 }
 ```
+
+
 
 
 
@@ -899,12 +1056,14 @@ void unlock()
 > Definition
 
 ```javascript
-interface PasswordControl {
+interface PasswordControl  {
   addPassword(password: string): void;
   getPasswords(): Set;
   removePassword(password: string): void;
 }
 ```
+
+
 
 
 
@@ -947,10 +1106,12 @@ void removePassword(password: string)
 > Definition
 
 ```javascript
-interface CameraStream {
+interface CameraStream implements ReferenceId {
   createVideoCapturer(): Future;
 }
 ```
+
+
 
 
 
@@ -971,17 +1132,16 @@ Future createVideoCapturer()
 
 
 
-## Thermometer
+## ReferenceId
 
-<%= partial "includes/scrypted/Thermometer.md.erb" %>
+<%= partial "includes/scrypted/ReferenceId.md.erb" %>
 
 
 > Definition
 
 ```javascript
-interface Thermometer {
-  getTemperatureAmbient(): double;
-  getTemperatureUnit(): TemperatureUnit;
+interface ReferenceId  {
+  getRefId(): number;
 }
 ```
 
@@ -991,66 +1151,10 @@ interface Thermometer {
 
 
 
-### getTemperatureAmbient
-double getTemperatureAmbient()
-
-Get the ambient temperature in Celsius.
-
-### getTemperatureUnit
-<a href='#temperatureunit'>TemperatureUnit</a> getTemperatureUnit()
-
-Get the user facing unit of measurement for this thermometer. This may be Fahrenheit, but getTemperatureAmbient will return results in Celsius.
 
 
-
-
-
-
-
-
-
-## TemperatureUnit
-
-<%= partial "includes/scrypted/TemperatureUnit.md.erb" %>
-
-
-
-
-
-
-
-
-
-
-Enum |
-----
-"C" |
-"F" |
-
-
-
-
-## HumiditySensor
-
-<%= partial "includes/scrypted/HumiditySensor.md.erb" %>
-
-
-> Definition
-
-```javascript
-interface HumiditySensor {
-  getHumidityAmbient(): double;
-}
-```
-
-
-
-
-
-
-
-### getHumidityAmbient
-double getHumidityAmbient()
+### getRefId
+number getRefId()
 
 
 
@@ -1070,8 +1174,8 @@ double getHumidityAmbient()
 > Definition
 
 ```javascript
-interface UltravioletSensor {
-  getUltraviolet(): double;
+interface UltravioletSensor  {
+  getUltraviolet(): number;
 }
 ```
 
@@ -1081,8 +1185,10 @@ interface UltravioletSensor {
 
 
 
+
+
 ### getUltraviolet
-double getUltraviolet()
+number getUltraviolet()
 
 
 
@@ -1102,8 +1208,8 @@ double getUltraviolet()
 > Definition
 
 ```javascript
-interface LuminanceSensor {
-  getLuminance(): double;
+interface LuminanceSensor  {
+  getLuminance(): number;
 }
 ```
 
@@ -1113,8 +1219,10 @@ interface LuminanceSensor {
 
 
 
+
+
 ### getLuminance
-double getLuminance()
+number getLuminance()
 
 
 
@@ -1134,12 +1242,14 @@ double getLuminance()
 > Definition
 
 ```javascript
-interface Scene {
+interface Scene  {
   activate(): void;
   deactivate(): void;
   isReversible(): boolean;
 }
 ```
+
+
 
 
 
@@ -1182,12 +1292,14 @@ If a scene can be reversed, isReversible should return true. Otherwise deactivat
 > Definition
 
 ```javascript
-interface Entry {
+interface Entry  {
   closeEntry(): void;
   isEntryOpen(): boolean;
   openEntry(): void;
 }
 ```
+
+
 
 
 
@@ -1230,13 +1342,15 @@ void openEntry()
 > Definition
 
 ```javascript
-interface Alarm {
+interface Alarm  {
   getClockType(): ClockType;
   getHour(): number;
   getMinute(): number;
   isEnabled(day: number): boolean;
 }
 ```
+
+
 
 
 
@@ -1289,6 +1403,8 @@ boolean isEnabled(day: number)
 
 
 
+
+
 Enum |
 ----
 "_AM" |
@@ -1310,10 +1426,12 @@ Enum |
 > Definition
 
 ```javascript
-interface Battery {
+interface Battery  {
   getBatteryLevel(): number;
 }
 ```
+
+
 
 
 
@@ -1346,11 +1464,13 @@ number getBatteryLevel()
 > Definition
 
 ```javascript
-interface Refresh {
+interface Refresh  {
   getRefreshFrequency(): number;
   refresh(refreshInterface: Class, userInitiated: boolean): void;
 }
 ```
+
+
 
 
 
@@ -1388,7 +1508,7 @@ This method is called by Scrypted when the properties of the device need to be r
 > Definition
 
 ```javascript
-interface MediaPlayer {
+interface MediaPlayer  {
   load(media: MediaObject, options: MediaPlayerOptions): void;
   load(mediaUrl: string, options: MediaPlayerOptions): void;
   pause(): void;
@@ -1396,6 +1516,8 @@ interface MediaPlayer {
   stop(): void;
 }
 ```
+
+
 
 
 
@@ -1447,6 +1569,17 @@ void stop()
 
 
 
+> Definition
+
+```javascript
+interface MediaPlayerOptions {
+  autoplay: boolean;
+  mimeType: string;
+}
+```
+
+
+
 
 
 
@@ -1477,6 +1610,8 @@ mimeType | string
 
 
 
+
+
 ## Online
 
 <%= partial "includes/scrypted/Online.md.erb" %>
@@ -1485,10 +1620,12 @@ mimeType | string
 > Definition
 
 ```javascript
-interface Online {
+interface Online  {
   isOnline(): boolean;
 }
 ```
+
+
 
 
 
@@ -1521,10 +1658,12 @@ boolean isOnline()
 > Definition
 
 ```javascript
-interface EventListener {
+interface EventListener  {
   onEvent(eventSource: ScryptedInterface, eventInterface: Class, eventData: object): void;
 }
 ```
+
+
 
 
 
@@ -1552,6 +1691,8 @@ This device type can be hooked by Automation actions to handle events. The event
 
 
 
+
+
 <aside class="notice">
 Returned when an event listener is attached to an EventEmitter. Call removeListener to unregister from events.
 </aside>
@@ -1572,7 +1713,7 @@ Returned when an event listener is attached to an EventEmitter. Call removeListe
 > Definition
 
 ```javascript
-interface Logger {
+interface Logger  {
   a(msg: string): void;
   clear(): void;
   clearAlert(msg: string): void;
@@ -1584,6 +1725,8 @@ interface Logger {
   w(msg: string): void;
 }
 ```
+
+
 
 
 
@@ -1656,10 +1799,12 @@ Warn
 > Definition
 
 ```javascript
-interface MediaSource {
+interface MediaSource  {
   getMedia(): MediaObject;
 }
 ```
+
+
 
 
 
@@ -1695,6 +1840,8 @@ Get a MediaObject that will be automatically converted for playback on other dev
 
 
 
+
+
 ## Settings
 
 <%= partial "includes/scrypted/Settings.md.erb" %>
@@ -1703,23 +1850,25 @@ Get a MediaObject that will be automatically converted for playback on other dev
 > Definition
 
 ```javascript
-interface Settings {
+interface Settings  {
   getBoolean(key: string): boolean;
   getBoolean(key: string, defaultValue: boolean): boolean;
   getConfigurationValueList(key: string): List;
-  getDouble(key: string): Double;
+  getDouble(key: string): number;
   getFloat(key: string): Float;
   getInt(key: string): Integer;
   getKeyDescription(key: string): string;
   getKeys(): List;
   getString(key: string): string;
   putBoolean(key: string, value: boolean): void;
-  putDouble(key: string, value: double): void;
+  putDouble(key: string, value: number): void;
   putFloat(key: string, value: float): void;
   putInt(key: string, value: number): void;
   putString(key: string, value: string): void;
 }
 ```
+
+
 
 
 
@@ -1747,7 +1896,7 @@ List getConfigurationValueList(key: string)
 
 
 ### getDouble
-Double getDouble(key: string)
+number getDouble(key: string)
 
 
 
@@ -1782,7 +1931,7 @@ void putBoolean(key: string, value: boolean)
 
 
 ### putDouble
-void putDouble(key: string, value: double)
+void putDouble(key: string, value: number)
 
 
 
@@ -1817,11 +1966,13 @@ void putString(key: string, value: string)
 > Definition
 
 ```javascript
-interface OauthClient {
+interface OauthClient  {
   getOauthUrl(): string;
   onOauthCallback(callbackUrl: string): void;
 }
 ```
+
+
 
 
 
@@ -1859,7 +2010,7 @@ When an oauth request by a plugin completes, the callback url, with the code/tok
 > Definition
 
 ```javascript
-interface DeviceManager {
+interface DeviceManager  {
   getDeviceById(id: number): ScryptedInterface;
   getDeviceByName(name: string): ScryptedInterface;
   onDeviceDiscovered(device: Device): void;
@@ -1868,6 +2019,8 @@ interface DeviceManager {
   onDevicesChanged(devices: DeviceManifest): void;
 }
 ```
+
+
 
 
 
@@ -1924,6 +2077,22 @@ onDevicesChanged is used to sync Scrypted with devices that are attached to a hu
 
 
 
+> Definition
+
+```javascript
+interface Device {
+  events: string[];
+  id: string;
+  interfaces: string[];
+  model: string;
+  name: string;
+  room: string;
+  type: ScryptedThingType;
+}
+```
+
+
+
 <aside class="notice">
 Device objects are created by DeviceProviders when new devices are discover and synced to Scrypted via the DeviceManager.
 </aside>
@@ -1951,6 +2120,8 @@ type | <a href='#scryptedthingtype'>ScryptedThingType</a>
 ## ScryptedThingType
 
 <%= partial "includes/scrypted/ScryptedThingType.md.erb" %>
+
+
 
 
 
@@ -1994,6 +2165,16 @@ Enum |
 
 
 
+> Definition
+
+```javascript
+interface DeviceManifest {
+  devices: Device[];
+}
+```
+
+
+
 <aside class="notice">
 DeviceManifest is passed to DeviceManager.onDevicesChanged to sync a full list of devices from the controller/hub (Hue, SmartThings, etc)
 </aside>
@@ -2020,11 +2201,13 @@ devices | <a href='#device'>Device</a>[]
 > Definition
 
 ```javascript
-interface DeviceProvider {
+interface DeviceProvider  {
   discoverDevices(duration: number): void;
   getDevice(id: string): object;
 }
 ```
+
+
 
 
 
@@ -2062,11 +2245,13 @@ Get an instance of a previously discovered device that was reported to the devic
 > Definition
 
 ```javascript
-interface HttpRequestHandler {
+interface HttpRequestHandler  {
   getEndpoint(): string;
   onRequest(request: HttpRequest, response: HttpResponse): void;
 }
 ```
+
+
 
 
 
@@ -2103,6 +2288,20 @@ Callback to handle an incoming request.
 
 
 
+> Definition
+
+```javascript
+interface HttpRequest {
+  body: string;
+  headers: object;
+  method: string;
+  rootPath: string;
+  url: string;
+}
+```
+
+
+
 
 
 
@@ -2129,13 +2328,15 @@ url | string
 > Definition
 
 ```javascript
-interface HttpResponse {
+interface HttpResponse  {
   send(options: HttpResponseOptions, body: string): void;
   send(options: HttpResponseOptions, body: Buffer): void;
   send(body: string): void;
   send(body: Buffer): void;
 }
 ```
+
+
 
 
 
@@ -2182,6 +2383,18 @@ void send(body: Buffer)
 
 
 
+> Definition
+
+```javascript
+interface HttpResponseOptions {
+  asContent: boolean;
+  code: number;
+  headers: object;
+}
+```
+
+
+
 
 
 
@@ -2206,11 +2419,13 @@ headers | object
 > Definition
 
 ```javascript
-interface EventEmitter {
+interface EventEmitter  {
   on(event: string, callback: function): EventListenerRegister;
   watch(event: string, callback: function): EventListenerRegister;
 }
 ```
+
+
 
 
 
