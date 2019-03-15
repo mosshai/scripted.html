@@ -11,8 +11,6 @@ search: true
 
 ## Controlling a Device
 
-<aside class="warning">You must have Visual Studio Code and the <a href='https://marketplace.visualstudio.com/items?itemName=koush.duk-debug'>Duktape Debugger Plugin</a> installed.</aside>
-
 1. Create a new Script under Plugins.
 2. Set the type to Library.
 3. Assign an device that supports OnOff to a variable "switch".
@@ -28,6 +26,9 @@ else {
 ```
 
 ## Creating a Device
+
+<aside class="warning">To use npm modules, you must have Visual Studio Code and the <a href='https://marketplace.visualstudio.com/items?itemName=koush.duk-debug'>Duktape Debugger Plugin</a> installed.</aside>
+
 ```javascript
 import axios from 'axios';
 
@@ -72,8 +73,9 @@ be synced to upstream integration providers, such as Google Home or Apple Homeki
 3. Select/check the OnOff interface.
 4. Save.
 5. Click the Debug button.
-6. Edit .vcode/settings.json and set the value of "scrypted.debugHost": "THIS.IS.MY.IP"
-7. Launch Scrypted Debugger in VS Code.
+6. Check out the <a href='https://github.com/koush/scrypted-vscode'>sample project</a> and open it in Visual Studio Code.
+7. Edit .vcode/settings.json and set the value of "scrypted.debugHost": "THIS.IS.MY.IP"
+8. Launch Scrypted Debugger in Visual Studio Code.
 
 # Reference
 
