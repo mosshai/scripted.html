@@ -1,0 +1,29 @@
+{% for name, c in classes %}
+{% if c.values.length %}
+export enum {{ name }} {
+{% for value in c.values %}  {{ value }} = "{{ value }}",
+{% endfor %}}
+{% elif c.methods.length %}
+export interface {{ name }} {% if c.superclass.length %}extends {{ mapSupers(c.superclass) }}{% endif %} {
+{% for method in c.methods %}  {{ method.name }}({{ mapMethodArguments(method.arguments) | join(', ') }}): {{ mapType(method.type) }};
+{% endfor %}}
+{% elif c.fields.length %}
+export interface {{ name }} {
+{% for field in c.fields %}  {{ field.name }}: {{ mapType(field.type) }},
+{% endfor %}}
+{% else %}
+export interface {{ name }} {
+}
+{% endif %}
+{% endfor %}
+
+
+export interface ScryptedStatic {
+    DeviceManager: DeviceManager,
+    ScriptSettings: Settings,
+    Logger: Logger,
+}
+
+declare const Scrypted: ScryptedStatic;
+
+export default Scrypted;

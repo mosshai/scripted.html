@@ -1,1 +1,1 @@
-pushd scrypted && npm start && popd && bundle exec middleman build --clean
+pushd scrypted && npm start $1 && popd && bundle exec middleman build --clean
