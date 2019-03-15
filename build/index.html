@@ -404,8 +404,6 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='getting-started'>Getting Started <br/></h1><h2 id='controlling-a-device'>Controlling a Device</h2>
-<aside class="warning">You must have Visual Studio Code and the <a href='https://marketplace.visualstudio.com/items?itemName=koush.duk-debug'>Duktape Debugger Plugin</a> installed.</aside>
-
 <ol>
 <li>Create a new Script under Plugins.</li>
 <li>Set the type to Library.</li>
@@ -418,7 +416,9 @@
 <span class="k">else</span> <span class="p">{</span>
     <span class="k">switch</span><span class="p">.</span><span class="nx">turnOn</span><span class="p">();</span>
 <span class="p">}</span>
-</code></pre><h2 id='creating-a-device'>Creating a Device</h2><pre class="highlight javascript tab-javascript"><code><span class="kr">import</span> <span class="nx">axios</span> <span class="nx">from</span> <span class="s1">'axios'</span><span class="p">;</span>
+</code></pre><h2 id='creating-a-device'>Creating a Device</h2>
+<aside class="warning">To use npm modules, you must have Visual Studio Code and the <a href='https://marketplace.visualstudio.com/items?itemName=koush.duk-debug'>Duktape Debugger Plugin</a> installed.</aside>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">import</span> <span class="nx">axios</span> <span class="nx">from</span> <span class="s1">'axios'</span><span class="p">;</span>
 
 <span class="nx">log</span><span class="p">.</span><span class="nx">i</span><span class="p">(</span><span class="s1">'Hello World. This will create a virtual OnOff device.'</span><span class="p">);</span>
 
@@ -460,9 +460,10 @@ be synced to upstream integration providers, such as Google Home or Apple Homeki
 <li>Set the type to Device.</li>
 <li>Select/check the OnOff interface.</li>
 <li>Save.</li>
-<li>Click the Debug button.</li>
-<li>Edit .vcode/settings.json and set the value of &quot;scrypted.debugHost&quot;: &quot;THIS.IS.MY.IP&quot;</li>
-<li>Launch Scrypted Debugger in VS Code.</li>
+<li>Click the Debug button. Note the IP address.</li>
+<li>Check out the <a href='https://github.com/koush/scrypted-vscode'>sample project</a> and open it in Visual Studio Code.</li>
+<li>Edit .vcode/settings.json and enter the previous IP address <code>&quot;scrypted.debugHost&quot;: &quot;&lt;ip-address&gt;&quot;</code></li>
+<li>Launch Scrypted Debugger in Visual Studio Code.</li>
 </ol>
 <h1 id='reference'>Reference</h1><h2 id='onoff'>OnOff</h2>
 <pre class="highlight javascript tab-javascript"><code><span class="c1">// Toggle an OnOff device</span>
@@ -474,6 +475,15 @@ be synced to upstream integration providers, such as Google Home or Apple Homeki
 <span class="p">}</span>
 </code></pre>
 
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">OnOff</span> <span class="p">{</span>
+  <span class="nx">isOn</span><span class="p">():</span> <span class="kr">boolean</span><span class="p">;</span>
+  <span class="nx">turnOff</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">turnOn</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
 <aside class="notice">
 OnOff is a basic binary switch.
 </aside>
@@ -488,6 +498,14 @@ OnOff is a basic binary switch.
 <span class="nx">dimmer</span><span class="p">.</span><span class="nx">setLevel</span><span class="p">(</span><span class="mi">50</span><span class="p">);</span>
 </code></pre>
 
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Brightness</span> <span class="p">{</span>
+  <span class="nx">getLevel</span><span class="p">():</span> <span class="nx">number</span><span class="p">;</span>
+  <span class="nx">setLevel</span><span class="p">(</span><span class="nx">brightness</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
 <aside class="notice">
 Brightness is a lighting device that can be dimmed/lit between 0 to 100.
 </aside>
@@ -496,6 +514,16 @@ Brightness is a lighting device that can be dimmed/lit between 0 to 100.
 <h3 id='setlevel'>setLevel</h3>
 <p>void setLevel(brightness: number)</p>
 <h2 id='colorsettingtemperature'>ColorSettingTemperature</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">ColorSettingTemperature</span> <span class="p">{</span>
+  <span class="nx">getTemperature</span><span class="p">():</span> <span class="nx">number</span><span class="p">;</span>
+  <span class="nx">getTemperatureMaxK</span><span class="p">():</span> <span class="nx">number</span><span class="p">;</span>
+  <span class="nx">getTemperatureMinK</span><span class="p">():</span> <span class="nx">number</span><span class="p">;</span>
+  <span class="nx">setTemperature</span><span class="p">(</span><span class="nx">kelvin</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
 <aside class="notice">
 ColorSettingTemperature sets the color temperature of a light in Kelvin.
 </aside>
@@ -516,6 +544,14 @@ ColorSettingTemperature sets the color temperature of a light in Kelvin.
 <span class="p">})</span>
 </code></pre>
 
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">ColorSettingRgb</span> <span class="p">{</span>
+  <span class="nx">getRgb</span><span class="p">():</span> <span class="nx">ColorRgb</span><span class="p">;</span>
+  <span class="nx">setRgb</span><span class="p">(</span><span class="nx">r</span><span class="p">:</span> <span class="nx">number</span><span class="p">,</span> <span class="nx">g</span><span class="p">:</span> <span class="nx">number</span><span class="p">,</span> <span class="nx">b</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
 <aside class="notice">
 ColorSettingRgb sets the color of a colored light using the RGB representation.
 </aside>
@@ -556,6 +592,14 @@ Represents an RGB color value component values between 0 and 255.
 <span class="p">})</span>
 </code></pre>
 
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">ColorSettingHsv</span> <span class="p">{</span>
+  <span class="nx">getHsv</span><span class="p">():</span> <span class="nx">ColorHsv</span><span class="p">;</span>
+  <span class="nx">setHsv</span><span class="p">(</span><span class="nx">hue</span><span class="p">:</span> <span class="kr">double</span><span class="p">,</span> <span class="nx">saturation</span><span class="p">:</span> <span class="kr">double</span><span class="p">,</span> <span class="nx">value</span><span class="p">:</span> <span class="kr">double</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
 <aside class="notice">
 ColorSettingHsv sets the color of a colored light using the HSV representation.
 </aside>
@@ -587,15 +631,50 @@ Represents an HSV color value component values between 0 and 1.
 <td>double</td>
 </tr>
 </tbody></table>
-<h2 id='binarysensor'>BinarySensor</h2><h3 id='getbinarystate'>getBinaryState</h3>
+<h2 id='binarysensor'>BinarySensor</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">BinarySensor</span> <span class="p">{</span>
+  <span class="nx">getBinaryState</span><span class="p">():</span> <span class="kr">boolean</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><h3 id='getbinarystate'>getBinaryState</h3>
 <p>boolean getBinaryState()</p>
-<h2 id='entrysensor'>EntrySensor</h2><h3 id='isentryopen'>isEntryOpen</h3>
+<h2 id='entrysensor'>EntrySensor</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">EntrySensor</span> <span class="p">{</span>
+  <span class="nx">isEntryOpen</span><span class="p">():</span> <span class="kr">boolean</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><h3 id='isentryopen'>isEntryOpen</h3>
 <p>boolean isEntryOpen()</p>
-<h2 id='entryhandlesensor'>EntryHandleSensor</h2><h3 id='isdooropen'>isDoorOpen</h3>
+<h2 id='entryhandlesensor'>EntryHandleSensor</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">EntryHandleSensor</span> <span class="p">{</span>
+  <span class="nx">isDoorOpen</span><span class="p">():</span> <span class="kr">boolean</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><h3 id='isdooropen'>isDoorOpen</h3>
 <p>boolean isDoorOpen()</p>
-<h2 id='intrusionsensor'>IntrusionSensor</h2><h3 id='isintrusiondetected'>isIntrusionDetected</h3>
+<h2 id='intrusionsensor'>IntrusionSensor</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">IntrusionSensor</span> <span class="p">{</span>
+  <span class="nx">isIntrusionDetected</span><span class="p">():</span> <span class="kr">boolean</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><h3 id='isintrusiondetected'>isIntrusionDetected</h3>
 <p>boolean isIntrusionDetected()</p>
-<h2 id='floodsensor'>FloodSensor</h2><h3 id='isflooded'>isFlooded</h3>
+<h2 id='floodsensor'>FloodSensor</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">FloodSensor</span> <span class="p">{</span>
+  <span class="nx">isFlooded</span><span class="p">():</span> <span class="kr">boolean</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><h3 id='isflooded'>isFlooded</h3>
 <p>boolean isFlooded()</p>
 <h2 id='notifier'>Notifier</h2>
 <pre class="highlight javascript tab-javascript"><code><span class="c1">// SMS with only text</span>
@@ -611,6 +690,14 @@ Represents an HSV color value component values between 0 and 1.
 <span class="nx">twilioNumber</span><span class="p">.</span><span class="nx">sendNotification</span><span class="p">(</span><span class="s1">'Alert!'</span><span class="p">,</span> <span class="s1">'Something Happened!'</span><span class="p">,</span> <span class="s1">'http://example.org/video.mp4'</span><span class="p">,</span> <span class="s1">'video'</span><span class="p">);</span>
 </code></pre>
 
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Notifier</span> <span class="p">{</span>
+  <span class="nx">sendNotification</span><span class="p">(</span><span class="nx">title</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">body</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">sendNotification</span><span class="p">(</span><span class="nx">title</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">body</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">media</span><span class="p">:</span> <span class="nx">MediaObject</span><span class="p">,</span> <span class="nx">mimeType</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
 <aside class="notice">
 Notifier can be any endpoint that can receive messages, such as speakers, phone numbers, messaging clients, etc. The messages may optionally contain media.
 </aside>
@@ -626,6 +713,19 @@ Passing null uses the native type of the MediaObject. If that is not supported b
 MediaObject is an intermediate object within Scrypted to represent all media objects. Plugins should use the MediaConverter to convert the Scrypted MediaObject into a desired type, whether it is a externally accessible URL, a Buffer, etc.
 </aside>
 <h2 id='startstop'>StartStop</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">StartStop</span> <span class="p">{</span>
+  <span class="nx">isPausable</span><span class="p">():</span> <span class="kr">boolean</span><span class="p">;</span>
+  <span class="nx">isPaused</span><span class="p">():</span> <span class="kr">boolean</span><span class="p">;</span>
+  <span class="nx">isRunning</span><span class="p">():</span> <span class="kr">boolean</span><span class="p">;</span>
+  <span class="nx">pause</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">resume</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">start</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">stop</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
 <aside class="notice">
 StartStop represents a device that can be started, stopped, and possibly paused and resumed. Typically vacuum cleaners or washers.
 </aside>
@@ -644,6 +744,14 @@ StartStop represents a device that can be started, stopped, and possibly paused 
 <h3 id='stop'>stop</h3>
 <p>void stop()</p>
 <h2 id='dock'>Dock</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Dock</span> <span class="p">{</span>
+  <span class="nx">dock</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">isDocked</span><span class="p">():</span> <span class="kr">boolean</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
 <aside class="notice">
 Dock instructs devices that have a base station or charger, to return to their home.
 </aside>
@@ -651,7 +759,15 @@ Dock instructs devices that have a base station or charger, to return to their h
 <p>void dock()</p>
 <h3 id='isdocked'>isDocked</h3>
 <p>boolean isDocked()</p>
-<h2 id='program'>Program</h2><h3 id='run'>run</h3>
+<h2 id='program'>Program</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Program</span> <span class="p">{</span>
+  <span class="nx">run</span><span class="p">(</span><span class="nx">args</span><span class="p">:</span> <span class="nb">Object</span><span class="p">[]):</span> <span class="nx">object</span><span class="p">;</span>
+  <span class="nx">runAsync</span><span class="p">(</span><span class="nx">args</span><span class="p">:</span> <span class="nb">Object</span><span class="p">[]):</span> <span class="nx">object</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><h3 id='run'>run</h3>
 <p>object run(args: object[])</p>
 
 <p>Synchronously run a script given the provided arguments.</p>
@@ -660,6 +776,20 @@ Dock instructs devices that have a base station or charger, to return to their h
 
 <p>Asynchronously run a script given the provided arguments.</p>
 <h2 id='temperaturesetting'>TemperatureSetting</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">TemperatureSetting</span> <span class="p">{</span>
+  <span class="nx">getAvailableThermostatModes</span><span class="p">():</span> <span class="nx">ThermostatMode</span><span class="p">[];</span>
+  <span class="nx">getTemperatureSetpoint</span><span class="p">():</span> <span class="kr">double</span><span class="p">;</span>
+  <span class="nx">getTemperatureSetpointHigh</span><span class="p">():</span> <span class="kr">double</span><span class="p">;</span>
+  <span class="nx">getTemperatureSetpointLow</span><span class="p">():</span> <span class="kr">double</span><span class="p">;</span>
+  <span class="nx">getThermostatMode</span><span class="p">():</span> <span class="nx">ThermostatMode</span><span class="p">;</span>
+  <span class="nx">setTemperatureSetRange</span><span class="p">(</span><span class="nx">low</span><span class="p">:</span> <span class="kr">double</span><span class="p">,</span> <span class="nx">high</span><span class="p">:</span> <span class="kr">double</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">setTemperatureSetpoint</span><span class="p">(</span><span class="nx">degrees</span><span class="p">:</span> <span class="kr">double</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">setThermostatMode</span><span class="p">(</span><span class="nx">mode</span><span class="p">:</span> <span class="nx">ThermostatMode</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
 <aside class="notice">
 TemperatureSetting represents a thermostat device.
 </aside>
@@ -717,6 +847,15 @@ TemperatureSetting represents a thermostat device.
 </tr>
 </tbody></table>
 <h2 id='lock'>Lock</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Lock</span> <span class="p">{</span>
+  <span class="nx">isLocked</span><span class="p">():</span> <span class="kr">boolean</span><span class="p">;</span>
+  <span class="nx">lock</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">unlock</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
 <aside class="notice">
 Lock controls devices that can lock or unlock entries. Often works in tandem with PasswordControl.
 </aside>
@@ -727,6 +866,15 @@ Lock controls devices that can lock or unlock entries. Often works in tandem wit
 <h3 id='unlock'>unlock</h3>
 <p>void unlock()</p>
 <h2 id='passwordcontrol'>PasswordControl</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">PasswordControl</span> <span class="p">{</span>
+  <span class="nx">addPassword</span><span class="p">(</span><span class="nx">password</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">getPasswords</span><span class="p">():</span> <span class="nx">Set</span><span class="p">;</span>
+  <span class="nx">removePassword</span><span class="p">(</span><span class="nx">password</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
 <aside class="notice">
 PasswordControl represents devices that authorize users via a passcode or pin code.
 </aside>
@@ -736,9 +884,24 @@ PasswordControl represents devices that authorize users via a passcode or pin co
 <p>Set getPasswords()</p>
 <h3 id='removepassword'>removePassword</h3>
 <p>void removePassword(password: string)</p>
-<h2 id='camerastream'>CameraStream</h2><h3 id='createvideocapturer'>createVideoCapturer</h3>
+<h2 id='camerastream'>CameraStream</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">CameraStream</span> <span class="p">{</span>
+  <span class="nx">createVideoCapturer</span><span class="p">():</span> <span class="nx">Future</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><h3 id='createvideocapturer'>createVideoCapturer</h3>
 <p>Future createVideoCapturer()</p>
-<h2 id='thermometer'>Thermometer</h2><h3 id='gettemperatureambient'>getTemperatureAmbient</h3>
+<h2 id='thermometer'>Thermometer</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Thermometer</span> <span class="p">{</span>
+  <span class="nx">getTemperatureAmbient</span><span class="p">():</span> <span class="kr">double</span><span class="p">;</span>
+  <span class="nx">getTemperatureUnit</span><span class="p">():</span> <span class="nx">TemperatureUnit</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><h3 id='gettemperatureambient'>getTemperatureAmbient</h3>
 <p>double getTemperatureAmbient()</p>
 
 <p>Get the ambient temperature in Celsius.</p>
@@ -759,13 +922,43 @@ PasswordControl represents devices that authorize users via a passcode or pin co
 <td>&quot;F&quot;</td>
 </tr>
 </tbody></table>
-<h2 id='humiditysensor'>HumiditySensor</h2><h3 id='gethumidityambient'>getHumidityAmbient</h3>
+<h2 id='humiditysensor'>HumiditySensor</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">HumiditySensor</span> <span class="p">{</span>
+  <span class="nx">getHumidityAmbient</span><span class="p">():</span> <span class="kr">double</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><h3 id='gethumidityambient'>getHumidityAmbient</h3>
 <p>double getHumidityAmbient()</p>
-<h2 id='ultravioletsensor'>UltravioletSensor</h2><h3 id='getultraviolet'>getUltraviolet</h3>
+<h2 id='ultravioletsensor'>UltravioletSensor</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">UltravioletSensor</span> <span class="p">{</span>
+  <span class="nx">getUltraviolet</span><span class="p">():</span> <span class="kr">double</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><h3 id='getultraviolet'>getUltraviolet</h3>
 <p>double getUltraviolet()</p>
-<h2 id='luminancesensor'>LuminanceSensor</h2><h3 id='getluminance'>getLuminance</h3>
+<h2 id='luminancesensor'>LuminanceSensor</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">LuminanceSensor</span> <span class="p">{</span>
+  <span class="nx">getLuminance</span><span class="p">():</span> <span class="kr">double</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><h3 id='getluminance'>getLuminance</h3>
 <p>double getLuminance()</p>
 <h2 id='scene'>Scene</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Scene</span> <span class="p">{</span>
+  <span class="nx">activate</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">deactivate</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">isReversible</span><span class="p">():</span> <span class="kr">boolean</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
 <aside class="notice">
 Scenes control multiple different devices into a given state.
 </aside>
@@ -778,6 +971,15 @@ Scenes control multiple different devices into a given state.
 
 <p>If a scene can be reversed, isReversible should return true. Otherwise deactivate will not be called.</p>
 <h2 id='entry'>Entry</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Entry</span> <span class="p">{</span>
+  <span class="nx">closeEntry</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">isEntryOpen</span><span class="p">():</span> <span class="kr">boolean</span><span class="p">;</span>
+  <span class="nx">openEntry</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
 <aside class="notice">
 Entry represents devices that can open and close barriers, such as garage doors.
 </aside>
@@ -788,6 +990,16 @@ Entry represents devices that can open and close barriers, such as garage doors.
 <h3 id='openentry'>openEntry</h3>
 <p>void openEntry()</p>
 <h2 id='alarm'>Alarm</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Alarm</span> <span class="p">{</span>
+  <span class="nx">getClockType</span><span class="p">():</span> <span class="nx">ClockType</span><span class="p">;</span>
+  <span class="nx">getHour</span><span class="p">():</span> <span class="nx">number</span><span class="p">;</span>
+  <span class="nx">getMinute</span><span class="p">():</span> <span class="nx">number</span><span class="p">;</span>
+  <span class="nx">isEnabled</span><span class="p">(</span><span class="nx">day</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="kr">boolean</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
 <aside class="notice">
 Event data from the Scheduler component.
 </aside>
@@ -828,12 +1040,27 @@ Event data from the Scheduler component.
 </tr>
 </tbody></table>
 <h2 id='battery'>Battery</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Battery</span> <span class="p">{</span>
+  <span class="nx">getBatteryLevel</span><span class="p">():</span> <span class="nx">number</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
 <aside class="notice">
 Battery retrieves the battery level of battery powered devices.
 </aside>
 <h3 id='getbatterylevel'>getBatteryLevel</h3>
 <p>number getBatteryLevel()</p>
 <h2 id='refresh'>Refresh</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Refresh</span> <span class="p">{</span>
+  <span class="nx">getRefreshFrequency</span><span class="p">():</span> <span class="nx">number</span><span class="p">;</span>
+  <span class="nx">refresh</span><span class="p">(</span><span class="nx">refreshInterface</span><span class="p">:</span> <span class="nx">Class</span><span class="p">,</span> <span class="nx">userInitiated</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
 <aside class="notice">
 Refresh indicates that this device has properties that are not automatically updated, and must be periodically refreshed.
 </aside>
@@ -846,6 +1073,17 @@ Refresh indicates that this device has properties that are not automatically upd
 
 <p>This method is called by Scrypted when the properties of the device need to be refreshed. When the device has completed the refresh, the appropriate events should be emitted. The parameters provide the specific interface that needs to be refreshed and whether it was user initiated (via UI or voice).</p>
 <h2 id='mediaplayer'>MediaPlayer</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">MediaPlayer</span> <span class="p">{</span>
+  <span class="nx">load</span><span class="p">(</span><span class="nx">media</span><span class="p">:</span> <span class="nx">MediaObject</span><span class="p">,</span> <span class="nx">options</span><span class="p">:</span> <span class="nx">MediaPlayerOptions</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">load</span><span class="p">(</span><span class="nx">mediaUrl</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">options</span><span class="p">:</span> <span class="nx">MediaPlayerOptions</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">pause</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">play</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">stop</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
 <aside class="notice">
 MediaPlayer allows media playback on screen or speaker devices, such as Chromecasts or TVs.
 </aside>
@@ -876,12 +1114,26 @@ MediaPlayer allows media playback on screen or speaker devices, such as Chromeca
 </tr>
 </tbody></table>
 <h2 id='facedetector'>FaceDetector</h2><h2 id='online'>Online</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Online</span> <span class="p">{</span>
+  <span class="nx">isOnline</span><span class="p">():</span> <span class="kr">boolean</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
 <aside class="notice">
 Online denotes whether the device is online or unresponsive. It may be unresponsive due to being unplugged, network error, etc.
 </aside>
 <h3 id='isonline'>isOnline</h3>
 <p>boolean isOnline()</p>
-<h2 id='eventlistener'>EventListener</h2><h3 id='onevent'>onEvent</h3>
+<h2 id='eventlistener'>EventListener</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">EventListener</span> <span class="p">{</span>
+  <span class="nx">onEvent</span><span class="p">(</span><span class="nx">eventSource</span><span class="p">:</span> <span class="nx">ScryptedInterface</span><span class="p">,</span> <span class="nx">eventInterface</span><span class="p">:</span> <span class="nx">Class</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="nx">object</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><h3 id='onevent'>onEvent</h3>
 <p>void onEvent(eventSource: ScryptedInterface, eventInterface: Class, eventData: object)</p>
 
 <p>This device type can be hooked by Automation actions to handle events. The event source, event type (interface), and event data are all passed to the listener as arguments.</p>
@@ -890,6 +1142,21 @@ Online denotes whether the device is online or unresponsive. It may be unrespons
 Returned when an event listener is attached to an EventEmitter. Call removeListener to unregister from events.
 </aside>
 <h2 id='logger'>Logger</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Logger</span> <span class="p">{</span>
+  <span class="nx">a</span><span class="p">(</span><span class="nx">msg</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">clear</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">clearAlert</span><span class="p">(</span><span class="nx">msg</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">clearAlerts</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">d</span><span class="p">(</span><span class="nx">msg</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">e</span><span class="p">(</span><span class="nx">msg</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">i</span><span class="p">(</span><span class="nx">msg</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">v</span><span class="p">(</span><span class="nx">msg</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">w</span><span class="p">(</span><span class="nx">msg</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
 <aside class="notice">
 Logger is exposed via log.* to allow writing to the Scrypted log.
 </aside>
@@ -929,11 +1196,38 @@ Logger is exposed via log.* to allow writing to the Scrypted log.
 <p>void w(msg: string)</p>
 
 <p>Warn</p>
-<h2 id='mediasource'>MediaSource</h2><h3 id='getmedia'>getMedia</h3>
+<h2 id='mediasource'>MediaSource</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">MediaSource</span> <span class="p">{</span>
+  <span class="nx">getMedia</span><span class="p">():</span> <span class="nx">MediaObject</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><h3 id='getmedia'>getMedia</h3>
 <p><a href='#mediaobject'>MediaObject</a> getMedia()</p>
 
 <p>Get a MediaObject that will be automatically converted for playback on other devices.</p>
 <h2 id='messagingendpoint'>MessagingEndpoint</h2><h2 id='settings'>Settings</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Settings</span> <span class="p">{</span>
+  <span class="nx">getBoolean</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="kr">boolean</span><span class="p">;</span>
+  <span class="nx">getBoolean</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">defaultValue</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">):</span> <span class="kr">boolean</span><span class="p">;</span>
+  <span class="nx">getConfigurationValueList</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">List</span><span class="p">;</span>
+  <span class="nx">getDouble</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">Double</span><span class="p">;</span>
+  <span class="nx">getFloat</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">Float</span><span class="p">;</span>
+  <span class="nx">getInt</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">Integer</span><span class="p">;</span>
+  <span class="nx">getKeyDescription</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nx">getKeys</span><span class="p">():</span> <span class="nx">List</span><span class="p">;</span>
+  <span class="nx">getString</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nx">putBoolean</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">value</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">putDouble</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">value</span><span class="p">:</span> <span class="kr">double</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">putFloat</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">value</span><span class="p">:</span> <span class="kr">float</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">putInt</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">value</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">putString</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">value</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
 <aside class="notice">
 Settings viewing and editing of device configurations that describe or modify behavior.
 </aside>
@@ -966,6 +1260,14 @@ Settings viewing and editing of device configurations that describe or modify be
 <h3 id='putstring'>putString</h3>
 <p>void putString(key: string, value: string)</p>
 <h2 id='oauthclient'>OauthClient</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">OauthClient</span> <span class="p">{</span>
+  <span class="nx">getOauthUrl</span><span class="p">():</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nx">onOauthCallback</span><span class="p">(</span><span class="nx">callbackUrl</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
 <aside class="notice">
 The OauthClient can be implemented to perform the browser based Oauth process from within a plugin.
 </aside>
@@ -1004,6 +1306,18 @@ The OauthClient can be implemented to perform the browser based Oauth process fr
 <span class="p">});</span>
 </code></pre>
 
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">DeviceManager</span> <span class="p">{</span>
+  <span class="nx">getDeviceById</span><span class="p">(</span><span class="nx">id</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="nx">ScryptedInterface</span><span class="p">;</span>
+  <span class="nx">getDeviceByName</span><span class="p">(</span><span class="nx">name</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">ScryptedInterface</span><span class="p">;</span>
+  <span class="nx">onDeviceDiscovered</span><span class="p">(</span><span class="nx">device</span><span class="p">:</span> <span class="nx">Device</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">onDeviceEvent</span><span class="p">(</span><span class="nx">eventInterface</span><span class="p">:</span> <span class="nx">Class</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="nx">object</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">onDeviceEvent</span><span class="p">(</span><span class="nx">id</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">eventInterface</span><span class="p">:</span> <span class="nx">Class</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="nx">object</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">onDevicesChanged</span><span class="p">(</span><span class="nx">devices</span><span class="p">:</span> <span class="nx">DeviceManifest</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
 <aside class="notice">
 DeviceManager is the interface which plugins use to report devices and device events to Scrypted. It is also used to query Scrypted for other devices.
 </aside>
@@ -1242,6 +1556,14 @@ DeviceManifest is passed to DeviceManager.onDevicesChanged to sync a full list o
 <span class="kr">export</span> <span class="k">default</span> <span class="k">new</span> <span class="nx">Device</span><span class="p">();</span>
 </code></pre>
 
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">DeviceProvider</span> <span class="p">{</span>
+  <span class="nx">discoverDevices</span><span class="p">(</span><span class="nx">duration</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">getDevice</span><span class="p">(</span><span class="nx">id</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">object</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
 <aside class="notice">
 DeviceProvider acts as a controller/hub and exposes multiple devices to Scrypted Device Manager.
 </aside>
@@ -1272,6 +1594,14 @@ DeviceProvider acts as a controller/hub and exposes multiple devices to Scrypted
 <span class="kr">export</span> <span class="k">default</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">HttpHandler</span><span class="p">();</span>
 </code></pre>
 
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">HttpRequestHandler</span> <span class="p">{</span>
+  <span class="nx">getEndpoint</span><span class="p">():</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nx">onRequest</span><span class="p">(</span><span class="nx">request</span><span class="p">:</span> <span class="nx">HttpRequest</span><span class="p">,</span> <span class="nx">response</span><span class="p">:</span> <span class="nx">HttpResponse</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
 <aside class="notice">
 The HttpRequestHandler allows handling of web requests under the endpoint path: /endpoint/<endpoint>/*.
 </aside>
@@ -1312,6 +1642,16 @@ The HttpRequestHandler allows handling of web requests under the endpoint path: 
 </tr>
 </tbody></table>
 <h2 id='httpresponse'>HttpResponse</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">HttpResponse</span> <span class="p">{</span>
+  <span class="nx">send</span><span class="p">(</span><span class="nx">options</span><span class="p">:</span> <span class="nx">HttpResponseOptions</span><span class="p">,</span> <span class="nx">body</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">send</span><span class="p">(</span><span class="nx">options</span><span class="p">:</span> <span class="nx">HttpResponseOptions</span><span class="p">,</span> <span class="nx">body</span><span class="p">:</span> <span class="nx">Buffer</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">send</span><span class="p">(</span><span class="nx">body</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">send</span><span class="p">(</span><span class="nx">body</span><span class="p">:</span> <span class="nx">Buffer</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
 <aside class="notice">
 Response object provided by the HttpRequestHandler.
 </aside>
@@ -1349,6 +1689,14 @@ Response object provided by the HttpRequestHandler.
 <span class="p">});</span>
 </code></pre>
 
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">EventEmitter</span> <span class="p">{</span>
+  <span class="nx">on</span><span class="p">(</span><span class="nx">event</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">callback</span><span class="p">:</span> <span class="kd">function</span><span class="p">):</span> <span class="nx">EventListenerRegister</span><span class="p">;</span>
+  <span class="nx">watch</span><span class="p">(</span><span class="nx">event</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">callback</span><span class="p">:</span> <span class="kd">function</span><span class="p">):</span> <span class="nx">EventListenerRegister</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
 <aside class="notice">
 EventEmitter is implemented by most devices. Add listeners to subscribe to events from that device.
 </aside>

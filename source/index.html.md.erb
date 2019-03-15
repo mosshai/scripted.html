@@ -11,8 +11,6 @@ search: true
 
 ## Controlling a Device
 
-<aside class="warning">You must have Visual Studio Code and the <a href='https://marketplace.visualstudio.com/items?itemName=koush.duk-debug'>Duktape Debugger Plugin</a> installed.</aside>
-
 1. Create a new Script under Plugins.
 2. Set the type to Library.
 3. Assign an device that supports OnOff to a variable "switch".
@@ -28,6 +26,9 @@ else {
 ```
 
 ## Creating a Device
+
+<aside class="warning">To use npm modules, you must have Visual Studio Code and the <a href='https://marketplace.visualstudio.com/items?itemName=koush.duk-debug'>Duktape Debugger Plugin</a> installed.</aside>
+
 ```javascript
 import axios from 'axios';
 
@@ -71,9 +72,10 @@ be synced to upstream integration providers, such as Google Home or Apple Homeki
 2. Set the type to Device.
 3. Select/check the OnOff interface.
 4. Save.
-5. Click the Debug button.
-6. Edit .vcode/settings.json and set the value of "scrypted.debugHost": "THIS.IS.MY.IP"
-7. Launch Scrypted Debugger in VS Code.
+5. Click the Debug button. Note the IP address.
+6. Check out the <a href='https://github.com/koush/scrypted-vscode'>sample project</a> and open it in Visual Studio Code.
+7. Edit .vcode/settings.json and enter the previous IP address `"scrypted.debugHost": "<ip-address>"`
+8. Launch Scrypted Debugger in Visual Studio Code.
 
 # Reference
 
@@ -81,6 +83,18 @@ be synced to upstream integration providers, such as Google Home or Apple Homeki
 ## OnOff
 
 <%= partial "includes/scrypted/OnOff.md.erb" %>
+
+
+> Definition
+
+```javascript
+interface OnOff {
+  isOn(): boolean;
+  turnOff(): void;
+  turnOn(): void;
+}
+```
+
 
 
 <aside class="notice">
@@ -112,9 +126,22 @@ void turnOn()
 
 
 
+
+
 ## Brightness
 
 <%= partial "includes/scrypted/Brightness.md.erb" %>
+
+
+> Definition
+
+```javascript
+interface Brightness {
+  getLevel(): number;
+  setLevel(brightness: number): void;
+}
+```
+
 
 
 <aside class="notice">
@@ -141,9 +168,24 @@ void setLevel(brightness: number)
 
 
 
+
+
 ## ColorSettingTemperature
 
 <%= partial "includes/scrypted/ColorSettingTemperature.md.erb" %>
+
+
+> Definition
+
+```javascript
+interface ColorSettingTemperature {
+  getTemperature(): number;
+  getTemperatureMaxK(): number;
+  getTemperatureMinK(): number;
+  setTemperature(kelvin: number): void;
+}
+```
+
 
 
 <aside class="notice">
@@ -180,9 +222,22 @@ void setTemperature(kelvin: number)
 
 
 
+
+
 ## ColorSettingRgb
 
 <%= partial "includes/scrypted/ColorSettingRgb.md.erb" %>
+
+
+> Definition
+
+```javascript
+interface ColorSettingRgb {
+  getRgb(): ColorRgb;
+  setRgb(r: number, g: number, b: number): void;
+}
+```
+
 
 
 <aside class="notice">
@@ -209,15 +264,18 @@ void setRgb(r: number, g: number, b: number)
 
 
 
+
+
 ## ColorRgb
 
 <%= partial "includes/scrypted/ColorRgb.md.erb" %>
 
 
+
+
 <aside class="notice">
 Represents an RGB color value component values between 0 and 255.
 </aside>
-
 
 
 
@@ -238,6 +296,17 @@ r | number
 ## ColorSettingHsv
 
 <%= partial "includes/scrypted/ColorSettingHsv.md.erb" %>
+
+
+> Definition
+
+```javascript
+interface ColorSettingHsv {
+  getHsv(): ColorHsv;
+  setHsv(hue: double, saturation: double, value: double): void;
+}
+```
+
 
 
 <aside class="notice">
@@ -264,15 +333,18 @@ void setHsv(hue: double, saturation: double, value: double)
 
 
 
+
+
 ## ColorHsv
 
 <%= partial "includes/scrypted/ColorHsv.md.erb" %>
 
 
+
+
 <aside class="notice">
 Represents an HSV color value component values between 0 and 1.
 </aside>
-
 
 
 
@@ -295,6 +367,16 @@ v | double
 <%= partial "includes/scrypted/BinarySensor.md.erb" %>
 
 
+> Definition
+
+```javascript
+interface BinarySensor {
+  getBinaryState(): boolean;
+}
+```
+
+
+
 
 
 
@@ -310,9 +392,21 @@ boolean getBinaryState()
 
 
 
+
+
 ## EntrySensor
 
 <%= partial "includes/scrypted/EntrySensor.md.erb" %>
+
+
+> Definition
+
+```javascript
+interface EntrySensor {
+  isEntryOpen(): boolean;
+}
+```
+
 
 
 
@@ -330,9 +424,21 @@ boolean isEntryOpen()
 
 
 
+
+
 ## EntryHandleSensor
 
 <%= partial "includes/scrypted/EntryHandleSensor.md.erb" %>
+
+
+> Definition
+
+```javascript
+interface EntryHandleSensor {
+  isDoorOpen(): boolean;
+}
+```
+
 
 
 
@@ -350,9 +456,21 @@ boolean isDoorOpen()
 
 
 
+
+
 ## IntrusionSensor
 
 <%= partial "includes/scrypted/IntrusionSensor.md.erb" %>
+
+
+> Definition
+
+```javascript
+interface IntrusionSensor {
+  isIntrusionDetected(): boolean;
+}
+```
+
 
 
 
@@ -370,9 +488,21 @@ boolean isIntrusionDetected()
 
 
 
+
+
 ## FloodSensor
 
 <%= partial "includes/scrypted/FloodSensor.md.erb" %>
+
+
+> Definition
+
+```javascript
+interface FloodSensor {
+  isFlooded(): boolean;
+}
+```
+
 
 
 
@@ -390,9 +520,22 @@ boolean isFlooded()
 
 
 
+
+
 ## Notifier
 
 <%= partial "includes/scrypted/Notifier.md.erb" %>
+
+
+> Definition
+
+```javascript
+interface Notifier {
+  sendNotification(title: string, body: string): void;
+  sendNotification(title: string, body: string, media: MediaObject, mimeType: string): void;
+}
+```
+
 
 
 <aside class="notice">
@@ -420,9 +563,13 @@ Passing null uses the native type of the MediaObject. If that is not supported b
 
 
 
+
+
 ## MediaObject
 
 <%= partial "includes/scrypted/MediaObject.md.erb" %>
+
+
 
 
 <aside class="notice">
@@ -437,10 +584,25 @@ MediaObject is an intermediate object within Scrypted to represent all media obj
 
 
 
-
 ## StartStop
 
 <%= partial "includes/scrypted/StartStop.md.erb" %>
+
+
+> Definition
+
+```javascript
+interface StartStop {
+  isPausable(): boolean;
+  isPaused(): boolean;
+  isRunning(): boolean;
+  pause(): void;
+  resume(): void;
+  start(): void;
+  stop(): void;
+}
+```
+
 
 
 <aside class="notice">
@@ -492,9 +654,22 @@ void stop()
 
 
 
+
+
 ## Dock
 
 <%= partial "includes/scrypted/Dock.md.erb" %>
+
+
+> Definition
+
+```javascript
+interface Dock {
+  dock(): void;
+  isDocked(): boolean;
+}
+```
+
 
 
 <aside class="notice">
@@ -521,9 +696,22 @@ boolean isDocked()
 
 
 
+
+
 ## Program
 
 <%= partial "includes/scrypted/Program.md.erb" %>
+
+
+> Definition
+
+```javascript
+interface Program {
+  run(args: Object[]): object;
+  runAsync(args: Object[]): object;
+}
+```
+
 
 
 
@@ -546,9 +734,28 @@ Asynchronously run a script given the provided arguments.
 
 
 
+
+
 ## TemperatureSetting
 
 <%= partial "includes/scrypted/TemperatureSetting.md.erb" %>
+
+
+> Definition
+
+```javascript
+interface TemperatureSetting {
+  getAvailableThermostatModes(): ThermostatMode[];
+  getTemperatureSetpoint(): double;
+  getTemperatureSetpointHigh(): double;
+  getTemperatureSetpointLow(): double;
+  getThermostatMode(): ThermostatMode;
+  setTemperatureSetRange(low: double, high: double): void;
+  setTemperatureSetpoint(degrees: double): void;
+  setThermostatMode(mode: ThermostatMode): void;
+}
+```
+
 
 
 <aside class="notice">
@@ -605,9 +812,12 @@ void setThermostatMode(mode: <a href='#thermostatmode'>ThermostatMode</a>)
 
 
 
+
+
 ## ThermostatMode
 
 <%= partial "includes/scrypted/ThermostatMode.md.erb" %>
+
 
 
 
@@ -636,6 +846,18 @@ Enum |
 ## Lock
 
 <%= partial "includes/scrypted/Lock.md.erb" %>
+
+
+> Definition
+
+```javascript
+interface Lock {
+  isLocked(): boolean;
+  lock(): void;
+  unlock(): void;
+}
+```
+
 
 
 <aside class="notice">
@@ -667,9 +889,23 @@ void unlock()
 
 
 
+
+
 ## PasswordControl
 
 <%= partial "includes/scrypted/PasswordControl.md.erb" %>
+
+
+> Definition
+
+```javascript
+interface PasswordControl {
+  addPassword(password: string): void;
+  getPasswords(): Set;
+  removePassword(password: string): void;
+}
+```
+
 
 
 <aside class="notice">
@@ -701,9 +937,21 @@ void removePassword(password: string)
 
 
 
+
+
 ## CameraStream
 
 <%= partial "includes/scrypted/CameraStream.md.erb" %>
+
+
+> Definition
+
+```javascript
+interface CameraStream {
+  createVideoCapturer(): Future;
+}
+```
+
 
 
 
@@ -721,9 +969,22 @@ Future createVideoCapturer()
 
 
 
+
+
 ## Thermometer
 
 <%= partial "includes/scrypted/Thermometer.md.erb" %>
+
+
+> Definition
+
+```javascript
+interface Thermometer {
+  getTemperatureAmbient(): double;
+  getTemperatureUnit(): TemperatureUnit;
+}
+```
+
 
 
 
@@ -746,9 +1007,12 @@ Get the user facing unit of measurement for this thermometer. This may be Fahren
 
 
 
+
+
 ## TemperatureUnit
 
 <%= partial "includes/scrypted/TemperatureUnit.md.erb" %>
+
 
 
 
@@ -771,6 +1035,16 @@ Enum |
 <%= partial "includes/scrypted/HumiditySensor.md.erb" %>
 
 
+> Definition
+
+```javascript
+interface HumiditySensor {
+  getHumidityAmbient(): double;
+}
+```
+
+
+
 
 
 
@@ -786,9 +1060,21 @@ double getHumidityAmbient()
 
 
 
+
+
 ## UltravioletSensor
 
 <%= partial "includes/scrypted/UltravioletSensor.md.erb" %>
+
+
+> Definition
+
+```javascript
+interface UltravioletSensor {
+  getUltraviolet(): double;
+}
+```
+
 
 
 
@@ -806,9 +1092,21 @@ double getUltraviolet()
 
 
 
+
+
 ## LuminanceSensor
 
 <%= partial "includes/scrypted/LuminanceSensor.md.erb" %>
+
+
+> Definition
+
+```javascript
+interface LuminanceSensor {
+  getLuminance(): double;
+}
+```
+
 
 
 
@@ -826,9 +1124,23 @@ double getLuminance()
 
 
 
+
+
 ## Scene
 
 <%= partial "includes/scrypted/Scene.md.erb" %>
+
+
+> Definition
+
+```javascript
+interface Scene {
+  activate(): void;
+  deactivate(): void;
+  isReversible(): boolean;
+}
+```
+
 
 
 <aside class="notice">
@@ -860,9 +1172,23 @@ If a scene can be reversed, isReversible should return true. Otherwise deactivat
 
 
 
+
+
 ## Entry
 
 <%= partial "includes/scrypted/Entry.md.erb" %>
+
+
+> Definition
+
+```javascript
+interface Entry {
+  closeEntry(): void;
+  isEntryOpen(): boolean;
+  openEntry(): void;
+}
+```
+
 
 
 <aside class="notice">
@@ -894,9 +1220,24 @@ void openEntry()
 
 
 
+
+
 ## Alarm
 
 <%= partial "includes/scrypted/Alarm.md.erb" %>
+
+
+> Definition
+
+```javascript
+interface Alarm {
+  getClockType(): ClockType;
+  getHour(): number;
+  getMinute(): number;
+  isEnabled(day: number): boolean;
+}
+```
+
 
 
 <aside class="notice">
@@ -933,9 +1274,12 @@ boolean isEnabled(day: number)
 
 
 
+
+
 ## ClockType
 
 <%= partial "includes/scrypted/ClockType.md.erb" %>
+
 
 
 
@@ -963,6 +1307,16 @@ Enum |
 <%= partial "includes/scrypted/Battery.md.erb" %>
 
 
+> Definition
+
+```javascript
+interface Battery {
+  getBatteryLevel(): number;
+}
+```
+
+
+
 <aside class="notice">
 Battery retrieves the battery level of battery powered devices.
 </aside>
@@ -982,9 +1336,22 @@ number getBatteryLevel()
 
 
 
+
+
 ## Refresh
 
 <%= partial "includes/scrypted/Refresh.md.erb" %>
+
+
+> Definition
+
+```javascript
+interface Refresh {
+  getRefreshFrequency(): number;
+  refresh(refreshInterface: Class, userInitiated: boolean): void;
+}
+```
+
 
 
 <aside class="notice">
@@ -1011,9 +1378,25 @@ This method is called by Scrypted when the properties of the device need to be r
 
 
 
+
+
 ## MediaPlayer
 
 <%= partial "includes/scrypted/MediaPlayer.md.erb" %>
+
+
+> Definition
+
+```javascript
+interface MediaPlayer {
+  load(media: MediaObject, options: MediaPlayerOptions): void;
+  load(mediaUrl: string, options: MediaPlayerOptions): void;
+  pause(): void;
+  play(): void;
+  stop(): void;
+}
+```
+
 
 
 <aside class="notice">
@@ -1055,9 +1438,12 @@ void stop()
 
 
 
+
+
 ## MediaPlayerOptions
 
 <%= partial "includes/scrypted/MediaPlayerOptions.md.erb" %>
+
 
 
 
@@ -1090,9 +1476,20 @@ mimeType | string
 
 
 
+
 ## Online
 
 <%= partial "includes/scrypted/Online.md.erb" %>
+
+
+> Definition
+
+```javascript
+interface Online {
+  isOnline(): boolean;
+}
+```
+
 
 
 <aside class="notice">
@@ -1114,9 +1511,21 @@ boolean isOnline()
 
 
 
+
+
 ## EventListener
 
 <%= partial "includes/scrypted/EventListener.md.erb" %>
+
+
+> Definition
+
+```javascript
+interface EventListener {
+  onEvent(eventSource: ScryptedInterface, eventInterface: Class, eventData: object): void;
+}
+```
+
 
 
 
@@ -1134,9 +1543,13 @@ This device type can be hooked by Automation actions to handle events. The event
 
 
 
+
+
 ## EventListenerRegister
 
 <%= partial "includes/scrypted/EventListenerRegister.md.erb" %>
+
+
 
 
 <aside class="notice">
@@ -1151,10 +1564,27 @@ Returned when an event listener is attached to an EventEmitter. Call removeListe
 
 
 
-
 ## Logger
 
 <%= partial "includes/scrypted/Logger.md.erb" %>
+
+
+> Definition
+
+```javascript
+interface Logger {
+  a(msg: string): void;
+  clear(): void;
+  clearAlert(msg: string): void;
+  clearAlerts(): void;
+  d(msg: string): void;
+  e(msg: string): void;
+  i(msg: string): void;
+  v(msg: string): void;
+  w(msg: string): void;
+}
+```
+
 
 
 <aside class="notice">
@@ -1216,9 +1646,21 @@ Warn
 
 
 
+
+
 ## MediaSource
 
 <%= partial "includes/scrypted/MediaSource.md.erb" %>
+
+
+> Definition
+
+```javascript
+interface MediaSource {
+  getMedia(): MediaObject;
+}
+```
+
 
 
 
@@ -1229,6 +1671,8 @@ Warn
 <a href='#mediaobject'>MediaObject</a> getMedia()
 
 Get a MediaObject that will be automatically converted for playback on other devices.
+
+
 
 
 
@@ -1250,9 +1694,33 @@ Get a MediaObject that will be automatically converted for playback on other dev
 
 
 
+
 ## Settings
 
 <%= partial "includes/scrypted/Settings.md.erb" %>
+
+
+> Definition
+
+```javascript
+interface Settings {
+  getBoolean(key: string): boolean;
+  getBoolean(key: string, defaultValue: boolean): boolean;
+  getConfigurationValueList(key: string): List;
+  getDouble(key: string): Double;
+  getFloat(key: string): Float;
+  getInt(key: string): Integer;
+  getKeyDescription(key: string): string;
+  getKeys(): List;
+  getString(key: string): string;
+  putBoolean(key: string, value: boolean): void;
+  putDouble(key: string, value: double): void;
+  putFloat(key: string, value: float): void;
+  putInt(key: string, value: number): void;
+  putString(key: string, value: string): void;
+}
+```
+
 
 
 <aside class="notice">
@@ -1339,9 +1807,22 @@ void putString(key: string, value: string)
 
 
 
+
+
 ## OauthClient
 
 <%= partial "includes/scrypted/OauthClient.md.erb" %>
+
+
+> Definition
+
+```javascript
+interface OauthClient {
+  getOauthUrl(): string;
+  onOauthCallback(callbackUrl: string): void;
+}
+```
+
 
 
 <aside class="notice">
@@ -1368,9 +1849,26 @@ When an oauth request by a plugin completes, the callback url, with the code/tok
 
 
 
+
+
 ## DeviceManager
 
 <%= partial "includes/scrypted/DeviceManager.md.erb" %>
+
+
+> Definition
+
+```javascript
+interface DeviceManager {
+  getDeviceById(id: number): ScryptedInterface;
+  getDeviceByName(name: string): ScryptedInterface;
+  onDeviceDiscovered(device: Device): void;
+  onDeviceEvent(eventInterface: Class, eventData: object): void;
+  onDeviceEvent(id: string, eventInterface: Class, eventData: object): void;
+  onDevicesChanged(devices: DeviceManifest): void;
+}
+```
+
 
 
 <aside class="notice">
@@ -1417,15 +1915,18 @@ onDevicesChanged is used to sync Scrypted with devices that are attached to a hu
 
 
 
+
+
 ## Device
 
 <%= partial "includes/scrypted/Device.md.erb" %>
 
 
+
+
 <aside class="notice">
 Device objects are created by DeviceProviders when new devices are discover and synced to Scrypted via the DeviceManager.
 </aside>
-
 
 
 
@@ -1450,6 +1951,7 @@ type | <a href='#scryptedthingtype'>ScryptedThingType</a>
 ## ScryptedThingType
 
 <%= partial "includes/scrypted/ScryptedThingType.md.erb" %>
+
 
 
 
@@ -1490,10 +1992,11 @@ Enum |
 <%= partial "includes/scrypted/DeviceManifest.md.erb" %>
 
 
+
+
 <aside class="notice">
 DeviceManifest is passed to DeviceManager.onDevicesChanged to sync a full list of devices from the controller/hub (Hue, SmartThings, etc)
 </aside>
-
 
 
 
@@ -1512,6 +2015,17 @@ devices | <a href='#device'>Device</a>[]
 ## DeviceProvider
 
 <%= partial "includes/scrypted/DeviceProvider.md.erb" %>
+
+
+> Definition
+
+```javascript
+interface DeviceProvider {
+  discoverDevices(duration: number): void;
+  getDevice(id: string): object;
+}
+```
+
 
 
 <aside class="notice">
@@ -1538,9 +2052,22 @@ Get an instance of a previously discovered device that was reported to the devic
 
 
 
+
+
 ## HttpRequestHandler
 
 <%= partial "includes/scrypted/HttpRequestHandler.md.erb" %>
+
+
+> Definition
+
+```javascript
+interface HttpRequestHandler {
+  getEndpoint(): string;
+  onRequest(request: HttpRequest, response: HttpResponse): void;
+}
+```
+
 
 
 <aside class="notice">
@@ -1567,9 +2094,12 @@ Callback to handle an incoming request.
 
 
 
+
+
 ## HttpRequest
 
 <%= partial "includes/scrypted/HttpRequest.md.erb" %>
+
 
 
 
@@ -1594,6 +2124,19 @@ url | string
 ## HttpResponse
 
 <%= partial "includes/scrypted/HttpResponse.md.erb" %>
+
+
+> Definition
+
+```javascript
+interface HttpResponse {
+  send(options: HttpResponseOptions, body: string): void;
+  send(options: HttpResponseOptions, body: Buffer): void;
+  send(body: string): void;
+  send(body: Buffer): void;
+}
+```
+
 
 
 <aside class="notice">
@@ -1630,9 +2173,12 @@ void send(body: Buffer)
 
 
 
+
+
 ## HttpResponseOptions
 
 <%= partial "includes/scrypted/HttpResponseOptions.md.erb" %>
+
 
 
 
@@ -1657,6 +2203,17 @@ headers | object
 <%= partial "includes/scrypted/EventEmitter.md.erb" %>
 
 
+> Definition
+
+```javascript
+interface EventEmitter {
+  on(event: string, callback: function): EventListenerRegister;
+  watch(event: string, callback: function): EventListenerRegister;
+}
+```
+
+
+
 <aside class="notice">
 EventEmitter is implemented by most devices. Add listeners to subscribe to events from that device.
 </aside>
@@ -1677,6 +2234,8 @@ to that type of interface. OnOff would be boolean, while Brightness would be an 
 <a href='#eventlistenerregister'>EventListenerRegister</a> watch(event: string, callback: function)
 
 Similar to 'on', but will passively watch for events, and not initiate polling.
+
+
 
 
 

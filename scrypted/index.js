@@ -22,6 +22,14 @@ const TypeMap = {
     JavaScriptObject: 'function',
 }
 
+function mapType(type) {
+    var mapped = TypeMap[type];
+    if (mapped) {
+        return mapped;
+    }
+    return type;
+}
+
 function linkifyStrippedType(type) {
     var mapped = TypeMap[type];
     if (mapped) {
@@ -49,7 +57,11 @@ var output = nunjucks.renderString(template, {
     methodArguments: function(args) {
         return args.map(arg => `${arg.name}: ${linkifyType(arg.type)}`);
     },
+    mapMethodArguments: function(args) {
+        return args.map(arg => `${arg.name}: ${mapType(arg.type)}`);
+    },
     linkifyType,
+    mapType,
 });
 
 fs.writeFileSync('../source/index.html.md.erb', output);
