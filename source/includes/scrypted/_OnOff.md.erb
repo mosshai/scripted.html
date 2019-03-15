@@ -1,0 +1,35 @@
+```javascript
+import axios from 'axios';
+
+log.i('Hello World. This will create a virtual OnOff device.');
+
+function Device() {
+    this._isOn = false;
+}
+
+Device.prototype.isOn = function () {
+    log.i('isOn was called!');
+    return this._isOn;
+};
+
+Device.prototype.turnOff = function () {
+    // set a breakpoint here.
+    this._isOn = false;
+    log.i('turnOff was called!');
+};
+
+Device.prototype.turnOn = async function () {
+    // set a breakpoint here.
+    log.i('turnOn was called!');
+
+    // turnOn must return immediately, but it can trigger other things... 
+    log.i('XMLHttpRequest is polyfilled by the Android host.');
+    log.i('This allows the popular http library axios to work.');
+    const ip = await axios.get('http://jsonip.com');
+    log.i(`my ip: ${ip.data.ip}`);
+
+    this._isOn = true;
+};
+
+export default = new Device();
+```
