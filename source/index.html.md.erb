@@ -133,7 +133,7 @@ void setLevel(brightness: int)
 
 <%= partial "includes/scrypted/ColorSettingTemperature.md.erb" %>
 
-
+ColorSettingTemperature sets the color temperature of a light in Kelvin.
 
 
 
@@ -167,7 +167,7 @@ void setTemperature(kelvin: int)
 
 <%= partial "includes/scrypted/ColorSettingRgb.md.erb" %>
 
-
+ColorSettingRgb sets the color of a colored light using the RGB representation.
 
 
 
@@ -212,7 +212,7 @@ r | int
 
 <%= partial "includes/scrypted/ColorSettingHsv.md.erb" %>
 
-
+ColorSettingHsv sets the color of a colored light using the HSV representation.
 
 
 
@@ -352,7 +352,7 @@ boolean isFlooded()
 
 <%= partial "includes/scrypted/Notifier.md.erb" %>
 
-
+Notifier can be any endpoint that can receive messages, such as speakers, phone numbers, messaging clients, etc. The messages may optionally contain media.
 
 
 
@@ -377,7 +377,7 @@ Passing null uses the native type of the MediaObject. If that is not supported b
 
 <%= partial "includes/scrypted/MediaObject.md.erb" %>
 
-
+MediaObject is an intermediate object within Scrypted to represent all media objects. Plugins should use the MediaConverter to convert the Scrypted MediaObject into a desired type, whether it is a externally accessible URL, a Buffer, etc.
 
 
 
@@ -390,7 +390,7 @@ Passing null uses the native type of the MediaObject. If that is not supported b
 
 <%= partial "includes/scrypted/StartStop.md.erb" %>
 
-
+StartStop represents a device that can be started, stopped, and possibly paused and resumed. Typically vacuum cleaners or washers.
 
 
 
@@ -439,7 +439,7 @@ void stop()
 
 <%= partial "includes/scrypted/Dock.md.erb" %>
 
-
+Dock instructs devices that have a base station or charger, to return to their home.
 
 
 
@@ -568,7 +568,7 @@ On |
 
 <%= partial "includes/scrypted/Lock.md.erb" %>
 
-
+Lock controls devices that can lock or unlock entries. Often works in tandem with PasswordControl.
 
 
 
@@ -774,7 +774,7 @@ If a scene can be reversed, isReversible should return true. Otherwise deactivat
 
 <%= partial "includes/scrypted/Entry.md.erb" %>
 
-
+Entry represents devices that can open and close barriers, such as garage doors.
 
 
 
@@ -861,7 +861,7 @@ _AfterSunset |
 
 <%= partial "includes/scrypted/Battery.md.erb" %>
 
-
+Battery retrieves the battery level of battery powered devices.
 
 
 
@@ -904,7 +904,7 @@ This method is called by Scrypted when the properties of the device need to be r
 
 <%= partial "includes/scrypted/MediaPlayer.md.erb" %>
 
-
+MediaPlayer allows media playback on screen or speaker devices, such as Chromecasts or TVs.
 
 
 
@@ -1027,7 +1027,7 @@ This device type can be registered to listen for events. The event source, event
 
 <%= partial "includes/scrypted/Logger.md.erb" %>
 
-
+Logger is exposed via log.* to allow writing to the Scrypted log.
 
 
 

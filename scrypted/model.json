@@ -66,7 +66,8 @@
                 ],
                 "type": "void"
             }
-        ]
+        ],
+        "description": "ColorSettingTemperature sets the color temperature of a light in Kelvin."
     },
     "ColorSettingRgb": {
         "methods": [
@@ -93,7 +94,8 @@
                 ],
                 "type": "void"
             }
-        ]
+        ],
+        "description": "ColorSettingRgb sets the color of a colored light using the RGB representation."
     },
     "ColorRgb": {
         "fields": [
@@ -137,7 +139,8 @@
                 ],
                 "type": "void"
             }
-        ]
+        ],
+        "description": "ColorSettingHsv sets the color of a colored light using the HSV representation."
     },
     "ColorHsv": {
         "fields": [
@@ -240,10 +243,12 @@
                 "type": "void",
                 "description": "If a the media parameter is supplied, the mime type denotes how to send the media within notification. For example, specify 'image\/*' to send a video MediaObject as an image.\nPassing null uses the native type of the MediaObject. If that is not supported by the notifier, the media will be converted to a compatible type."
             }
-        ]
+        ],
+        "description": "Notifier can be any endpoint that can receive messages, such as speakers, phone numbers, messaging clients, etc. The messages may optionally contain media."
     },
     "MediaObject": {
-        "fields": []
+        "fields": [],
+        "description": "MediaObject is an intermediate object within Scrypted to represent all media objects. Plugins should use the MediaConverter to convert the Scrypted MediaObject into a desired type, whether it is a externally accessible URL, a Buffer, etc."
     },
     "StartStop": {
         "methods": [
@@ -282,7 +287,8 @@
                 "arguments": [],
                 "type": "void"
             }
-        ]
+        ],
+        "description": "StartStop represents a device that can be started, stopped, and possibly paused and resumed. Typically vacuum cleaners or washers."
     },
     "Dock": {
         "methods": [
@@ -296,7 +302,8 @@
                 "arguments": [],
                 "type": "boolean"
             }
-        ]
+        ],
+        "description": "Dock instructs devices that have a base station or charger, to return to their home."
     },
     "Program": {
         "methods": [
@@ -419,7 +426,8 @@
                 "arguments": [],
                 "type": "void"
             }
-        ]
+        ],
+        "description": "Lock controls devices that can lock or unlock entries. Often works in tandem with PasswordControl."
     },
     "PasswordControl": {
         "methods": [
@@ -547,7 +555,8 @@
                 "arguments": [],
                 "type": "void"
             }
-        ]
+        ],
+        "description": "Entry represents devices that can open and close barriers, such as garage doors."
     },
     "Alarm": {
         "methods": [
@@ -597,7 +606,8 @@
                 "arguments": [],
                 "type": "int"
             }
-        ]
+        ],
+        "description": "Battery retrieves the battery level of battery powered devices."
     },
     "Refresh": {
         "methods": [
@@ -670,7 +680,8 @@
                 "arguments": [],
                 "type": "void"
             }
-        ]
+        ],
+        "description": "MediaPlayer allows media playback on screen or speaker devices, such as Chromecasts or TVs."
     },
     "MediaPlayerOptions": {
         "fields": [
@@ -814,7 +825,8 @@
                 "type": "void",
                 "description": "Warn"
             }
-        ]
+        ],
+        "description": "Logger is exposed via log.* to allow writing to the Scrypted log."
     },
     "MediaSource": {
         "methods": [
