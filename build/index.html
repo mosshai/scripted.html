@@ -229,6 +229,9 @@
                   <li>
                     <a href="#creating-a-device" class="toc-h2 toc-link" data-title="Creating a Device">Creating a Device</a>
                   </li>
+                  <li>
+                    <a href="#using-npm-and-vs-code" class="toc-h2 toc-link" data-title="Using npm and VS Code">Using npm and VS Code</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -352,9 +355,6 @@
                     <a href="#eventlistener" class="toc-h2 toc-link" data-title="EventListener">EventListener</a>
                   </li>
                   <li>
-                    <a href="#eventlistenerregister" class="toc-h2 toc-link" data-title="EventListenerRegister">EventListenerRegister</a>
-                  </li>
-                  <li>
                     <a href="#logger" class="toc-h2 toc-link" data-title="Logger">Logger</a>
                   </li>
                   <li>
@@ -400,6 +400,9 @@
                     <a href="#eventemitter" class="toc-h2 toc-link" data-title="EventEmitter">EventEmitter</a>
                   </li>
                   <li>
+                    <a href="#eventlistenerregister" class="toc-h2 toc-link" data-title="EventListenerRegister">EventListenerRegister</a>
+                  </li>
+                  <li>
                     <a href="#scryptedinterface" class="toc-h2 toc-link" data-title="ScryptedInterface">ScryptedInterface</a>
                   </li>
               </ul>
@@ -409,24 +412,23 @@
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id='getting-started'>Getting Started <br/></h1><h2 id='controlling-a-device'>Controlling a Device</h2>
+        <h1 id='getting-started'>Getting Started <br/></h1>
+<h2 id='controlling-a-device'>Controlling a Device</h2>
+
 <ol>
 <li>Create a new Script under Plugins.</li>
 <li>Set the type to Library.</li>
 <li>Assign an device that supports OnOff to a variable &quot;switch&quot;.</li>
 <li>Run the example code using the &quot;Test&quot; button.</li>
 </ol>
+
 <pre class="highlight javascript tab-javascript"><code><span class="k">if</span> <span class="p">(</span><span class="k">switch</span><span class="p">.</span><span class="nx">isOn</span><span class="p">())</span> <span class="p">{</span>
     <span class="k">switch</span><span class="p">.</span><span class="nx">turnOff</span><span class="p">();</span>
 <span class="p">}</span>
 <span class="k">else</span> <span class="p">{</span>
     <span class="k">switch</span><span class="p">.</span><span class="nx">turnOn</span><span class="p">();</span>
 <span class="p">}</span>
-</code></pre><h2 id='creating-a-device'>Creating a Device</h2>
-<aside class="warning">To use npm modules, you must have Visual Studio Code and the <a href='https://marketplace.visualstudio.com/items?itemName=koush.duk-debug'>Duktape Debugger Plugin</a> installed.</aside>
-<pre class="highlight javascript tab-javascript"><code><span class="kr">import</span> <span class="nx">axios</span> <span class="nx">from</span> <span class="s1">'axios'</span><span class="p">;</span>
-
-<span class="nx">log</span><span class="p">.</span><span class="nx">i</span><span class="p">(</span><span class="s1">'Hello World. This will create a virtual OnOff device.'</span><span class="p">);</span>
+</code></pre><h2 id='creating-a-device'>Creating a Device</h2><pre class="highlight javascript tab-javascript"><code><span class="nx">log</span><span class="p">.</span><span class="nx">i</span><span class="p">(</span><span class="s1">'Hello World. This will create a virtual OnOff device.'</span><span class="p">);</span>
 
 <span class="kd">function</span> <span class="nx">Device</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">_isOn</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
@@ -438,39 +440,128 @@
 <span class="p">};</span>
 
 <span class="nx">Device</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">turnOff</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-    <span class="c1">// set a breakpoint here.</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">_isOn</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
     <span class="nx">log</span><span class="p">.</span><span class="nx">i</span><span class="p">(</span><span class="s1">'turnOff was called!'</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">_isOn</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
 <span class="p">};</span>
 
-<span class="nx">Device</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">turnOn</span> <span class="o">=</span> <span class="nx">async</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-    <span class="c1">// set a breakpoint here.</span>
+<span class="nx">Device</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">turnOn</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
     <span class="nx">log</span><span class="p">.</span><span class="nx">i</span><span class="p">(</span><span class="s1">'turnOn was called!'</span><span class="p">);</span>
-
-    <span class="c1">// turnOn must return immediately, but it can trigger other things... </span>
-    <span class="nx">log</span><span class="p">.</span><span class="nx">i</span><span class="p">(</span><span class="s1">'XMLHttpRequest is polyfilled by the Android host.'</span><span class="p">);</span>
-    <span class="nx">log</span><span class="p">.</span><span class="nx">i</span><span class="p">(</span><span class="s1">'This allows the popular http library axios to work.'</span><span class="p">);</span>
-    <span class="kr">const</span> <span class="nx">ip</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">axios</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'http://jsonip.com'</span><span class="p">);</span>
-    <span class="nx">log</span><span class="p">.</span><span class="nx">i</span><span class="p">(</span><span class="s2">`my ip: </span><span class="p">${</span><span class="nx">ip</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">ip</span><span class="p">}</span><span class="s2">`</span><span class="p">);</span>
-
     <span class="k">this</span><span class="p">.</span><span class="nx">_isOn</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
 <span class="p">};</span>
 
-<span class="kr">export</span> <span class="k">default</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Device</span><span class="p">();</span>
+<span class="nx">exports</span><span class="p">.</span><span class="k">default</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Device</span><span class="p">();</span>
 </code></pre>
+
 <p>This sample creates a simple OnOff device that retrieves your IP when the On button is clicked. This virtual device will
 be synced to upstream integration providers, such as Google Home or Apple Homekit.</p>
 
 <ol>
 <li>Create a new Script under Plugins.</li>
 <li>Set the type to Device.</li>
-<li>Select/check the OnOff interface.</li>
+<li>Select the OnOff interface.</li>
+<li>Paste the code in.</li>
 <li>Save.</li>
-<li>Click the Debug button. Note the IP address.</li>
-<li>Check out the <a href='https://github.com/koush/scrypted-vscode'>sample project</a> and open it in Visual Studio Code.</li>
-<li>Edit .vcode/settings.json and enter the previous IP address <code>&quot;scrypted.debugHost&quot;: &quot;&lt;ip-address&gt;&quot;</code></li>
-<li>Launch Scrypted Debugger in Visual Studio Code.</li>
 </ol>
+
+<p>Watch the logs for the new light and turn the light on and off using the button on the webpage.</p>
+
+<h2 id='using-npm-and-vs-code'>Using npm and VS Code</h2>
+
+<blockquote>
+<p>src/main</p>
+</blockquote>
+
+<pre class="highlight javascript tab-javascript"><code><span class="kr">import</span> <span class="nx">axios</span> <span class="nx">from</span> <span class="s1">'axios'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">sdk</span> <span class="nx">from</span> <span class="s2">"@scrypted/sdk"</span><span class="p">;</span>
+<span class="kr">const</span> <span class="p">{</span> <span class="nx">log</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">sdk</span><span class="p">;</span>
+<span class="nx">log</span><span class="p">.</span><span class="nx">i</span><span class="p">(</span><span class="s1">'Hello World. This will create a virtual OnOff device.'</span><span class="p">);</span>
+
+<span class="kr">class</span> <span class="nx">Device</span> <span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">_isOn</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nx">isOn</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">_isOn</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nx">turnOff</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// set a breakpoint here.</span>
+        <span class="nx">log</span><span class="p">.</span><span class="nx">i</span><span class="p">(</span><span class="s1">'turnOff was called!'</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">_isOn</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nx">async</span> <span class="nx">turnOn</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// set a breakpoint here.</span>
+        <span class="nx">log</span><span class="p">.</span><span class="nx">i</span><span class="p">(</span><span class="s1">'turnOn was called!'</span><span class="p">);</span>
+        <span class="nx">log</span><span class="p">.</span><span class="nx">i</span><span class="p">(</span><span class="s2">"Let's pretend to perform a web request on an API that would turn on a light."</span><span class="p">);</span>
+        <span class="kr">const</span> <span class="nx">ip</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">axios</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'http://jsonip.com'</span><span class="p">);</span>
+        <span class="nx">log</span><span class="p">.</span><span class="nx">i</span><span class="p">(</span><span class="s1">'my ip: '</span> <span class="o">+</span> <span class="nx">ip</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">ip</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">_isOn</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kr">export</span> <span class="k">default</span> <span class="k">new</span> <span class="nx">Device</span><span class="p">();</span>
+</code></pre><pre class="highlight typescript tab-typescript"><code><span class="k">import</span> <span class="nx">axios</span> <span class="k">from</span> <span class="s1">'axios'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">OnOff</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@scrypted/sdk'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">sdk</span> <span class="k">from</span> <span class="s1">'@scrypted/sdk'</span><span class="p">;</span>
+<span class="kd">const</span> <span class="p">{</span> <span class="nx">log</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">sdk</span><span class="p">;</span>
+<span class="nx">log</span><span class="p">.</span><span class="nx">i</span><span class="p">(</span><span class="s1">'Hello World. This will create a virtual OnOff device.'</span><span class="p">);</span>
+
+<span class="kr">class</span> <span class="nx">Device</span> <span class="k">implements</span> <span class="nx">OnOff</span> <span class="p">{</span>
+    <span class="nl">_isOn</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
+    <span class="kd">constructor</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">_isOn</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nx">isOn</span><span class="p">():</span> <span class="kr">boolean</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">_isOn</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nx">turnOff</span><span class="p">():</span> <span class="k">void</span> <span class="p">{</span>
+        <span class="nx">log</span><span class="p">.</span><span class="nx">i</span><span class="p">(</span><span class="s1">'turnOff was called!'</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">_isOn</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">async</span> <span class="nx">turnOn</span><span class="p">():</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span> <span class="p">{</span>
+        <span class="c1">// set a breakpoint here.</span>
+        <span class="nx">log</span><span class="p">.</span><span class="nx">i</span><span class="p">(</span><span class="s1">'turnOn was called!'</span><span class="p">);</span>
+        <span class="nx">log</span><span class="p">.</span><span class="nx">i</span><span class="p">(</span><span class="s2">"Let's pretend to perform a web request on an API that would turn on a light."</span><span class="p">);</span>
+        <span class="kd">const</span> <span class="nx">ip</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">axios</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'http://jsonip.com'</span><span class="p">);</span>
+        <span class="nx">log</span><span class="p">.</span><span class="nx">i</span><span class="p">(</span><span class="s1">'my ip: '</span> <span class="o">+</span> <span class="nx">ip</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">ip</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">_isOn</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="k">new</span> <span class="nx">Device</span><span class="p">();</span>
+</code></pre>
+
+<p>While devices can be controlled and simple devices can be written in the Scrypted Management console, using the VS Code development
+environment is recommended.
+Using VS Code enables usage of the latest version of ECMAScript, attaching a debugger to the script, and importing modules from npm.</p>
+
+<aside class="warning">Download and install <a target='vscode' href='https://code.visualstudio.com/'>Visual Studio Code</a> and the <a target='vscode' href='https://marketplace.visualstudio.com/items?itemName=koush.duk-debug'>Duktape Debugger Plugin</a>.</aside>
+
+<ol>
+<li>Install VS Code and the Duktape Debugger Plugin.</li>
+<li>Check out either the sample <a target='vscode' href='https://github.com/koush/scrypted-vscode'>JavaScript</a> or <a target='vscode' href='https://github.com/koush/scrypted-vscode-typescript'>TypeScript</a> project from Github.</li>
+<li>Create a new Script (or reuse the previous one)</li>
+<li>Click Debug. Note the IP.</li>
+<li>Edit <code>.vscode/settings.json</code> and enter the IP in the <code>&quot;scrypted.debugHost&quot;</code> value.</li>
+<li>Launch Scrypted Debugger from the VS Code launch menu (or use the hotkey, F5).</li>
+</ol>
+
+<h3 id='package-json'>package.json</h3>
+
+<p>You may have noticed that you didn&#39;t need to specify the OnOff interface. This is because the package.json
+contains the information about the device implementation in the <code>&quot;scrypted&quot;</code> key.</p>
+
+<blockquote>
+<p>package.json</p>
+</blockquote>
+
+<pre class="highlight json tab-json"><code><span class="s2">"scrypted"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"JavaScript Light"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Device"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"interfaces"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+       </span><span class="s2">"OnOff"</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+ </span><span class="p">},</span><span class="w">
+</span></code></pre>
 <h1 id='reference'>Reference</h1><h2 id='onoff'>OnOff</h2>
 <pre class="highlight javascript tab-javascript"><code><span class="c1">// Toggle an OnOff device</span>
 <span class="k">if</span> <span class="p">(</span><span class="k">switch</span><span class="p">.</span><span class="nx">isOn</span><span class="p">())</span> <span class="p">{</span>
@@ -1203,10 +1294,6 @@ Online denotes whether the device is online or unresponsive. It may be unrespons
 <p>void onEvent(eventSource: <a href='#scryptedinterface'>ScryptedInterface</a>, eventInterface: string, eventData: object)</p>
 
 <p>This device type can be hooked by Automation actions to handle events. The event source, event type (interface), and event data are all passed to the listener as arguments.</p>
-<h2 id='eventlistenerregister'>EventListenerRegister</h2>
-<aside class="notice">
-Returned when an event listener is attached to an EventEmitter. Call removeListener to unregister from events.
-</aside>
 <h2 id='logger'>Logger</h2>
 <blockquote>
 <p>Definition</p>
@@ -1840,6 +1927,10 @@ to that type of interface. OnOff would be boolean, while Brightness would be an 
 <p><a href='#eventlistenerregister'>EventListenerRegister</a> watch(event: string, EventListener: function)</p>
 
 <p>Similar to &#39;on&#39;, but will passively watch for events, and not initiate polling.</p>
+<h2 id='eventlistenerregister'>EventListenerRegister</h2>
+<aside class="notice">
+Returned when an event listener is attached to an EventEmitter. Call removeListener to unregister from events.
+</aside>
 <h2 id='scryptedinterface'>ScryptedInterface</h2>
 <blockquote>
 <p>Definition</p>
