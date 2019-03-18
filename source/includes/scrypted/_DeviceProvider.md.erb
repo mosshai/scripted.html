@@ -1,5 +1,5 @@
 ```javascript
-const {DeviceManager} = require('@scrypted/sdk');
+const {deviceManager} = require('@scrypted/sdk');
 
 // Devices returned by the DeviceProvider
 function Device(id) {
@@ -28,7 +28,7 @@ DeviceProvider.prototype.discoverDevices = function(duration) {
     // Sync the following two lights with Scrypted. New devices unknown to Scrypted will be added
     // while devices that were previously reported, and no longer exist, will be removed.
     // onDevicesChanged should be called with the full sync list of devices.
-    DeviceManager.onDevicesChanged({
+    deviceManager.onDevicesChanged({
         devices:[
             {
                 id: '1',
