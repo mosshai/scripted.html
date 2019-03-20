@@ -310,6 +310,9 @@
                     <a href="#passwordcontrol" class="toc-h2 toc-link" data-title="PasswordControl">PasswordControl</a>
                   </li>
                   <li>
+                    <a href="#camera" class="toc-h2 toc-link" data-title="Camera">Camera</a>
+                  </li>
+                  <li>
                     <a href="#camerastream" class="toc-h2 toc-link" data-title="CameraStream">CameraStream</a>
                   </li>
                   <li>
@@ -1062,6 +1065,15 @@ PasswordControl represents devices that authorize users via a passcode or pin co
 <p>string[] getPasswords()</p>
 <h3 id='removepassword'>removePassword</h3>
 <p>void removePassword(password: string)</p>
+<h2 id='camera'>Camera</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Camera</span>  <span class="p">{</span>
+  <span class="nx">takePicture</span><span class="p">():</span> <span class="nx">MediaObject</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><h3 id='takepicture'>takePicture</h3>
+<p><a href='#mediaobject'>MediaObject</a> takePicture()</p>
 <h2 id='camerastream'>CameraStream</h2>
 <blockquote>
 <p>Definition</p>
@@ -1070,7 +1082,7 @@ PasswordControl represents devices that authorize users via a passcode or pin co
   <span class="nx">createVideoCapturer</span><span class="p">():</span> <span class="nx">MediaObject</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><h3 id='createvideocapturer'>createVideoCapturer</h3>
-<p>MediaObject createVideoCapturer()</p>
+<p><a href='#mediaobject'>MediaObject</a> createVideoCapturer()</p>
 <h2 id='referenceid'>ReferenceId</h2>
 <blockquote>
 <p>Definition</p>

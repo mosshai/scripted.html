@@ -1054,6 +1054,40 @@ void removePassword(password: string)
 
 
 
+## Camera
+
+<%= partial "includes/scrypted/Camera.md.erb" %>
+
+
+> Definition
+
+```javascript
+interface Camera  {
+  takePicture(): MediaObject;
+}
+```
+
+
+
+
+
+
+
+
+
+### takePicture
+<a href='#mediaobject'>MediaObject</a> takePicture()
+
+
+
+
+
+
+
+
+
+
+
 ## CameraStream
 
 <%= partial "includes/scrypted/CameraStream.md.erb" %>
@@ -1076,7 +1110,7 @@ interface CameraStream implements ReferenceId {
 
 
 ### createVideoCapturer
-MediaObject createVideoCapturer()
+<a href='#mediaobject'>MediaObject</a> createVideoCapturer()
 
 
 
