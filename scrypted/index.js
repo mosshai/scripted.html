@@ -8,8 +8,6 @@ const Sections = {
     'Core Reference': [
         'ScryptedDevice',
         'ScryptedDeviceType',
-    ],
-    'Event Reference': [
         'EventListener',
         'EventListenerRegister',
     ],
