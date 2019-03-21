@@ -1,4 +1,4 @@
-export interface ScryptedMedia {
+export interface MediaManager {
     /**
      * Create a MediaObject.
      * The mime type needs to be provided up front, but the data can be a

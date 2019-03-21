@@ -1,6 +1,6 @@
 export interface ScryptedStatic {
-    deviceManager: DeviceManager,
     scriptSettings: Settings,
     log: Logger,
-    media: ScryptedMedia,
+    deviceManager: DeviceManager,
+    mediaManager: MediaManager,
 }
