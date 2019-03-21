@@ -11,8 +11,6 @@ search: true
 
 <%= partial "includes/Concepts.md.erb" %>
 
-<%= partial "includes/SDKImport.md.erb" %>
-
 
 
 # Core Reference

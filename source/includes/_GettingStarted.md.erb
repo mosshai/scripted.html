@@ -1,20 +1,33 @@
-## Controlling a Device
+# Getting Started <br/>
 
-1. Create a new Script under Plugins.
-2. Set the type to Library.
-3. Assign an device that supports OnOff to a variable "switch".
-4. Run the example code using the "Test" button.
+## Creating a Script
+
+> Toggle a light
 
 ```javascript
-if (switch.isOn()) {
-    switch.turnOff();
+if (light.isOn()) {
+    light.turnOff();
 }
 else {
-    switch.turnOn();
+    light.turnOn();
 }
 ```
 
-## Creating a Device
+Scripts are small JavaScript programs that run on Scrypted to extend or create new capabilities in your home automation setup.
+
+A common example would be to write a script that controls your devices in reaction to a automation event.
+This script, for example, will toggle a light.
+
+1. Create a new Script under Plugins.
+2. Set the type to Library.
+3. Assign a device that supports OnOff to a variable "light".
+4. Paste the code into the script text box.
+5. Run the example code using the "Test" button.
+
+
+## Creating a Device Script
+
+> Create a new light
 
 ```javascript
 log.i('Hello World. This will create a virtual OnOff device.');
@@ -41,13 +54,15 @@ Device.prototype.turnOn = function () {
 exports.default = new Device();
 ```
 
-This sample creates a simple OnOff device that retrieves your IP when the On button is clicked. This virtual device will
+Scripts can also be used to add support for new devices, like a wifi lightbulb. These new devices will
 be synced to upstream integration providers, such as Google Home or Apple Homekit.
+
+This sample creates a simple OnOff device that outputs on and off clicks to the log.
 
 1. Create a new Script under Plugins.
 2. Set the type to Device.
 3. Select the OnOff interface.
-4. Paste the code in.
+4. Paste the code into the script text box.
 4. Save.
 
 Watch the logs for the new light and turn the light on and off using the button on the webpage.
@@ -120,9 +135,10 @@ class Device implements OnOff {
 export default new Device();
 ```
 
+Writing scripts in browser window can quickly become unwieldy when trying as your program becomes more complex.
 While devices can be controlled and simple devices can be written in the Scrypted Management console, using the VS Code development
 environment is recommended.
-Using VS Code enables usage of the latest version of ECMAScript, attaching a debugger to the script, and importing modules from npm.
+Using VS Code enables usage of the latest version of JavaScript, attaching a debugger to the script, and importing common libraries from npm.
 
 <aside class="warning">Download and install <a target='vscode' href='https://code.visualstudio.com/'>Visual Studio Code</a> and the <a target='vscode' href='https://marketplace.visualstudio.com/items?itemName=koush.duk-debug'>Duktape Debugger Plugin</a>.</aside>
 
@@ -149,3 +165,10 @@ contains the information about the device implementation in the `"scrypted"` key
     ]
  },
 ```
+
+## Scripts vs Plugins
+
+Plugins are just scripts that have been published for anyone to download. They're distributed, installed, and updated
+through the Scrypted Management console and can not be edited.
+If you have a script that you want to share, you would publish it through npm, and it would be available for anyone
+to use as a plugin.

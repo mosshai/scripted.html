@@ -7,11 +7,15 @@ language_tabs: # must be one of https://git.io/vQNgJ
 
 search: true
 ---
-# Getting Started <br/>
-
 <%= partial "includes/GettingStarted.md.erb" %>
 
-# Reference
+<%= partial "includes/Concepts.md.erb" %>
+
+<%= partial "includes/SDKImport.md.erb" %>
+
+{% for referenceSection, classes in data %}
+
+# {{ referenceSection }}
 
 {% for name, c in classes %}
 ## {{name}}
@@ -79,5 +83,7 @@ Enum |
 {% for value in c.values %}"{{ value }}" |
 {% endfor %}
 {% endif %}
+
+{% endfor %}
 
 {% endfor %}

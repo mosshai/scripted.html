@@ -1,0 +1,40 @@
+# Core Concepts
+
+Devices are a core object of a home automation platform, and have two main properties: Interfaces and Events.
+
+## Interfaces
+
+Interfaces are how devices expose their capabilities to Scrypted. An OnOff interface represents a binary switch. The Brightness
+interface represents a light that can be dimmed. The ColorSettingRgb interface indicates the light can change color.
+A device may expose multiple different interfaces to describe its functionality.
+
+For example, given the following devices, the interfaces they would implement:
+
+* Outlet: [OnOff](#onoff),
+* Dimmer Switch: [OnOff](#onoff), [Brightness](#brightness),
+* Color Bulb: [OnOff](#onoff), [Brightness](#brightness), [ColorSettingRgb](#colorsettingrgb)
+
+Interfaces aren't only used represent characteristics of physical devices. As mentioned, they provide ways to hook into Scrypted.
+The [HttpRequestHandler](#httprequesthandler) lets you add a web hook to handle incoming web requests. [EventListener](#eventlistener)
+lets you create handlers that respond to events. [DeviceProvider](#deviceprovider) acts as a controller platform (like Hue or Lifx) for
+exposing multiple other devices to Scrypted.
+
+Interfaces also provide a way to query the device state. Such as checking whether an outlet is on or off, the current brightness level,
+or the current color.
+
+## Events
+
+Events are how devices notify Scrypted when something has changed on their interface. For example, when a light turns on,
+the Light device would send an OnOff event. If a Slack message is received, the Slack device would send a [MessagingEndpoint](#messagingendpoint)
+event. Setting a schedule for sunrise on weekdays would send an [Alarm](#alarm) event on that schedule.
+
+Automations can subscribe tp these events and your smart home can be customized to react accordingly.
+
+Like device interfaces, a device can be a source for as many events as it wants. For example, the table of events for a given device:
+
+* Simple Bulb: [OnOff](#onoff),
+* Dimmable Bulb: [OnOff](#onoff), [Brightness](#brightness),
+* Color Bulb: [OnOff](#onoff), [Brightness](#brightness), [ColorSettingRgb](#colorsettingrgb)
+
+While this looks exactly the same as above, note that this isn't always the case. The [HttpRequestHandler](#httprequesthandler)
+interface, for example, has no corresponding event.

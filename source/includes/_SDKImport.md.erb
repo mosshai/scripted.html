@@ -1,0 +1,69 @@
+
+# SDK: @scrypted/sdk
+
+## import/require
+
+```javascript
+const sdk = require('@scrypted/sdk');
+// or
+import sdk from '@scrypted/sdk';
+```
+
+## Properties
+
+### deviceManager
+
+[DeviceManager](#devicemanager) property. Allows querying and creation of new devices, and sending events from existing devices.
+
+> Definition
+
+```javascript
+<%= partial "includes/scrypted/generated/sdk.erb" %>
+```
+
+### scriptSettings
+
+Scripts can use the [scriptSettings](#settings) property as a user visible and configurable storage area.
+
+### log
+
+The [log](#logger) property writes logs and notification alerts which can be viewed in the web magement console.
+
+## Media
+
+
+> User Script Code
+
+```javascript
+// In a script that uses a speaker, send a text string to the speaker for playback.
+const text = sdk.createMediaObject(Buffer.from('Door is opened'), 'text/plain');
+speaker.load(text);
+```
+
+> Speaker Plugin Code
+
+```javascript
+// In a different plugin that implements the speaker, convert the text string to a
+// publicly accessible audio/wav Uri.
+// "media" is the "text" MediaObject from above.
+var mediaUrl = await sdk.convertMediaObjectToUri(media, "audio/wav");
+playUrl(mediaUrl);
+```
+
+MediaObjects are an interstial representation of any media that flows through the Scrypted platform. Devices generally
+are not concerned about the source type of the media, but need the media to be converted into
+a type is compatible with the device. For example, a user may want to send text to a speaker for playback.
+The speaker is not aware of the source media type, and only needs it to be converted into an audio url.
+
+### createMediaObject
+
+Create a MediaObject of a given mime type from a Uri string or Buffer.
+
+### convertMediaObjectToUri
+
+Convert a MediaObject to a publicly accessible Uri of a given mime type.
+
+### convertMediaObjectToBuffer
+
+Convert a MediaObject to a Buffer of a given mime type.
+

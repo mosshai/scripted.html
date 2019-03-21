@@ -4,6 +4,52 @@ const https = require('https');
 var ip = process.argv[2];
 const path = require('path');
 
+const Sections = {
+    'Core Reference': [
+        'ScryptedDevice',
+        'ScryptedDeviceType',
+    ],
+    'Event Reference': [
+        'EventListener',
+        'EventListenerRegister',
+    ],
+    'Device Reference': [
+        'DeviceManager',
+        'DeviceProvider',
+        'DeviceManifest',
+        'Device',
+    ]
+};
+
+const TypeRename = {
+    ScryptedThingType: 'ScryptedDeviceType',
+};
+
+const TypeMap = {
+    Class: 'string',
+    ClassSet: 'string[]',
+    ScryptedInterface: 'ScryptedDevice',
+
+    // todo: clean this up with strong types
+    Set: 'string[]',
+    List: 'string[]',
+    Map: 'object',
+
+    Boolean: 'boolean',
+    ByteBuffer: 'Buffer',
+    Object: 'object',
+    String: 'string',
+    float: 'number',
+    Float: 'number',
+    int: 'number',
+    Integer: 'number',
+    int: 'number',
+    long: 'number',
+    double: 'number',
+    Double: 'number',
+    JavaScriptObject: 'function',
+};
+
 (async function () {
     var response = await axios.get(`https://${ip}:9443/types`, {
         httpsAgent: new https.Agent({
@@ -11,8 +57,21 @@ const path = require('path');
         })
     });
     var json = response.data;
-    // var json = JSON.parse(fs.readFileSync('./model.json'));
+    var copy = {};
 
+    // rename into preferred type names, then create sections
+    for (var name in json) {
+        var entry = json[name];
+        if (TypeRename[name]) {
+            copy[TypeRename[name]] = entry;
+        }
+        else {
+            copy[name] = entry;
+        }
+    }
+    json = copy;
+
+    // dump the user editable files
     for (var iface in json) {
         var filename = path.join(__dirname, `../source/includes/scrypted/_${iface}.md.erb`);
         if (!fs.existsSync(filename)) {
@@ -20,27 +79,18 @@ const path = require('path');
         }
     }
 
-    const TypeMap = {
-        Set: 'string[]',
-        List: 'string[]',
-        Class: 'string',
-        Boolean: 'boolean',
-        ByteBuffer: 'Buffer',
-        Object: 'object',
-        Map: 'object',
-        String: 'string',
-        float: 'number',
-        Float: 'number',
-        int: 'number',
-        Integer: 'number',
-        int: 'number',
-        long: 'number',
-        double: 'number',
-        Double: 'number',
-        JavaScriptObject: 'function',
-        Future: 'MediaObject',
-    }
+    var data = {
+    };
+    var remaining = Object.assign({}, json);
 
+    for (var section in Sections) {
+        data[section] = {};
+        for (var type of Sections[section]) {
+            data[section][type] = json[type];
+            delete remaining[type];
+        }
+    }
+    data['Interface Reference'] = remaining;
 
     function mapStrippedType(type) {
         var mapped = TypeMap[type];
@@ -99,10 +149,10 @@ const path = require('path');
     }
 
     const nunjucks = require('nunjucks');
-    nunjucks.configure({ autoescape: false });
+    nunjucks.configure(__dirname, { autoescape: false });
     var template = fs.readFileSync(path.join(__dirname,'./index.html.md.j2')).toString();
     var output = nunjucks.renderString(template, {
-        classes: json,
+        data,
         mapSupers,
         methodArguments,
         mapMethodArguments,
@@ -111,6 +161,7 @@ const path = require('path');
     });
 
     fs.writeFileSync(path.join(__dirname, '../source/index.html.md.erb'), output);
+    fs.writeFileSync(path.join(__dirname, '../source/includes/scrypted/generated/_sdk.erb'), fs.readFileSync(path.join(__dirname, 'sdk.d.ts')));
 
     var template = fs.readFileSync(path.join(__dirname, './index.d.ts.j2')).toString();
     var output = nunjucks.renderString(template, {
