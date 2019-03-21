@@ -32,7 +32,7 @@ interface ScryptedDevice  {
   interfaces(): string[];
   name(): string;
   on(event: string, callback: (eventSource: ScryptedDevice, eventInterface: string, eventData: object) => void): EventListenerRegister;
-  type(): ScryptedThingType;
+  type(): ScryptedDeviceType;
   watch(event: string, callback: (eventSource: ScryptedDevice, eventInterface: string, eventData: object) => void): EventListenerRegister;
 }
 ```
@@ -78,7 +78,7 @@ The eventSource is the interface from where the event originated, and eventData 
 to that type of interface. OnOff would be boolean, while Brightness would be an integer between 0 and 100.
 
 ### type
-ScryptedThingType type()
+ScryptedDeviceType type()
 
 
 
@@ -421,7 +421,7 @@ interface Device {
   model: string;
   name: string;
   room: string;
-  type: ScryptedThingType;
+  type: ScryptedDeviceType;
 }
 ```
 
@@ -444,7 +444,7 @@ interfaces | string[]
 model | string
 name | string
 room | string
-type | ScryptedThingType
+type | ScryptedDeviceType
 
 
 

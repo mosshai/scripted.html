@@ -37,6 +37,8 @@ export interface {{ name }} {
 {%- endif -%}
 {%- endfor %}
 
+{% include 'sdk.media.d.ts' %}
+
 {% include 'sdk.d.ts' %}
 
 declare const Scrypted: ScryptedStatic;

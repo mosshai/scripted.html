@@ -13,7 +13,7 @@ else {
 }
 ```
 
-Scripts are small JavaScript programs that run on Scrypted to extend or create new capabilities in your home automation setup.
+Scripts are JavaScript programs that run on Scrypted to extend the capabilities of your home automation setup.
 
 A common example would be to write a script that controls your devices in reaction to a automation event.
 This script, for example, will toggle a light.
@@ -24,6 +24,12 @@ This script, for example, will toggle a light.
 4. Paste the code into the script text box.
 5. Run the example code using the "Test" button.
 
+<aside class="notice">
+Scripts can be published as plugins which are distributed, installed, and updated through the
+Scrypted Management console.
+If you have a script that you want to share, you would publish it through npm, and it would be available for anyone
+to use as a plugin.
+</aside>
 
 ## Creating a Device Script
 
@@ -136,7 +142,7 @@ export default new Device();
 ```
 
 Writing scripts in browser window can quickly become unwieldy when trying as your program becomes more complex.
-While devices can be controlled and simple devices can be written in the Scrypted Management console, using the VS Code development
+While devices can be controlled and created with simple scripts written in the Scrypted Management console, using the VS Code development
 environment is recommended.
 Using VS Code enables usage of the latest version of JavaScript, attaching a debugger to the script, and importing common libraries from npm.
 
@@ -166,9 +172,3 @@ contains the information about the device implementation in the `"scrypted"` key
  },
 ```
 
-## Scripts vs Plugins
-
-Plugins are just scripts that have been published for anyone to download. They're distributed, installed, and updated
-through the Scrypted Management console and can not be edited.
-If you have a script that you want to share, you would publish it through npm, and it would be available for anyone
-to use as a plugin.

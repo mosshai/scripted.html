@@ -93,7 +93,7 @@ const TypeMap = {
     data['Interface Reference'] = remaining;
 
     function mapStrippedType(type) {
-        var mapped = TypeMap[type];
+        var mapped = TypeMap[type] || TypeRename[type];
         if (mapped) {
             return mapped;
         }
@@ -108,7 +108,7 @@ const TypeMap = {
     }
 
     function linkifyStrippedType(type) {
-        var mapped = TypeMap[type];
+        var mapped = TypeMap[type] || TypeRename[type];
         if (mapped) {
             return mapped;
         }
@@ -162,6 +162,7 @@ const TypeMap = {
 
     fs.writeFileSync(path.join(__dirname, '../source/index.html.md.erb'), output);
     fs.writeFileSync(path.join(__dirname, '../source/includes/scrypted/generated/_sdk.erb'), fs.readFileSync(path.join(__dirname, 'sdk.d.ts')));
+    fs.writeFileSync(path.join(__dirname, '../source/includes/scrypted/generated/_sdk.media.erb'), fs.readFileSync(path.join(__dirname, 'sdk.media.d.ts')));
 
     var template = fs.readFileSync(path.join(__dirname, './index.d.ts.j2')).toString();
     var output = nunjucks.renderString(template, {
