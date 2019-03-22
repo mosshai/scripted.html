@@ -21,13 +21,13 @@ export interface {{ name }}
    * {{ method.description }}
    */
   {% endif -%}
-  {{ method.name }}({{ mapMethodArguments(method.arguments) | join(', ') }}): {{ mapType(method.type) }};
+  {{ method.name }}({{ mapMethodArguments(method.arguments) | join(', ') }}): {{ mapType(method) }};
 {%- endfor %}
 }
 {%- elif c.fields.length %}
 export interface {{ name }} {
 {%- for field in c.fields %}
-  {{ field.name }}: {{ mapType(field.type) }},
+  {{ field.name }}: {{ mapType(field) }},
 {%- endfor %}
 }
 {%- else %}
@@ -36,8 +36,6 @@ export interface {{ name }} {
 {%- endif -%}
 {%- endif -%}
 {%- endfor %}
-
-{% include 'sdk.media.d.ts' %}
 
 {% include 'sdk.d.ts' %}
 

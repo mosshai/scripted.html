@@ -10,6 +10,7 @@ const Sections = {
         'ScryptedDeviceType',
         'EventListener',
         'EventListenerRegister',
+        'Logger',
     ],
     'Device Reference': [
         'DeviceManager',
@@ -17,7 +18,25 @@ const Sections = {
         'DeviceManifest',
         'Device',
         'Refresh',
-    ]
+    ],
+    'Media Reference': [
+        'MediaManager',
+        'MediaObject',
+    ],
+    // 'Sensor API Reference': [
+    //     'Thermometer',
+    //     'BinarySensor',
+    //     'EntrySensor',
+    //     'IntrusionSensor',
+    //     'AudioSensor',
+    //     'MotionSensor',
+    //     'OccupancySensor',
+    //     'EntryHandleSensor',
+    //     'FloodSensor',
+    //     'HumiditySensor',
+    //     'UltravioletSensor',
+    //     'LuminanceSensor',
+    // ],
 };
 
 const TypeRename = {
@@ -88,7 +107,7 @@ const TypeMap = {
             delete remaining[type];
         }
     }
-    data['Interface Reference'] = remaining;
+    data['API Reference'] = remaining;
 
     function mapStrippedType(type) {
         var mapped = TypeMap[type] || TypeRename[type];
@@ -98,11 +117,33 @@ const TypeMap = {
         return type;
     }
 
-    function mapType(type) {
+    function mapOneType(type) {
         var baseType = type.replace('[]', '');
         if (type === baseType)
             return mapStrippedType(type);
         return `${mapStrippedType(baseType)}[]`;
+    }
+
+    function mapType(typed) {
+        var {type, types} = typed;
+        if (!types) {
+            return mapOneType(type);
+        }
+
+        if (types[0] == 'Promise') {
+            types = types.slice(1);
+            var promiseTypes = types.map(t => mapOneType(t)).join('|');
+            return `Promise<${promiseTypes}>`;
+        }
+        else if (types[types.length - 1] == 'Promise') {
+            types = types.slice(0, types.length - 1);
+            var nonPromiseTypes = types.map(t => mapOneType(t)).join('|');
+            var promiseTypes = `Promise<${nonPromiseTypes}>`;
+            return `${nonPromiseTypes}|${promiseTypes}`;
+        }
+        else {
+            return types.map(t => mapOneType(t)).join('|');
+        }
     }
 
     function linkifyStrippedType(type) {
@@ -118,11 +159,33 @@ const TypeMap = {
         return `<a href='#${type.toLowerCase()}'>${type}</a>`;
     }
 
-    function linkifyType(type) {
+    function linkifyOneType(type) {
         var baseType = type.replace('[]', '');
         if (type === baseType)
             return linkifyStrippedType(type);
         return `${linkifyStrippedType(baseType)}[]`;
+    }
+
+    function linkifyType(typed) {
+        var {type, types} = typed;
+        if (!types) {
+            return linkifyOneType(type);
+        }
+
+        if (types[0] == 'Promise') {
+            types.shift();
+            var promiseTypes = types.map(t => linkifyOneType(t)).join('|');
+            return `Promise\\<${promiseTypes}>`;
+        }
+        else if (types[types.length - 1] == 'Promise') {
+            types.pop();
+            var nonPromiseTypes = types.map(t => linkifyOneType(t)).join('|');
+            var promiseTypes = `Promise\\<${nonPromiseTypes}>`;
+            return `${nonPromiseTypes}|${promiseTypes}`;
+        }
+        else {
+            return types.map(t => linkifyOneType(t)).join('|');
+        }
     }
 
     function mapSupers(supers) {
@@ -135,14 +198,14 @@ const TypeMap = {
             var method = interfaceType.methods[0];
             return `callback: (${mapMethodArguments(method.arguments).join(', ')}) => void`;
         }
-        return `${arg.name}: ${mapType(arg.type)}`;
+        return `${arg.name}: ${mapType(arg)}`;
     }
 
     function massageCallback(arg) {
         if (arg.type == 'JavaScriptObject') {
-            return `${linkifyType(arg.name )} callback`
+            return `${linkifyType({type: arg.name})} callback`
         }
-        return `${mapType(arg.type)} ${arg.name}`;
+        return `${linkifyType(arg)} ${arg.name}`;
     }
 
     function methodArguments(args) {
@@ -167,7 +230,6 @@ const TypeMap = {
 
     fs.writeFileSync(path.join(__dirname, '../source/index.html.md.erb'), output);
     fs.writeFileSync(path.join(__dirname, '../source/includes/scrypted/generated/_sdk.erb'), fs.readFileSync(path.join(__dirname, 'sdk.d.ts')));
-    fs.writeFileSync(path.join(__dirname, '../source/includes/scrypted/generated/_sdk.media.erb'), fs.readFileSync(path.join(__dirname, 'sdk.media.d.ts')));
 
     var template = fs.readFileSync(path.join(__dirname, './index.d.ts.j2')).toString();
     var output = nunjucks.renderString(template, {

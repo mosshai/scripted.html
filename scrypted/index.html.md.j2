@@ -25,9 +25,9 @@ search: true
 
 ```javascript
 interface {{ name }} {% if c.superclass.length %}implements {{ mapSupers(c.superclass) }}{% endif %} {
-{% for method in c.methods %}  {{ method.name }}({{ mapMethodArguments(method.arguments) | join(', ') }}): {{ mapType(method.type) }};
+{% for method in c.methods %}  {{ method.name }}({{ mapMethodArguments(method.arguments) | join(', ') }}): {{ mapType(method) }};
 {% endfor -%}
-{% for field in c.fields %}  {{ field.name }}: {{ mapType(field.type) }};
+{% for field in c.fields %}  {{ field.name }}: {{ mapType(field) }};
 {% endfor -%}
 }
 ```
@@ -45,9 +45,14 @@ enum {{ name }} {
 
 <%= partial "includes/scrypted/{{name}}.md.erb" %>
 
-{% if c.description %}
+{% if c.used_by or c.description %}
 <aside class="notice">
+{% if c.used_by %}
+Used by {{ linkifyType({type: c.used_by}) }}.
+{% endif %}
+{% if c.description %}
 {{ c.description }}
+{% endif %}
 </aside>
 {% endif %}
 
@@ -55,7 +60,7 @@ enum {{ name }} {
 {% if true %}
 {% for method in c.methods %}
 ### {{ method.name }}
-{{ linkifyType(method.type) }} {{ method.name }}({{ methodArguments(method.arguments) | join(', ') }})
+{{ linkifyType(method) }} {{ method.name }}({{ methodArguments(method.arguments) | join(', ') }})
 
 {{ method.description }}
 {% endfor %}
@@ -66,7 +71,7 @@ enum {{ name }} {
 ### Properties
 Name      | Type
 --------- | ----
-{% for property in c.fields %}{{ property.name }} | {{ linkifyType(property.type) }}
+{% for property in c.fields %}{{ property.name }} | {{ linkifyType(property) }}
 {% endfor %}
 {% endif %}
 

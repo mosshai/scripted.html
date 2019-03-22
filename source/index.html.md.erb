@@ -40,7 +40,10 @@ interface ScryptedDevice  {
 
 
 <aside class="notice">
+
+
 All devices in Scrypted implement ScryptedDevice, which contains the id, name, and type. Add listeners to subscribe to events from that device.
+
 </aside>
 
 
@@ -71,9 +74,6 @@ string name()
 <a href='#eventlistenerregister'>EventListenerRegister</a> on(string event, <a href='#eventlistener'>EventListener</a> callback)
 
 Subscribe to events from a specific interface on a device, such as 'OnOff' or 'Brightness'.
-The callback function has the signature function(eventSource, eventData).
-The eventSource is the interface from where the event originated, and eventData will contain data specific
-to that type of interface. OnOff would be boolean, while Brightness would be an integer between 0 and 100.
 
 ### type
 ScryptedDeviceType type()
@@ -127,6 +127,13 @@ enum ScryptedDeviceType {
 
 <%= partial "includes/scrypted/ScryptedDeviceType.md.erb" %>
 
+
+<aside class="notice">
+
+Used by <a href='#scrypteddevice'>ScryptedDevice</a>.
+
+
+</aside>
 
 
 
@@ -212,7 +219,12 @@ interface EventListenerRegister  {
 
 
 <aside class="notice">
+
+Used by <a href='#scrypteddevice'>ScryptedDevice</a>.
+
+
 Returned when an event listener is attached to an EventEmitter. Call removeListener to unregister from events.
+
 </aside>
 
 
@@ -228,6 +240,93 @@ Returned when an event listener is attached to an EventEmitter. Call removeListe
 void removeListener()
 
 
+
+
+
+
+
+
+
+
+
+## Logger
+
+
+> Definition
+
+```javascript
+interface Logger  {
+  a(msg: string): void;
+  clear(): void;
+  clearAlert(msg: string): void;
+  clearAlerts(): void;
+  d(msg: string): void;
+  e(msg: string): void;
+  i(msg: string): void;
+  v(msg: string): void;
+  w(msg: string): void;
+}
+```
+
+
+<%= partial "includes/scrypted/Logger.md.erb" %>
+
+
+<aside class="notice">
+
+
+Logger is exposed via log.* to allow writing to the Scrypted log.
+
+</aside>
+
+
+
+
+
+### a
+void a(string msg)
+
+Alert. Alert level logs will be displayed as a notification in the management console.
+
+### clear
+void clear()
+
+Clear the log
+
+### clearAlert
+void clearAlert(string msg)
+
+Clear a specific alert
+
+### clearAlerts
+void clearAlerts()
+
+Clear all alerts
+
+### d
+void d(string msg)
+
+Debug
+
+### e
+void e(string msg)
+
+Error
+
+### i
+void i(string msg)
+
+Info
+
+### v
+void v(string msg)
+
+Verbose
+
+### w
+void w(string msg)
+
+Warn
 
 
 
@@ -264,7 +363,10 @@ interface DeviceManager  {
 
 
 <aside class="notice">
+
+
 DeviceManager is the interface which plugins use to report devices and device events to Scrypted. It is also used to query Scrypted for other devices.
+
 </aside>
 
 
@@ -282,7 +384,7 @@ ScryptedDevice getDeviceByName(string name)
 Find a Scrypted device by name.
 
 ### onDeviceDiscovered
-void onDeviceDiscovered(Device device)
+void onDeviceDiscovered(<a href='#device'>Device</a> device)
 
 onDeviceDiscovered is used to report new devices that are trickle discovered, one by one, such as via a network broadcast.
 
@@ -297,7 +399,7 @@ void onDeviceEvent(string id, string eventInterface, object eventData)
 Fire an event for a device provided by this plugin.
 
 ### onDevicesChanged
-void onDevicesChanged(DeviceManifest devices)
+void onDevicesChanged(<a href='#devicemanifest'>DeviceManifest</a> devices)
 
 onDevicesChanged is used to sync Scrypted with devices that are attached to a hub, such as Hue or SmartThings. All the devices should be reported at once.
 
@@ -326,7 +428,10 @@ interface DeviceProvider  {
 
 
 <aside class="notice">
+
+
 DeviceProvider acts as a controller/hub and exposes multiple devices to Scrypted Device Manager.
+
 </aside>
 
 
@@ -367,7 +472,12 @@ interface DeviceManifest  {
 
 
 <aside class="notice">
+
+Used by <a href='#devicemanager'>DeviceManager</a>.
+
+
 DeviceManifest is passed to DeviceManager.onDevicesChanged to sync a full list of devices from the controller/hub (Hue, SmartThings, etc)
+
 </aside>
 
 
@@ -406,7 +516,12 @@ interface Device  {
 
 
 <aside class="notice">
+
+Used by <a href='#devicemanager'>DeviceManager</a>.
+
+
 Device objects are created by DeviceProviders when new devices are discover and synced to Scrypted via the DeviceManager.
+
 </aside>
 
 
@@ -446,7 +561,10 @@ interface Refresh  {
 
 
 <aside class="notice">
+
+
 Refresh indicates that this device has properties that are not automatically updated, and must be periodically refreshed.
+
 </aside>
 
 
@@ -474,7 +592,98 @@ This method is called by Scrypted when the properties of the device need to be r
 
 
 
-# Interface Reference
+# Media Reference
+
+
+## MediaManager
+
+
+> Definition
+
+```javascript
+interface MediaManager  {
+  convertMediaObjectToBuffer(mediaObject: MediaObject, toMimeType: string): Promise<Buffer>;
+  convertMediaObjectToUri(mediaObject: MediaObject, toMimeType: string): Promise<string>;
+  createMediaObject(data: string|Buffer|Promise<string|Buffer>, mimeType: string): MediaObject;
+}
+```
+
+
+<%= partial "includes/scrypted/MediaManager.md.erb" %>
+
+
+
+
+
+
+### convertMediaObjectToBuffer
+Promise\<Buffer> convertMediaObjectToBuffer(<a href='#mediaobject'>MediaObject</a> mediaObject, string toMimeType)
+
+Convert a media object to a Buffer of the given mime type.
+
+### convertMediaObjectToUri
+Promise\<string> convertMediaObjectToUri(<a href='#mediaobject'>MediaObject</a> mediaObject, string toMimeType)
+
+Convert a media object to a publically accessible uri that serves a media file of the given mime type.
+
+### createMediaObject
+<a href='#mediaobject'>MediaObject</a> createMediaObject(string|Buffer|Promise\<string|Buffer> data, string mimeType)
+
+Create a MediaObject. The mime type needs to be provided up front, but the data can be a Uri string, Buffer, or a Promise for a Uri string or Buffer.
+
+
+
+
+
+
+
+
+
+## MediaObject
+
+
+> Definition
+
+```javascript
+interface MediaObject  {
+  getMimeType(): string;
+}
+```
+
+
+<%= partial "includes/scrypted/MediaObject.md.erb" %>
+
+
+<aside class="notice">
+
+Used by <a href='#notifier'>Notifier</a>.
+
+
+MediaObject is an intermediate object within Scrypted to represent all media objects. Plugins should use the MediaConverter to convert the Scrypted MediaObject into a desired type, whether it is a externally accessible URL, a Buffer, etc.
+
+</aside>
+
+
+
+
+
+### getMimeType
+string getMimeType()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# API Reference
 
 
 ## OnOff
@@ -495,7 +704,10 @@ interface OnOff  {
 
 
 <aside class="notice">
+
+
 OnOff is a basic binary switch.
+
 </aside>
 
 
@@ -542,7 +754,10 @@ interface Brightness  {
 
 
 <aside class="notice">
+
+
 Brightness is a lighting device that can be dimmed/lit between 0 to 100.
+
 </aside>
 
 
@@ -586,7 +801,10 @@ interface ColorSettingTemperature  {
 
 
 <aside class="notice">
+
+
 ColorSettingTemperature sets the color temperature of a light in Kelvin.
+
 </aside>
 
 
@@ -638,7 +856,10 @@ interface ColorSettingRgb  {
 
 
 <aside class="notice">
+
+
 ColorSettingRgb sets the color of a colored light using the RGB representation.
+
 </aside>
 
 
@@ -682,7 +903,12 @@ interface ColorRgb  {
 
 
 <aside class="notice">
+
+Used by <a href='#colorsettingrgb'>ColorSettingRgb</a>.
+
+
 Represents an RGB color value component values between 0 and 255.
+
 </aside>
 
 
@@ -727,7 +953,10 @@ interface ColorSettingHsv  {
 
 
 <aside class="notice">
+
+
 ColorSettingHsv sets the color of a colored light using the HSV representation.
+
 </aside>
 
 
@@ -771,7 +1000,12 @@ interface ColorHsv  {
 
 
 <aside class="notice">
+
+Used by <a href='#colorsettinghsv'>ColorSettingHsv</a>.
+
+
 Represents an HSV color value component values between 0 and 1.
+
 </aside>
 
 
@@ -816,7 +1050,10 @@ interface Notifier  {
 
 
 <aside class="notice">
+
+
 Notifier can be any endpoint that can receive messages, such as speakers, phone numbers, messaging clients, etc. The messages may optionally contain media.
+
 </aside>
 
 
@@ -829,46 +1066,10 @@ void sendNotification(string title, string body)
 
 
 ### sendNotification
-void sendNotification(string title, string body, MediaObject media, string mimeType)
+void sendNotification(string title, string body, <a href='#mediaobject'>MediaObject</a> media, string mimeType)
 
 If a the media parameter is supplied, the mime type denotes how to send the media within notification. For example, specify 'image/*' to send a video MediaObject as an image.
 Passing null uses the native type of the MediaObject. If that is not supported by the notifier, the media will be converted to a compatible type.
-
-
-
-
-
-
-
-
-
-## MediaObject
-
-
-> Definition
-
-```javascript
-interface MediaObject  {
-  getMimeType(): string;
-}
-```
-
-
-<%= partial "includes/scrypted/MediaObject.md.erb" %>
-
-
-<aside class="notice">
-MediaObject is an intermediate object within Scrypted to represent all media objects. Plugins should use the MediaConverter to convert the Scrypted MediaObject into a desired type, whether it is a externally accessible URL, a Buffer, etc.
-</aside>
-
-
-
-
-
-### getMimeType
-string getMimeType()
-
-
 
 
 
@@ -900,7 +1101,10 @@ interface StartStop  {
 
 
 <aside class="notice">
+
+
 StartStop represents a device that can be started, stopped, and possibly paused and resumed. Typically vacuum cleaners or washers.
+
 </aside>
 
 
@@ -967,7 +1171,10 @@ interface Dock  {
 
 
 <aside class="notice">
+
+
 Dock instructs devices that have a base station or charger, to return to their home.
+
 </aside>
 
 
@@ -1015,7 +1222,10 @@ interface TemperatureSetting implements Thermometer, HumiditySensor {
 
 
 <aside class="notice">
+
+
 TemperatureSetting represents a thermostat device.
+
 </aside>
 
 
@@ -1058,7 +1268,7 @@ void setTemperatureSetpoint(number degrees)
 
 
 ### setThermostatMode
-void setThermostatMode(ThermostatMode mode)
+void setThermostatMode(<a href='#thermostatmode'>ThermostatMode</a> mode)
 
 
 
@@ -1121,6 +1331,13 @@ enum TemperatureUnit {
 
 <%= partial "includes/scrypted/TemperatureUnit.md.erb" %>
 
+
+<aside class="notice">
+
+Used by <a href='#thermometer'>Thermometer</a>.
+
+
+</aside>
 
 
 
@@ -1190,6 +1407,13 @@ enum ThermostatMode {
 <%= partial "includes/scrypted/ThermostatMode.md.erb" %>
 
 
+<aside class="notice">
+
+Used by <a href='#temperaturesetting'>TemperatureSetting</a>.
+
+
+</aside>
+
 
 
 
@@ -1228,7 +1452,10 @@ interface Camera  {
 
 
 <aside class="notice">
+
+
 Camera devices can take still photos.
+
 </aside>
 
 
@@ -1248,31 +1475,34 @@ Camera devices can take still photos.
 
 
 
-## CameraStream
+## VideoCamera
 
 
 > Definition
 
 ```javascript
-interface CameraStream  {
-  createVideoCapturer(): MediaObject;
+interface VideoCamera  {
+  getVideoStream(): MediaObject;
 }
 ```
 
 
-<%= partial "includes/scrypted/CameraStream.md.erb" %>
+<%= partial "includes/scrypted/VideoCamera.md.erb" %>
 
 
 <aside class="notice">
-CameraStream devices can capture video streams.
+
+
+VideoCamera devices can capture video streams.
+
 </aside>
 
 
 
 
 
-### createVideoCapturer
-<a href='#mediaobject'>MediaObject</a> createVideoCapturer()
+### getVideoStream
+<a href='#mediaobject'>MediaObject</a> getVideoStream()
 
 
 
@@ -1302,7 +1532,10 @@ interface Lock  {
 
 
 <aside class="notice">
+
+
 Lock controls devices that can lock or unlock entries. Often works in tandem with PasswordControl.
+
 </aside>
 
 
@@ -1350,7 +1583,10 @@ interface PasswordControl  {
 
 
 <aside class="notice">
+
+
 PasswordControl represents devices that authorize users via a passcode or pin code.
+
 </aside>
 
 
@@ -1398,7 +1634,10 @@ interface Scene  {
 
 
 <aside class="notice">
+
+
 Scenes control multiple different devices into a given state.
+
 </aside>
 
 
@@ -1446,7 +1685,10 @@ interface Entry  {
 
 
 <aside class="notice">
+
+
 Entry represents devices that can open and close barriers, such as garage doors.
+
 </aside>
 
 
@@ -1495,7 +1737,10 @@ interface Alarm  {
 
 
 <aside class="notice">
+
+
 Event data from the Scheduler component.
+
 </aside>
 
 
@@ -1549,6 +1794,13 @@ enum ClockType {
 <%= partial "includes/scrypted/ClockType.md.erb" %>
 
 
+<aside class="notice">
+
+Used by <a href='#alarm'>Alarm</a>.
+
+
+</aside>
+
 
 
 
@@ -1584,7 +1836,10 @@ interface Battery  {
 
 
 <aside class="notice">
+
+
 Battery retrieves the battery level of battery powered devices.
+
 </aside>
 
 
@@ -1624,7 +1879,10 @@ interface MediaPlayer  {
 
 
 <aside class="notice">
+
+
 MediaPlayer allows media playback on screen or speaker devices, such as Chromecasts or TVs.
+
 </aside>
 
 
@@ -1632,12 +1890,12 @@ MediaPlayer allows media playback on screen or speaker devices, such as Chromeca
 
 
 ### load
-void load(MediaObject media, MediaPlayerOptions options)
+void load(<a href='#mediaobject'>MediaObject</a> media, <a href='#mediaplayeroptions'>MediaPlayerOptions</a> options)
 
 
 
 ### load
-void load(string mediaUrl, MediaPlayerOptions options)
+void load(string mediaUrl, <a href='#mediaplayeroptions'>MediaPlayerOptions</a> options)
 
 
 
@@ -1680,6 +1938,13 @@ interface MediaPlayerOptions  {
 <%= partial "includes/scrypted/MediaPlayerOptions.md.erb" %>
 
 
+<aside class="notice">
+
+Used by <a href='#mediaplayer'>MediaPlayer</a>.
+
+
+</aside>
+
 
 
 
@@ -1689,21 +1954,6 @@ Name      | Type
 --------- | ----
 autoplay | boolean
 mimeType | string
-
-
-
-
-
-
-## FaceDetector
-
-
-
-<%= partial "includes/scrypted/FaceDetector.md.erb" %>
-
-
-
-
 
 
 
@@ -1726,7 +1976,10 @@ interface Online  {
 
 
 <aside class="notice">
+
+
 Online denotes whether the device is online or unresponsive. It may be unresponsive due to being unplugged, network error, etc.
+
 </aside>
 
 
@@ -1802,7 +2055,10 @@ interface SoftwareUpdate  {
 
 
 <aside class="notice">
+
+
 SoftwareUpdate provides a way to check for updates and install them. This may be a Scrypted Plugin or device firmware.
+
 </aside>
 
 
@@ -2101,90 +2357,6 @@ number getLuminance()
 
 
 
-## Logger
-
-
-> Definition
-
-```javascript
-interface Logger  {
-  a(msg: string): void;
-  clear(): void;
-  clearAlert(msg: string): void;
-  clearAlerts(): void;
-  d(msg: string): void;
-  e(msg: string): void;
-  i(msg: string): void;
-  v(msg: string): void;
-  w(msg: string): void;
-}
-```
-
-
-<%= partial "includes/scrypted/Logger.md.erb" %>
-
-
-<aside class="notice">
-Logger is exposed via log.* to allow writing to the Scrypted log.
-</aside>
-
-
-
-
-
-### a
-void a(string msg)
-
-Alert. Alert level logs will be displayed as a notification in the management console.
-
-### clear
-void clear()
-
-Clear the log
-
-### clearAlert
-void clearAlert(string msg)
-
-Clear a specific alert
-
-### clearAlerts
-void clearAlerts()
-
-Clear all alerts
-
-### d
-void d(string msg)
-
-Debug
-
-### e
-void e(string msg)
-
-Error
-
-### i
-void i(string msg)
-
-Info
-
-### v
-void v(string msg)
-
-Verbose
-
-### w
-void w(string msg)
-
-Warn
-
-
-
-
-
-
-
-
-
 ## MediaSource
 
 
@@ -2261,7 +2433,10 @@ interface Settings  {
 
 
 <aside class="notice">
+
+
 Settings viewing and editing of device configurations that describe or modify behavior.
+
 </aside>
 
 
@@ -2363,7 +2538,10 @@ interface OauthClient  {
 
 
 <aside class="notice">
+
+
 The OauthClient can be implemented to perform the browser based Oauth process from within a plugin.
+
 </aside>
 
 
@@ -2405,7 +2583,10 @@ interface HttpRequestHandler  {
 
 
 <aside class="notice">
+
+
 The HttpRequestHandler allows handling of web requests under the endpoint path: /endpoint/<endpoint>/*.
+
 </aside>
 
 
@@ -2418,7 +2599,7 @@ string getEndpoint()
 Get the preferred endpoint of this HttpRequestHandler. Local/development scripts can set this to any value. This is ignored if the plugin is installed via npm: the endpoint will always be the npm package name.
 
 ### onRequest
-void onRequest(HttpRequest request, HttpResponse response)
+void onRequest(<a href='#httprequest'>HttpRequest</a> request, <a href='#httpresponse'>HttpResponse</a> response)
 
 Callback to handle an incoming request.
 
@@ -2448,6 +2629,13 @@ interface HttpRequest  {
 
 <%= partial "includes/scrypted/HttpRequest.md.erb" %>
 
+
+<aside class="notice">
+
+Used by <a href='#httprequesthandler'>HttpRequestHandler</a>.
+
+
+</aside>
 
 
 
@@ -2486,7 +2674,12 @@ interface HttpResponse  {
 
 
 <aside class="notice">
+
+Used by <a href='#httprequesthandler'>HttpRequestHandler</a>.
+
+
 Response object provided by the HttpRequestHandler.
+
 </aside>
 
 
@@ -2494,12 +2687,12 @@ Response object provided by the HttpRequestHandler.
 
 
 ### send
-void send(HttpResponseOptions options, string body)
+void send(<a href='#httpresponseoptions'>HttpResponseOptions</a> options, string body)
 
 
 
 ### send
-void send(HttpResponseOptions options, Buffer body)
+void send(<a href='#httpresponseoptions'>HttpResponseOptions</a> options, Buffer body)
 
 
 
@@ -2537,6 +2730,13 @@ interface HttpResponseOptions  {
 
 <%= partial "includes/scrypted/HttpResponseOptions.md.erb" %>
 
+
+<aside class="notice">
+
+Used by <a href='#httpresponse'>HttpResponse</a>.
+
+
+</aside>
 
 
 
