@@ -16,6 +16,7 @@ const Sections = {
         'DeviceProvider',
         'DeviceManifest',
         'Device',
+        'Refresh',
     ]
 };
 

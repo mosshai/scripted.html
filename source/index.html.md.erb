@@ -20,8 +20,6 @@ search: true
 
 ## ScryptedDevice
 
-<%= partial "includes/scrypted/ScryptedDevice.md.erb" %>
-
 
 > Definition
 
@@ -38,7 +36,7 @@ interface ScryptedDevice  {
 ```
 
 
-
+<%= partial "includes/scrypted/ScryptedDevice.md.erb" %>
 
 
 <aside class="notice">
@@ -97,8 +95,6 @@ Similar to 'on', but will passively watch for events, and not initiate polling.
 
 ## ScryptedDeviceType
 
-<%= partial "includes/scrypted/ScryptedDeviceType.md.erb" %>
-
 
 ```javascript
 enum ScryptedDeviceType {
@@ -129,7 +125,7 @@ enum ScryptedDeviceType {
 ```
 
 
-
+<%= partial "includes/scrypted/ScryptedDeviceType.md.erb" %>
 
 
 
@@ -167,15 +163,7 @@ Enum |
 
 
 
-
-
-
-# Event Reference
-
-
 ## EventListener
-
-<%= partial "includes/scrypted/EventListener.md.erb" %>
 
 
 > Definition
@@ -187,7 +175,7 @@ interface EventListener  {
 ```
 
 
-
+<%= partial "includes/scrypted/EventListener.md.erb" %>
 
 
 
@@ -209,8 +197,6 @@ This device type can be hooked by Automation actions to handle events. The event
 
 ## EventListenerRegister
 
-<%= partial "includes/scrypted/EventListenerRegister.md.erb" %>
-
 
 > Definition
 
@@ -222,7 +208,7 @@ interface EventListenerRegister  {
 ```
 
 
-
+<%= partial "includes/scrypted/EventListenerRegister.md.erb" %>
 
 
 <aside class="notice">
@@ -259,8 +245,6 @@ void removeListener()
 
 ## DeviceManager
 
-<%= partial "includes/scrypted/DeviceManager.md.erb" %>
-
 
 > Definition
 
@@ -276,7 +260,7 @@ interface DeviceManager  {
 ```
 
 
-
+<%= partial "includes/scrypted/DeviceManager.md.erb" %>
 
 
 <aside class="notice">
@@ -327,8 +311,6 @@ onDevicesChanged is used to sync Scrypted with devices that are attached to a hu
 
 ## DeviceProvider
 
-<%= partial "includes/scrypted/DeviceProvider.md.erb" %>
-
 
 > Definition
 
@@ -340,7 +322,7 @@ interface DeviceProvider  {
 ```
 
 
-
+<%= partial "includes/scrypted/DeviceProvider.md.erb" %>
 
 
 <aside class="notice">
@@ -371,19 +353,17 @@ Get an instance of a previously discovered device that was reported to the devic
 
 ## DeviceManifest
 
-<%= partial "includes/scrypted/DeviceManifest.md.erb" %>
-
-
-
 
 > Definition
 
 ```javascript
-interface DeviceManifest {
+interface DeviceManifest  {
   devices: Device[];
 }
 ```
 
+
+<%= partial "includes/scrypted/DeviceManifest.md.erb" %>
 
 
 <aside class="notice">
@@ -406,15 +386,11 @@ devices | <a href='#device'>Device</a>[]
 
 ## Device
 
-<%= partial "includes/scrypted/Device.md.erb" %>
-
-
-
 
 > Definition
 
 ```javascript
-interface Device {
+interface Device  {
   events: string[];
   id: string;
   interfaces: string[];
@@ -425,6 +401,8 @@ interface Device {
 }
 ```
 
+
+<%= partial "includes/scrypted/Device.md.erb" %>
 
 
 <aside class="notice">
@@ -451,6 +429,48 @@ type | ScryptedDeviceType
 
 
 
+## Refresh
+
+
+> Definition
+
+```javascript
+interface Refresh  {
+  getRefreshFrequency(): number;
+  refresh(refreshInterface: string, userInitiated: boolean): void;
+}
+```
+
+
+<%= partial "includes/scrypted/Refresh.md.erb" %>
+
+
+<aside class="notice">
+Refresh indicates that this device has properties that are not automatically updated, and must be periodically refreshed.
+</aside>
+
+
+
+
+
+### getRefreshFrequency
+number getRefreshFrequency()
+
+Get the recommended refresh/poll frequency in seconds for this device.
+
+### refresh
+void refresh(refreshInterface: string, userInitiated: boolean)
+
+This method is called by Scrypted when the properties of the device need to be refreshed. When the device has completed the refresh, the appropriate events should be emitted. The parameters provide the specific interface that needs to be refreshed and whether it was user initiated (via UI or voice).
+
+
+
+
+
+
+
+
+
 
 
 
@@ -458,8 +478,6 @@ type | ScryptedDeviceType
 
 
 ## OnOff
-
-<%= partial "includes/scrypted/OnOff.md.erb" %>
 
 
 > Definition
@@ -473,7 +491,7 @@ interface OnOff  {
 ```
 
 
-
+<%= partial "includes/scrypted/OnOff.md.erb" %>
 
 
 <aside class="notice">
@@ -509,8 +527,6 @@ void turnOn()
 
 ## Brightness
 
-<%= partial "includes/scrypted/Brightness.md.erb" %>
-
 
 > Definition
 
@@ -522,7 +538,7 @@ interface Brightness  {
 ```
 
 
-
+<%= partial "includes/scrypted/Brightness.md.erb" %>
 
 
 <aside class="notice">
@@ -553,8 +569,6 @@ void setLevel(brightness: number)
 
 ## ColorSettingTemperature
 
-<%= partial "includes/scrypted/ColorSettingTemperature.md.erb" %>
-
 
 > Definition
 
@@ -568,7 +582,7 @@ interface ColorSettingTemperature  {
 ```
 
 
-
+<%= partial "includes/scrypted/ColorSettingTemperature.md.erb" %>
 
 
 <aside class="notice">
@@ -609,8 +623,6 @@ void setTemperature(kelvin: number)
 
 ## ColorSettingRgb
 
-<%= partial "includes/scrypted/ColorSettingRgb.md.erb" %>
-
 
 > Definition
 
@@ -622,7 +634,7 @@ interface ColorSettingRgb  {
 ```
 
 
-
+<%= partial "includes/scrypted/ColorSettingRgb.md.erb" %>
 
 
 <aside class="notice">
@@ -653,29 +665,20 @@ void setRgb(r: number, g: number, b: number)
 
 ## ColorRgb
 
-<%= partial "includes/scrypted/ColorRgb.md.erb" %>
-
 
 > Definition
 
 ```javascript
 interface ColorRgb  {
   toString(): string;
-}
-```
-
-
-
-> Definition
-
-```javascript
-interface ColorRgb {
   b: number;
   g: number;
   r: number;
 }
 ```
 
+
+<%= partial "includes/scrypted/ColorRgb.md.erb" %>
 
 
 <aside class="notice">
@@ -709,8 +712,6 @@ r | number
 
 ## ColorSettingHsv
 
-<%= partial "includes/scrypted/ColorSettingHsv.md.erb" %>
-
 
 > Definition
 
@@ -722,7 +723,7 @@ interface ColorSettingHsv  {
 ```
 
 
-
+<%= partial "includes/scrypted/ColorSettingHsv.md.erb" %>
 
 
 <aside class="notice">
@@ -753,29 +754,20 @@ void setHsv(hue: number, saturation: number, value: number)
 
 ## ColorHsv
 
-<%= partial "includes/scrypted/ColorHsv.md.erb" %>
-
 
 > Definition
 
 ```javascript
 interface ColorHsv  {
   toString(): string;
-}
-```
-
-
-
-> Definition
-
-```javascript
-interface ColorHsv {
   h: number;
   s: number;
   v: number;
 }
 ```
 
+
+<%= partial "includes/scrypted/ColorHsv.md.erb" %>
 
 
 <aside class="notice">
@@ -807,179 +799,7 @@ v | number
 
 
 
-## BinarySensor
-
-<%= partial "includes/scrypted/BinarySensor.md.erb" %>
-
-
-> Definition
-
-```javascript
-interface BinarySensor  {
-  getBinaryState(): boolean;
-}
-```
-
-
-
-
-
-
-
-
-
-### getBinaryState
-boolean getBinaryState()
-
-
-
-
-
-
-
-
-
-
-
-## EntrySensor
-
-<%= partial "includes/scrypted/EntrySensor.md.erb" %>
-
-
-> Definition
-
-```javascript
-interface EntrySensor  {
-  isEntryOpen(): boolean;
-}
-```
-
-
-
-
-
-
-
-
-
-### isEntryOpen
-boolean isEntryOpen()
-
-
-
-
-
-
-
-
-
-
-
-## EntryHandleSensor
-
-<%= partial "includes/scrypted/EntryHandleSensor.md.erb" %>
-
-
-> Definition
-
-```javascript
-interface EntryHandleSensor  {
-  isDoorOpen(): boolean;
-}
-```
-
-
-
-
-
-
-
-
-
-### isDoorOpen
-boolean isDoorOpen()
-
-
-
-
-
-
-
-
-
-
-
-## IntrusionSensor
-
-<%= partial "includes/scrypted/IntrusionSensor.md.erb" %>
-
-
-> Definition
-
-```javascript
-interface IntrusionSensor  {
-  isIntrusionDetected(): boolean;
-}
-```
-
-
-
-
-
-
-
-
-
-### isIntrusionDetected
-boolean isIntrusionDetected()
-
-
-
-
-
-
-
-
-
-
-
-## FloodSensor
-
-<%= partial "includes/scrypted/FloodSensor.md.erb" %>
-
-
-> Definition
-
-```javascript
-interface FloodSensor  {
-  isFlooded(): boolean;
-}
-```
-
-
-
-
-
-
-
-
-
-### isFlooded
-boolean isFlooded()
-
-
-
-
-
-
-
-
-
-
-
 ## Notifier
-
-<%= partial "includes/scrypted/Notifier.md.erb" %>
 
 
 > Definition
@@ -992,7 +812,7 @@ interface Notifier  {
 ```
 
 
-
+<%= partial "includes/scrypted/Notifier.md.erb" %>
 
 
 <aside class="notice">
@@ -1024,8 +844,6 @@ Passing null uses the native type of the MediaObject. If that is not supported b
 
 ## MediaObject
 
-<%= partial "includes/scrypted/MediaObject.md.erb" %>
-
 
 > Definition
 
@@ -1036,7 +854,7 @@ interface MediaObject  {
 ```
 
 
-
+<%= partial "includes/scrypted/MediaObject.md.erb" %>
 
 
 <aside class="notice">
@@ -1062,8 +880,6 @@ string getMimeType()
 
 ## StartStop
 
-<%= partial "includes/scrypted/StartStop.md.erb" %>
-
 
 > Definition
 
@@ -1080,7 +896,7 @@ interface StartStop  {
 ```
 
 
-
+<%= partial "includes/scrypted/StartStop.md.erb" %>
 
 
 <aside class="notice">
@@ -1136,8 +952,6 @@ void stop()
 
 ## Dock
 
-<%= partial "includes/scrypted/Dock.md.erb" %>
-
 
 > Definition
 
@@ -1149,7 +963,7 @@ interface Dock  {
 ```
 
 
-
+<%= partial "includes/scrypted/Dock.md.erb" %>
 
 
 <aside class="notice">
@@ -1178,49 +992,7 @@ boolean isDocked()
 
 
 
-## Program
-
-<%= partial "includes/scrypted/Program.md.erb" %>
-
-
-> Definition
-
-```javascript
-interface Program  {
-  run(args: object[]): object;
-  runAsync(args: object[]): object;
-}
-```
-
-
-
-
-
-
-
-
-
-### run
-object run(args: object[])
-
-Synchronously run a script given the provided arguments.
-
-### runAsync
-object runAsync(args: object[])
-
-Asynchronously run a script given the provided arguments.
-
-
-
-
-
-
-
-
-
 ## TemperatureSetting
-
-<%= partial "includes/scrypted/TemperatureSetting.md.erb" %>
 
 
 > Definition
@@ -1239,7 +1011,7 @@ interface TemperatureSetting implements Thermometer, HumiditySensor {
 ```
 
 
-
+<%= partial "includes/scrypted/TemperatureSetting.md.erb" %>
 
 
 <aside class="notice">
@@ -1300,8 +1072,6 @@ void setThermostatMode(mode: <a href='#thermostatmode'>ThermostatMode</a>)
 
 ## Thermometer
 
-<%= partial "includes/scrypted/Thermometer.md.erb" %>
-
 
 > Definition
 
@@ -1313,7 +1083,7 @@ interface Thermometer  {
 ```
 
 
-
+<%= partial "includes/scrypted/Thermometer.md.erb" %>
 
 
 
@@ -1340,8 +1110,6 @@ Get the user facing unit of measurement for this thermometer. This may be Fahren
 
 ## TemperatureUnit
 
-<%= partial "includes/scrypted/TemperatureUnit.md.erb" %>
-
 
 ```javascript
 enum TemperatureUnit {
@@ -1351,7 +1119,7 @@ enum TemperatureUnit {
 ```
 
 
-
+<%= partial "includes/scrypted/TemperatureUnit.md.erb" %>
 
 
 
@@ -1370,8 +1138,6 @@ Enum |
 
 ## HumiditySensor
 
-<%= partial "includes/scrypted/HumiditySensor.md.erb" %>
-
 
 > Definition
 
@@ -1382,7 +1148,7 @@ interface HumiditySensor  {
 ```
 
 
-
+<%= partial "includes/scrypted/HumiditySensor.md.erb" %>
 
 
 
@@ -1404,8 +1170,6 @@ number getHumidityAmbient()
 
 ## ThermostatMode
 
-<%= partial "includes/scrypted/ThermostatMode.md.erb" %>
-
 
 ```javascript
 enum ThermostatMode {
@@ -1423,7 +1187,7 @@ enum ThermostatMode {
 ```
 
 
-
+<%= partial "includes/scrypted/ThermostatMode.md.erb" %>
 
 
 
@@ -1448,9 +1212,79 @@ Enum |
 
 
 
-## Lock
+## Camera
 
-<%= partial "includes/scrypted/Lock.md.erb" %>
+
+> Definition
+
+```javascript
+interface Camera  {
+  takePicture(): MediaObject;
+}
+```
+
+
+<%= partial "includes/scrypted/Camera.md.erb" %>
+
+
+<aside class="notice">
+Camera devices can take still photos.
+</aside>
+
+
+
+
+
+### takePicture
+<a href='#mediaobject'>MediaObject</a> takePicture()
+
+
+
+
+
+
+
+
+
+
+
+## CameraStream
+
+
+> Definition
+
+```javascript
+interface CameraStream  {
+  createVideoCapturer(): MediaObject;
+}
+```
+
+
+<%= partial "includes/scrypted/CameraStream.md.erb" %>
+
+
+<aside class="notice">
+CameraStream devices can capture video streams.
+</aside>
+
+
+
+
+
+### createVideoCapturer
+<a href='#mediaobject'>MediaObject</a> createVideoCapturer()
+
+
+
+
+
+
+
+
+
+
+
+## Lock
 
 
 > Definition
@@ -1464,7 +1298,7 @@ interface Lock  {
 ```
 
 
-
+<%= partial "includes/scrypted/Lock.md.erb" %>
 
 
 <aside class="notice">
@@ -1500,8 +1334,6 @@ void unlock()
 
 ## PasswordControl
 
-<%= partial "includes/scrypted/PasswordControl.md.erb" %>
-
 
 > Definition
 
@@ -1514,7 +1346,7 @@ interface PasswordControl  {
 ```
 
 
-
+<%= partial "includes/scrypted/PasswordControl.md.erb" %>
 
 
 <aside class="notice">
@@ -1548,153 +1380,7 @@ void removePassword(password: string)
 
 
 
-## Camera
-
-<%= partial "includes/scrypted/Camera.md.erb" %>
-
-
-> Definition
-
-```javascript
-interface Camera  {
-  takePicture(): MediaObject;
-}
-```
-
-
-
-
-
-<aside class="notice">
-Camera devices can take still photos.
-</aside>
-
-
-
-
-
-### takePicture
-<a href='#mediaobject'>MediaObject</a> takePicture()
-
-
-
-
-
-
-
-
-
-
-
-## CameraStream
-
-<%= partial "includes/scrypted/CameraStream.md.erb" %>
-
-
-> Definition
-
-```javascript
-interface CameraStream  {
-  createVideoCapturer(): MediaObject;
-}
-```
-
-
-
-
-
-<aside class="notice">
-CameraStream devices can capture video streams.
-</aside>
-
-
-
-
-
-### createVideoCapturer
-<a href='#mediaobject'>MediaObject</a> createVideoCapturer()
-
-
-
-
-
-
-
-
-
-
-
-## UltravioletSensor
-
-<%= partial "includes/scrypted/UltravioletSensor.md.erb" %>
-
-
-> Definition
-
-```javascript
-interface UltravioletSensor  {
-  getUltraviolet(): number;
-}
-```
-
-
-
-
-
-
-
-
-
-### getUltraviolet
-number getUltraviolet()
-
-
-
-
-
-
-
-
-
-
-
-## LuminanceSensor
-
-<%= partial "includes/scrypted/LuminanceSensor.md.erb" %>
-
-
-> Definition
-
-```javascript
-interface LuminanceSensor  {
-  getLuminance(): number;
-}
-```
-
-
-
-
-
-
-
-
-
-### getLuminance
-number getLuminance()
-
-
-
-
-
-
-
-
-
-
-
 ## Scene
-
-<%= partial "includes/scrypted/Scene.md.erb" %>
 
 
 > Definition
@@ -1708,7 +1394,7 @@ interface Scene  {
 ```
 
 
-
+<%= partial "includes/scrypted/Scene.md.erb" %>
 
 
 <aside class="notice">
@@ -1744,8 +1430,6 @@ If a scene can be reversed, isReversible should return true. Otherwise deactivat
 
 ## Entry
 
-<%= partial "includes/scrypted/Entry.md.erb" %>
-
 
 > Definition
 
@@ -1758,7 +1442,7 @@ interface Entry  {
 ```
 
 
-
+<%= partial "includes/scrypted/Entry.md.erb" %>
 
 
 <aside class="notice">
@@ -1794,8 +1478,6 @@ void openEntry()
 
 ## Alarm
 
-<%= partial "includes/scrypted/Alarm.md.erb" %>
-
 
 > Definition
 
@@ -1809,7 +1491,7 @@ interface Alarm  {
 ```
 
 
-
+<%= partial "includes/scrypted/Alarm.md.erb" %>
 
 
 <aside class="notice">
@@ -1850,8 +1532,6 @@ boolean isEnabled(day: number)
 
 ## ClockType
 
-<%= partial "includes/scrypted/ClockType.md.erb" %>
-
 
 ```javascript
 enum ClockType {
@@ -1866,7 +1546,7 @@ enum ClockType {
 ```
 
 
-
+<%= partial "includes/scrypted/ClockType.md.erb" %>
 
 
 
@@ -1890,8 +1570,6 @@ Enum |
 
 ## Battery
 
-<%= partial "includes/scrypted/Battery.md.erb" %>
-
 
 > Definition
 
@@ -1902,7 +1580,7 @@ interface Battery  {
 ```
 
 
-
+<%= partial "includes/scrypted/Battery.md.erb" %>
 
 
 <aside class="notice">
@@ -1926,53 +1604,7 @@ number getBatteryLevel()
 
 
 
-## Refresh
-
-<%= partial "includes/scrypted/Refresh.md.erb" %>
-
-
-> Definition
-
-```javascript
-interface Refresh  {
-  getRefreshFrequency(): number;
-  refresh(refreshInterface: string, userInitiated: boolean): void;
-}
-```
-
-
-
-
-
-<aside class="notice">
-Refresh indicates that this device has properties that are not automatically updated, and must be periodically refreshed.
-</aside>
-
-
-
-
-
-### getRefreshFrequency
-number getRefreshFrequency()
-
-Get the recommended refresh/poll frequency in seconds for this device.
-
-### refresh
-void refresh(refreshInterface: string, userInitiated: boolean)
-
-This method is called by Scrypted when the properties of the device need to be refreshed. When the device has completed the refresh, the appropriate events should be emitted. The parameters provide the specific interface that needs to be refreshed and whether it was user initiated (via UI or voice).
-
-
-
-
-
-
-
-
-
 ## MediaPlayer
-
-<%= partial "includes/scrypted/MediaPlayer.md.erb" %>
 
 
 > Definition
@@ -1988,7 +1620,7 @@ interface MediaPlayer  {
 ```
 
 
-
+<%= partial "includes/scrypted/MediaPlayer.md.erb" %>
 
 
 <aside class="notice">
@@ -2034,20 +1666,18 @@ void stop()
 
 ## MediaPlayerOptions
 
-<%= partial "includes/scrypted/MediaPlayerOptions.md.erb" %>
-
-
-
 
 > Definition
 
 ```javascript
-interface MediaPlayerOptions {
+interface MediaPlayerOptions  {
   autoplay: boolean;
   mimeType: string;
 }
 ```
 
+
+<%= partial "includes/scrypted/MediaPlayerOptions.md.erb" %>
 
 
 
@@ -2067,62 +1697,9 @@ mimeType | string
 
 ## FaceDetector
 
+
+
 <%= partial "includes/scrypted/FaceDetector.md.erb" %>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## AudioSensor
-
-<%= partial "includes/scrypted/AudioSensor.md.erb" %>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## MotionSensor
-
-<%= partial "includes/scrypted/MotionSensor.md.erb" %>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## OccupancySensor
-
-<%= partial "includes/scrypted/OccupancySensor.md.erb" %>
-
-
-
-
 
 
 
@@ -2135,8 +1712,6 @@ mimeType | string
 
 ## Online
 
-<%= partial "includes/scrypted/Online.md.erb" %>
-
 
 > Definition
 
@@ -2147,7 +1722,7 @@ interface Online  {
 ```
 
 
-
+<%= partial "includes/scrypted/Online.md.erb" %>
 
 
 <aside class="notice">
@@ -2171,9 +1746,45 @@ boolean isOnline()
 
 
 
-## SoftwareUpdate
+## Program
 
-<%= partial "includes/scrypted/SoftwareUpdate.md.erb" %>
+
+> Definition
+
+```javascript
+interface Program  {
+  run(args: object[]): object;
+  runAsync(args: object[]): object;
+}
+```
+
+
+<%= partial "includes/scrypted/Program.md.erb" %>
+
+
+
+
+
+
+### run
+object run(args: object[])
+
+Synchronously run a script given the provided arguments.
+
+### runAsync
+object runAsync(args: object[])
+
+Asynchronously run a script given the provided arguments.
+
+
+
+
+
+
+
+
+
+## SoftwareUpdate
 
 
 > Definition
@@ -2187,7 +1798,7 @@ interface SoftwareUpdate  {
 ```
 
 
-
+<%= partial "includes/scrypted/SoftwareUpdate.md.erb" %>
 
 
 <aside class="notice">
@@ -2221,9 +1832,276 @@ boolean isUpdateAvailable()
 
 
 
-## Logger
+## BinarySensor
 
-<%= partial "includes/scrypted/Logger.md.erb" %>
+
+> Definition
+
+```javascript
+interface BinarySensor  {
+  getBinaryState(): boolean;
+}
+```
+
+
+<%= partial "includes/scrypted/BinarySensor.md.erb" %>
+
+
+
+
+
+
+### getBinaryState
+boolean getBinaryState()
+
+
+
+
+
+
+
+
+
+
+
+## EntrySensor
+
+
+> Definition
+
+```javascript
+interface EntrySensor  {
+  isEntryOpen(): boolean;
+}
+```
+
+
+<%= partial "includes/scrypted/EntrySensor.md.erb" %>
+
+
+
+
+
+
+### isEntryOpen
+boolean isEntryOpen()
+
+
+
+
+
+
+
+
+
+
+
+## IntrusionSensor
+
+
+> Definition
+
+```javascript
+interface IntrusionSensor  {
+  isIntrusionDetected(): boolean;
+}
+```
+
+
+<%= partial "includes/scrypted/IntrusionSensor.md.erb" %>
+
+
+
+
+
+
+### isIntrusionDetected
+boolean isIntrusionDetected()
+
+
+
+
+
+
+
+
+
+
+
+## AudioSensor
+
+
+
+<%= partial "includes/scrypted/AudioSensor.md.erb" %>
+
+
+
+
+
+
+
+
+
+
+## MotionSensor
+
+
+
+<%= partial "includes/scrypted/MotionSensor.md.erb" %>
+
+
+
+
+
+
+
+
+
+
+## OccupancySensor
+
+
+
+<%= partial "includes/scrypted/OccupancySensor.md.erb" %>
+
+
+
+
+
+
+
+
+
+
+## EntryHandleSensor
+
+
+> Definition
+
+```javascript
+interface EntryHandleSensor  {
+  isDoorOpen(): boolean;
+}
+```
+
+
+<%= partial "includes/scrypted/EntryHandleSensor.md.erb" %>
+
+
+
+
+
+
+### isDoorOpen
+boolean isDoorOpen()
+
+
+
+
+
+
+
+
+
+
+
+## FloodSensor
+
+
+> Definition
+
+```javascript
+interface FloodSensor  {
+  isFlooded(): boolean;
+}
+```
+
+
+<%= partial "includes/scrypted/FloodSensor.md.erb" %>
+
+
+
+
+
+
+### isFlooded
+boolean isFlooded()
+
+
+
+
+
+
+
+
+
+
+
+## UltravioletSensor
+
+
+> Definition
+
+```javascript
+interface UltravioletSensor  {
+  getUltraviolet(): number;
+}
+```
+
+
+<%= partial "includes/scrypted/UltravioletSensor.md.erb" %>
+
+
+
+
+
+
+### getUltraviolet
+number getUltraviolet()
+
+
+
+
+
+
+
+
+
+
+
+## LuminanceSensor
+
+
+> Definition
+
+```javascript
+interface LuminanceSensor  {
+  getLuminance(): number;
+}
+```
+
+
+<%= partial "includes/scrypted/LuminanceSensor.md.erb" %>
+
+
+
+
+
+
+### getLuminance
+number getLuminance()
+
+
+
+
+
+
+
+
+
+
+
+## Logger
 
 
 > Definition
@@ -2243,7 +2121,7 @@ interface Logger  {
 ```
 
 
-
+<%= partial "includes/scrypted/Logger.md.erb" %>
 
 
 <aside class="notice">
@@ -2309,8 +2187,6 @@ Warn
 
 ## MediaSource
 
-<%= partial "includes/scrypted/MediaSource.md.erb" %>
-
 
 > Definition
 
@@ -2321,7 +2197,7 @@ interface MediaSource  {
 ```
 
 
-
+<%= partial "includes/scrypted/MediaSource.md.erb" %>
 
 
 
@@ -2343,6 +2219,8 @@ Get a MediaObject that will be automatically converted for playback on other dev
 
 ## MessagingEndpoint
 
+
+
 <%= partial "includes/scrypted/MessagingEndpoint.md.erb" %>
 
 
@@ -2354,13 +2232,7 @@ Get a MediaObject that will be automatically converted for playback on other dev
 
 
 
-
-
-
-
 ## Settings
-
-<%= partial "includes/scrypted/Settings.md.erb" %>
 
 
 > Definition
@@ -2385,7 +2257,7 @@ interface Settings  {
 ```
 
 
-
+<%= partial "includes/scrypted/Settings.md.erb" %>
 
 
 <aside class="notice">
@@ -2476,8 +2348,6 @@ void putString(key: string, value: string)
 
 ## OauthClient
 
-<%= partial "includes/scrypted/OauthClient.md.erb" %>
-
 
 > Definition
 
@@ -2489,7 +2359,7 @@ interface OauthClient  {
 ```
 
 
-
+<%= partial "includes/scrypted/OauthClient.md.erb" %>
 
 
 <aside class="notice">
@@ -2520,8 +2390,6 @@ When an oauth request by a plugin completes, the callback url, with the code/tok
 
 ## HttpRequestHandler
 
-<%= partial "includes/scrypted/HttpRequestHandler.md.erb" %>
-
 
 > Definition
 
@@ -2533,7 +2401,7 @@ interface HttpRequestHandler  {
 ```
 
 
-
+<%= partial "includes/scrypted/HttpRequestHandler.md.erb" %>
 
 
 <aside class="notice">
@@ -2564,15 +2432,11 @@ Callback to handle an incoming request.
 
 ## HttpRequest
 
-<%= partial "includes/scrypted/HttpRequest.md.erb" %>
-
-
-
 
 > Definition
 
 ```javascript
-interface HttpRequest {
+interface HttpRequest  {
   body: string;
   headers: object;
   method: string;
@@ -2581,6 +2445,8 @@ interface HttpRequest {
 }
 ```
 
+
+<%= partial "includes/scrypted/HttpRequest.md.erb" %>
 
 
 
@@ -2603,8 +2469,6 @@ url | string
 
 ## HttpResponse
 
-<%= partial "includes/scrypted/HttpResponse.md.erb" %>
-
 
 > Definition
 
@@ -2618,7 +2482,7 @@ interface HttpResponse  {
 ```
 
 
-
+<%= partial "includes/scrypted/HttpResponse.md.erb" %>
 
 
 <aside class="notice">
@@ -2659,21 +2523,19 @@ void send(body: Buffer)
 
 ## HttpResponseOptions
 
-<%= partial "includes/scrypted/HttpResponseOptions.md.erb" %>
-
-
-
 
 > Definition
 
 ```javascript
-interface HttpResponseOptions {
+interface HttpResponseOptions  {
   asContent: boolean;
   code: number;
   headers: object;
 }
 ```
 
+
+<%= partial "includes/scrypted/HttpResponseOptions.md.erb" %>
 
 
 
