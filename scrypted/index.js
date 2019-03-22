@@ -46,7 +46,6 @@ const TypeMap = {
     long: 'number',
     double: 'number',
     Double: 'number',
-    JavaScriptObject: 'function',
 };
 
 (async function () {
@@ -139,8 +138,15 @@ const TypeMap = {
         return `${arg.name}: ${mapType(arg.type)}`;
     }
 
+    function massageCallback(arg) {
+        if (arg.type == 'JavaScriptObject') {
+            return `${linkifyType(arg.name )} callback`
+        }
+        return `${mapType(arg.type)} ${arg.name}`;
+    }
+
     function methodArguments(args) {
-        return args.map(arg => `${arg.name}: ${linkifyType(arg.type)}`);
+        return args.map(arg => `${massageCallback(arg)}`);
     }
 
     function mapMethodArguments(args) {
