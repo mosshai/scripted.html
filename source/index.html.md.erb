@@ -1040,8 +1040,7 @@ v | number
 
 ```javascript
 interface Notifier  {
-  sendNotification(title: string, body: string): void;
-  sendNotification(title: string, body: string, media: MediaObject, mimeType: string): void;
+  sendNotification(title: string, body: string, media: URL|MediaObject, mimeType: string): void;
 }
 ```
 
@@ -1061,12 +1060,7 @@ Notifier can be any endpoint that can receive messages, such as speakers, phone 
 
 
 ### sendNotification
-void sendNotification(string title, string body)
-
-
-
-### sendNotification
-void sendNotification(string title, string body, <a href='#mediaobject'>MediaObject</a> media, string mimeType)
+void sendNotification(string title, string body, URL|<a href='#mediaobject'>MediaObject</a> media, string mimeType)
 
 If a the media parameter is supplied, the mime type denotes how to send the media within notification. For example, specify 'image/*' to send a video MediaObject as an image.
 Passing null uses the native type of the MediaObject. If that is not supported by the notifier, the media will be converted to a compatible type.
@@ -1866,8 +1860,7 @@ number getBatteryLevel()
 
 ```javascript
 interface MediaPlayer  {
-  load(media: MediaObject, options: MediaPlayerOptions): void;
-  load(mediaUrl: string, options: MediaPlayerOptions): void;
+  load(media: URL|MediaObject, options: MediaPlayerOptions): void;
   pause(): void;
   play(): void;
   stop(): void;
@@ -1890,12 +1883,7 @@ MediaPlayer allows media playback on screen or speaker devices, such as Chromeca
 
 
 ### load
-void load(<a href='#mediaobject'>MediaObject</a> media, <a href='#mediaplayeroptions'>MediaPlayerOptions</a> options)
-
-
-
-### load
-void load(string mediaUrl, <a href='#mediaplayeroptions'>MediaPlayerOptions</a> options)
+void load(URL|<a href='#mediaobject'>MediaObject</a> media, <a href='#mediaplayeroptions'>MediaPlayerOptions</a> options)
 
 
 

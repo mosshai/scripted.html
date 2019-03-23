@@ -1598,8 +1598,7 @@ Represents an HSV color value component values between 0 and 1.
 <p>Definition</p>
 </blockquote>
 <pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Notifier</span>  <span class="p">{</span>
-  <span class="nx">sendNotification</span><span class="p">(</span><span class="nx">title</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">body</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">sendNotification</span><span class="p">(</span><span class="nx">title</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">body</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">media</span><span class="p">:</span> <span class="nx">MediaObject</span><span class="p">,</span> <span class="nx">mimeType</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">sendNotification</span><span class="p">(</span><span class="nx">title</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">body</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">media</span><span class="p">:</span> <span class="nx">URL</span><span class="o">|</span><span class="nx">MediaObject</span><span class="p">,</span> <span class="nx">mimeType</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
 <blockquote>
@@ -1626,9 +1625,7 @@ Notifier can be any endpoint that can receive messages, such as speakers, phone 
 
 </aside>
 <h3 id='sendnotification'>sendNotification</h3>
-<p>void sendNotification(string title, string body)</p>
-<h3 id='sendnotification-2'>sendNotification</h3>
-<p>void sendNotification(string title, string body, <a href='#mediaobject'>MediaObject</a> media, string mimeType)</p>
+<p>void sendNotification(string title, string body, URL|<a href='#mediaobject'>MediaObject</a> media, string mimeType)</p>
 
 <p>If a the media parameter is supplied, the mime type denotes how to send the media within notification. For example, specify &#39;image/*&#39; to send a video MediaObject as an image.
 Passing null uses the native type of the MediaObject. If that is not supported by the notifier, the media will be converted to a compatible type.</p>
@@ -2065,8 +2062,7 @@ Battery retrieves the battery level of battery powered devices.
 <p>Definition</p>
 </blockquote>
 <pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">MediaPlayer</span>  <span class="p">{</span>
-  <span class="nx">load</span><span class="p">(</span><span class="nx">media</span><span class="p">:</span> <span class="nx">MediaObject</span><span class="p">,</span> <span class="nx">options</span><span class="p">:</span> <span class="nx">MediaPlayerOptions</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">load</span><span class="p">(</span><span class="nx">mediaUrl</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">options</span><span class="p">:</span> <span class="nx">MediaPlayerOptions</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">load</span><span class="p">(</span><span class="nx">media</span><span class="p">:</span> <span class="nx">URL</span><span class="o">|</span><span class="nx">MediaObject</span><span class="p">,</span> <span class="nx">options</span><span class="p">:</span> <span class="nx">MediaPlayerOptions</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
   <span class="nx">pause</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
   <span class="nx">play</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
   <span class="nx">stop</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
@@ -2079,9 +2075,7 @@ MediaPlayer allows media playback on screen or speaker devices, such as Chromeca
 
 </aside>
 <h3 id='load'>load</h3>
-<p>void load(<a href='#mediaobject'>MediaObject</a> media, <a href='#mediaplayeroptions'>MediaPlayerOptions</a> options)</p>
-<h3 id='load-2'>load</h3>
-<p>void load(string mediaUrl, <a href='#mediaplayeroptions'>MediaPlayerOptions</a> options)</p>
+<p>void load(URL|<a href='#mediaobject'>MediaObject</a> media, <a href='#mediaplayeroptions'>MediaPlayerOptions</a> options)</p>
 <h3 id='pause-2'>pause</h3>
 <p>void pause()</p>
 <h3 id='play'>play</h3>

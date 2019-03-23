@@ -173,12 +173,12 @@ const TypeMap = {
         }
 
         if (types[0] == 'Promise') {
-            types.shift();
+            types = types.slice(1);
             var promiseTypes = types.map(t => linkifyOneType(t)).join('|');
             return `Promise\\<${promiseTypes}>`;
         }
         else if (types[types.length - 1] == 'Promise') {
-            types.pop();
+            types = types.slice(0, types.length - 1);
             var nonPromiseTypes = types.map(t => linkifyOneType(t)).join('|');
             var promiseTypes = `Promise\\<${nonPromiseTypes}>`;
             return `${nonPromiseTypes}|${promiseTypes}`;
