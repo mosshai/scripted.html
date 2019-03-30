@@ -7,6 +7,7 @@ const path = require('path');
 const Sections = {
     'Core Reference': [
         'ScryptedDevice',
+        'SystemManager',
         'ScryptedDeviceType',
         'EventListener',
         'EventListenerRegister',
@@ -18,6 +19,7 @@ const Sections = {
         'DeviceManifest',
         'Device',
         'Refresh',
+        'DeviceState',
     ],
     'Media Reference': [
         'MediaManager',
@@ -52,6 +54,7 @@ const TypeMap = {
     Set: 'string[]',
     List: 'string[]',
     Map: 'object',
+    JsonObject: 'object',
 
     Boolean: 'boolean',
     ByteBuffer: 'Buffer',
@@ -77,6 +80,7 @@ const TypeMap = {
     var copy = {};
 
     // rename into preferred type names, then create sections
+    // massage methods into properties where applicable
     for (var name in json) {
         var entry = json[name];
         if (TypeRename[name]) {
@@ -84,6 +88,24 @@ const TypeMap = {
         }
         else {
             copy[name] = entry;
+        }
+
+        if (entry.methods) {
+            var methods = entry.methods;
+            delete entry.methods;
+            entry.methods = [];
+            for (var m of methods) {
+                if (!m.property) {
+                    entry.methods.push(m);
+                    continue;
+                }
+
+                if (!entry.fields) {
+                    entry.fields = [];
+                }
+                entry.fields.push(m);
+                m.name = m.property;
+        }
         }
     }
     json = copy;
@@ -198,7 +220,8 @@ const TypeMap = {
             var method = interfaceType.methods[0];
             return `callback: (${mapMethodArguments(method.arguments).join(', ')}) => void`;
         }
-        return `${arg.name}: ${mapType(arg)}`;
+        var optional = arg.optional ? '?': '';
+        return `${arg.name}${optional}: ${mapType(arg)}`;
     }
 
     function massageCallback(arg) {

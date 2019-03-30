@@ -11,7 +11,7 @@ export enum {{ name }} {
  * {{ c.description }}
  */
  {%- endif -%}
-{%- if c.methods.length %}
+{%- if c.methods.length or c.fields.length %}
 export interface {{ name }}
 {%- if c.superclass.length %} extends {{ mapSupers(c.superclass) }}
 {%- endif %} {
@@ -23,11 +23,13 @@ export interface {{ name }}
   {% endif -%}
   {{ method.name }}({{ mapMethodArguments(method.arguments) | join(', ') }}): {{ mapType(method) }};
 {%- endfor %}
-}
-{%- elif c.fields.length %}
-export interface {{ name }} {
+
 {%- for field in c.fields %}
-  {{ field.name }}: {{ mapType(field) }},
+  {% if field.description -%}
+  /**
+   * {{ field.description }}
+   */
+  {% endif -%}  {{ field.name }}?: {{ mapType(field) }},
 {%- endfor %}
 }
 {%- else %}

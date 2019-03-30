@@ -25,9 +25,10 @@ search: true
 
 ```javascript
 interface {{ name }} {% if c.superclass.length %}implements {{ mapSupers(c.superclass) }}{% endif %} {
-{% for method in c.methods %}  {{ method.name }}({{ mapMethodArguments(method.arguments) | join(', ') }}): {{ mapType(method) }};
-{% endfor -%}
 {% for field in c.fields %}  {{ field.name }}: {{ mapType(field) }};
+{% endfor -%}{% if c.methods.length and c.fields.length %}
+{% endif -%}
+{% for method in c.methods %}  {{ method.name }}({{ mapMethodArguments(method.arguments) | join(', ') }}): {{ mapType(method) }};
 {% endfor -%}
 }
 ```
@@ -56,6 +57,14 @@ Used by {{ linkifyType({type: c.used_by}) }}.
 </aside>
 {% endif %}
 
+{% if c.fields.length %}
+### Properties
+Name      | Type
+--------- | ----
+{% for property in c.fields %}{{ property.name }} | {{ linkifyType(property) }}
+{% endfor %}
+{% endif %}
+
 {% if c.methods.length %}
 {% if true %}
 {% for method in c.methods %}
@@ -65,14 +74,6 @@ Used by {{ linkifyType({type: c.used_by}) }}.
 {{ method.description }}
 {% endfor %}
 {% endif %}
-{% endif %}
-
-{% if c.fields.length %}
-### Properties
-Name      | Type
---------- | ----
-{% for property in c.fields %}{{ property.name }} | {{ linkifyType(property) }}
-{% endfor %}
 {% endif %}
 
 {% if c.values.length %}

@@ -29,9 +29,8 @@ interface ScryptedDevice  {
   id(): string;
   interfaces(): string[];
   name(): string;
-  on(event: string, callback: (eventSource: ScryptedDevice, eventInterface: string, eventData: object) => void): EventListenerRegister;
+  on(event: string|EventListenerOptions, callback: (eventSource: ScryptedDevice, eventDetails: EventDetails, eventData: object) => void): EventListenerRegister;
   type(): ScryptedDeviceType;
-  watch(event: string, callback: (eventSource: ScryptedDevice, eventInterface: string, eventData: object) => void): EventListenerRegister;
 }
 ```
 
@@ -45,6 +44,8 @@ interface ScryptedDevice  {
 All devices in Scrypted implement ScryptedDevice, which contains the id, name, and type. Add listeners to subscribe to events from that device.
 
 </aside>
+
+
 
 
 
@@ -71,7 +72,7 @@ string name()
 
 
 ### on
-<a href='#eventlistenerregister'>EventListenerRegister</a> on(string event, <a href='#eventlistener'>EventListener</a> callback)
+<a href='#eventlistenerregister'>EventListenerRegister</a> on(string|<a href='#eventlisteneroptions'>EventListenerOptions</a> event, <a href='#eventlistener'>EventListener</a> callback)
 
 Subscribe to events from a specific interface on a device, such as 'OnOff' or 'Brightness'.
 
@@ -80,12 +81,62 @@ ScryptedDeviceType type()
 
 
 
-### watch
-<a href='#eventlistenerregister'>EventListenerRegister</a> watch(string event, <a href='#eventlistener'>EventListener</a> callback)
-
-Similar to 'on', but will passively watch for events, and not initiate polling.
 
 
+
+
+
+
+## SystemManager
+
+
+> Definition
+
+```javascript
+interface SystemManager  {
+  getDeviceById(id: string): ScryptedDevice;
+  getDeviceByName(name: string): ScryptedDevice;
+  getDeviceState(arg0: string): object;
+  getSystemState(): object;
+}
+```
+
+
+<%= partial "includes/scrypted/SystemManager.md.erb" %>
+
+
+<aside class="notice">
+
+
+SystemManager is used by scripts to query device state and access devices.
+
+</aside>
+
+
+
+
+
+
+
+### getDeviceById
+ScryptedDevice getDeviceById(string id)
+
+Find a Scrypted device by id.
+
+### getDeviceByName
+ScryptedDevice getDeviceByName(string name)
+
+Find a Scrypted device by name.
+
+### getDeviceState
+object getDeviceState(string arg0)
+
+Get the current state of a device.
+
+### getSystemState
+object getSystemState()
+
+Get the current state of every device.
 
 
 
@@ -177,7 +228,7 @@ Enum |
 
 ```javascript
 interface EventListener  {
-  onEvent(eventSource: ScryptedDevice, eventInterface: string, eventData: object): void;
+  onEvent(eventSource: ScryptedDevice, eventDetails: EventDetails, eventData: object): void;
 }
 ```
 
@@ -189,12 +240,12 @@ interface EventListener  {
 
 
 
+
+
 ### onEvent
-void onEvent(ScryptedDevice eventSource, string eventInterface, object eventData)
+void onEvent(ScryptedDevice eventSource, <a href='#eventdetails'>EventDetails</a> eventDetails, object eventData)
 
-This device type can be hooked by Automation actions to handle events. The event source, event type (interface), and event data are all passed to the listener as arguments.
-
-
+This device type can be hooked by Automation actions to handle events. The event source, event details (interface, time, property), and event data are all passed to the listener as arguments.
 
 
 
@@ -231,6 +282,8 @@ Returned when an event listener is attached to an EventEmitter. Call removeListe
 
 
 
+
+
 ### getListener
 <a href='#eventlistener'>EventListener</a> getListener()
 
@@ -238,8 +291,6 @@ Returned when an event listener is attached to an EventEmitter. Call removeListe
 
 ### removeListener
 void removeListener()
-
-
 
 
 
@@ -278,6 +329,8 @@ interface Logger  {
 Logger is exposed via log.* to allow writing to the Scrypted log.
 
 </aside>
+
+
 
 
 
@@ -337,8 +390,6 @@ Warn
 
 
 
-
-
 # Device Reference
 
 
@@ -349,11 +400,11 @@ Warn
 
 ```javascript
 interface DeviceManager  {
-  getDeviceById(id: string): ScryptedDevice;
-  getDeviceByName(name: string): ScryptedDevice;
+  getDeviceState(): DeviceState;
+  getDeviceState(nativeId: string): DeviceState;
   onDeviceDiscovered(device: Device): void;
   onDeviceEvent(eventInterface: string, eventData: object): void;
-  onDeviceEvent(id: string, eventInterface: string, eventData: object): void;
+  onDeviceEvent(nativeId: string, eventInterface: string, eventData: object): void;
   onDevicesChanged(devices: DeviceManifest): void;
 }
 ```
@@ -365,7 +416,7 @@ interface DeviceManager  {
 <aside class="notice">
 
 
-DeviceManager is the interface which plugins use to report devices and device events to Scrypted. It is also used to query Scrypted for other devices.
+DeviceManager is the interface used by DeviceProvider to report new devices, device states, and device events to Scrypted.
 
 </aside>
 
@@ -373,15 +424,17 @@ DeviceManager is the interface which plugins use to report devices and device ev
 
 
 
-### getDeviceById
-ScryptedDevice getDeviceById(string id)
 
-Find a Scrypted device by id.
 
-### getDeviceByName
-ScryptedDevice getDeviceByName(string name)
+### getDeviceState
+<a href='#devicestate'>DeviceState</a> getDeviceState()
 
-Find a Scrypted device by name.
+Get the device state maintained by Scrypted. Setting properties on this state will update the state in Scrypted.
+
+### getDeviceState
+<a href='#devicestate'>DeviceState</a> getDeviceState(string nativeId)
+
+Get the device state maintained by Scrypted. Setting properties on this state will update the state in Scrypted.
 
 ### onDeviceDiscovered
 void onDeviceDiscovered(<a href='#device'>Device</a> device)
@@ -394,7 +447,7 @@ void onDeviceEvent(string eventInterface, object eventData)
 Fire an event for this plugin's device.
 
 ### onDeviceEvent
-void onDeviceEvent(string id, string eventInterface, object eventData)
+void onDeviceEvent(string nativeId, string eventInterface, object eventData)
 
 Fire an event for a device provided by this plugin.
 
@@ -402,8 +455,6 @@ Fire an event for a device provided by this plugin.
 void onDevicesChanged(<a href='#devicemanifest'>DeviceManifest</a> devices)
 
 onDevicesChanged is used to sync Scrypted with devices that are attached to a hub, such as Hue or SmartThings. All the devices should be reported at once.
-
-
 
 
 
@@ -438,6 +489,8 @@ DeviceProvider acts as a controller/hub and exposes multiple devices to Scrypted
 
 
 
+
+
 ### discoverDevices
 void discoverDevices(number duration)
 
@@ -447,8 +500,6 @@ Initiate device discovery for the specified duration.
 object getDevice(string id)
 
 Get an instance of a previously discovered device that was reported to the device manager.
-
-
 
 
 
@@ -482,12 +533,12 @@ DeviceManifest is passed to DeviceManager.onDevicesChanged to sync a full list o
 
 
 
-
-
 ### Properties
 Name      | Type
 --------- | ----
 devices | <a href='#device'>Device</a>[]
+
+
 
 
 
@@ -502,10 +553,10 @@ devices | <a href='#device'>Device</a>[]
 ```javascript
 interface Device  {
   events: string[];
-  id: string;
   interfaces: string[];
   model: string;
   name: string;
+  nativeId: string;
   room: string;
   type: ScryptedDeviceType;
 }
@@ -526,18 +577,18 @@ Device objects are created by DeviceProviders when new devices are discover and 
 
 
 
-
-
 ### Properties
 Name      | Type
 --------- | ----
 events | string[]
-id | string
 interfaces | string[]
 model | string
 name | string
+nativeId | string
 room | string
 type | ScryptedDeviceType
+
+
 
 
 
@@ -563,9 +614,11 @@ interface Refresh  {
 <aside class="notice">
 
 
-Refresh indicates that this device has properties that are not automatically updated, and must be periodically refreshed.
+Refresh indicates that this device has properties that are not automatically updated, and must be periodically refreshed via polling. Device implementations should never implement their own underlying polling algorithm, and instead implement Refresh to allow Scrypted to manage polling intelligently.
 
 </aside>
+
+
 
 
 
@@ -579,8 +632,86 @@ Get the recommended refresh/poll frequency in seconds for this device.
 ### refresh
 void refresh(string refreshInterface, boolean userInitiated)
 
-This method is called by Scrypted when the properties of the device need to be refreshed. When the device has completed the refresh, the appropriate events should be emitted. The parameters provide the specific interface that needs to be refreshed and whether it was user initiated (via UI or voice).
+This method is called by Scrypted when the properties of the device need to be refreshed. When the device has completed the refresh, the appropriate DeviceState properties should be set. The parameters provide the specific interface that needs to be refreshed and whether it was user initiated (via UI or voice).
 
+
+
+
+
+
+
+## DeviceState
+
+
+> Definition
+
+```javascript
+interface DeviceState  {
+  isOn: boolean;
+  brightness: number;
+  colorTemperature: number;
+  rgb: ColorRgb;
+  hsv: ColorHsv;
+  paused: boolean;
+  running: boolean;
+  docked: boolean;
+  temperature: number;
+  temperatureUnit: TemperatureUnit;
+  humidity: number;
+  locked: boolean;
+  passwords: string[];
+  entryOpen: boolean;
+  batteryLevel: number;
+  online: boolean;
+  updateAvailable: boolean;
+  binaryState: boolean;
+  intrusionDetected: boolean;
+  motionDetected: boolean;
+  flooded: boolean;
+  ultraviolet: number;
+  luminance: number;
+}
+```
+
+
+<%= partial "includes/scrypted/DeviceState.md.erb" %>
+
+
+<aside class="notice">
+
+
+DeviceState is returned by DeviceManager.getDeviceState, and allows getting/setting of a device provided by a DeviceProvider.
+
+</aside>
+
+
+
+### Properties
+Name      | Type
+--------- | ----
+isOn | boolean
+brightness | number
+colorTemperature | number
+rgb | <a href='#colorrgb'>ColorRgb</a>
+hsv | <a href='#colorhsv'>ColorHsv</a>
+paused | boolean
+running | boolean
+docked | boolean
+temperature | number
+temperatureUnit | <a href='#temperatureunit'>TemperatureUnit</a>
+humidity | number
+locked | boolean
+passwords | string[]
+entryOpen | boolean
+batteryLevel | number
+online | boolean
+updateAvailable | boolean
+binaryState | boolean
+intrusionDetected | boolean
+motionDetected | boolean
+flooded | boolean
+ultraviolet | number
+luminance | number
 
 
 
@@ -616,6 +747,8 @@ interface MediaManager  {
 
 
 
+
+
 ### convertMediaObjectToBuffer
 Promise\<Buffer> convertMediaObjectToBuffer(<a href='#mediaobject'>MediaObject</a> mediaObject, string toMimeType)
 
@@ -630,8 +763,6 @@ Convert a media object to a publically accessible uri that serves a media file o
 <a href='#mediaobject'>MediaObject</a> createMediaObject(string|Buffer|Promise\<string|Buffer> data, string mimeType)
 
 Create a MediaObject. The mime type needs to be provided up front, but the data can be a Uri string, Buffer, or a Promise for a Uri string or Buffer.
-
-
 
 
 
@@ -667,10 +798,10 @@ MediaObject is an intermediate object within Scrypted to represent all media obj
 
 
 
+
+
 ### getMimeType
 string getMimeType()
-
-
 
 
 
@@ -686,6 +817,88 @@ string getMimeType()
 # API Reference
 
 
+## EventListenerOptions
+
+
+> Definition
+
+```javascript
+interface EventListenerOptions  {
+  denoise: boolean;
+  event: string;
+  watch: boolean;
+}
+```
+
+
+<%= partial "includes/scrypted/EventListenerOptions.md.erb" %>
+
+
+<aside class="notice">
+
+Used by <a href='#scrypteddevice'>ScryptedDevice</a>.
+
+
+</aside>
+
+
+
+### Properties
+Name      | Type
+--------- | ----
+denoise | boolean
+event | string
+watch | boolean
+
+
+
+
+
+
+
+
+## EventDetails
+
+
+> Definition
+
+```javascript
+interface EventDetails  {
+  changed: boolean;
+  eventInterface: string;
+  eventTime: number;
+  property: string;
+}
+```
+
+
+<%= partial "includes/scrypted/EventDetails.md.erb" %>
+
+
+<aside class="notice">
+
+Used by <a href='#eventlistener'>EventListener</a>.
+
+
+</aside>
+
+
+
+### Properties
+Name      | Type
+--------- | ----
+changed | boolean
+eventInterface | string
+eventTime | number
+property | string
+
+
+
+
+
+
+
+
 ## OnOff
 
 
@@ -693,7 +906,8 @@ string getMimeType()
 
 ```javascript
 interface OnOff  {
-  isOn(): boolean;
+  isOn: boolean;
+
   turnOff(): void;
   turnOn(): void;
 }
@@ -712,10 +926,13 @@ OnOff is a basic binary switch.
 
 
 
+### Properties
+Name      | Type
+--------- | ----
+isOn | boolean
 
 
-### isOn
-boolean isOn()
+
 
 
 
@@ -735,8 +952,6 @@ void turnOn()
 
 
 
-
-
 ## Brightness
 
 
@@ -744,8 +959,9 @@ void turnOn()
 
 ```javascript
 interface Brightness  {
-  getLevel(): number;
-  setLevel(brightness: number): void;
+  brightness: number;
+
+  setBrightness(brightness: number): void;
 }
 ```
 
@@ -762,17 +978,18 @@ Brightness is a lighting device that can be dimmed/lit between 0 to 100.
 
 
 
+### Properties
+Name      | Type
+--------- | ----
+brightness | number
 
 
-### getLevel
-number getLevel()
 
 
 
-### setLevel
-void setLevel(number brightness)
 
-
+### setBrightness
+void setBrightness(number brightness)
 
 
 
@@ -789,7 +1006,8 @@ void setLevel(number brightness)
 
 ```javascript
 interface ColorSettingTemperature  {
-  getTemperature(): number;
+  colorTemperature: number;
+
   getTemperatureMaxK(): number;
   getTemperatureMinK(): number;
   setTemperature(kelvin: number): void;
@@ -809,10 +1027,13 @@ ColorSettingTemperature sets the color temperature of a light in Kelvin.
 
 
 
+### Properties
+Name      | Type
+--------- | ----
+colorTemperature | number
 
 
-### getTemperature
-number getTemperature()
+
 
 
 
@@ -837,8 +1058,6 @@ void setTemperature(number kelvin)
 
 
 
-
-
 ## ColorSettingRgb
 
 
@@ -846,7 +1065,8 @@ void setTemperature(number kelvin)
 
 ```javascript
 interface ColorSettingRgb  {
-  getRgb(): ColorRgb;
+  rgb: ColorRgb;
+
   setRgb(r: number, g: number, b: number): void;
 }
 ```
@@ -864,17 +1084,18 @@ ColorSettingRgb sets the color of a colored light using the RGB representation.
 
 
 
+### Properties
+Name      | Type
+--------- | ----
+rgb | <a href='#colorrgb'>ColorRgb</a>
 
 
-### getRgb
-<a href='#colorrgb'>ColorRgb</a> getRgb()
+
 
 
 
 ### setRgb
 void setRgb(number r, number g, number b)
-
-
 
 
 
@@ -891,10 +1112,12 @@ void setRgb(number r, number g, number b)
 
 ```javascript
 interface ColorRgb  {
-  toString(): string;
   b: number;
   g: number;
   r: number;
+
+  equals(arg0: object): boolean;
+  toString(): string;
 }
 ```
 
@@ -907,20 +1130,9 @@ interface ColorRgb  {
 Used by <a href='#colorsettingrgb'>ColorSettingRgb</a>.
 
 
-Represents an RGB color value component values between 0 and 255.
+Represents an RGB color with component values between 0 and 255.
 
 </aside>
-
-
-
-
-
-### toString
-string toString()
-
-
-
-
 
 
 
@@ -936,6 +1148,22 @@ r | number
 
 
 
+### equals
+boolean equals(object arg0)
+
+
+
+### toString
+string toString()
+
+
+
+
+
+
+
+
+
 ## ColorSettingHsv
 
 
@@ -943,7 +1171,8 @@ r | number
 
 ```javascript
 interface ColorSettingHsv  {
-  getHsv(): ColorHsv;
+  hsv: ColorHsv;
+
   setHsv(hue: number, saturation: number, value: number): void;
 }
 ```
@@ -961,17 +1190,18 @@ ColorSettingHsv sets the color of a colored light using the HSV representation.
 
 
 
+### Properties
+Name      | Type
+--------- | ----
+hsv | <a href='#colorhsv'>ColorHsv</a>
 
 
-### getHsv
-<a href='#colorhsv'>ColorHsv</a> getHsv()
+
 
 
 
 ### setHsv
 void setHsv(number hue, number saturation, number value)
-
-
 
 
 
@@ -988,10 +1218,12 @@ void setHsv(number hue, number saturation, number value)
 
 ```javascript
 interface ColorHsv  {
-  toString(): string;
   h: number;
   s: number;
   v: number;
+
+  equals(arg0: object): boolean;
+  toString(): string;
 }
 ```
 
@@ -1004,20 +1236,9 @@ interface ColorHsv  {
 Used by <a href='#colorsettinghsv'>ColorSettingHsv</a>.
 
 
-Represents an HSV color value component values between 0 and 1.
+Represents an HSV color value component.
 
 </aside>
-
-
-
-
-
-### toString
-string toString()
-
-
-
-
 
 
 
@@ -1027,6 +1248,22 @@ Name      | Type
 h | number
 s | number
 v | number
+
+
+
+
+
+
+### equals
+boolean equals(object arg0)
+
+
+
+### toString
+string toString()
+
+
+
 
 
 
@@ -1059,13 +1296,13 @@ Notifier can be any endpoint that can receive messages, such as speakers, phone 
 
 
 
+
+
 ### sendNotification
 void sendNotification(string title, string body, URL|<a href='#mediaobject'>MediaObject</a> media, string mimeType)
 
 If a the media parameter is supplied, the mime type denotes how to send the media within notification. For example, specify 'image/*' to send a video MediaObject as an image.
 Passing null uses the native type of the MediaObject. If that is not supported by the notifier, the media will be converted to a compatible type.
-
-
 
 
 
@@ -1080,9 +1317,10 @@ Passing null uses the native type of the MediaObject. If that is not supported b
 
 ```javascript
 interface StartStop  {
+  paused: boolean;
+  running: boolean;
+
   isPausable(): boolean;
-  isPaused(): boolean;
-  isRunning(): boolean;
   pause(): void;
   resume(): void;
   start(): void;
@@ -1103,20 +1341,19 @@ StartStop represents a device that can be started, stopped, and possibly paused 
 
 
 
+### Properties
+Name      | Type
+--------- | ----
+paused | boolean
+running | boolean
+
+
+
+
 
 
 ### isPausable
 boolean isPausable()
-
-
-
-### isPaused
-boolean isPaused()
-
-
-
-### isRunning
-boolean isRunning()
 
 
 
@@ -1146,8 +1383,6 @@ void stop()
 
 
 
-
-
 ## Dock
 
 
@@ -1155,8 +1390,9 @@ void stop()
 
 ```javascript
 interface Dock  {
+  docked: boolean;
+
   dock(): void;
-  isDocked(): boolean;
 }
 ```
 
@@ -1173,17 +1409,18 @@ Dock instructs devices that have a base station or charger, to return to their h
 
 
 
+### Properties
+Name      | Type
+--------- | ----
+docked | boolean
+
+
+
+
 
 
 ### dock
 void dock()
-
-
-
-### isDocked
-boolean isDocked()
-
-
 
 
 
@@ -1221,6 +1458,8 @@ interface TemperatureSetting implements Thermometer, HumiditySensor {
 TemperatureSetting represents a thermostat device.
 
 </aside>
+
+
 
 
 
@@ -1272,8 +1511,6 @@ void setThermostatMode(<a href='#thermostatmode'>ThermostatMode</a> mode)
 
 
 
-
-
 ## Thermometer
 
 
@@ -1281,8 +1518,8 @@ void setThermostatMode(<a href='#thermostatmode'>ThermostatMode</a> mode)
 
 ```javascript
 interface Thermometer  {
-  getTemperatureAmbient(): number;
-  getTemperatureUnit(): TemperatureUnit;
+  temperature: number;
+  temperatureUnit: TemperatureUnit;
 }
 ```
 
@@ -1292,18 +1529,11 @@ interface Thermometer  {
 
 
 
-
-
-### getTemperatureAmbient
-number getTemperatureAmbient()
-
-Get the ambient temperature in Celsius.
-
-### getTemperatureUnit
-<a href='#temperatureunit'>TemperatureUnit</a> getTemperatureUnit()
-
-Get the user facing unit of measurement for this thermometer. This may be Fahrenheit, but getTemperatureAmbient will return results in Celsius.
-
+### Properties
+Name      | Type
+--------- | ----
+temperature | number
+temperatureUnit | <a href='#temperatureunit'>TemperatureUnit</a>
 
 
 
@@ -1354,7 +1584,7 @@ Enum |
 
 ```javascript
 interface HumiditySensor  {
-  getHumidityAmbient(): number;
+  humidity: number;
 }
 ```
 
@@ -1364,13 +1594,10 @@ interface HumiditySensor  {
 
 
 
-
-
-### getHumidityAmbient
-number getHumidityAmbient()
-
-
-
+### Properties
+Name      | Type
+--------- | ----
+humidity | number
 
 
 
@@ -1456,10 +1683,10 @@ Camera devices can take still photos.
 
 
 
+
+
 ### takePicture
 <a href='#mediaobject'>MediaObject</a> takePicture()
-
-
 
 
 
@@ -1495,10 +1722,10 @@ VideoCamera devices can capture video streams.
 
 
 
+
+
 ### getVideoStream
 <a href='#mediaobject'>MediaObject</a> getVideoStream()
-
-
 
 
 
@@ -1515,7 +1742,8 @@ VideoCamera devices can capture video streams.
 
 ```javascript
 interface Lock  {
-  isLocked(): boolean;
+  locked: boolean;
+
   lock(): void;
   unlock(): void;
 }
@@ -1534,10 +1762,13 @@ Lock controls devices that can lock or unlock entries. Often works in tandem wit
 
 
 
+### Properties
+Name      | Type
+--------- | ----
+locked | boolean
 
 
-### isLocked
-boolean isLocked()
+
 
 
 
@@ -1557,8 +1788,6 @@ void unlock()
 
 
 
-
-
 ## PasswordControl
 
 
@@ -1566,8 +1795,9 @@ void unlock()
 
 ```javascript
 interface PasswordControl  {
+  passwords: string[];
+
   addPassword(password: string): void;
-  getPasswords(): string[];
   removePassword(password: string): void;
 }
 ```
@@ -1585,6 +1815,14 @@ PasswordControl represents devices that authorize users via a passcode or pin co
 
 
 
+### Properties
+Name      | Type
+--------- | ----
+passwords | string[]
+
+
+
+
 
 
 ### addPassword
@@ -1592,15 +1830,8 @@ void addPassword(string password)
 
 
 
-### getPasswords
-string[] getPasswords()
-
-
-
 ### removePassword
 void removePassword(string password)
-
-
 
 
 
@@ -1638,6 +1869,8 @@ Scenes control multiple different devices into a given state.
 
 
 
+
+
 ### activate
 void activate()
 
@@ -1659,17 +1892,14 @@ If a scene can be reversed, isReversible should return true. Otherwise deactivat
 
 
 
-
-
 ## Entry
 
 
 > Definition
 
 ```javascript
-interface Entry  {
+interface Entry implements EntrySensor {
   closeEntry(): void;
-  isEntryOpen(): boolean;
   openEntry(): void;
 }
 ```
@@ -1689,13 +1919,10 @@ Entry represents devices that can open and close barriers, such as garage doors.
 
 
 
+
+
 ### closeEntry
 void closeEntry()
-
-
-
-### isEntryOpen
-boolean isEntryOpen()
 
 
 
@@ -1704,6 +1931,33 @@ void openEntry()
 
 
 
+
+
+
+
+
+
+## EntrySensor
+
+
+> Definition
+
+```javascript
+interface EntrySensor  {
+  entryOpen: boolean;
+}
+```
+
+
+<%= partial "includes/scrypted/EntrySensor.md.erb" %>
+
+
+
+
+### Properties
+Name      | Type
+--------- | ----
+entryOpen | boolean
 
 
 
@@ -1741,6 +1995,8 @@ Event data from the Scheduler component.
 
 
 
+
+
 ### getClockType
 <a href='#clocktype'>ClockType</a> getClockType()
 
@@ -1758,8 +2014,6 @@ number getMinute()
 
 ### isEnabled
 boolean isEnabled(number day)
-
-
 
 
 
@@ -1821,7 +2075,7 @@ Enum |
 
 ```javascript
 interface Battery  {
-  getBatteryLevel(): number;
+  batteryLevel: number;
 }
 ```
 
@@ -1838,13 +2092,10 @@ Battery retrieves the battery level of battery powered devices.
 
 
 
-
-
-### getBatteryLevel
-number getBatteryLevel()
-
-
-
+### Properties
+Name      | Type
+--------- | ----
+batteryLevel | number
 
 
 
@@ -1882,6 +2133,8 @@ MediaPlayer allows media playback on screen or speaker devices, such as Chromeca
 
 
 
+
+
 ### load
 void load(URL|<a href='#mediaobject'>MediaObject</a> media, <a href='#mediaplayeroptions'>MediaPlayerOptions</a> options)
 
@@ -1899,8 +2152,6 @@ void play()
 
 ### stop
 void stop()
-
-
 
 
 
@@ -1935,13 +2186,13 @@ Used by <a href='#mediaplayer'>MediaPlayer</a>.
 
 
 
-
-
 ### Properties
 Name      | Type
 --------- | ----
 autoplay | boolean
 mimeType | string
+
+
 
 
 
@@ -1955,7 +2206,7 @@ mimeType | string
 
 ```javascript
 interface Online  {
-  isOnline(): boolean;
+  online: boolean;
 }
 ```
 
@@ -1972,13 +2223,10 @@ Online denotes whether the device is online or unresponsive. It may be unrespons
 
 
 
-
-
-### isOnline
-boolean isOnline()
-
-
-
+### Properties
+Name      | Type
+--------- | ----
+online | boolean
 
 
 
@@ -2007,6 +2255,8 @@ interface Program  {
 
 
 
+
+
 ### run
 object run(object[] args)
 
@@ -2023,8 +2273,6 @@ Asynchronously run a script given the provided arguments.
 
 
 
-
-
 ## SoftwareUpdate
 
 
@@ -2032,9 +2280,10 @@ Asynchronously run a script given the provided arguments.
 
 ```javascript
 interface SoftwareUpdate  {
+  updateAvailable: boolean;
+
   checkForUpdate(): void;
   installUpdate(): void;
-  isUpdateAvailable(): boolean;
 }
 ```
 
@@ -2051,6 +2300,14 @@ SoftwareUpdate provides a way to check for updates and install them. This may be
 
 
 
+### Properties
+Name      | Type
+--------- | ----
+updateAvailable | boolean
+
+
+
+
 
 
 ### checkForUpdate
@@ -2060,13 +2317,6 @@ void checkForUpdate()
 
 ### installUpdate
 void installUpdate()
-
-
-
-### isUpdateAvailable
-boolean isUpdateAvailable()
-
-
 
 
 
@@ -2083,7 +2333,7 @@ boolean isUpdateAvailable()
 
 ```javascript
 interface BinarySensor  {
-  getBinaryState(): boolean;
+  binaryState: boolean;
 }
 ```
 
@@ -2093,45 +2343,10 @@ interface BinarySensor  {
 
 
 
-
-
-### getBinaryState
-boolean getBinaryState()
-
-
-
-
-
-
-
-
-
-
-
-## EntrySensor
-
-
-> Definition
-
-```javascript
-interface EntrySensor  {
-  isEntryOpen(): boolean;
-}
-```
-
-
-<%= partial "includes/scrypted/EntrySensor.md.erb" %>
-
-
-
-
-
-
-### isEntryOpen
-boolean isEntryOpen()
-
-
-
+### Properties
+Name      | Type
+--------- | ----
+binaryState | boolean
 
 
 
@@ -2147,7 +2362,7 @@ boolean isEntryOpen()
 
 ```javascript
 interface IntrusionSensor  {
-  isIntrusionDetected(): boolean;
+  intrusionDetected: boolean;
 }
 ```
 
@@ -2157,13 +2372,10 @@ interface IntrusionSensor  {
 
 
 
-
-
-### isIntrusionDetected
-boolean isIntrusionDetected()
-
-
-
+### Properties
+Name      | Type
+--------- | ----
+intrusionDetected | boolean
 
 
 
@@ -2190,10 +2402,24 @@ boolean isIntrusionDetected()
 ## MotionSensor
 
 
+> Definition
+
+```javascript
+interface MotionSensor  {
+  motionDetected: boolean;
+}
+```
+
 
 <%= partial "includes/scrypted/MotionSensor.md.erb" %>
 
 
+
+
+### Properties
+Name      | Type
+--------- | ----
+motionDetected | boolean
 
 
 
@@ -2217,38 +2443,6 @@ boolean isIntrusionDetected()
 
 
 
-## EntryHandleSensor
-
-
-> Definition
-
-```javascript
-interface EntryHandleSensor  {
-  isDoorOpen(): boolean;
-}
-```
-
-
-<%= partial "includes/scrypted/EntryHandleSensor.md.erb" %>
-
-
-
-
-
-
-### isDoorOpen
-boolean isDoorOpen()
-
-
-
-
-
-
-
-
-
-
-
 ## FloodSensor
 
 
@@ -2256,7 +2450,7 @@ boolean isDoorOpen()
 
 ```javascript
 interface FloodSensor  {
-  isFlooded(): boolean;
+  flooded: boolean;
 }
 ```
 
@@ -2266,13 +2460,10 @@ interface FloodSensor  {
 
 
 
-
-
-### isFlooded
-boolean isFlooded()
-
-
-
+### Properties
+Name      | Type
+--------- | ----
+flooded | boolean
 
 
 
@@ -2288,7 +2479,7 @@ boolean isFlooded()
 
 ```javascript
 interface UltravioletSensor  {
-  getUltraviolet(): number;
+  ultraviolet: number;
 }
 ```
 
@@ -2298,13 +2489,10 @@ interface UltravioletSensor  {
 
 
 
-
-
-### getUltraviolet
-number getUltraviolet()
-
-
-
+### Properties
+Name      | Type
+--------- | ----
+ultraviolet | number
 
 
 
@@ -2320,7 +2508,7 @@ number getUltraviolet()
 
 ```javascript
 interface LuminanceSensor  {
-  getLuminance(): number;
+  luminance: number;
 }
 ```
 
@@ -2330,13 +2518,10 @@ interface LuminanceSensor  {
 
 
 
-
-
-### getLuminance
-number getLuminance()
-
-
-
+### Properties
+Name      | Type
+--------- | ----
+luminance | number
 
 
 
@@ -2364,12 +2549,12 @@ interface MediaSource  {
 
 
 
+
+
 ### getMedia
 <a href='#mediaobject'>MediaObject</a> getMedia()
 
 Get a MediaObject that will be automatically converted for playback on other devices.
-
-
 
 
 
@@ -2426,6 +2611,8 @@ interface Settings  {
 Settings viewing and editing of device configurations that describe or modify behavior.
 
 </aside>
+
+
 
 
 
@@ -2507,8 +2694,6 @@ void putString(string key, string value)
 
 
 
-
-
 ## OauthClient
 
 
@@ -2536,6 +2721,8 @@ The OauthClient can be implemented to perform the browser based Oauth process fr
 
 
 
+
+
 ### getOauthUrl
 string getOauthUrl()
 
@@ -2545,8 +2732,6 @@ Get the Oauth URL to navigate to in the browser. The redirect_uri parameter is n
 void onOauthCallback(string callbackUrl)
 
 When an oauth request by a plugin completes, the callback url, with the code/token, will be passed to this method.
-
-
 
 
 
@@ -2581,6 +2766,8 @@ The HttpRequestHandler allows handling of web requests under the endpoint path: 
 
 
 
+
+
 ### getEndpoint
 string getEndpoint()
 
@@ -2590,8 +2777,6 @@ Get the preferred endpoint of this HttpRequestHandler. Local/development scripts
 void onRequest(<a href='#httprequest'>HttpRequest</a> request, <a href='#httpresponse'>HttpResponse</a> response)
 
 Callback to handle an incoming request.
-
-
 
 
 
@@ -2627,8 +2812,6 @@ Used by <a href='#httprequesthandler'>HttpRequestHandler</a>.
 
 
 
-
-
 ### Properties
 Name      | Type
 --------- | ----
@@ -2637,6 +2820,8 @@ headers | object
 method | string
 rootPath | string
 url | string
+
+
 
 
 
@@ -2674,6 +2859,8 @@ Response object provided by the HttpRequestHandler.
 
 
 
+
+
 ### send
 void send(<a href='#httpresponseoptions'>HttpResponseOptions</a> options, string body)
 
@@ -2691,8 +2878,6 @@ void send(string body)
 
 ### send
 void send(Buffer body)
-
-
 
 
 
@@ -2728,14 +2913,14 @@ Used by <a href='#httpresponse'>HttpResponse</a>.
 
 
 
-
-
 ### Properties
 Name      | Type
 --------- | ----
 asContent | boolean
 code | number
 headers | object
+
+
 
 
 
