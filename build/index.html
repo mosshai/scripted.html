@@ -574,7 +574,8 @@ be synced to upstream integration providers, such as Google Home or Apple Homeki
 <span class="p">}</span>
 
 <span class="kr">export</span> <span class="k">default</span> <span class="k">new</span> <span class="nx">Device</span><span class="p">();</span>
-</code></pre><pre class="highlight typescript tab-typescript"><code><span class="k">import</span> <span class="nx">axios</span> <span class="k">from</span> <span class="s1">'axios'</span><span class="p">;</span>
+</code></pre><pre class="highlight typescript tab-typescript"><code><span class="c1">// https://developer.scrypted.app/#getting-started</span>
+<span class="k">import</span> <span class="nx">axios</span> <span class="k">from</span> <span class="s1">'axios'</span><span class="p">;</span>
 <span class="k">import</span> <span class="p">{</span> <span class="nx">OnOff</span><span class="p">,</span> <span class="nx">DeviceState</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@scrypted/sdk'</span><span class="p">;</span>
 <span class="k">import</span> <span class="nx">sdk</span> <span class="k">from</span> <span class="s1">'@scrypted/sdk'</span><span class="p">;</span>
 <span class="kd">const</span> <span class="p">{</span> <span class="nx">log</span><span class="p">,</span> <span class="nx">deviceManager</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">sdk</span><span class="p">;</span>
@@ -582,13 +583,13 @@ be synced to upstream integration providers, such as Google Home or Apple Homeki
 <span class="nx">log</span><span class="p">.</span><span class="nx">i</span><span class="p">(</span><span class="s1">'Hello World. This will create a virtual OnOff device.'</span><span class="p">);</span>
 
 <span class="kr">class</span> <span class="nx">Device</span> <span class="k">implements</span> <span class="nx">OnOff</span> <span class="p">{</span>
-    <span class="nl">state</span><span class="p">:</span> <span class="nx">DeviceState</span><span class="p">;</span>
+    <span class="k">private</span> <span class="nx">_state</span><span class="p">:</span> <span class="nx">DeviceState</span><span class="p">;</span>
     <span class="kd">constructor</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="nx">deviceManager</span><span class="p">.</span><span class="nx">getDeviceState</span><span class="p">();</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">_state</span> <span class="o">=</span> <span class="nx">deviceManager</span><span class="p">.</span><span class="nx">getDeviceState</span><span class="p">();</span>
     <span class="p">}</span>
     <span class="nx">turnOff</span><span class="p">():</span> <span class="k">void</span> <span class="p">{</span>
         <span class="nx">log</span><span class="p">.</span><span class="nx">i</span><span class="p">(</span><span class="s1">'turnOff was called!'</span><span class="p">);</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">isOn</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">_state</span><span class="p">.</span><span class="nx">isOn</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
     <span class="p">}</span>
     <span class="k">async</span> <span class="nx">turnOn</span><span class="p">():</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span> <span class="p">{</span>
         <span class="c1">// set a breakpoint here.</span>
@@ -598,7 +599,7 @@ be synced to upstream integration providers, such as Google Home or Apple Homeki
         <span class="kd">const</span> <span class="nx">ip</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">axios</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'http://jsonip.com'</span><span class="p">);</span>
         <span class="nx">log</span><span class="p">.</span><span class="nx">i</span><span class="p">(</span><span class="s2">`my ip: </span><span class="p">${</span><span class="nx">ip</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">ip</span><span class="p">}</span><span class="s2">`</span><span class="p">);</span>
 
-        <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">isOn</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">_state</span><span class="p">.</span><span class="nx">isOn</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="p">}</span>
 
@@ -758,8 +759,8 @@ More information can be found in the <a href='#media-reference'>Media Reference<
   <span class="nx">events</span><span class="p">():</span> <span class="nx">string</span><span class="p">[];</span>
   <span class="nx">id</span><span class="p">():</span> <span class="nx">string</span><span class="p">;</span>
   <span class="nx">interfaces</span><span class="p">():</span> <span class="nx">string</span><span class="p">[];</span>
+  <span class="nx">listen</span><span class="p">(</span><span class="nx">event</span><span class="p">:</span> <span class="nx">string</span><span class="o">|</span><span class="nx">EventListenerOptions</span><span class="p">,</span> <span class="nx">callback</span><span class="p">:</span> <span class="p">(</span><span class="nx">eventSource</span><span class="p">:</span> <span class="nx">ScryptedDevice</span><span class="p">,</span> <span class="nx">eventDetails</span><span class="p">:</span> <span class="nx">EventDetails</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="nx">object</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">):</span> <span class="nx">EventListenerRegister</span><span class="p">;</span>
   <span class="nx">name</span><span class="p">():</span> <span class="nx">string</span><span class="p">;</span>
-  <span class="nx">on</span><span class="p">(</span><span class="nx">event</span><span class="p">:</span> <span class="nx">string</span><span class="o">|</span><span class="nx">EventListenerOptions</span><span class="p">,</span> <span class="nx">callback</span><span class="p">:</span> <span class="p">(</span><span class="nx">eventSource</span><span class="p">:</span> <span class="nx">ScryptedDevice</span><span class="p">,</span> <span class="nx">eventDetails</span><span class="p">:</span> <span class="nx">EventDetails</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="nx">object</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">):</span> <span class="nx">EventListenerRegister</span><span class="p">;</span>
   <span class="nx">type</span><span class="p">():</span> <span class="nx">ScryptedDeviceType</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
@@ -775,12 +776,12 @@ All devices in Scrypted implement ScryptedDevice, which contains the id, name, a
 <p>string id()</p>
 <h3 id='interfaces'>interfaces</h3>
 <p>string[] interfaces()</p>
-<h3 id='name'>name</h3>
-<p>string name()</p>
-<h3 id='on'>on</h3>
-<p><a href='#eventlistenerregister'>EventListenerRegister</a> on(string|<a href='#eventlisteneroptions'>EventListenerOptions</a> event, <a href='#eventlistener'>EventListener</a> callback)</p>
+<h3 id='listen'>listen</h3>
+<p><a href='#eventlistenerregister'>EventListenerRegister</a> listen(string|<a href='#eventlisteneroptions'>EventListenerOptions</a> event, <a href='#eventlistener'>EventListener</a> callback)</p>
 
 <p>Subscribe to events from a specific interface on a device, such as &#39;OnOff&#39; or &#39;Brightness&#39;.</p>
+<h3 id='name'>name</h3>
+<p>string name()</p>
 <h3 id='type'>type</h3>
 <p>ScryptedDeviceType type()</p>
 <h2 id='systemmanager'>SystemManager</h2>
@@ -1338,7 +1339,7 @@ Refresh indicates that this device has properties that are not automatically upd
 <p>Definition</p>
 </blockquote>
 <pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">DeviceState</span>  <span class="p">{</span>
-  <span class="nl">isOn</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
+  <span class="nl">on</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
   <span class="nl">brightness</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
   <span class="nl">colorTemperature</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
   <span class="nl">rgb</span><span class="p">:</span> <span class="nx">ColorRgb</span><span class="p">;</span>
@@ -1377,7 +1378,7 @@ DeviceState is returned by DeviceManager.getDeviceState, and allows getting/sett
 </tr>
 </thead><tbody>
 <tr>
-<td>isOn</td>
+<td>on</td>
 <td>boolean</td>
 </tr>
 <tr>
@@ -1615,7 +1616,7 @@ Used by <a href='#eventlistener'>EventListener</a>.
 <p>Definition</p>
 </blockquote>
 <pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">OnOff</span>  <span class="p">{</span>
-  <span class="nl">isOn</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
+  <span class="nl">on</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
 
   <span class="nx">turnOff</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
   <span class="nx">turnOn</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
@@ -1648,7 +1649,7 @@ OnOff is a basic binary switch.
 </tr>
 </thead><tbody>
 <tr>
-<td>isOn</td>
+<td>on</td>
 <td>boolean</td>
 </tr>
 </tbody></table>

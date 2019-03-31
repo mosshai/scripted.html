@@ -28,8 +28,8 @@ interface ScryptedDevice  {
   events(): string[];
   id(): string;
   interfaces(): string[];
+  listen(event: string|EventListenerOptions, callback: (eventSource: ScryptedDevice, eventDetails: EventDetails, eventData: object) => void): EventListenerRegister;
   name(): string;
-  on(event: string|EventListenerOptions, callback: (eventSource: ScryptedDevice, eventDetails: EventDetails, eventData: object) => void): EventListenerRegister;
   type(): ScryptedDeviceType;
 }
 ```
@@ -66,15 +66,15 @@ string[] interfaces()
 
 
 
+### listen
+<a href='#eventlistenerregister'>EventListenerRegister</a> listen(string|<a href='#eventlisteneroptions'>EventListenerOptions</a> event, <a href='#eventlistener'>EventListener</a> callback)
+
+Subscribe to events from a specific interface on a device, such as 'OnOff' or 'Brightness'.
+
 ### name
 string name()
 
 
-
-### on
-<a href='#eventlistenerregister'>EventListenerRegister</a> on(string|<a href='#eventlisteneroptions'>EventListenerOptions</a> event, <a href='#eventlistener'>EventListener</a> callback)
-
-Subscribe to events from a specific interface on a device, such as 'OnOff' or 'Brightness'.
 
 ### type
 ScryptedDeviceType type()
@@ -647,7 +647,7 @@ This method is called by Scrypted when the properties of the device need to be r
 
 ```javascript
 interface DeviceState  {
-  isOn: boolean;
+  on: boolean;
   brightness: number;
   colorTemperature: number;
   rgb: ColorRgb;
@@ -689,7 +689,7 @@ DeviceState is returned by DeviceManager.getDeviceState, and allows getting/sett
 ### Properties
 Name      | Type
 --------- | ----
-isOn | boolean
+on | boolean
 brightness | number
 colorTemperature | number
 rgb | <a href='#colorrgb'>ColorRgb</a>
@@ -906,7 +906,7 @@ property | string
 
 ```javascript
 interface OnOff  {
-  isOn: boolean;
+  on: boolean;
 
   turnOff(): void;
   turnOn(): void;
@@ -929,7 +929,7 @@ OnOff is a basic binary switch.
 ### Properties
 Name      | Type
 --------- | ----
-isOn | boolean
+on | boolean
 
 
 
