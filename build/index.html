@@ -386,6 +386,9 @@
                     <a href="#lock" class="toc-h2 toc-link" data-title="Lock">Lock</a>
                   </li>
                   <li>
+                    <a href="#lockstate" class="toc-h2 toc-link" data-title="LockState">LockState</a>
+                  </li>
+                  <li>
                     <a href="#passwordcontrol" class="toc-h2 toc-link" data-title="PasswordControl">PasswordControl</a>
                   </li>
                   <li>
@@ -420,6 +423,9 @@
                   </li>
                   <li>
                     <a href="#softwareupdate" class="toc-h2 toc-link" data-title="SoftwareUpdate">SoftwareUpdate</a>
+                  </li>
+                  <li>
+                    <a href="#bufferconverter" class="toc-h2 toc-link" data-title="BufferConverter">BufferConverter</a>
                   </li>
                   <li>
                     <a href="#binarysensor" class="toc-h2 toc-link" data-title="BinarySensor">BinarySensor</a>
@@ -756,12 +762,13 @@ More information can be found in the <a href='#media-reference'>Media Reference<
 <p>Definition</p>
 </blockquote>
 <pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">ScryptedDevice</span>  <span class="p">{</span>
-  <span class="nx">events</span><span class="p">():</span> <span class="nx">string</span><span class="p">[];</span>
-  <span class="nx">id</span><span class="p">():</span> <span class="nx">string</span><span class="p">;</span>
-  <span class="nx">interfaces</span><span class="p">():</span> <span class="nx">string</span><span class="p">[];</span>
+  <span class="nl">events</span><span class="p">:</span> <span class="nx">string</span><span class="p">[];</span>
+  <span class="nl">id</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nl">interfaces</span><span class="p">:</span> <span class="nx">string</span><span class="p">[];</span>
+  <span class="nl">name</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nl">type</span><span class="p">:</span> <span class="nx">ScryptedDeviceType</span><span class="p">;</span>
+
   <span class="nx">listen</span><span class="p">(</span><span class="nx">event</span><span class="p">:</span> <span class="nx">string</span><span class="o">|</span><span class="nx">EventListenerOptions</span><span class="p">,</span> <span class="nx">callback</span><span class="p">:</span> <span class="p">(</span><span class="nx">eventSource</span><span class="p">:</span> <span class="nx">ScryptedDevice</span><span class="p">,</span> <span class="nx">eventDetails</span><span class="p">:</span> <span class="nx">EventDetails</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="nx">object</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">):</span> <span class="nx">EventListenerRegister</span><span class="p">;</span>
-  <span class="nx">name</span><span class="p">():</span> <span class="nx">string</span><span class="p">;</span>
-  <span class="nx">type</span><span class="p">():</span> <span class="nx">ScryptedDeviceType</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
 <aside class="notice">
@@ -770,20 +777,38 @@ More information can be found in the <a href='#media-reference'>Media Reference<
 All devices in Scrypted implement ScryptedDevice, which contains the id, name, and type. Add listeners to subscribe to events from that device.
 
 </aside>
-<h3 id='events'>events</h3>
-<p>string[] events()</p>
-<h3 id='id'>id</h3>
-<p>string id()</p>
-<h3 id='interfaces'>interfaces</h3>
-<p>string[] interfaces()</p>
+<h3 id='properties'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>events</td>
+<td>string[]</td>
+</tr>
+<tr>
+<td>id</td>
+<td>string</td>
+</tr>
+<tr>
+<td>interfaces</td>
+<td>string[]</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+</tr>
+<tr>
+<td>type</td>
+<td>ScryptedDeviceType</td>
+</tr>
+</tbody></table>
 <h3 id='listen'>listen</h3>
 <p><a href='#eventlistenerregister'>EventListenerRegister</a> listen(string|<a href='#eventlisteneroptions'>EventListenerOptions</a> event, <a href='#eventlistener'>EventListener</a> callback)</p>
 
 <p>Subscribe to events from a specific interface on a device, such as &#39;OnOff&#39; or &#39;Brightness&#39;.</p>
-<h3 id='name'>name</h3>
-<p>string name()</p>
-<h3 id='type'>type</h3>
-<p>ScryptedDeviceType type()</p>
 <h2 id='systemmanager'>SystemManager</h2>
 <blockquote>
 <p>Definition</p>
@@ -791,7 +816,7 @@ All devices in Scrypted implement ScryptedDevice, which contains the id, name, a
 <pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">SystemManager</span>  <span class="p">{</span>
   <span class="nx">getDeviceById</span><span class="p">(</span><span class="nx">id</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">ScryptedDevice</span><span class="p">;</span>
   <span class="nx">getDeviceByName</span><span class="p">(</span><span class="nx">name</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">ScryptedDevice</span><span class="p">;</span>
-  <span class="nx">getDeviceState</span><span class="p">(</span><span class="nx">arg0</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">object</span><span class="p">;</span>
+  <span class="nx">getDeviceState</span><span class="p">(</span><span class="nx">id</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">object</span><span class="p">;</span>
   <span class="nx">getSystemState</span><span class="p">():</span> <span class="nx">object</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
@@ -810,7 +835,7 @@ SystemManager is used by scripts to query device state and access devices.
 
 <p>Find a Scrypted device by name.</p>
 <h3 id='getdevicestate'>getDeviceState</h3>
-<p>object getDeviceState(string arg0)</p>
+<p>object getDeviceState(string id)</p>
 
 <p>Get the current state of a device.</p>
 <h3 id='getsystemstate'>getSystemState</h3>
@@ -837,6 +862,7 @@ SystemManager is used by scripts to query device state and access devices.
   <span class="nx">Speaker</span> <span class="o">=</span> <span class="s2">"Speaker"</span><span class="p">,</span>
   <span class="nx">Event</span> <span class="o">=</span> <span class="s2">"Event"</span><span class="p">,</span>
   <span class="nx">Entry</span> <span class="o">=</span> <span class="s2">"Entry"</span><span class="p">,</span>
+  <span class="nx">Garage</span> <span class="o">=</span> <span class="s2">"Garage"</span><span class="p">,</span>
   <span class="nx">DeviceProvider</span> <span class="o">=</span> <span class="s2">"DeviceProvider"</span><span class="p">,</span>
   <span class="nx">DataSource</span> <span class="o">=</span> <span class="s2">"DataSource"</span><span class="p">,</span>
   <span class="nx">API</span> <span class="o">=</span> <span class="s2">"API"</span><span class="p">,</span>
@@ -911,6 +937,9 @@ Used by <a href='#scrypteddevice'>ScryptedDevice</a>.
 </tr>
 <tr>
 <td>&quot;Entry&quot;</td>
+</tr>
+<tr>
+<td>&quot;Garage&quot;</td>
 </tr>
 <tr>
 <td>&quot;DeviceProvider&quot;</td>
@@ -1228,7 +1257,7 @@ Used by <a href='#devicemanager'>DeviceManager</a>.
 DeviceManifest is passed to DeviceManager.onDevicesChanged to sync a full list of devices from the controller/hub (Hue, SmartThings, etc)
 
 </aside>
-<h3 id='properties'>Properties</h3>
+<h3 id='properties-2'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -1275,7 +1304,7 @@ Used by <a href='#devicemanager'>DeviceManager</a>.
 Device objects are created by DeviceProviders when new devices are discover and synced to Scrypted via the DeviceManager.
 
 </aside>
-<h3 id='properties-2'>Properties</h3>
+<h3 id='properties-3'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -1350,12 +1379,14 @@ Refresh indicates that this device has properties that are not automatically upd
   <span class="nl">temperature</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
   <span class="nl">temperatureUnit</span><span class="p">:</span> <span class="nx">TemperatureUnit</span><span class="p">;</span>
   <span class="nl">humidity</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
-  <span class="nl">locked</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
+  <span class="nl">lockState</span><span class="p">:</span> <span class="nx">LockState</span><span class="p">;</span>
   <span class="nl">passwords</span><span class="p">:</span> <span class="nx">string</span><span class="p">[];</span>
   <span class="nl">entryOpen</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
   <span class="nl">batteryLevel</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
   <span class="nl">online</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
   <span class="nl">updateAvailable</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
+  <span class="nl">fromMimeType</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nl">toMimeType</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
   <span class="nl">binaryState</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
   <span class="nl">intrusionDetected</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
   <span class="nl">motionDetected</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
@@ -1370,7 +1401,7 @@ Refresh indicates that this device has properties that are not automatically upd
 DeviceState is returned by DeviceManager.getDeviceState, and allows getting/setting of a device provided by a DeviceProvider.
 
 </aside>
-<h3 id='properties-3'>Properties</h3>
+<h3 id='properties-4'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -1422,8 +1453,8 @@ DeviceState is returned by DeviceManager.getDeviceState, and allows getting/sett
 <td>number</td>
 </tr>
 <tr>
-<td>locked</td>
-<td>boolean</td>
+<td>lockState</td>
+<td><a href='#lockstate'>LockState</a></td>
 </tr>
 <tr>
 <td>passwords</td>
@@ -1444,6 +1475,14 @@ DeviceState is returned by DeviceManager.getDeviceState, and allows getting/sett
 <tr>
 <td>updateAvailable</td>
 <td>boolean</td>
+</tr>
+<tr>
+<td>fromMimeType</td>
+<td>string</td>
+</tr>
+<tr>
+<td>toMimeType</td>
+<td>string</td>
 </tr>
 <tr>
 <td>binaryState</td>
@@ -1550,7 +1589,7 @@ Used by <a href='#scrypteddevice'>ScryptedDevice</a>.
 
 
 </aside>
-<h3 id='properties-4'>Properties</h3>
+<h3 id='properties-5'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -1587,7 +1626,7 @@ Used by <a href='#eventlistener'>EventListener</a>.
 
 
 </aside>
-<h3 id='properties-5'>Properties</h3>
+<h3 id='properties-6'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -1641,7 +1680,7 @@ Used by <a href='#eventlistener'>EventListener</a>.
 OnOff is a basic binary switch.
 
 </aside>
-<h3 id='properties-6'>Properties</h3>
+<h3 id='properties-7'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -1681,7 +1720,7 @@ OnOff is a basic binary switch.
 Brightness is a lighting device that can be dimmed/lit between 0 to 100.
 
 </aside>
-<h3 id='properties-7'>Properties</h3>
+<h3 id='properties-8'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -1721,7 +1760,7 @@ Brightness is a lighting device that can be dimmed/lit between 0 to 100.
 ColorSettingTemperature sets the color temperature of a light in Kelvin.
 
 </aside>
-<h3 id='properties-8'>Properties</h3>
+<h3 id='properties-9'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -1767,7 +1806,7 @@ ColorSettingTemperature sets the color temperature of a light in Kelvin.
 ColorSettingRgb sets the color of a colored light using the RGB representation.
 
 </aside>
-<h3 id='properties-9'>Properties</h3>
+<h3 id='properties-10'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -1802,7 +1841,7 @@ Used by <a href='#colorsettingrgb'>ColorSettingRgb</a>.
 Represents an RGB color with component values between 0 and 255.
 
 </aside>
-<h3 id='properties-10'>Properties</h3>
+<h3 id='properties-11'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -1854,7 +1893,7 @@ Represents an RGB color with component values between 0 and 255.
 ColorSettingHsv sets the color of a colored light using the HSV representation.
 
 </aside>
-<h3 id='properties-11'>Properties</h3>
+<h3 id='properties-12'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -1889,7 +1928,7 @@ Used by <a href='#colorsettinghsv'>ColorSettingHsv</a>.
 Represents an HSV color value component.
 
 </aside>
-<h3 id='properties-12'>Properties</h3>
+<h3 id='properties-13'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -1980,7 +2019,7 @@ Passing null uses the native type of the MediaObject. If that is not supported b
 StartStop represents a device that can be started, stopped, and possibly paused and resumed. Typically vacuum cleaners or washers.
 
 </aside>
-<h3 id='properties-13'>Properties</h3>
+<h3 id='properties-14'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2030,7 +2069,7 @@ StartStop represents a device that can be started, stopped, and possibly paused 
 Dock instructs devices that have a base station or charger, to return to their home.
 
 </aside>
-<h3 id='properties-14'>Properties</h3>
+<h3 id='properties-15'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2089,7 +2128,7 @@ TemperatureSetting represents a thermostat device.
   <span class="nl">temperature</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
   <span class="nl">temperatureUnit</span><span class="p">:</span> <span class="nx">TemperatureUnit</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-15'>Properties</h3>
+</code></pre><h3 id='properties-16'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2136,7 +2175,7 @@ Used by <a href='#thermometer'>Thermometer</a>.
 <pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">HumiditySensor</span>  <span class="p">{</span>
   <span class="nl">humidity</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-16'>Properties</h3>
+</code></pre><h3 id='properties-17'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2241,7 +2280,7 @@ VideoCamera devices can capture video streams.
 <p>Definition</p>
 </blockquote>
 <pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Lock</span>  <span class="p">{</span>
-  <span class="nl">locked</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
+  <span class="nl">lockState</span><span class="p">:</span> <span class="nx">LockState</span><span class="p">;</span>
 
   <span class="nx">lock</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
   <span class="nx">unlock</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
@@ -2253,7 +2292,7 @@ VideoCamera devices can capture video streams.
 Lock controls devices that can lock or unlock entries. Often works in tandem with PasswordControl.
 
 </aside>
-<h3 id='properties-17'>Properties</h3>
+<h3 id='properties-18'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2261,14 +2300,42 @@ Lock controls devices that can lock or unlock entries. Often works in tandem wit
 </tr>
 </thead><tbody>
 <tr>
-<td>locked</td>
-<td>boolean</td>
+<td>lockState</td>
+<td><a href='#lockstate'>LockState</a></td>
 </tr>
 </tbody></table>
 <h3 id='lock-2'>lock</h3>
 <p>void lock()</p>
 <h3 id='unlock'>unlock</h3>
 <p>void unlock()</p>
+<h2 id='lockstate'>LockState</h2><pre class="highlight javascript tab-javascript"><code><span class="kr">enum</span> <span class="nx">LockState</span> <span class="p">{</span>
+  <span class="nx">Locked</span> <span class="o">=</span> <span class="s2">"Locked"</span><span class="p">,</span>
+  <span class="nx">Unlocked</span> <span class="o">=</span> <span class="s2">"Unlocked"</span><span class="p">,</span>
+  <span class="nx">Jammed</span> <span class="o">=</span> <span class="s2">"Jammed"</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre>
+<aside class="notice">
+
+Used by <a href='#lock'>Lock</a>.
+
+
+</aside>
+
+<table><thead>
+<tr>
+<th>Enum</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>&quot;Locked&quot;</td>
+</tr>
+<tr>
+<td>&quot;Unlocked&quot;</td>
+</tr>
+<tr>
+<td>&quot;Jammed&quot;</td>
+</tr>
+</tbody></table>
 <h2 id='passwordcontrol'>PasswordControl</h2>
 <blockquote>
 <p>Definition</p>
@@ -2286,7 +2353,7 @@ Lock controls devices that can lock or unlock entries. Often works in tandem wit
 PasswordControl represents devices that authorize users via a passcode or pin code.
 
 </aside>
-<h3 id='properties-18'>Properties</h3>
+<h3 id='properties-19'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2360,7 +2427,7 @@ Entry represents devices that can open and close barriers, such as garage doors.
 <pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">EntrySensor</span>  <span class="p">{</span>
   <span class="nl">entryOpen</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-19'>Properties</h3>
+</code></pre><h3 id='properties-20'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2382,14 +2449,7 @@ Entry represents devices that can open and close barriers, such as garage doors.
   <span class="nx">getMinute</span><span class="p">():</span> <span class="nx">number</span><span class="p">;</span>
   <span class="nx">isEnabled</span><span class="p">(</span><span class="nx">day</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="kr">boolean</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre>
-<aside class="notice">
-
-
-Event data from the Scheduler component.
-
-</aside>
-<h3 id='getclocktype'>getClockType</h3>
+</code></pre><h3 id='getclocktype'>getClockType</h3>
 <p><a href='#clocktype'>ClockType</a> getClockType()</p>
 <h3 id='gethour'>getHour</h3>
 <p>number getHour()</p>
@@ -2398,13 +2458,13 @@ Event data from the Scheduler component.
 <h3 id='isenabled'>isEnabled</h3>
 <p>boolean isEnabled(number day)</p>
 <h2 id='clocktype'>ClockType</h2><pre class="highlight javascript tab-javascript"><code><span class="kr">enum</span> <span class="nx">ClockType</span> <span class="p">{</span>
-  <span class="nx">_AM</span> <span class="o">=</span> <span class="s2">"_AM"</span><span class="p">,</span>
-  <span class="nx">_PM</span> <span class="o">=</span> <span class="s2">"_PM"</span><span class="p">,</span>
-  <span class="nx">_24HourClock</span> <span class="o">=</span> <span class="s2">"_24HourClock"</span><span class="p">,</span>
-  <span class="nx">_BeforeSunrise</span> <span class="o">=</span> <span class="s2">"_BeforeSunrise"</span><span class="p">,</span>
-  <span class="nx">_AfterSunrise</span> <span class="o">=</span> <span class="s2">"_AfterSunrise"</span><span class="p">,</span>
-  <span class="nx">_BeforeSunset</span> <span class="o">=</span> <span class="s2">"_BeforeSunset"</span><span class="p">,</span>
-  <span class="nx">_AfterSunset</span> <span class="o">=</span> <span class="s2">"_AfterSunset"</span><span class="p">,</span>
+  <span class="nx">AM</span> <span class="o">=</span> <span class="s2">"AM"</span><span class="p">,</span>
+  <span class="nx">PM</span> <span class="o">=</span> <span class="s2">"PM"</span><span class="p">,</span>
+  <span class="nx">TwentyFourHourClock</span> <span class="o">=</span> <span class="s2">"TwentyFourHourClock"</span><span class="p">,</span>
+  <span class="nx">BeforeSunrise</span> <span class="o">=</span> <span class="s2">"BeforeSunrise"</span><span class="p">,</span>
+  <span class="nx">AfterSunrise</span> <span class="o">=</span> <span class="s2">"AfterSunrise"</span><span class="p">,</span>
+  <span class="nx">BeforeSunset</span> <span class="o">=</span> <span class="s2">"BeforeSunset"</span><span class="p">,</span>
+  <span class="nx">AfterSunset</span> <span class="o">=</span> <span class="s2">"AfterSunset"</span><span class="p">,</span>
 <span class="p">}</span>
 </code></pre>
 <aside class="notice">
@@ -2420,25 +2480,25 @@ Used by <a href='#alarm'>Alarm</a>.
 </tr>
 </thead><tbody>
 <tr>
-<td>&quot;_AM&quot;</td>
+<td>&quot;AM&quot;</td>
 </tr>
 <tr>
-<td>&quot;_PM&quot;</td>
+<td>&quot;PM&quot;</td>
 </tr>
 <tr>
-<td>&quot;_24HourClock&quot;</td>
+<td>&quot;TwentyFourHourClock&quot;</td>
 </tr>
 <tr>
-<td>&quot;_BeforeSunrise&quot;</td>
+<td>&quot;BeforeSunrise&quot;</td>
 </tr>
 <tr>
-<td>&quot;_AfterSunrise&quot;</td>
+<td>&quot;AfterSunrise&quot;</td>
 </tr>
 <tr>
-<td>&quot;_BeforeSunset&quot;</td>
+<td>&quot;BeforeSunset&quot;</td>
 </tr>
 <tr>
-<td>&quot;_AfterSunset&quot;</td>
+<td>&quot;AfterSunset&quot;</td>
 </tr>
 </tbody></table>
 <h2 id='battery'>Battery</h2>
@@ -2455,7 +2515,7 @@ Used by <a href='#alarm'>Alarm</a>.
 Battery retrieves the battery level of battery powered devices.
 
 </aside>
-<h3 id='properties-20'>Properties</h3>
+<h3 id='properties-21'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2507,7 +2567,7 @@ Used by <a href='#mediaplayer'>MediaPlayer</a>.
 
 
 </aside>
-<h3 id='properties-21'>Properties</h3>
+<h3 id='properties-22'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2537,7 +2597,7 @@ Used by <a href='#mediaplayer'>MediaPlayer</a>.
 Online denotes whether the device is online or unresponsive. It may be unresponsive due to being unplugged, network error, etc.
 
 </aside>
-<h3 id='properties-22'>Properties</h3>
+<h3 id='properties-23'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2582,7 +2642,7 @@ Online denotes whether the device is online or unresponsive. It may be unrespons
 SoftwareUpdate provides a way to check for updates and install them. This may be a Scrypted Plugin or device firmware.
 
 </aside>
-<h3 id='properties-23'>Properties</h3>
+<h3 id='properties-24'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2598,6 +2658,41 @@ SoftwareUpdate provides a way to check for updates and install them. This may be
 <p>void checkForUpdate()</p>
 <h3 id='installupdate'>installUpdate</h3>
 <p>void installUpdate()</p>
+<h2 id='bufferconverter'>BufferConverter</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">BufferConverter</span>  <span class="p">{</span>
+  <span class="nl">fromMimeType</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nl">toMimeType</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+
+  <span class="nx">convert</span><span class="p">(</span><span class="nx">buffer</span><span class="p">:</span> <span class="nx">Buffer</span><span class="p">,</span> <span class="nx">fromMimeType</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">Buffer</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+<aside class="notice">
+
+
+Add a converter to be used by Scrypted to convert buffers from one mime type to another mime type.
+
+</aside>
+<h3 id='properties-25'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>fromMimeType</td>
+<td>string</td>
+</tr>
+<tr>
+<td>toMimeType</td>
+<td>string</td>
+</tr>
+</tbody></table>
+<h3 id='convert'>convert</h3>
+<p>Promise&lt;Buffer&gt; convert(Buffer buffer, string fromMimeType)</p>
 <h2 id='binarysensor'>BinarySensor</h2>
 <blockquote>
 <p>Definition</p>
@@ -2605,7 +2700,7 @@ SoftwareUpdate provides a way to check for updates and install them. This may be
 <pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">BinarySensor</span>  <span class="p">{</span>
   <span class="nl">binaryState</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-24'>Properties</h3>
+</code></pre><h3 id='properties-26'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2624,7 +2719,7 @@ SoftwareUpdate provides a way to check for updates and install them. This may be
 <pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">IntrusionSensor</span>  <span class="p">{</span>
   <span class="nl">intrusionDetected</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-25'>Properties</h3>
+</code></pre><h3 id='properties-27'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2643,7 +2738,7 @@ SoftwareUpdate provides a way to check for updates and install them. This may be
 <pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">MotionSensor</span>  <span class="p">{</span>
   <span class="nl">motionDetected</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-26'>Properties</h3>
+</code></pre><h3 id='properties-28'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2662,7 +2757,7 @@ SoftwareUpdate provides a way to check for updates and install them. This may be
 <pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">FloodSensor</span>  <span class="p">{</span>
   <span class="nl">flooded</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-27'>Properties</h3>
+</code></pre><h3 id='properties-29'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2681,7 +2776,7 @@ SoftwareUpdate provides a way to check for updates and install them. This may be
 <pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">UltravioletSensor</span>  <span class="p">{</span>
   <span class="nl">ultraviolet</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-28'>Properties</h3>
+</code></pre><h3 id='properties-30'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2700,7 +2795,7 @@ SoftwareUpdate provides a way to check for updates and install them. This may be
 <pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">LuminanceSensor</span>  <span class="p">{</span>
   <span class="nl">luminance</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-29'>Properties</h3>
+</code></pre><h3 id='properties-31'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2864,7 +2959,7 @@ Used by <a href='#httprequesthandler'>HttpRequestHandler</a>.
 
 
 </aside>
-<h3 id='properties-30'>Properties</h3>
+<h3 id='properties-32'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2935,7 +3030,7 @@ Used by <a href='#httpresponse'>HttpResponse</a>.
 
 
 </aside>
-<h3 id='properties-31'>Properties</h3>
+<h3 id='properties-33'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>

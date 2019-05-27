@@ -25,12 +25,13 @@ search: true
 
 ```javascript
 interface ScryptedDevice  {
-  events(): string[];
-  id(): string;
-  interfaces(): string[];
+  events: string[];
+  id: string;
+  interfaces: string[];
+  name: string;
+  type: ScryptedDeviceType;
+
   listen(event: string|EventListenerOptions, callback: (eventSource: ScryptedDevice, eventDetails: EventDetails, eventData: object) => void): EventListenerRegister;
-  name(): string;
-  type(): ScryptedDeviceType;
 }
 ```
 
@@ -47,22 +48,17 @@ All devices in Scrypted implement ScryptedDevice, which contains the id, name, a
 
 
 
+### Properties
+Name      | Type
+--------- | ----
+events | string[]
+id | string
+interfaces | string[]
+name | string
+type | ScryptedDeviceType
 
 
 
-
-### events
-string[] events()
-
-
-
-### id
-string id()
-
-
-
-### interfaces
-string[] interfaces()
 
 
 
@@ -70,16 +66,6 @@ string[] interfaces()
 <a href='#eventlistenerregister'>EventListenerRegister</a> listen(string|<a href='#eventlisteneroptions'>EventListenerOptions</a> event, <a href='#eventlistener'>EventListener</a> callback)
 
 Subscribe to events from a specific interface on a device, such as 'OnOff' or 'Brightness'.
-
-### name
-string name()
-
-
-
-### type
-ScryptedDeviceType type()
-
-
 
 
 
@@ -96,7 +82,7 @@ ScryptedDeviceType type()
 interface SystemManager  {
   getDeviceById(id: string): ScryptedDevice;
   getDeviceByName(name: string): ScryptedDevice;
-  getDeviceState(arg0: string): object;
+  getDeviceState(id: string): object;
   getSystemState(): object;
 }
 ```
@@ -129,7 +115,7 @@ ScryptedDevice getDeviceByName(string name)
 Find a Scrypted device by name.
 
 ### getDeviceState
-object getDeviceState(string arg0)
+object getDeviceState(string id)
 
 Get the current state of a device.
 
@@ -168,6 +154,7 @@ enum ScryptedDeviceType {
   Speaker = "Speaker",
   Event = "Event",
   Entry = "Entry",
+  Garage = "Garage",
   DeviceProvider = "DeviceProvider",
   DataSource = "DataSource",
   API = "API",
@@ -213,6 +200,7 @@ Enum |
 "Speaker" |
 "Event" |
 "Entry" |
+"Garage" |
 "DeviceProvider" |
 "DataSource" |
 "API" |
@@ -658,12 +646,14 @@ interface DeviceState  {
   temperature: number;
   temperatureUnit: TemperatureUnit;
   humidity: number;
-  locked: boolean;
+  lockState: LockState;
   passwords: string[];
   entryOpen: boolean;
   batteryLevel: number;
   online: boolean;
   updateAvailable: boolean;
+  fromMimeType: string;
+  toMimeType: string;
   binaryState: boolean;
   intrusionDetected: boolean;
   motionDetected: boolean;
@@ -700,12 +690,14 @@ docked | boolean
 temperature | number
 temperatureUnit | <a href='#temperatureunit'>TemperatureUnit</a>
 humidity | number
-locked | boolean
+lockState | <a href='#lockstate'>LockState</a>
 passwords | string[]
 entryOpen | boolean
 batteryLevel | number
 online | boolean
 updateAvailable | boolean
+fromMimeType | string
+toMimeType | string
 binaryState | boolean
 intrusionDetected | boolean
 motionDetected | boolean
@@ -1742,7 +1734,7 @@ VideoCamera devices can capture video streams.
 
 ```javascript
 interface Lock  {
-  locked: boolean;
+  lockState: LockState;
 
   lock(): void;
   unlock(): void;
@@ -1765,7 +1757,7 @@ Lock controls devices that can lock or unlock entries. Often works in tandem wit
 ### Properties
 Name      | Type
 --------- | ----
-locked | boolean
+lockState | <a href='#lockstate'>LockState</a>
 
 
 
@@ -1784,6 +1776,43 @@ void unlock()
 
 
 
+
+
+
+
+## LockState
+
+
+```javascript
+enum LockState {
+  Locked = "Locked",
+  Unlocked = "Unlocked",
+  Jammed = "Jammed",
+}
+```
+
+
+<%= partial "includes/scrypted/LockState.md.erb" %>
+
+
+<aside class="notice">
+
+Used by <a href='#lock'>Lock</a>.
+
+
+</aside>
+
+
+
+
+
+
+
+Enum |
+----
+"Locked" |
+"Unlocked" |
+"Jammed" |
 
 
 
@@ -1984,13 +2013,6 @@ interface Alarm  {
 <%= partial "includes/scrypted/Alarm.md.erb" %>
 
 
-<aside class="notice">
-
-
-Event data from the Scheduler component.
-
-</aside>
-
 
 
 
@@ -2028,13 +2050,13 @@ boolean isEnabled(number day)
 
 ```javascript
 enum ClockType {
-  _AM = "_AM",
-  _PM = "_PM",
-  _24HourClock = "_24HourClock",
-  _BeforeSunrise = "_BeforeSunrise",
-  _AfterSunrise = "_AfterSunrise",
-  _BeforeSunset = "_BeforeSunset",
-  _AfterSunset = "_AfterSunset",
+  AM = "AM",
+  PM = "PM",
+  TwentyFourHourClock = "TwentyFourHourClock",
+  BeforeSunrise = "BeforeSunrise",
+  AfterSunrise = "AfterSunrise",
+  BeforeSunset = "BeforeSunset",
+  AfterSunset = "AfterSunset",
 }
 ```
 
@@ -2057,13 +2079,13 @@ Used by <a href='#alarm'>Alarm</a>.
 
 Enum |
 ----
-"_AM" |
-"_PM" |
-"_24HourClock" |
-"_BeforeSunrise" |
-"_AfterSunrise" |
-"_BeforeSunset" |
-"_AfterSunset" |
+"AM" |
+"PM" |
+"TwentyFourHourClock" |
+"BeforeSunrise" |
+"AfterSunrise" |
+"BeforeSunset" |
+"AfterSunset" |
 
 
 
@@ -2317,6 +2339,55 @@ void checkForUpdate()
 
 ### installUpdate
 void installUpdate()
+
+
+
+
+
+
+
+
+
+## BufferConverter
+
+
+> Definition
+
+```javascript
+interface BufferConverter  {
+  fromMimeType: string;
+  toMimeType: string;
+
+  convert(buffer: Buffer, fromMimeType: string): Promise<Buffer>;
+}
+```
+
+
+<%= partial "includes/scrypted/BufferConverter.md.erb" %>
+
+
+<aside class="notice">
+
+
+Add a converter to be used by Scrypted to convert buffers from one mime type to another mime type.
+
+</aside>
+
+
+
+### Properties
+Name      | Type
+--------- | ----
+fromMimeType | string
+toMimeType | string
+
+
+
+
+
+
+### convert
+Promise\<Buffer> convert(Buffer buffer, string fromMimeType)
 
 
 
