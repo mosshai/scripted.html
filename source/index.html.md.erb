@@ -378,7 +378,7 @@ Warn
 
 
 
-# Device Reference
+# Device Provider Reference
 
 
 ## DeviceManager
@@ -388,8 +388,11 @@ Warn
 
 ```javascript
 interface DeviceManager  {
+  getDeviceLogger(nativeId: string): Logger;
   getDeviceState(): DeviceState;
   getDeviceState(nativeId: string): DeviceState;
+  getDeviceStorage(): Storage;
+  getDeviceStorage(nativeId: string): Storage;
   onDeviceDiscovered(device: Device): void;
   onDeviceEvent(eventInterface: string, eventData: object): void;
   onDeviceEvent(nativeId: string, eventInterface: string, eventData: object): void;
@@ -414,6 +417,11 @@ DeviceManager is the interface used by DeviceProvider to report new devices, dev
 
 
 
+### getDeviceLogger
+<a href='#logger'>Logger</a> getDeviceLogger(string nativeId)
+
+Get the logger for a device given a native id.
+
 ### getDeviceState
 <a href='#devicestate'>DeviceState</a> getDeviceState()
 
@@ -423,6 +431,16 @@ Get the device state maintained by Scrypted. Setting properties on this state wi
 <a href='#devicestate'>DeviceState</a> getDeviceState(string nativeId)
 
 Get the device state maintained by Scrypted. Setting properties on this state will update the state in Scrypted.
+
+### getDeviceStorage
+Storage getDeviceStorage()
+
+
+
+### getDeviceStorage
+Storage getDeviceStorage(string nativeId)
+
+
 
 ### onDeviceDiscovered
 void onDeviceDiscovered(<a href='#device'>Device</a> device)
@@ -458,7 +476,7 @@ onDevicesChanged is used to sync Scrypted with devices that are attached to a hu
 ```javascript
 interface DeviceProvider  {
   discoverDevices(duration: number): void;
-  getDevice(id: string): object;
+  getDevice(nativeId: string): object;
 }
 ```
 
@@ -485,7 +503,7 @@ void discoverDevices(number duration)
 Initiate device discovery for the specified duration.
 
 ### getDevice
-object getDevice(string id)
+object getDevice(string nativeId)
 
 Get an instance of a previously discovered device that was reported to the device manager.
 
@@ -540,7 +558,6 @@ devices | <a href='#device'>Device</a>[]
 
 ```javascript
 interface Device  {
-  events: string[];
   interfaces: string[];
   model: string;
   name: string;
@@ -568,7 +585,6 @@ Device objects are created by DeviceProviders when new devices are discover and 
 ### Properties
 Name      | Type
 --------- | ----
-events | string[]
 interfaces | string[]
 model | string
 name | string
@@ -647,7 +663,7 @@ interface DeviceState  {
   temperatureUnit: TemperatureUnit;
   humidity: number;
   lockState: LockState;
-  passwords: string[];
+  passwords: StringSet;
   entryOpen: boolean;
   batteryLevel: number;
   online: boolean;
@@ -691,7 +707,7 @@ temperature | number
 temperatureUnit | <a href='#temperatureunit'>TemperatureUnit</a>
 humidity | number
 lockState | <a href='#lockstate'>LockState</a>
-passwords | string[]
+passwords | StringSet
 entryOpen | boolean
 batteryLevel | number
 online | boolean
@@ -806,7 +822,289 @@ string getMimeType()
 
 
 
-# API Reference
+# Z-Wave Reference
+
+
+## ZwaveManager
+
+
+> Definition
+
+```javascript
+interface ZwaveManager  {
+  getNodeManufacturerName(homeId: number, nodeId: number): string;
+  getNodeName(homeId: number, nodeId: number): string;
+  getNodeProductName(homeId: number, nodeId: number): string;
+  getValue(valueId: ZwaveValueId): string;
+  getValueHelp(valueId: ZwaveValueId): string;
+  getValueLabel(valueId: ZwaveValueId): string;
+  getValueListItems(valueId: ZwaveValueId): string[];
+  getValueListValues(valueId: ZwaveValueId): number[];
+  getValueUnit(valueId: ZwaveValueId): string;
+  refreshValue(valueId: ZwaveValueId): void;
+  setValue(valueId: ZwaveValueId, value: string): void;
+  setValueRaw(valueId: ZwaveValueId, value: Buffer): void;
+}
+```
+
+
+<%= partial "includes/scrypted/ZwaveManager.md.erb" %>
+
+
+
+
+
+
+
+
+### getNodeManufacturerName
+string getNodeManufacturerName(number homeId, number nodeId)
+
+
+
+### getNodeName
+string getNodeName(number homeId, number nodeId)
+
+
+
+### getNodeProductName
+string getNodeProductName(number homeId, number nodeId)
+
+
+
+### getValue
+string getValue(<a href='#zwavevalueid'>ZwaveValueId</a> valueId)
+
+
+
+### getValueHelp
+string getValueHelp(<a href='#zwavevalueid'>ZwaveValueId</a> valueId)
+
+
+
+### getValueLabel
+string getValueLabel(<a href='#zwavevalueid'>ZwaveValueId</a> valueId)
+
+
+
+### getValueListItems
+string[] getValueListItems(<a href='#zwavevalueid'>ZwaveValueId</a> valueId)
+
+
+
+### getValueListValues
+number[] getValueListValues(<a href='#zwavevalueid'>ZwaveValueId</a> valueId)
+
+
+
+### getValueUnit
+string getValueUnit(<a href='#zwavevalueid'>ZwaveValueId</a> valueId)
+
+
+
+### refreshValue
+void refreshValue(<a href='#zwavevalueid'>ZwaveValueId</a> valueId)
+
+
+
+### setValue
+void setValue(<a href='#zwavevalueid'>ZwaveValueId</a> valueId, string value)
+
+
+
+### setValueRaw
+void setValueRaw(<a href='#zwavevalueid'>ZwaveValueId</a> valueId, Buffer value)
+
+
+
+
+
+
+
+
+
+## ZwaveNotification
+
+
+> Definition
+
+```javascript
+interface ZwaveNotification  {
+  byteData: number;
+  event: number;
+  type: ZwaveNotificationType;
+  valueId: ZwaveValueId;
+}
+```
+
+
+<%= partial "includes/scrypted/ZwaveNotification.md.erb" %>
+
+
+
+
+### Properties
+Name      | Type
+--------- | ----
+byteData | number
+event | number
+type | <a href='#zwavenotificationtype'>ZwaveNotificationType</a>
+valueId | <a href='#zwavevalueid'>ZwaveValueId</a>
+
+
+
+
+
+
+
+
+## ZwaveNotificationType
+
+
+```javascript
+enum ZwaveNotificationType {
+  Type_ValueAdded = "Type_ValueAdded",
+  Type_ValueRemoved = "Type_ValueRemoved",
+  Type_ValueChanged = "Type_ValueChanged",
+  Type_ValueRefreshed = "Type_ValueRefreshed",
+  Type_Group = "Type_Group",
+  Type_NodeNew = "Type_NodeNew",
+  Type_NodeAdded = "Type_NodeAdded",
+  Type_NodeRemoved = "Type_NodeRemoved",
+  Type_NodeProtocolInfo = "Type_NodeProtocolInfo",
+  Type_NodeNaming = "Type_NodeNaming",
+  Type_NodeEvent = "Type_NodeEvent",
+  Type_PollingDisabled = "Type_PollingDisabled",
+  Type_PollingEnabled = "Type_PollingEnabled",
+  Type_SceneEvent = "Type_SceneEvent",
+  Type_CreateButton = "Type_CreateButton",
+  Type_DeleteButton = "Type_DeleteButton",
+  Type_ButtonOn = "Type_ButtonOn",
+  Type_ButtonOff = "Type_ButtonOff",
+  Type_DriverReady = "Type_DriverReady",
+  Type_DriverFailed = "Type_DriverFailed",
+  Type_DriverReset = "Type_DriverReset",
+  Type_EssentialNodeQueriesComplete = "Type_EssentialNodeQueriesComplete",
+  Type_NodeQueriesComplete = "Type_NodeQueriesComplete",
+  Type_AwakeNodesQueried = "Type_AwakeNodesQueried",
+  Type_AllNodesQueriedSomeDead = "Type_AllNodesQueriedSomeDead",
+  Type_AllNodesQueried = "Type_AllNodesQueried",
+  Type_Notification = "Type_Notification",
+  Type_DriverRemoved = "Type_DriverRemoved",
+  Type_ControllerCommand = "Type_ControllerCommand",
+  Type_NodeReset = "Type_NodeReset",
+  Type_UserAlerts = "Type_UserAlerts",
+  Type_ManufacturerSpecificDBReady = "Type_ManufacturerSpecificDBReady",
+}
+```
+
+
+<%= partial "includes/scrypted/ZwaveNotificationType.md.erb" %>
+
+
+<aside class="notice">
+
+Used by <a href='#zwavenotification'>ZwaveNotification</a>.
+
+
+</aside>
+
+
+
+
+
+
+
+Enum |
+----
+"Type_ValueAdded" |
+"Type_ValueRemoved" |
+"Type_ValueChanged" |
+"Type_ValueRefreshed" |
+"Type_Group" |
+"Type_NodeNew" |
+"Type_NodeAdded" |
+"Type_NodeRemoved" |
+"Type_NodeProtocolInfo" |
+"Type_NodeNaming" |
+"Type_NodeEvent" |
+"Type_PollingDisabled" |
+"Type_PollingEnabled" |
+"Type_SceneEvent" |
+"Type_CreateButton" |
+"Type_DeleteButton" |
+"Type_ButtonOn" |
+"Type_ButtonOff" |
+"Type_DriverReady" |
+"Type_DriverFailed" |
+"Type_DriverReset" |
+"Type_EssentialNodeQueriesComplete" |
+"Type_NodeQueriesComplete" |
+"Type_AwakeNodesQueried" |
+"Type_AllNodesQueriedSomeDead" |
+"Type_AllNodesQueried" |
+"Type_Notification" |
+"Type_DriverRemoved" |
+"Type_ControllerCommand" |
+"Type_NodeReset" |
+"Type_UserAlerts" |
+"Type_ManufacturerSpecificDBReady" |
+
+
+
+
+## ZwaveValueId
+
+
+> Definition
+
+```javascript
+interface ZwaveValueId  {
+  commandClass: number;
+  genre: number;
+  homeId: number;
+  index: number;
+  instance: number;
+  nodeId: number;
+  type: number;
+}
+```
+
+
+<%= partial "includes/scrypted/ZwaveValueId.md.erb" %>
+
+
+<aside class="notice">
+
+Used by <a href='#zwavemanager'>ZwaveManager</a>.
+
+
+</aside>
+
+
+
+### Properties
+Name      | Type
+--------- | ----
+commandClass | number
+genre | number
+homeId | number
+index | number
+instance | number
+nodeId | number
+type | number
+
+
+
+
+
+
+
+
+
+
+
+# Device Interface Reference
 
 
 ## EventListenerOptions
@@ -1107,9 +1405,6 @@ interface ColorRgb  {
   b: number;
   g: number;
   r: number;
-
-  equals(arg0: object): boolean;
-  toString(): string;
 }
 ```
 
@@ -1134,20 +1429,6 @@ Name      | Type
 b | number
 g | number
 r | number
-
-
-
-
-
-
-### equals
-boolean equals(object arg0)
-
-
-
-### toString
-string toString()
-
 
 
 
@@ -1213,9 +1494,6 @@ interface ColorHsv  {
   h: number;
   s: number;
   v: number;
-
-  equals(arg0: object): boolean;
-  toString(): string;
 }
 ```
 
@@ -1240,20 +1518,6 @@ Name      | Type
 h | number
 s | number
 v | number
-
-
-
-
-
-
-### equals
-boolean equals(object arg0)
-
-
-
-### toString
-string toString()
-
 
 
 
@@ -1817,14 +2081,14 @@ Enum |
 
 
 
-## PasswordControl
+## PasswordStore
 
 
 > Definition
 
 ```javascript
-interface PasswordControl  {
-  passwords: string[];
+interface PasswordStore implements Authenticator {
+  passwords: StringSet;
 
   addPassword(password: string): void;
   removePassword(password: string): void;
@@ -1832,7 +2096,7 @@ interface PasswordControl  {
 ```
 
 
-<%= partial "includes/scrypted/PasswordControl.md.erb" %>
+<%= partial "includes/scrypted/PasswordStore.md.erb" %>
 
 
 <aside class="notice">
@@ -1847,7 +2111,7 @@ PasswordControl represents devices that authorize users via a passcode or pin co
 ### Properties
 Name      | Type
 --------- | ----
-passwords | string[]
+passwords | StringSet
 
 
 
@@ -1861,6 +2125,45 @@ void addPassword(string password)
 
 ### removePassword
 void removePassword(string password)
+
+
+
+
+
+
+
+
+
+## Authenticator
+
+
+> Definition
+
+```javascript
+interface Authenticator  {
+  checkPassword(password: string): boolean;
+}
+```
+
+
+<%= partial "includes/scrypted/Authenticator.md.erb" %>
+
+
+<aside class="notice">
+
+
+Authenticator can be used to require a password before allowing interaction with a security device.
+
+</aside>
+
+
+
+
+
+
+
+### checkPassword
+boolean checkPassword(string password)
 
 
 
@@ -2656,14 +2959,13 @@ Get a MediaObject that will be automatically converted for playback on other dev
 ```javascript
 interface Settings  {
   getBoolean(key: string): boolean;
-  getBoolean(key: string, defaultValue: boolean): boolean;
-  getConfigurationValueList(key: string): string[];
   getDouble(key: string): number;
   getFloat(key: string): number;
   getInt(key: string): number;
   getKeyDescription(key: string): string;
-  getKeys(): string[];
+  getKeys(): StringSet;
   getString(key: string): string;
+  getValidValues(key: string): StringSet;
   putBoolean(key: string, value: boolean): void;
   putDouble(key: string, value: number): void;
   putFloat(key: string, value: number): void;
@@ -2694,16 +2996,6 @@ boolean getBoolean(string key)
 
 
 
-### getBoolean
-boolean getBoolean(string key, boolean defaultValue)
-
-
-
-### getConfigurationValueList
-string[] getConfigurationValueList(string key)
-
-
-
 ### getDouble
 number getDouble(string key)
 
@@ -2725,12 +3017,17 @@ string getKeyDescription(string key)
 
 
 ### getKeys
-string[] getKeys()
+StringSet getKeys()
 
 
 
 ### getString
 string getString(string key)
+
+
+
+### getValidValues
+StringSet getValidValues(string key)
 
 
 
@@ -2990,6 +3287,21 @@ Name      | Type
 asContent | boolean
 code | number
 headers | object
+
+
+
+
+
+
+
+
+## ZwaveNotifications
+
+
+
+<%= partial "includes/scrypted/ZwaveNotifications.md.erb" %>
+
+
 
 
 

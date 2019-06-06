@@ -13,7 +13,7 @@ const Sections = {
         'EventListenerRegister',
         'Logger',
     ],
-    'Device Reference': [
+    'Device Provider Reference': [
         'DeviceManager',
         'DeviceProvider',
         'DeviceManifest',
@@ -24,6 +24,12 @@ const Sections = {
     'Media Reference': [
         'MediaManager',
         'MediaObject',
+    ],
+    'Z-Wave Reference': [
+        'ZwaveManager',
+        'ZwaveNotification',
+        'ZwaveNotificationType',
+        'ZwaveValueId',
     ],
     // 'Sensor API Reference': [
     //     'Thermometer',
@@ -46,6 +52,7 @@ const TypeRename = {
 };
 
 const TypeMap = {
+    ZwaveNotifications: 'ZwaveNotification[]',
     Class: 'string',
     ClassSet: 'string[]',
     ScryptedInterface: 'ScryptedDevice',
@@ -129,7 +136,7 @@ const TypeMap = {
             delete remaining[type];
         }
     }
-    data['API Reference'] = remaining;
+    data['Device Interface Reference'] = remaining;
 
     function mapStrippedType(type) {
         var mapped = TypeMap[type] || TypeRename[type];
@@ -264,4 +271,11 @@ const TypeMap = {
         mapType,
     });
     fs.writeFileSync(path.join(__dirname, '../../scripts/scrypted-deploy/index.d.ts'), output);
+
+    var template = fs.readFileSync(path.join(__dirname, './index.generated.js.j2')).toString();
+    var output = nunjucks.renderString(template, {
+        state: json['DeviceState'],
+        classes: json,
+    });
+    fs.writeFileSync(path.join(__dirname, '../../scripts/scrypted-deploy/index.generated.js'), output);
 })()
