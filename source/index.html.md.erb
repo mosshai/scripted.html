@@ -663,7 +663,7 @@ interface DeviceState  {
   temperatureUnit: TemperatureUnit;
   humidity: number;
   lockState: LockState;
-  passwords: StringSet;
+  passwords: string[];
   entryOpen: boolean;
   batteryLevel: number;
   online: boolean;
@@ -707,7 +707,7 @@ temperature | number
 temperatureUnit | <a href='#temperatureunit'>TemperatureUnit</a>
 humidity | number
 lockState | <a href='#lockstate'>LockState</a>
-passwords | StringSet
+passwords | string[]
 entryOpen | boolean
 batteryLevel | number
 online | boolean
@@ -785,7 +785,7 @@ Create a MediaObject. The mime type needs to be provided up front, but the data 
 
 ```javascript
 interface MediaObject  {
-  getMimeType(): string;
+  mimeType: string;
 }
 ```
 
@@ -804,13 +804,10 @@ MediaObject is an intermediate object within Scrypted to represent all media obj
 
 
 
-
-
-
-
-### getMimeType
-string getMimeType()
-
+### Properties
+Name      | Type
+--------- | ----
+mimeType | string
 
 
 
@@ -2088,7 +2085,7 @@ Enum |
 
 ```javascript
 interface PasswordStore implements Authenticator {
-  passwords: StringSet;
+  passwords: string[];
 
   addPassword(password: string): void;
   removePassword(password: string): void;
@@ -2111,7 +2108,7 @@ PasswordControl represents devices that authorize users via a passcode or pin co
 ### Properties
 Name      | Type
 --------- | ----
-passwords | StringSet
+passwords | string[]
 
 
 
@@ -2568,7 +2565,7 @@ online | boolean
 ```javascript
 interface Program  {
   run(args: object[]): object;
-  runAsync(args: object[]): object;
+  runAsync(args: object[]): Future;
 }
 ```
 
@@ -2588,7 +2585,7 @@ object run(object[] args)
 Synchronously run a script given the provided arguments.
 
 ### runAsync
-object runAsync(object[] args)
+Future runAsync(object[] args)
 
 Asynchronously run a script given the provided arguments.
 
@@ -2963,9 +2960,9 @@ interface Settings  {
   getFloat(key: string): number;
   getInt(key: string): number;
   getKeyDescription(key: string): string;
-  getKeys(): StringSet;
+  getKeys(): string[];
   getString(key: string): string;
-  getValidValues(key: string): StringSet;
+  getValidValues(key: string): string[];
   putBoolean(key: string, value: boolean): void;
   putDouble(key: string, value: number): void;
   putFloat(key: string, value: number): void;
@@ -3017,7 +3014,7 @@ string getKeyDescription(string key)
 
 
 ### getKeys
-StringSet getKeys()
+string[] getKeys()
 
 
 
@@ -3027,7 +3024,7 @@ string getString(string key)
 
 
 ### getValidValues
-StringSet getValidValues(string key)
+string[] getValidValues(string key)
 
 
 

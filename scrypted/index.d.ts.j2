@@ -43,7 +43,7 @@ export class ScryptedDeviceBase implements DeviceState {
   _nativeId: string;
   log: Logger;
   storage: Storage;
-  constructor(nativeId: string);
+  constructor(nativeId?: string);
 {%- for field in classes['DeviceState'].fields %}
   {% if field.description -%}
   /**

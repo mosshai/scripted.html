@@ -1414,7 +1414,7 @@ Refresh indicates that this device has properties that are not automatically upd
   <span class="nl">temperatureUnit</span><span class="p">:</span> <span class="nx">TemperatureUnit</span><span class="p">;</span>
   <span class="nl">humidity</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
   <span class="nl">lockState</span><span class="p">:</span> <span class="nx">LockState</span><span class="p">;</span>
-  <span class="nl">passwords</span><span class="p">:</span> <span class="nx">StringSet</span><span class="p">;</span>
+  <span class="nl">passwords</span><span class="p">:</span> <span class="nx">string</span><span class="p">[];</span>
   <span class="nl">entryOpen</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
   <span class="nl">batteryLevel</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
   <span class="nl">online</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
@@ -1492,7 +1492,7 @@ DeviceState is returned by DeviceManager.getDeviceState, and allows getting/sett
 </tr>
 <tr>
 <td>passwords</td>
-<td>StringSet</td>
+<td>string[]</td>
 </tr>
 <tr>
 <td>entryOpen</td>
@@ -1594,7 +1594,7 @@ The speaker is not aware of the source media type, and only needs it to be conve
 <p>Definition</p>
 </blockquote>
 <pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">MediaObject</span>  <span class="p">{</span>
-  <span class="nx">getMimeType</span><span class="p">():</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nl">mimeType</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
 <aside class="notice">
@@ -1605,8 +1605,18 @@ Used by <a href='#notifier'>Notifier</a>.
 MediaObject is an intermediate object within Scrypted to represent all media objects. Plugins should use the MediaConverter to convert the Scrypted MediaObject into a desired type, whether it is a externally accessible URL, a Buffer, etc.
 
 </aside>
-<h3 id='getmimetype'>getMimeType</h3>
-<p>string getMimeType()</p>
+<h3 id='properties-5'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>mimeType</td>
+<td>string</td>
+</tr>
+</tbody></table>
 <h1 id='z-wave-reference'>Z-Wave Reference</h1><h2 id='zwavemanager'>ZwaveManager</h2>
 <blockquote>
 <p>Definition</p>
@@ -1659,7 +1669,7 @@ MediaObject is an intermediate object within Scrypted to represent all media obj
   <span class="nl">type</span><span class="p">:</span> <span class="nx">ZwaveNotificationType</span><span class="p">;</span>
   <span class="nl">valueId</span><span class="p">:</span> <span class="nx">ZwaveValueId</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-5'>Properties</h3>
+</code></pre><h3 id='properties-6'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -1847,7 +1857,7 @@ Used by <a href='#zwavemanager'>ZwaveManager</a>.
 
 
 </aside>
-<h3 id='properties-6'>Properties</h3>
+<h3 id='properties-7'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -1899,7 +1909,7 @@ Used by <a href='#scrypteddevice'>ScryptedDevice</a>.
 
 
 </aside>
-<h3 id='properties-7'>Properties</h3>
+<h3 id='properties-8'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -1936,7 +1946,7 @@ Used by <a href='#eventlistener'>EventListener</a>.
 
 
 </aside>
-<h3 id='properties-8'>Properties</h3>
+<h3 id='properties-9'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -1990,7 +2000,7 @@ Used by <a href='#eventlistener'>EventListener</a>.
 OnOff is a basic binary switch.
 
 </aside>
-<h3 id='properties-9'>Properties</h3>
+<h3 id='properties-10'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2030,7 +2040,7 @@ OnOff is a basic binary switch.
 Brightness is a lighting device that can be dimmed/lit between 0 to 100.
 
 </aside>
-<h3 id='properties-10'>Properties</h3>
+<h3 id='properties-11'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2070,7 +2080,7 @@ Brightness is a lighting device that can be dimmed/lit between 0 to 100.
 ColorSettingTemperature sets the color temperature of a light in Kelvin.
 
 </aside>
-<h3 id='properties-11'>Properties</h3>
+<h3 id='properties-12'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2116,7 +2126,7 @@ ColorSettingTemperature sets the color temperature of a light in Kelvin.
 ColorSettingRgb sets the color of a colored light using the RGB representation.
 
 </aside>
-<h3 id='properties-12'>Properties</h3>
+<h3 id='properties-13'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2148,7 +2158,7 @@ Used by <a href='#colorsettingrgb'>ColorSettingRgb</a>.
 Represents an RGB color with component values between 0 and 255.
 
 </aside>
-<h3 id='properties-13'>Properties</h3>
+<h3 id='properties-14'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2196,7 +2206,7 @@ Represents an RGB color with component values between 0 and 255.
 ColorSettingHsv sets the color of a colored light using the HSV representation.
 
 </aside>
-<h3 id='properties-14'>Properties</h3>
+<h3 id='properties-15'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2228,7 +2238,7 @@ Used by <a href='#colorsettinghsv'>ColorSettingHsv</a>.
 Represents an HSV color value component.
 
 </aside>
-<h3 id='properties-15'>Properties</h3>
+<h3 id='properties-16'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2315,7 +2325,7 @@ Passing null uses the native type of the MediaObject. If that is not supported b
 StartStop represents a device that can be started, stopped, and possibly paused and resumed. Typically vacuum cleaners or washers.
 
 </aside>
-<h3 id='properties-16'>Properties</h3>
+<h3 id='properties-17'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2365,7 +2375,7 @@ StartStop represents a device that can be started, stopped, and possibly paused 
 Dock instructs devices that have a base station or charger, to return to their home.
 
 </aside>
-<h3 id='properties-17'>Properties</h3>
+<h3 id='properties-18'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2424,7 +2434,7 @@ TemperatureSetting represents a thermostat device.
   <span class="nl">temperature</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
   <span class="nl">temperatureUnit</span><span class="p">:</span> <span class="nx">TemperatureUnit</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-18'>Properties</h3>
+</code></pre><h3 id='properties-19'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2471,7 +2481,7 @@ Used by <a href='#thermometer'>Thermometer</a>.
 <pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">HumiditySensor</span>  <span class="p">{</span>
   <span class="nl">humidity</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-19'>Properties</h3>
+</code></pre><h3 id='properties-20'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2588,7 +2598,7 @@ VideoCamera devices can capture video streams.
 Lock controls devices that can lock or unlock entries. Often works in tandem with PasswordControl.
 
 </aside>
-<h3 id='properties-20'>Properties</h3>
+<h3 id='properties-21'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2637,7 +2647,7 @@ Used by <a href='#lock'>Lock</a>.
 <p>Definition</p>
 </blockquote>
 <pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">PasswordStore</span> <span class="kr">implements</span> <span class="nx">Authenticator</span> <span class="p">{</span>
-  <span class="nl">passwords</span><span class="p">:</span> <span class="nx">StringSet</span><span class="p">;</span>
+  <span class="nl">passwords</span><span class="p">:</span> <span class="nx">string</span><span class="p">[];</span>
 
   <span class="nx">addPassword</span><span class="p">(</span><span class="nx">password</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
   <span class="nx">removePassword</span><span class="p">(</span><span class="nx">password</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
@@ -2649,7 +2659,7 @@ Used by <a href='#lock'>Lock</a>.
 PasswordControl represents devices that authorize users via a passcode or pin code.
 
 </aside>
-<h3 id='properties-21'>Properties</h3>
+<h3 id='properties-22'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2658,7 +2668,7 @@ PasswordControl represents devices that authorize users via a passcode or pin co
 </thead><tbody>
 <tr>
 <td>passwords</td>
-<td>StringSet</td>
+<td>string[]</td>
 </tr>
 </tbody></table>
 <h3 id='addpassword'>addPassword</h3>
@@ -2739,7 +2749,7 @@ Entry represents devices that can open and close barriers, such as garage doors.
 <pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">EntrySensor</span>  <span class="p">{</span>
   <span class="nl">entryOpen</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-22'>Properties</h3>
+</code></pre><h3 id='properties-23'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2827,7 +2837,7 @@ Used by <a href='#alarm'>Alarm</a>.
 Battery retrieves the battery level of battery powered devices.
 
 </aside>
-<h3 id='properties-23'>Properties</h3>
+<h3 id='properties-24'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2879,7 +2889,7 @@ Used by <a href='#mediaplayer'>MediaPlayer</a>.
 
 
 </aside>
-<h3 id='properties-24'>Properties</h3>
+<h3 id='properties-25'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2909,7 +2919,7 @@ Used by <a href='#mediaplayer'>MediaPlayer</a>.
 Online denotes whether the device is online or unresponsive. It may be unresponsive due to being unplugged, network error, etc.
 
 </aside>
-<h3 id='properties-25'>Properties</h3>
+<h3 id='properties-26'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2927,14 +2937,14 @@ Online denotes whether the device is online or unresponsive. It may be unrespons
 </blockquote>
 <pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Program</span>  <span class="p">{</span>
   <span class="nx">run</span><span class="p">(</span><span class="nx">args</span><span class="p">:</span> <span class="nx">object</span><span class="p">[]):</span> <span class="nx">object</span><span class="p">;</span>
-  <span class="nx">runAsync</span><span class="p">(</span><span class="nx">args</span><span class="p">:</span> <span class="nx">object</span><span class="p">[]):</span> <span class="nx">object</span><span class="p">;</span>
+  <span class="nx">runAsync</span><span class="p">(</span><span class="nx">args</span><span class="p">:</span> <span class="nx">object</span><span class="p">[]):</span> <span class="nx">Future</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><h3 id='run'>run</h3>
 <p>object run(object[] args)</p>
 
 <p>Synchronously run a script given the provided arguments.</p>
 <h3 id='runasync'>runAsync</h3>
-<p>object runAsync(object[] args)</p>
+<p>Future runAsync(object[] args)</p>
 
 <p>Asynchronously run a script given the provided arguments.</p>
 <h2 id='softwareupdate'>SoftwareUpdate</h2>
@@ -2954,7 +2964,7 @@ Online denotes whether the device is online or unresponsive. It may be unrespons
 SoftwareUpdate provides a way to check for updates and install them. This may be a Scrypted Plugin or device firmware.
 
 </aside>
-<h3 id='properties-26'>Properties</h3>
+<h3 id='properties-27'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2987,7 +2997,7 @@ SoftwareUpdate provides a way to check for updates and install them. This may be
 Add a converter to be used by Scrypted to convert buffers from one mime type to another mime type.
 
 </aside>
-<h3 id='properties-27'>Properties</h3>
+<h3 id='properties-28'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3012,7 +3022,7 @@ Add a converter to be used by Scrypted to convert buffers from one mime type to 
 <pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">BinarySensor</span>  <span class="p">{</span>
   <span class="nl">binaryState</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-28'>Properties</h3>
+</code></pre><h3 id='properties-29'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3031,7 +3041,7 @@ Add a converter to be used by Scrypted to convert buffers from one mime type to 
 <pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">IntrusionSensor</span>  <span class="p">{</span>
   <span class="nl">intrusionDetected</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-29'>Properties</h3>
+</code></pre><h3 id='properties-30'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3050,7 +3060,7 @@ Add a converter to be used by Scrypted to convert buffers from one mime type to 
 <pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">MotionSensor</span>  <span class="p">{</span>
   <span class="nl">motionDetected</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-30'>Properties</h3>
+</code></pre><h3 id='properties-31'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3069,7 +3079,7 @@ Add a converter to be used by Scrypted to convert buffers from one mime type to 
 <pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">FloodSensor</span>  <span class="p">{</span>
   <span class="nl">flooded</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-31'>Properties</h3>
+</code></pre><h3 id='properties-32'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3088,7 +3098,7 @@ Add a converter to be used by Scrypted to convert buffers from one mime type to 
 <pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">UltravioletSensor</span>  <span class="p">{</span>
   <span class="nl">ultraviolet</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-32'>Properties</h3>
+</code></pre><h3 id='properties-33'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3107,7 +3117,7 @@ Add a converter to be used by Scrypted to convert buffers from one mime type to 
 <pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">LuminanceSensor</span>  <span class="p">{</span>
   <span class="nl">luminance</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-33'>Properties</h3>
+</code></pre><h3 id='properties-34'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3140,9 +3150,9 @@ Add a converter to be used by Scrypted to convert buffers from one mime type to 
   <span class="nx">getFloat</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">number</span><span class="p">;</span>
   <span class="nx">getInt</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">number</span><span class="p">;</span>
   <span class="nx">getKeyDescription</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">string</span><span class="p">;</span>
-  <span class="nx">getKeys</span><span class="p">():</span> <span class="nx">StringSet</span><span class="p">;</span>
+  <span class="nx">getKeys</span><span class="p">():</span> <span class="nx">string</span><span class="p">[];</span>
   <span class="nx">getString</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">string</span><span class="p">;</span>
-  <span class="nx">getValidValues</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">StringSet</span><span class="p">;</span>
+  <span class="nx">getValidValues</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">string</span><span class="p">[];</span>
   <span class="nx">putBoolean</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">value</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
   <span class="nx">putDouble</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">value</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
   <span class="nx">putFloat</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">value</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
@@ -3167,11 +3177,11 @@ Settings viewing and editing of device configurations that describe or modify be
 <h3 id='getkeydescription'>getKeyDescription</h3>
 <p>string getKeyDescription(string key)</p>
 <h3 id='getkeys'>getKeys</h3>
-<p>StringSet getKeys()</p>
+<p>string[] getKeys()</p>
 <h3 id='getstring'>getString</h3>
 <p>string getString(string key)</p>
 <h3 id='getvalidvalues'>getValidValues</h3>
-<p>StringSet getValidValues(string key)</p>
+<p>string[] getValidValues(string key)</p>
 <h3 id='putboolean'>putBoolean</h3>
 <p>void putBoolean(string key, boolean value)</p>
 <h3 id='putdouble'>putDouble</h3>
@@ -3268,7 +3278,7 @@ Used by <a href='#httprequesthandler'>HttpRequestHandler</a>.
 
 
 </aside>
-<h3 id='properties-34'>Properties</h3>
+<h3 id='properties-35'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3339,7 +3349,7 @@ Used by <a href='#httpresponse'>HttpResponse</a>.
 
 
 </aside>
-<h3 id='properties-35'>Properties</h3>
+<h3 id='properties-36'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>

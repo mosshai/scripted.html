@@ -55,6 +55,7 @@ const TypeMap = {
     ZwaveNotifications: 'ZwaveNotification[]',
     Class: 'string',
     ClassSet: 'string[]',
+    StringSet: 'string[]',
     ScryptedInterface: 'ScryptedDevice',
 
     // todo: clean this up with strong types
