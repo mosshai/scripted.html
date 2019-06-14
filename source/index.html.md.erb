@@ -2955,19 +2955,9 @@ Get a MediaObject that will be automatically converted for playback on other dev
 
 ```javascript
 interface Settings  {
-  getBoolean(key: string): boolean;
-  getDouble(key: string): number;
-  getFloat(key: string): number;
-  getInt(key: string): number;
-  getKeyDescription(key: string): string;
-  getKeys(): string[];
-  getString(key: string): string;
-  getValidValues(key: string): string[];
-  putBoolean(key: string, value: boolean): void;
-  putDouble(key: string, value: number): void;
-  putFloat(key: string, value: number): void;
-  putInt(key: string, value: number): void;
-  putString(key: string, value: string): void;
+  getSetting(key: string): boolean|number|string;
+  getSettings(): Setting[];
+  putSetting(key: string, value: boolean|number|string): void;
 }
 ```
 
@@ -2988,69 +2978,69 @@ Settings viewing and editing of device configurations that describe or modify be
 
 
 
-### getBoolean
-boolean getBoolean(string key)
+### getSetting
+boolean|number|string getSetting(string key)
 
 
 
-### getDouble
-number getDouble(string key)
+### getSettings
+<a href='#setting'>Setting</a>[] getSettings()
 
 
 
-### getFloat
-number getFloat(string key)
+### putSetting
+void putSetting(string key, boolean|number|string value)
 
 
 
-### getInt
-number getInt(string key)
 
 
 
-### getKeyDescription
-string getKeyDescription(string key)
 
 
 
-### getKeys
-string[] getKeys()
+## Setting
+
+
+> Definition
+
+```javascript
+interface Setting  {
+  choices: string[];
+  description: string;
+  key: string;
+  placeholder: string;
+  reload: boolean;
+  title: string;
+  type: string;
+  value: boolean|number|string;
+}
+```
+
+
+<%= partial "includes/scrypted/Setting.md.erb" %>
+
+
+<aside class="notice">
+
+Used by <a href='#settings'>Settings</a>.
+
+
+</aside>
 
 
 
-### getString
-string getString(string key)
-
-
-
-### getValidValues
-string[] getValidValues(string key)
-
-
-
-### putBoolean
-void putBoolean(string key, boolean value)
-
-
-
-### putDouble
-void putDouble(string key, number value)
-
-
-
-### putFloat
-void putFloat(string key, number value)
-
-
-
-### putInt
-void putInt(string key, number value)
-
-
-
-### putString
-void putString(string key, string value)
-
+### Properties
+Name      | Type
+--------- | ----
+choices | string[]
+description | string
+key | string
+placeholder | string
+reload | boolean
+title | string
+type | string
+value | boolean|number|string
 
 
 

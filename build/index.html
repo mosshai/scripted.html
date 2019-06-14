@@ -481,6 +481,9 @@
                     <a href="#settings" class="toc-h2 toc-link" data-title="Settings">Settings</a>
                   </li>
                   <li>
+                    <a href="#setting" class="toc-h2 toc-link" data-title="Setting">Setting</a>
+                  </li>
+                  <li>
                     <a href="#oauthclient" class="toc-h2 toc-link" data-title="OauthClient">OauthClient</a>
                   </li>
                   <li>
@@ -3145,19 +3148,9 @@ Add a converter to be used by Scrypted to convert buffers from one mime type to 
 <p>Definition</p>
 </blockquote>
 <pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Settings</span>  <span class="p">{</span>
-  <span class="nx">getBoolean</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="kr">boolean</span><span class="p">;</span>
-  <span class="nx">getDouble</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">number</span><span class="p">;</span>
-  <span class="nx">getFloat</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">number</span><span class="p">;</span>
-  <span class="nx">getInt</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">number</span><span class="p">;</span>
-  <span class="nx">getKeyDescription</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">string</span><span class="p">;</span>
-  <span class="nx">getKeys</span><span class="p">():</span> <span class="nx">string</span><span class="p">[];</span>
-  <span class="nx">getString</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">string</span><span class="p">;</span>
-  <span class="nx">getValidValues</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">string</span><span class="p">[];</span>
-  <span class="nx">putBoolean</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">value</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">putDouble</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">value</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">putFloat</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">value</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">putInt</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">value</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">putString</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">value</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">getSetting</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="kr">boolean</span><span class="o">|</span><span class="nx">number</span><span class="o">|</span><span class="nx">string</span><span class="p">;</span>
+  <span class="nx">getSettings</span><span class="p">():</span> <span class="nx">Setting</span><span class="p">[];</span>
+  <span class="nx">putSetting</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">value</span><span class="p">:</span> <span class="kr">boolean</span><span class="o">|</span><span class="nx">number</span><span class="o">|</span><span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
 <aside class="notice">
@@ -3166,32 +3159,73 @@ Add a converter to be used by Scrypted to convert buffers from one mime type to 
 Settings viewing and editing of device configurations that describe or modify behavior.
 
 </aside>
-<h3 id='getboolean'>getBoolean</h3>
-<p>boolean getBoolean(string key)</p>
-<h3 id='getdouble'>getDouble</h3>
-<p>number getDouble(string key)</p>
-<h3 id='getfloat'>getFloat</h3>
-<p>number getFloat(string key)</p>
-<h3 id='getint'>getInt</h3>
-<p>number getInt(string key)</p>
-<h3 id='getkeydescription'>getKeyDescription</h3>
-<p>string getKeyDescription(string key)</p>
-<h3 id='getkeys'>getKeys</h3>
-<p>string[] getKeys()</p>
-<h3 id='getstring'>getString</h3>
-<p>string getString(string key)</p>
-<h3 id='getvalidvalues'>getValidValues</h3>
-<p>string[] getValidValues(string key)</p>
-<h3 id='putboolean'>putBoolean</h3>
-<p>void putBoolean(string key, boolean value)</p>
-<h3 id='putdouble'>putDouble</h3>
-<p>void putDouble(string key, number value)</p>
-<h3 id='putfloat'>putFloat</h3>
-<p>void putFloat(string key, number value)</p>
-<h3 id='putint'>putInt</h3>
-<p>void putInt(string key, number value)</p>
-<h3 id='putstring'>putString</h3>
-<p>void putString(string key, string value)</p>
+<h3 id='getsetting'>getSetting</h3>
+<p>boolean|number|string getSetting(string key)</p>
+<h3 id='getsettings'>getSettings</h3>
+<p><a href='#setting'>Setting</a>[] getSettings()</p>
+<h3 id='putsetting'>putSetting</h3>
+<p>void putSetting(string key, boolean|number|string value)</p>
+<h2 id='setting'>Setting</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Setting</span>  <span class="p">{</span>
+  <span class="nl">choices</span><span class="p">:</span> <span class="nx">string</span><span class="p">[];</span>
+  <span class="nl">description</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nl">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nl">placeholder</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nl">reload</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
+  <span class="nl">title</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nl">type</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nl">value</span><span class="p">:</span> <span class="kr">boolean</span><span class="o">|</span><span class="nx">number</span><span class="o">|</span><span class="nx">string</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+<aside class="notice">
+
+Used by <a href='#settings'>Settings</a>.
+
+
+</aside>
+<h3 id='properties-35'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>choices</td>
+<td>string[]</td>
+</tr>
+<tr>
+<td>description</td>
+<td>string</td>
+</tr>
+<tr>
+<td>key</td>
+<td>string</td>
+</tr>
+<tr>
+<td>placeholder</td>
+<td>string</td>
+</tr>
+<tr>
+<td>reload</td>
+<td>boolean</td>
+</tr>
+<tr>
+<td>title</td>
+<td>string</td>
+</tr>
+<tr>
+<td>type</td>
+<td>string</td>
+</tr>
+<tr>
+<td>value</td>
+<td>boolean</td>
+</tr>
+</tbody></table>
 <h2 id='oauthclient'>OauthClient</h2>
 <blockquote>
 <p>Definition</p>
@@ -3278,7 +3312,7 @@ Used by <a href='#httprequesthandler'>HttpRequestHandler</a>.
 
 
 </aside>
-<h3 id='properties-35'>Properties</h3>
+<h3 id='properties-36'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3349,7 +3383,7 @@ Used by <a href='#httpresponse'>HttpResponse</a>.
 
 
 </aside>
-<h3 id='properties-36'>Properties</h3>
+<h3 id='properties-37'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
