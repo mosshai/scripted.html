@@ -739,7 +739,6 @@ interface, for example, has no corresponding event.</p>
 <span class="kr">export</span> <span class="kr">interface</span> <span class="nx">ScryptedStatic</span> <span class="p">{</span>
     <span class="nl">scriptSettings</span><span class="p">:</span> <span class="nx">Settings</span><span class="p">,</span>
     <span class="nx">log</span><span class="p">:</span> <span class="nx">Logger</span><span class="p">,</span>
-    <span class="nx">ScryptedDeviceBase</span><span class="p">,</span>
     <span class="nx">systemManager</span><span class="p">:</span> <span class="nx">SystemManager</span><span class="p">,</span>
     <span class="nx">deviceManager</span><span class="p">:</span> <span class="nx">DeviceManager</span><span class="p">,</span>
     <span class="nx">mediaManager</span><span class="p">:</span> <span class="nx">MediaManager</span><span class="p">,</span>
@@ -1416,6 +1415,10 @@ Refresh indicates that this device has properties that are not automatically upd
   <span class="nl">temperature</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
   <span class="nl">temperatureUnit</span><span class="p">:</span> <span class="nx">TemperatureUnit</span><span class="p">;</span>
   <span class="nl">humidity</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
+  <span class="nl">thermostatMode</span><span class="p">:</span> <span class="nx">ThermostatMode</span><span class="p">;</span>
+  <span class="nl">thermostatSetpoint</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
+  <span class="nl">thermostatSetpointHigh</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
+  <span class="nl">thermostatSetpointLow</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
   <span class="nl">lockState</span><span class="p">:</span> <span class="nx">LockState</span><span class="p">;</span>
   <span class="nl">passwords</span><span class="p">:</span> <span class="nx">string</span><span class="p">[];</span>
   <span class="nl">entryOpen</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
@@ -1487,6 +1490,22 @@ DeviceState is returned by DeviceManager.getDeviceState, and allows getting/sett
 </tr>
 <tr>
 <td>humidity</td>
+<td>number</td>
+</tr>
+<tr>
+<td>thermostatMode</td>
+<td><a href='#thermostatmode'>ThermostatMode</a></td>
+</tr>
+<tr>
+<td>thermostatSetpoint</td>
+<td>number</td>
+</tr>
+<tr>
+<td>thermostatSetpointHigh</td>
+<td>number</td>
+</tr>
+<tr>
+<td>thermostatSetpointLow</td>
 <td>number</td>
 </tr>
 <tr>
@@ -1635,6 +1654,7 @@ MediaObject is an intermediate object within Scrypted to represent all media obj
   <span class="nx">getValueListValues</span><span class="p">(</span><span class="nx">valueId</span><span class="p">:</span> <span class="nx">ZwaveValueId</span><span class="p">):</span> <span class="nx">number</span><span class="p">[];</span>
   <span class="nx">getValueUnit</span><span class="p">(</span><span class="nx">valueId</span><span class="p">:</span> <span class="nx">ZwaveValueId</span><span class="p">):</span> <span class="nx">string</span><span class="p">;</span>
   <span class="nx">refreshValue</span><span class="p">(</span><span class="nx">valueId</span><span class="p">:</span> <span class="nx">ZwaveValueId</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">setNodeName</span><span class="p">(</span><span class="nx">homeId</span><span class="p">:</span> <span class="nx">number</span><span class="p">,</span> <span class="nx">nodeId</span><span class="p">:</span> <span class="nx">number</span><span class="p">,</span> <span class="nx">name</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
   <span class="nx">setValue</span><span class="p">(</span><span class="nx">valueId</span><span class="p">:</span> <span class="nx">ZwaveValueId</span><span class="p">,</span> <span class="nx">value</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
   <span class="nx">setValueRaw</span><span class="p">(</span><span class="nx">valueId</span><span class="p">:</span> <span class="nx">ZwaveValueId</span><span class="p">,</span> <span class="nx">value</span><span class="p">:</span> <span class="nx">Buffer</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
 <span class="p">}</span>
@@ -1658,6 +1678,8 @@ MediaObject is an intermediate object within Scrypted to represent all media obj
 <p>string getValueUnit(<a href='#zwavevalueid'>ZwaveValueId</a> valueId)</p>
 <h3 id='refreshvalue'>refreshValue</h3>
 <p>void refreshValue(<a href='#zwavevalueid'>ZwaveValueId</a> valueId)</p>
+<h3 id='setnodename'>setNodeName</h3>
+<p>void setNodeName(number homeId, number nodeId, string name)</p>
 <h3 id='setvalue'>setValue</h3>
 <p>void setValue(<a href='#zwavevalueid'>ZwaveValueId</a> valueId, string value)</p>
 <h3 id='setvalueraw'>setValueRaw</h3>
@@ -2397,14 +2419,16 @@ Dock instructs devices that have a base station or charger, to return to their h
 <p>Definition</p>
 </blockquote>
 <pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">TemperatureSetting</span> <span class="kr">implements</span> <span class="nx">Thermometer</span><span class="p">,</span> <span class="nx">HumiditySensor</span> <span class="p">{</span>
-  <span class="nx">getAvailableThermostatModes</span><span class="p">():</span> <span class="nx">ThermostatMode</span><span class="p">[];</span>
-  <span class="nx">getTemperatureSetpoint</span><span class="p">():</span> <span class="nx">number</span><span class="p">;</span>
-  <span class="nx">getTemperatureSetpointHigh</span><span class="p">():</span> <span class="nx">number</span><span class="p">;</span>
-  <span class="nx">getTemperatureSetpointLow</span><span class="p">():</span> <span class="nx">number</span><span class="p">;</span>
-  <span class="nx">getThermostatMode</span><span class="p">():</span> <span class="nx">ThermostatMode</span><span class="p">;</span>
-  <span class="nx">setTemperatureSetRange</span><span class="p">(</span><span class="nx">low</span><span class="p">:</span> <span class="nx">number</span><span class="p">,</span> <span class="nx">high</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">setTemperatureSetpoint</span><span class="p">(</span><span class="nx">degrees</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nl">thermostatMode</span><span class="p">:</span> <span class="nx">ThermostatMode</span><span class="p">;</span>
+  <span class="nl">thermostatSetpoint</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
+  <span class="nl">thermostatSetpointHigh</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
+  <span class="nl">thermostatSetpointLow</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
+
+  <span class="nx">getThermostatAvailableModes</span><span class="p">():</span> <span class="nx">ThermostatMode</span><span class="p">[];</span>
   <span class="nx">setThermostatMode</span><span class="p">(</span><span class="nx">mode</span><span class="p">:</span> <span class="nx">ThermostatMode</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">setThermostatSetpoint</span><span class="p">(</span><span class="nx">degrees</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">setThermostatSetpointHigh</span><span class="p">(</span><span class="nx">high</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">setThermostatSetpointLow</span><span class="p">(</span><span class="nx">low</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
 <aside class="notice">
@@ -2413,22 +2437,40 @@ Dock instructs devices that have a base station or charger, to return to their h
 TemperatureSetting represents a thermostat device.
 
 </aside>
-<h3 id='getavailablethermostatmodes'>getAvailableThermostatModes</h3>
-<p><a href='#thermostatmode'>ThermostatMode</a>[] getAvailableThermostatModes()</p>
-<h3 id='gettemperaturesetpoint'>getTemperatureSetpoint</h3>
-<p>number getTemperatureSetpoint()</p>
-<h3 id='gettemperaturesetpointhigh'>getTemperatureSetpointHigh</h3>
-<p>number getTemperatureSetpointHigh()</p>
-<h3 id='gettemperaturesetpointlow'>getTemperatureSetpointLow</h3>
-<p>number getTemperatureSetpointLow()</p>
-<h3 id='getthermostatmode'>getThermostatMode</h3>
-<p><a href='#thermostatmode'>ThermostatMode</a> getThermostatMode()</p>
-<h3 id='settemperaturesetrange'>setTemperatureSetRange</h3>
-<p>void setTemperatureSetRange(number low, number high)</p>
-<h3 id='settemperaturesetpoint'>setTemperatureSetpoint</h3>
-<p>void setTemperatureSetpoint(number degrees)</p>
+<h3 id='properties-19'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>thermostatMode</td>
+<td><a href='#thermostatmode'>ThermostatMode</a></td>
+</tr>
+<tr>
+<td>thermostatSetpoint</td>
+<td>number</td>
+</tr>
+<tr>
+<td>thermostatSetpointHigh</td>
+<td>number</td>
+</tr>
+<tr>
+<td>thermostatSetpointLow</td>
+<td>number</td>
+</tr>
+</tbody></table>
+<h3 id='getthermostatavailablemodes'>getThermostatAvailableModes</h3>
+<p><a href='#thermostatmode'>ThermostatMode</a>[] getThermostatAvailableModes()</p>
 <h3 id='setthermostatmode'>setThermostatMode</h3>
 <p>void setThermostatMode(<a href='#thermostatmode'>ThermostatMode</a> mode)</p>
+<h3 id='setthermostatsetpoint'>setThermostatSetpoint</h3>
+<p>void setThermostatSetpoint(number degrees)</p>
+<h3 id='setthermostatsetpointhigh'>setThermostatSetpointHigh</h3>
+<p>void setThermostatSetpointHigh(number high)</p>
+<h3 id='setthermostatsetpointlow'>setThermostatSetpointLow</h3>
+<p>void setThermostatSetpointLow(number low)</p>
 <h2 id='thermometer'>Thermometer</h2>
 <blockquote>
 <p>Definition</p>
@@ -2437,7 +2479,7 @@ TemperatureSetting represents a thermostat device.
   <span class="nl">temperature</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
   <span class="nl">temperatureUnit</span><span class="p">:</span> <span class="nx">TemperatureUnit</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-19'>Properties</h3>
+</code></pre><h3 id='properties-20'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2484,7 +2526,7 @@ Used by <a href='#thermometer'>Thermometer</a>.
 <pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">HumiditySensor</span>  <span class="p">{</span>
   <span class="nl">humidity</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-20'>Properties</h3>
+</code></pre><h3 id='properties-21'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2601,7 +2643,7 @@ VideoCamera devices can capture video streams.
 Lock controls devices that can lock or unlock entries. Often works in tandem with PasswordControl.
 
 </aside>
-<h3 id='properties-21'>Properties</h3>
+<h3 id='properties-22'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2662,7 +2704,7 @@ Used by <a href='#lock'>Lock</a>.
 PasswordControl represents devices that authorize users via a passcode or pin code.
 
 </aside>
-<h3 id='properties-22'>Properties</h3>
+<h3 id='properties-23'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2752,7 +2794,7 @@ Entry represents devices that can open and close barriers, such as garage doors.
 <pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">EntrySensor</span>  <span class="p">{</span>
   <span class="nl">entryOpen</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-23'>Properties</h3>
+</code></pre><h3 id='properties-24'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2840,7 +2882,7 @@ Used by <a href='#alarm'>Alarm</a>.
 Battery retrieves the battery level of battery powered devices.
 
 </aside>
-<h3 id='properties-24'>Properties</h3>
+<h3 id='properties-25'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2892,7 +2934,7 @@ Used by <a href='#mediaplayer'>MediaPlayer</a>.
 
 
 </aside>
-<h3 id='properties-25'>Properties</h3>
+<h3 id='properties-26'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2922,7 +2964,7 @@ Used by <a href='#mediaplayer'>MediaPlayer</a>.
 Online denotes whether the device is online or unresponsive. It may be unresponsive due to being unplugged, network error, etc.
 
 </aside>
-<h3 id='properties-26'>Properties</h3>
+<h3 id='properties-27'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2967,7 +3009,7 @@ Online denotes whether the device is online or unresponsive. It may be unrespons
 SoftwareUpdate provides a way to check for updates and install them. This may be a Scrypted Plugin or device firmware.
 
 </aside>
-<h3 id='properties-27'>Properties</h3>
+<h3 id='properties-28'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3000,7 +3042,7 @@ SoftwareUpdate provides a way to check for updates and install them. This may be
 Add a converter to be used by Scrypted to convert buffers from one mime type to another mime type.
 
 </aside>
-<h3 id='properties-28'>Properties</h3>
+<h3 id='properties-29'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3025,7 +3067,7 @@ Add a converter to be used by Scrypted to convert buffers from one mime type to 
 <pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">BinarySensor</span>  <span class="p">{</span>
   <span class="nl">binaryState</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-29'>Properties</h3>
+</code></pre><h3 id='properties-30'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3044,7 +3086,7 @@ Add a converter to be used by Scrypted to convert buffers from one mime type to 
 <pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">IntrusionSensor</span>  <span class="p">{</span>
   <span class="nl">intrusionDetected</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-30'>Properties</h3>
+</code></pre><h3 id='properties-31'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3063,7 +3105,7 @@ Add a converter to be used by Scrypted to convert buffers from one mime type to 
 <pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">MotionSensor</span>  <span class="p">{</span>
   <span class="nl">motionDetected</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-31'>Properties</h3>
+</code></pre><h3 id='properties-32'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3082,7 +3124,7 @@ Add a converter to be used by Scrypted to convert buffers from one mime type to 
 <pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">FloodSensor</span>  <span class="p">{</span>
   <span class="nl">flooded</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-32'>Properties</h3>
+</code></pre><h3 id='properties-33'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3101,7 +3143,7 @@ Add a converter to be used by Scrypted to convert buffers from one mime type to 
 <pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">UltravioletSensor</span>  <span class="p">{</span>
   <span class="nl">ultraviolet</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-33'>Properties</h3>
+</code></pre><h3 id='properties-34'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3120,7 +3162,7 @@ Add a converter to be used by Scrypted to convert buffers from one mime type to 
 <pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">LuminanceSensor</span>  <span class="p">{</span>
   <span class="nl">luminance</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-34'>Properties</h3>
+</code></pre><h3 id='properties-35'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3186,7 +3228,7 @@ Used by <a href='#settings'>Settings</a>.
 
 
 </aside>
-<h3 id='properties-35'>Properties</h3>
+<h3 id='properties-36'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3312,7 +3354,7 @@ Used by <a href='#httprequesthandler'>HttpRequestHandler</a>.
 
 
 </aside>
-<h3 id='properties-36'>Properties</h3>
+<h3 id='properties-37'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3383,7 +3425,7 @@ Used by <a href='#httpresponse'>HttpResponse</a>.
 
 
 </aside>
-<h3 id='properties-37'>Properties</h3>
+<h3 id='properties-38'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
