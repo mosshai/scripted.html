@@ -80,11 +80,11 @@ Watch the logs for the new light, and turn the light on and off using the button
 import axios from 'axios';
 import { OnOff, ScryptedDeviceBase } from '@scrypted/sdk';
 import sdk from '@scrypted/sdk';
-const { log, deviceManager } = sdk;
+const { log } = sdk;
 
 log.i('Hello World. This will create a virtual OnOff device.');
 
-class Device extends ScryptedDeviceBase implements OnOff {
+class ExampleDevice extends ScryptedDeviceBase implements OnOff {
     constructor() {
         super();
         // Ensure the light state is not null.
@@ -106,7 +106,7 @@ class Device extends ScryptedDeviceBase implements OnOff {
     }
 }
 
-export default new Device();
+export default new ExampleDevice();
 ```
 
 Writing scripts in browser window can quickly become unwieldy when trying as your program becomes more complex.

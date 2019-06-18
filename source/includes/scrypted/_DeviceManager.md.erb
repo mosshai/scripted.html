@@ -1,8 +1,8 @@
 > Example
 
 ```ecmascript
-// in a plugin that implements DeviceProvider
-const { deviceManager } = require('@scrypted/sdk');
+import sdk, { ScryptedDeviceType } from '@scrypted/sdk';
+const { deviceManager } = sdk;
 
 // Sync the following two lights with Scrypted. New devices unknown to Scrypted will be added
 // while devices that were previously reported, and no longer exist, will be removed.
@@ -12,13 +12,13 @@ deviceManager.onDevicesChanged({
         {
             nativeId: '1',
             name: 'Light 1',
-            type: 'Light',
+            type: ScryptedDeviceType.Light,
             interfaces: ['OnOff', 'Brightness', 'ColorSettingHsv']
         },
         {
             nativeId: '2',
             name: 'Light 2',
-            type: 'Light',
+            type: ScryptedDeviceType.Light,
             interfaces: ['OnOff', 'Brightness', 'ColorSettingHsv']
         }
     ]

@@ -1,13 +1,13 @@
 > Example
 
 ```transpilescript
-import { OnOff, ScryptedDeviceBase, DeviceProvider } from '@scrypted/sdk';
+import { OnOff, ScryptedDeviceBase, DeviceProvider, ScryptedDeviceType } from '@scrypted/sdk';
 import sdk from '@scrypted/sdk';
 const { deviceManager } = sdk;
 
 // Devices returned by the DeviceProvider
-class Device extends ScryptedDeviceBase implements OnOff {
-    constructor(nativeId) {
+class ExampleDevice extends ScryptedDeviceBase implements OnOff {
+    constructor(nativeId: string) {
         super(nativeId);
         // Ensure the light state is not null.
         this.on = this.on || false;
@@ -21,7 +21,7 @@ class Device extends ScryptedDeviceBase implements OnOff {
 }
 
 // DeviceProvider handles discovery and device requests
-class DeviceProvider extends ScryptedDeviceBase implements DeviceProvider {
+class ExampleDeviceProvider extends ScryptedDeviceBase implements DeviceProvider {
     constructor() {
         super();
         // it is recommended to automatically perform discovery on startup
@@ -36,22 +36,22 @@ class DeviceProvider extends ScryptedDeviceBase implements DeviceProvider {
                 {
                     nativeId: '1',
                     name: 'Light 1',
-                    type: 'Light',
+                    type: ScryptedDeviceType.Light,
                     interfaces: ['OnOff', 'Brightness', 'ColorSettingHsv'],
                 },
                 {
                     nativeId: '2',
                     name: 'Light 2',
-                    type: 'Light',
+                    type: ScryptedDeviceType.Light,
                     interfaces: ['OnOff', 'Brightness', 'ColorSettingHsv'],
                 }
             ]
         });
     }
     getDevice(nativeId: string): object {
-        return new Device(nativeId);
+        return new ExampleDevice(nativeId);
     }
 };
 
-export default new DeviceProvider();
+export default new ExampleDeviceProvider();
 ```

@@ -249,9 +249,6 @@
             <a href="#sdk-scrypted-sdk" class="toc-h1 toc-link" data-title="SDK: @scrypted/sdk">SDK: @scrypted/sdk</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#sdk-scriptsettings" class="toc-h2 toc-link" data-title="sdk.scriptSettings">sdk.scriptSettings</a>
-                  </li>
-                  <li>
                     <a href="#sdk-log" class="toc-h2 toc-link" data-title="sdk.log">sdk.log</a>
                   </li>
                   <li>
@@ -608,11 +605,11 @@ be synced to upstream integration providers like Google Home or Apple Homekit.</
 <span class="k">import</span> <span class="nx">axios</span> <span class="k">from</span> <span class="s1">'axios'</span><span class="p">;</span>
 <span class="k">import</span> <span class="p">{</span> <span class="nx">OnOff</span><span class="p">,</span> <span class="nx">ScryptedDeviceBase</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@scrypted/sdk'</span><span class="p">;</span>
 <span class="k">import</span> <span class="nx">sdk</span> <span class="k">from</span> <span class="s1">'@scrypted/sdk'</span><span class="p">;</span>
-<span class="kd">const</span> <span class="p">{</span> <span class="nx">log</span><span class="p">,</span> <span class="nx">deviceManager</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">sdk</span><span class="p">;</span>
+<span class="kd">const</span> <span class="p">{</span> <span class="nx">log</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">sdk</span><span class="p">;</span>
 
 <span class="nx">log</span><span class="p">.</span><span class="nx">i</span><span class="p">(</span><span class="s1">'Hello World. This will create a virtual OnOff device.'</span><span class="p">);</span>
 
-<span class="kr">class</span> <span class="nx">Device</span> <span class="k">extends</span> <span class="nx">ScryptedDeviceBase</span> <span class="k">implements</span> <span class="nx">OnOff</span> <span class="p">{</span>
+<span class="kr">class</span> <span class="nx">ExampleDevice</span> <span class="k">extends</span> <span class="nx">ScryptedDeviceBase</span> <span class="k">implements</span> <span class="nx">OnOff</span> <span class="p">{</span>
     <span class="kd">constructor</span><span class="p">()</span> <span class="p">{</span>
         <span class="k">super</span><span class="p">();</span>
         <span class="c1">// Ensure the light state is not null.</span>
@@ -634,14 +631,14 @@ be synced to upstream integration providers like Google Home or Apple Homekit.</
     <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="k">export</span> <span class="k">default</span> <span class="k">new</span> <span class="nx">Device</span><span class="p">();</span>
+<span class="k">export</span> <span class="k">default</span> <span class="k">new</span> <span class="nx">ExampleDevice</span><span class="p">();</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="c1">// https://developer.scrypted.app/#getting-started</span>
 <span class="kr">import</span> <span class="nx">axios</span> <span class="nx">from</span> <span class="s1">'axios'</span><span class="p">;</span>
 <span class="kr">import</span> <span class="p">{</span> <span class="nx">ScryptedDeviceBase</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'@scrypted/sdk'</span><span class="p">;</span>
 <span class="kr">import</span> <span class="nx">sdk</span> <span class="nx">from</span> <span class="s1">'@scrypted/sdk'</span><span class="p">;</span>
-<span class="kr">const</span> <span class="p">{</span> <span class="nx">log</span><span class="p">,</span> <span class="nx">deviceManager</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">sdk</span><span class="p">;</span>
+<span class="kr">const</span> <span class="p">{</span> <span class="nx">log</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">sdk</span><span class="p">;</span>
 <span class="nx">log</span><span class="p">.</span><span class="nx">i</span><span class="p">(</span><span class="s1">'Hello World. This will create a virtual OnOff device.'</span><span class="p">);</span>
-<span class="kr">class</span> <span class="nx">Device</span> <span class="kr">extends</span> <span class="nx">ScryptedDeviceBase</span> <span class="p">{</span>
+<span class="kr">class</span> <span class="nx">ExampleDevice</span> <span class="kr">extends</span> <span class="nx">ScryptedDeviceBase</span> <span class="p">{</span>
     <span class="nx">constructor</span><span class="p">()</span> <span class="p">{</span>
         <span class="kr">super</span><span class="p">();</span>
         <span class="c1">// Ensure the light state is not null.</span>
@@ -660,7 +657,7 @@ be synced to upstream integration providers like Google Home or Apple Homekit.</
         <span class="k">this</span><span class="p">.</span><span class="nx">on</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="p">}</span>
-<span class="kr">export</span> <span class="k">default</span> <span class="k">new</span> <span class="nx">Device</span><span class="p">();</span>
+<span class="kr">export</span> <span class="k">default</span> <span class="k">new</span> <span class="nx">ExampleDevice</span><span class="p">();</span>
 </code></pre>
 <p>Writing scripts in browser window can quickly become unwieldy when trying as your program becomes more complex.
 While devices can be controlled and created with simple scripts written in the Scrypted Management console, using the VS Code development
@@ -802,21 +799,7 @@ event. Setting a schedule for sunrise on weekdays would send an <a href="#alarm"
     <span class="nx">zwaveManager</span><span class="p">:</span> <span class="nx">ZwaveManagerDevice</span><span class="p">,</span>
 <span class="p">}</span>
 
-</code></pre><h2 id='sdk-scriptsettings'>sdk.scriptSettings</h2>
-
-<blockquote>
-<p>Example</p>
-</blockquote>
-
-<pre class="highlight typescript tab-typescript"><code><span class="kd">const</span> <span class="p">{</span><span class="nx">scriptSettings</span><span class="p">}</span> <span class="o">=</span> <span class="nx">sdk</span><span class="p">;</span>
-<span class="nx">scriptSettings</span><span class="p">.</span><span class="nx">putString</span><span class="p">(</span><span class="s1">'access_token'</span><span class="p">,</span> <span class="s1">'abcdefg'</span><span class="p">);</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="p">{</span><span class="nx">scriptSettings</span><span class="p">}</span> <span class="o">=</span> <span class="nx">sdk</span><span class="p">;</span>
-<span class="nx">scriptSettings</span><span class="p">.</span><span class="nx">putString</span><span class="p">(</span><span class="s1">'access_token'</span><span class="p">,</span> <span class="s1">'abcdefg'</span><span class="p">);</span>
-</code></pre>
-
-<p>Scripts can use the <a href="#settings">scriptSettings</a> property as a user visible and configurable storage area.</p>
-
-<h2 id='sdk-log'>sdk.log</h2>
+</code></pre><h2 id='sdk-log'>sdk.log</h2>
 
 <blockquote>
 <p>Example</p>
@@ -1244,8 +1227,8 @@ Logger is exposed via log.* to allow writing to the Scrypted log.
 <p>Example</p>
 </blockquote>
 
-<pre class="highlight typescript tab-typescript"><code><span class="c1">// in a plugin that implements DeviceProvider</span>
-<span class="kd">const</span> <span class="p">{</span> <span class="nx">deviceManager</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'@scrypted/sdk'</span><span class="p">);</span>
+<pre class="highlight typescript tab-typescript"><code><span class="k">import</span> <span class="nx">sdk</span><span class="p">,</span> <span class="p">{</span> <span class="nx">ScryptedDeviceType</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@scrypted/sdk'</span><span class="p">;</span>
+<span class="kd">const</span> <span class="p">{</span> <span class="nx">deviceManager</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">sdk</span><span class="p">;</span>
 
 <span class="c1">// Sync the following two lights with Scrypted. New devices unknown to Scrypted will be added</span>
 <span class="c1">// while devices that were previously reported, and no longer exist, will be removed.</span>
@@ -1255,19 +1238,19 @@ Logger is exposed via log.* to allow writing to the Scrypted log.
         <span class="p">{</span>
             <span class="na">nativeId</span><span class="p">:</span> <span class="s1">'1'</span><span class="p">,</span>
             <span class="na">name</span><span class="p">:</span> <span class="s1">'Light 1'</span><span class="p">,</span>
-            <span class="na">type</span><span class="p">:</span> <span class="s1">'Light'</span><span class="p">,</span>
+            <span class="na">type</span><span class="p">:</span> <span class="nx">ScryptedDeviceType</span><span class="p">.</span><span class="nx">Light</span><span class="p">,</span>
             <span class="na">interfaces</span><span class="p">:</span> <span class="p">[</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="s1">'Brightness'</span><span class="p">,</span> <span class="s1">'ColorSettingHsv'</span><span class="p">]</span>
         <span class="p">},</span>
         <span class="p">{</span>
             <span class="na">nativeId</span><span class="p">:</span> <span class="s1">'2'</span><span class="p">,</span>
             <span class="na">name</span><span class="p">:</span> <span class="s1">'Light 2'</span><span class="p">,</span>
-            <span class="na">type</span><span class="p">:</span> <span class="s1">'Light'</span><span class="p">,</span>
+            <span class="na">type</span><span class="p">:</span> <span class="nx">ScryptedDeviceType</span><span class="p">.</span><span class="nx">Light</span><span class="p">,</span>
             <span class="na">interfaces</span><span class="p">:</span> <span class="p">[</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="s1">'Brightness'</span><span class="p">,</span> <span class="s1">'ColorSettingHsv'</span><span class="p">]</span>
         <span class="p">}</span>
     <span class="p">]</span>
 <span class="p">});</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="c1">// in a plugin that implements DeviceProvider</span>
-<span class="kr">const</span> <span class="p">{</span> <span class="nx">deviceManager</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'@scrypted/sdk'</span><span class="p">);</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">import</span> <span class="nx">sdk</span><span class="p">,</span> <span class="p">{</span> <span class="nx">ScryptedDeviceType</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'@scrypted/sdk'</span><span class="p">;</span>
+<span class="kr">const</span> <span class="p">{</span> <span class="nx">deviceManager</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">sdk</span><span class="p">;</span>
 
 <span class="c1">// Sync the following two lights with Scrypted. New devices unknown to Scrypted will be added</span>
 <span class="c1">// while devices that were previously reported, and no longer exist, will be removed.</span>
@@ -1277,13 +1260,13 @@ Logger is exposed via log.* to allow writing to the Scrypted log.
         <span class="p">{</span>
             <span class="na">nativeId</span><span class="p">:</span> <span class="s1">'1'</span><span class="p">,</span>
             <span class="na">name</span><span class="p">:</span> <span class="s1">'Light 1'</span><span class="p">,</span>
-            <span class="na">type</span><span class="p">:</span> <span class="s1">'Light'</span><span class="p">,</span>
+            <span class="na">type</span><span class="p">:</span> <span class="nx">ScryptedDeviceType</span><span class="p">.</span><span class="nx">Light</span><span class="p">,</span>
             <span class="na">interfaces</span><span class="p">:</span> <span class="p">[</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="s1">'Brightness'</span><span class="p">,</span> <span class="s1">'ColorSettingHsv'</span><span class="p">]</span>
         <span class="p">},</span>
         <span class="p">{</span>
             <span class="na">nativeId</span><span class="p">:</span> <span class="s1">'2'</span><span class="p">,</span>
             <span class="na">name</span><span class="p">:</span> <span class="s1">'Light 2'</span><span class="p">,</span>
-            <span class="na">type</span><span class="p">:</span> <span class="s1">'Light'</span><span class="p">,</span>
+            <span class="na">type</span><span class="p">:</span> <span class="nx">ScryptedDeviceType</span><span class="p">.</span><span class="nx">Light</span><span class="p">,</span>
             <span class="na">interfaces</span><span class="p">:</span> <span class="p">[</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="s1">'Brightness'</span><span class="p">,</span> <span class="s1">'ColorSettingHsv'</span><span class="p">]</span>
         <span class="p">}</span>
     <span class="p">]</span>
@@ -1345,13 +1328,13 @@ DeviceManager is the interface used by DeviceProvider to report new devices, dev
 <p>Example</p>
 </blockquote>
 
-<pre class="highlight typescript tab-typescript"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">OnOff</span><span class="p">,</span> <span class="nx">ScryptedDeviceBase</span><span class="p">,</span> <span class="nx">DeviceProvider</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@scrypted/sdk'</span><span class="p">;</span>
+<pre class="highlight typescript tab-typescript"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">OnOff</span><span class="p">,</span> <span class="nx">ScryptedDeviceBase</span><span class="p">,</span> <span class="nx">DeviceProvider</span><span class="p">,</span> <span class="nx">ScryptedDeviceType</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@scrypted/sdk'</span><span class="p">;</span>
 <span class="k">import</span> <span class="nx">sdk</span> <span class="k">from</span> <span class="s1">'@scrypted/sdk'</span><span class="p">;</span>
 <span class="kd">const</span> <span class="p">{</span> <span class="nx">deviceManager</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">sdk</span><span class="p">;</span>
 
 <span class="c1">// Devices returned by the DeviceProvider</span>
-<span class="kr">class</span> <span class="nx">Device</span> <span class="k">extends</span> <span class="nx">ScryptedDeviceBase</span> <span class="k">implements</span> <span class="nx">OnOff</span> <span class="p">{</span>
-    <span class="kd">constructor</span><span class="p">(</span><span class="nx">nativeId</span><span class="p">)</span> <span class="p">{</span>
+<span class="kr">class</span> <span class="nx">ExampleDevice</span> <span class="k">extends</span> <span class="nx">ScryptedDeviceBase</span> <span class="k">implements</span> <span class="nx">OnOff</span> <span class="p">{</span>
+    <span class="kd">constructor</span><span class="p">(</span><span class="nx">nativeId</span><span class="p">:</span> <span class="kr">string</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">super</span><span class="p">(</span><span class="nx">nativeId</span><span class="p">);</span>
         <span class="c1">// Ensure the light state is not null.</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">on</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">on</span> <span class="o">||</span> <span class="kc">false</span><span class="p">;</span>
@@ -1365,7 +1348,7 @@ DeviceManager is the interface used by DeviceProvider to report new devices, dev
 <span class="p">}</span>
 
 <span class="c1">// DeviceProvider handles discovery and device requests</span>
-<span class="kr">class</span> <span class="nx">DeviceProvider</span> <span class="k">extends</span> <span class="nx">ScryptedDeviceBase</span> <span class="k">implements</span> <span class="nx">DeviceProvider</span> <span class="p">{</span>
+<span class="kr">class</span> <span class="nx">ExampleDeviceProvider</span> <span class="k">extends</span> <span class="nx">ScryptedDeviceBase</span> <span class="k">implements</span> <span class="nx">DeviceProvider</span> <span class="p">{</span>
     <span class="kd">constructor</span><span class="p">()</span> <span class="p">{</span>
         <span class="k">super</span><span class="p">();</span>
         <span class="c1">// it is recommended to automatically perform discovery on startup</span>
@@ -1380,29 +1363,29 @@ DeviceManager is the interface used by DeviceProvider to report new devices, dev
                 <span class="p">{</span>
                     <span class="na">nativeId</span><span class="p">:</span> <span class="s1">'1'</span><span class="p">,</span>
                     <span class="na">name</span><span class="p">:</span> <span class="s1">'Light 1'</span><span class="p">,</span>
-                    <span class="na">type</span><span class="p">:</span> <span class="s1">'Light'</span><span class="p">,</span>
+                    <span class="na">type</span><span class="p">:</span> <span class="nx">ScryptedDeviceType</span><span class="p">.</span><span class="nx">Light</span><span class="p">,</span>
                     <span class="na">interfaces</span><span class="p">:</span> <span class="p">[</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="s1">'Brightness'</span><span class="p">,</span> <span class="s1">'ColorSettingHsv'</span><span class="p">],</span>
                 <span class="p">},</span>
                 <span class="p">{</span>
                     <span class="na">nativeId</span><span class="p">:</span> <span class="s1">'2'</span><span class="p">,</span>
                     <span class="na">name</span><span class="p">:</span> <span class="s1">'Light 2'</span><span class="p">,</span>
-                    <span class="na">type</span><span class="p">:</span> <span class="s1">'Light'</span><span class="p">,</span>
+                    <span class="na">type</span><span class="p">:</span> <span class="nx">ScryptedDeviceType</span><span class="p">.</span><span class="nx">Light</span><span class="p">,</span>
                     <span class="na">interfaces</span><span class="p">:</span> <span class="p">[</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="s1">'Brightness'</span><span class="p">,</span> <span class="s1">'ColorSettingHsv'</span><span class="p">],</span>
                 <span class="p">}</span>
             <span class="p">]</span>
         <span class="p">});</span>
     <span class="p">}</span>
     <span class="nx">getDevice</span><span class="p">(</span><span class="na">nativeId</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="nx">object</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="k">new</span> <span class="nx">Device</span><span class="p">(</span><span class="nx">nativeId</span><span class="p">);</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nx">ExampleDevice</span><span class="p">(</span><span class="nx">nativeId</span><span class="p">);</span>
     <span class="p">}</span>
 <span class="p">};</span>
 
-<span class="k">export</span> <span class="k">default</span> <span class="k">new</span> <span class="nx">DeviceProvider</span><span class="p">();</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">import</span> <span class="p">{</span> <span class="nx">ScryptedDeviceBase</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'@scrypted/sdk'</span><span class="p">;</span>
+<span class="k">export</span> <span class="k">default</span> <span class="k">new</span> <span class="nx">ExampleDeviceProvider</span><span class="p">();</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">import</span> <span class="p">{</span> <span class="nx">ScryptedDeviceBase</span><span class="p">,</span> <span class="nx">ScryptedDeviceType</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'@scrypted/sdk'</span><span class="p">;</span>
 <span class="kr">import</span> <span class="nx">sdk</span> <span class="nx">from</span> <span class="s1">'@scrypted/sdk'</span><span class="p">;</span>
 <span class="kr">const</span> <span class="p">{</span> <span class="nx">deviceManager</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">sdk</span><span class="p">;</span>
 <span class="c1">// Devices returned by the DeviceProvider</span>
-<span class="kr">class</span> <span class="nx">Device</span> <span class="kr">extends</span> <span class="nx">ScryptedDeviceBase</span> <span class="p">{</span>
+<span class="kr">class</span> <span class="nx">ExampleDevice</span> <span class="kr">extends</span> <span class="nx">ScryptedDeviceBase</span> <span class="p">{</span>
     <span class="nx">constructor</span><span class="p">(</span><span class="nx">nativeId</span><span class="p">)</span> <span class="p">{</span>
         <span class="kr">super</span><span class="p">(</span><span class="nx">nativeId</span><span class="p">);</span>
         <span class="c1">// Ensure the light state is not null.</span>
@@ -1416,7 +1399,7 @@ DeviceManager is the interface used by DeviceProvider to report new devices, dev
     <span class="p">}</span>
 <span class="p">}</span>
 <span class="c1">// DeviceProvider handles discovery and device requests</span>
-<span class="kr">class</span> <span class="nx">DeviceProvider</span> <span class="kr">extends</span> <span class="nx">ScryptedDeviceBase</span> <span class="p">{</span>
+<span class="kr">class</span> <span class="nx">ExampleDeviceProvider</span> <span class="kr">extends</span> <span class="nx">ScryptedDeviceBase</span> <span class="p">{</span>
     <span class="nx">constructor</span><span class="p">()</span> <span class="p">{</span>
         <span class="kr">super</span><span class="p">();</span>
         <span class="c1">// it is recommended to automatically perform discovery on startup</span>
@@ -1431,24 +1414,24 @@ DeviceManager is the interface used by DeviceProvider to report new devices, dev
                 <span class="p">{</span>
                     <span class="na">nativeId</span><span class="p">:</span> <span class="s1">'1'</span><span class="p">,</span>
                     <span class="na">name</span><span class="p">:</span> <span class="s1">'Light 1'</span><span class="p">,</span>
-                    <span class="na">type</span><span class="p">:</span> <span class="s1">'Light'</span><span class="p">,</span>
+                    <span class="na">type</span><span class="p">:</span> <span class="nx">ScryptedDeviceType</span><span class="p">.</span><span class="nx">Light</span><span class="p">,</span>
                     <span class="na">interfaces</span><span class="p">:</span> <span class="p">[</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="s1">'Brightness'</span><span class="p">,</span> <span class="s1">'ColorSettingHsv'</span><span class="p">],</span>
                 <span class="p">},</span>
                 <span class="p">{</span>
                     <span class="na">nativeId</span><span class="p">:</span> <span class="s1">'2'</span><span class="p">,</span>
                     <span class="na">name</span><span class="p">:</span> <span class="s1">'Light 2'</span><span class="p">,</span>
-                    <span class="na">type</span><span class="p">:</span> <span class="s1">'Light'</span><span class="p">,</span>
+                    <span class="na">type</span><span class="p">:</span> <span class="nx">ScryptedDeviceType</span><span class="p">.</span><span class="nx">Light</span><span class="p">,</span>
                     <span class="na">interfaces</span><span class="p">:</span> <span class="p">[</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="s1">'Brightness'</span><span class="p">,</span> <span class="s1">'ColorSettingHsv'</span><span class="p">],</span>
                 <span class="p">}</span>
             <span class="p">]</span>
         <span class="p">});</span>
     <span class="p">}</span>
     <span class="nx">getDevice</span><span class="p">(</span><span class="nx">nativeId</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="k">new</span> <span class="nx">Device</span><span class="p">(</span><span class="nx">nativeId</span><span class="p">);</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nx">ExampleDevice</span><span class="p">(</span><span class="nx">nativeId</span><span class="p">);</span>
     <span class="p">}</span>
 <span class="p">}</span>
 <span class="p">;</span>
-<span class="kr">export</span> <span class="k">default</span> <span class="k">new</span> <span class="nx">DeviceProvider</span><span class="p">();</span>
+<span class="kr">export</span> <span class="k">default</span> <span class="k">new</span> <span class="nx">ExampleDeviceProvider</span><span class="p">();</span>
 </code></pre>
 
 <aside class="notice">
@@ -1485,13 +1468,13 @@ DeviceProvider acts as a controller/hub and exposes multiple devices to Scrypted
         <span class="p">{</span>
             <span class="na">nativeId</span><span class="p">:</span> <span class="s1">'1'</span><span class="p">,</span>
             <span class="na">name</span><span class="p">:</span> <span class="s1">'Light 1'</span><span class="p">,</span>
-            <span class="na">type</span><span class="p">:</span> <span class="s1">'Light'</span><span class="p">,</span>
+            <span class="na">type</span><span class="p">:</span> <span class="nx">ScryptedDeviceType</span><span class="p">.</span><span class="nx">Light</span><span class="p">,</span>
             <span class="na">interfaces</span><span class="p">:</span> <span class="p">[</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="s1">'Brightness'</span><span class="p">,</span> <span class="s1">'ColorSettingHsv'</span><span class="p">]</span>
         <span class="p">},</span>
         <span class="p">{</span>
             <span class="na">nativeId</span><span class="p">:</span> <span class="s1">'2'</span><span class="p">,</span>
             <span class="na">name</span><span class="p">:</span> <span class="s1">'Light 2'</span><span class="p">,</span>
-            <span class="na">type</span><span class="p">:</span> <span class="s1">'Light'</span><span class="p">,</span>
+            <span class="na">type</span><span class="p">:</span> <span class="nx">ScryptedDeviceType</span><span class="p">.</span><span class="nx">Light</span><span class="p">,</span>
             <span class="na">interfaces</span><span class="p">:</span> <span class="p">[</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="s1">'Brightness'</span><span class="p">,</span> <span class="s1">'ColorSettingHsv'</span><span class="p">]</span>
         <span class="p">}</span>
     <span class="p">]</span>
@@ -1501,13 +1484,13 @@ DeviceProvider acts as a controller/hub and exposes multiple devices to Scrypted
         <span class="p">{</span>
             <span class="na">nativeId</span><span class="p">:</span> <span class="s1">'1'</span><span class="p">,</span>
             <span class="na">name</span><span class="p">:</span> <span class="s1">'Light 1'</span><span class="p">,</span>
-            <span class="na">type</span><span class="p">:</span> <span class="s1">'Light'</span><span class="p">,</span>
+            <span class="na">type</span><span class="p">:</span> <span class="nx">ScryptedDeviceType</span><span class="p">.</span><span class="nx">Light</span><span class="p">,</span>
             <span class="na">interfaces</span><span class="p">:</span> <span class="p">[</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="s1">'Brightness'</span><span class="p">,</span> <span class="s1">'ColorSettingHsv'</span><span class="p">]</span>
         <span class="p">},</span>
         <span class="p">{</span>
             <span class="na">nativeId</span><span class="p">:</span> <span class="s1">'2'</span><span class="p">,</span>
             <span class="na">name</span><span class="p">:</span> <span class="s1">'Light 2'</span><span class="p">,</span>
-            <span class="na">type</span><span class="p">:</span> <span class="s1">'Light'</span><span class="p">,</span>
+            <span class="na">type</span><span class="p">:</span> <span class="nx">ScryptedDeviceType</span><span class="p">.</span><span class="nx">Light</span><span class="p">,</span>
             <span class="na">interfaces</span><span class="p">:</span> <span class="p">[</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="s1">'Brightness'</span><span class="p">,</span> <span class="s1">'ColorSettingHsv'</span><span class="p">]</span>
         <span class="p">}</span>
     <span class="p">]</span>
