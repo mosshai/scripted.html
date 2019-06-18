@@ -1,7 +1,7 @@
 > Example
 
 ```transpilescript
-light.on('OnOff', (eventSource: ScryptedDevice, eventDetails: EventDetails, eventData: object) => {
+light.listen('OnOff', (eventSource: ScryptedDevice, eventDetails: EventDetails, eventData: object) => {
   if (eventData) {
     log.i('The light was turned on.');
   }
