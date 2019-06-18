@@ -594,12 +594,12 @@ be synced to upstream integration providers, such as Google Home or Apple Homeki
 <ol>
 <li>Create a new Script under Plugins.</li>
 <li>Set the type to Device.</li>
-<li>Select the OnOff interface and OnOff event.</li>
+<li>Select the OnOff interface.</li>
 <li>Paste the code into the script text box.</li>
 <li>Save.</li>
 </ol>
 
-<p>Watch the logs for the new light and turn the light on and off using the button on the webpage.</p>
+<p>Watch the logs for the new light, and turn the light on and off using the button on the webpage.</p>
 <h2 id='using-npm-and-vs-code'>Using npm and VS Code</h2>
 <blockquote>
 <p>src/main</p>
@@ -688,9 +688,6 @@ contains the information about the device implementation in the <code>&quot;scry
     </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"JavaScript Light"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Device"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"interfaces"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-       </span><span class="s2">"OnOff"</span><span class="w">
-    </span><span class="p">],</span><span class="w">
-    </span><span class="s2">"events"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
        </span><span class="s2">"OnOff"</span><span class="w">
     </span><span class="p">]</span><span class="w">
  </span><span class="p">},</span><span class="w">
@@ -1242,15 +1239,13 @@ Logger is exposed via log.* to allow writing to the Scrypted log.
             <span class="na">nativeId</span><span class="p">:</span> <span class="s1">'1'</span><span class="p">,</span>
             <span class="na">name</span><span class="p">:</span> <span class="s1">'Light 1'</span><span class="p">,</span>
             <span class="na">type</span><span class="p">:</span> <span class="s1">'Light'</span><span class="p">,</span>
-            <span class="na">interfaces</span><span class="p">:</span> <span class="p">[</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="s1">'Brightness'</span><span class="p">,</span> <span class="s1">'ColorSettingHsv'</span><span class="p">],</span>
-            <span class="na">events</span><span class="p">:</span> <span class="p">[</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="s1">'Brightness'</span><span class="p">,</span> <span class="s1">'ColorSettingHsv'</span><span class="p">]</span>
+            <span class="na">interfaces</span><span class="p">:</span> <span class="p">[</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="s1">'Brightness'</span><span class="p">,</span> <span class="s1">'ColorSettingHsv'</span><span class="p">]</span>
         <span class="p">},</span>
         <span class="p">{</span>
             <span class="na">nativeId</span><span class="p">:</span> <span class="s1">'2'</span><span class="p">,</span>
             <span class="na">name</span><span class="p">:</span> <span class="s1">'Light 2'</span><span class="p">,</span>
             <span class="na">type</span><span class="p">:</span> <span class="s1">'Light'</span><span class="p">,</span>
-            <span class="na">interfaces</span><span class="p">:</span> <span class="p">[</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="s1">'Brightness'</span><span class="p">,</span> <span class="s1">'ColorSettingHsv'</span><span class="p">],</span>
-            <span class="na">events</span><span class="p">:</span> <span class="p">[</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="s1">'Brightness'</span><span class="p">,</span> <span class="s1">'ColorSettingHsv'</span><span class="p">]</span>
+            <span class="na">interfaces</span><span class="p">:</span> <span class="p">[</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="s1">'Brightness'</span><span class="p">,</span> <span class="s1">'ColorSettingHsv'</span><span class="p">]</span>
         <span class="p">}</span>
     <span class="p">]</span>
 <span class="p">});</span>
@@ -1266,15 +1261,13 @@ Logger is exposed via log.* to allow writing to the Scrypted log.
             <span class="na">nativeId</span><span class="p">:</span> <span class="s1">'1'</span><span class="p">,</span>
             <span class="na">name</span><span class="p">:</span> <span class="s1">'Light 1'</span><span class="p">,</span>
             <span class="na">type</span><span class="p">:</span> <span class="s1">'Light'</span><span class="p">,</span>
-            <span class="na">interfaces</span><span class="p">:</span> <span class="p">[</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="s1">'Brightness'</span><span class="p">,</span> <span class="s1">'ColorSettingHsv'</span><span class="p">],</span>
-            <span class="na">events</span><span class="p">:</span> <span class="p">[</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="s1">'Brightness'</span><span class="p">,</span> <span class="s1">'ColorSettingHsv'</span><span class="p">]</span>
+            <span class="na">interfaces</span><span class="p">:</span> <span class="p">[</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="s1">'Brightness'</span><span class="p">,</span> <span class="s1">'ColorSettingHsv'</span><span class="p">]</span>
         <span class="p">},</span>
         <span class="p">{</span>
             <span class="na">nativeId</span><span class="p">:</span> <span class="s1">'2'</span><span class="p">,</span>
             <span class="na">name</span><span class="p">:</span> <span class="s1">'Light 2'</span><span class="p">,</span>
             <span class="na">type</span><span class="p">:</span> <span class="s1">'Light'</span><span class="p">,</span>
-            <span class="na">interfaces</span><span class="p">:</span> <span class="p">[</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="s1">'Brightness'</span><span class="p">,</span> <span class="s1">'ColorSettingHsv'</span><span class="p">],</span>
-            <span class="na">events</span><span class="p">:</span> <span class="p">[</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="s1">'Brightness'</span><span class="p">,</span> <span class="s1">'ColorSettingHsv'</span><span class="p">]</span>
+            <span class="na">interfaces</span><span class="p">:</span> <span class="p">[</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="s1">'Brightness'</span><span class="p">,</span> <span class="s1">'ColorSettingHsv'</span><span class="p">]</span>
         <span class="p">}</span>
     <span class="p">]</span>
 <span class="p">});</span>
@@ -1476,15 +1469,13 @@ DeviceProvider acts as a controller/hub and exposes multiple devices to Scrypted
             <span class="na">nativeId</span><span class="p">:</span> <span class="s1">'1'</span><span class="p">,</span>
             <span class="na">name</span><span class="p">:</span> <span class="s1">'Light 1'</span><span class="p">,</span>
             <span class="na">type</span><span class="p">:</span> <span class="s1">'Light'</span><span class="p">,</span>
-            <span class="na">interfaces</span><span class="p">:</span> <span class="p">[</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="s1">'Brightness'</span><span class="p">,</span> <span class="s1">'ColorSettingHsv'</span><span class="p">],</span>
-            <span class="na">events</span><span class="p">:</span> <span class="p">[</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="s1">'Brightness'</span><span class="p">,</span> <span class="s1">'ColorSettingHsv'</span><span class="p">]</span>
+            <span class="na">interfaces</span><span class="p">:</span> <span class="p">[</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="s1">'Brightness'</span><span class="p">,</span> <span class="s1">'ColorSettingHsv'</span><span class="p">]</span>
         <span class="p">},</span>
         <span class="p">{</span>
             <span class="na">nativeId</span><span class="p">:</span> <span class="s1">'2'</span><span class="p">,</span>
             <span class="na">name</span><span class="p">:</span> <span class="s1">'Light 2'</span><span class="p">,</span>
             <span class="na">type</span><span class="p">:</span> <span class="s1">'Light'</span><span class="p">,</span>
-            <span class="na">interfaces</span><span class="p">:</span> <span class="p">[</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="s1">'Brightness'</span><span class="p">,</span> <span class="s1">'ColorSettingHsv'</span><span class="p">],</span>
-            <span class="na">events</span><span class="p">:</span> <span class="p">[</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="s1">'Brightness'</span><span class="p">,</span> <span class="s1">'ColorSettingHsv'</span><span class="p">]</span>
+            <span class="na">interfaces</span><span class="p">:</span> <span class="p">[</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="s1">'Brightness'</span><span class="p">,</span> <span class="s1">'ColorSettingHsv'</span><span class="p">]</span>
         <span class="p">}</span>
     <span class="p">]</span>
 <span class="p">}</span>
@@ -1494,15 +1485,13 @@ DeviceProvider acts as a controller/hub and exposes multiple devices to Scrypted
             <span class="na">nativeId</span><span class="p">:</span> <span class="s1">'1'</span><span class="p">,</span>
             <span class="na">name</span><span class="p">:</span> <span class="s1">'Light 1'</span><span class="p">,</span>
             <span class="na">type</span><span class="p">:</span> <span class="s1">'Light'</span><span class="p">,</span>
-            <span class="na">interfaces</span><span class="p">:</span> <span class="p">[</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="s1">'Brightness'</span><span class="p">,</span> <span class="s1">'ColorSettingHsv'</span><span class="p">],</span>
-            <span class="na">events</span><span class="p">:</span> <span class="p">[</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="s1">'Brightness'</span><span class="p">,</span> <span class="s1">'ColorSettingHsv'</span><span class="p">]</span>
+            <span class="na">interfaces</span><span class="p">:</span> <span class="p">[</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="s1">'Brightness'</span><span class="p">,</span> <span class="s1">'ColorSettingHsv'</span><span class="p">]</span>
         <span class="p">},</span>
         <span class="p">{</span>
             <span class="na">nativeId</span><span class="p">:</span> <span class="s1">'2'</span><span class="p">,</span>
             <span class="na">name</span><span class="p">:</span> <span class="s1">'Light 2'</span><span class="p">,</span>
             <span class="na">type</span><span class="p">:</span> <span class="s1">'Light'</span><span class="p">,</span>
-            <span class="na">interfaces</span><span class="p">:</span> <span class="p">[</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="s1">'Brightness'</span><span class="p">,</span> <span class="s1">'ColorSettingHsv'</span><span class="p">],</span>
-            <span class="na">events</span><span class="p">:</span> <span class="p">[</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="s1">'Brightness'</span><span class="p">,</span> <span class="s1">'ColorSettingHsv'</span><span class="p">]</span>
+            <span class="na">interfaces</span><span class="p">:</span> <span class="p">[</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="s1">'Brightness'</span><span class="p">,</span> <span class="s1">'ColorSettingHsv'</span><span class="p">]</span>
         <span class="p">}</span>
     <span class="p">]</span>
 <span class="p">}</span>
@@ -1557,15 +1546,13 @@ DeviceManifest is passed to DeviceManager.onDevicesChanged to sync a full list o
     <span class="nl">nativeId</span><span class="p">:</span> <span class="s1">'2'</span><span class="p">,</span>
     <span class="nx">name</span><span class="p">:</span> <span class="s1">'Light 2'</span><span class="p">,</span>
     <span class="kd">type</span><span class="p">:</span> <span class="s1">'Light'</span><span class="p">,</span>
-    <span class="nx">interfaces</span><span class="p">:</span> <span class="p">[</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="s1">'Brightness'</span><span class="p">,</span> <span class="s1">'ColorSettingHsv'</span><span class="p">],</span>
-    <span class="nx">events</span><span class="p">:</span> <span class="p">[</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="s1">'Brightness'</span><span class="p">,</span> <span class="s1">'ColorSettingHsv'</span><span class="p">]</span>
+    <span class="nx">interfaces</span><span class="p">:</span> <span class="p">[</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="s1">'Brightness'</span><span class="p">,</span> <span class="s1">'ColorSettingHsv'</span><span class="p">]</span>
 <span class="p">}</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
     <span class="nl">nativeId</span><span class="p">:</span> <span class="s1">'2'</span><span class="p">,</span>
     <span class="nx">name</span><span class="p">:</span> <span class="s1">'Light 2'</span><span class="p">,</span>
     <span class="nx">type</span><span class="p">:</span> <span class="s1">'Light'</span><span class="p">,</span>
-    <span class="nx">interfaces</span><span class="p">:</span> <span class="p">[</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="s1">'Brightness'</span><span class="p">,</span> <span class="s1">'ColorSettingHsv'</span><span class="p">],</span>
-    <span class="nx">events</span><span class="p">:</span> <span class="p">[</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="s1">'Brightness'</span><span class="p">,</span> <span class="s1">'ColorSettingHsv'</span><span class="p">]</span>
+    <span class="nx">interfaces</span><span class="p">:</span> <span class="p">[</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="s1">'Brightness'</span><span class="p">,</span> <span class="s1">'ColorSettingHsv'</span><span class="p">]</span>
 <span class="p">}</span>
 </code></pre>
 

@@ -65,11 +65,11 @@ This sample creates a simple OnOff device that outputs on and off clicks to the 
 
 1. Create a new Script under Plugins.
 2. Set the type to Device.
-3. Select the OnOff interface and OnOff event.
+3. Select the OnOff interface.
 4. Paste the code into the script text box.
 4. Save.
 
-Watch the logs for the new light and turn the light on and off using the button on the webpage.
+Watch the logs for the new light, and turn the light on and off using the button on the webpage.
 
 ## Using npm and VS Code
 
@@ -135,9 +135,6 @@ contains the information about the device implementation in the `"scrypted"` key
     "name": "JavaScript Light",
     "type": "Device",
     "interfaces": [
-       "OnOff"
-    ],
-    "events": [
        "OnOff"
     ]
  },
