@@ -1,6 +1,6 @@
 > User Script Code
 
-```javascript
+```ecmascript
 // In a script that uses a speaker, send a text string to the speaker for playback.
 const text = sdk.createMediaObject(Buffer.from('The front door is open'), 'text/plain');
 speaker.load(text);
@@ -8,7 +8,7 @@ speaker.load(text);
 
 > Speaker Plugin Code
 
-```javascript
+```ecmascript
 // In a different plugin that implements the speaker, convert the text string to a
 // publicly accessible audio/wav Uri.
 // "media" is the "text" MediaObject from above.

@@ -1,7 +1,7 @@
 > Example
 
-```javascript
-light.on('OnOff', (eventSource, eventInterface, eventData) {
+```transpilescript
+light.on('OnOff', (eventSource: ScryptedDevice, eventDetails: EventDetails, eventData: object) => {
   if (eventData) {
     log.i('The light was turned on.');
   }

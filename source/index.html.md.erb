@@ -23,7 +23,7 @@ search: true
 
 > Definition
 
-```javascript
+```ecmascript
 interface ScryptedDevice  {
   events: string[];
   id: string;
@@ -78,7 +78,7 @@ Subscribe to events from a specific interface on a device, such as 'OnOff' or 'B
 
 > Definition
 
-```javascript
+```ecmascript
 interface SystemManager  {
   getDeviceById(id: string): ScryptedDevice;
   getDeviceByName(name: string): ScryptedDevice;
@@ -133,7 +133,7 @@ Get the current state of every device.
 ## ScryptedDeviceType
 
 
-```javascript
+```ecmascript
 enum ScryptedDeviceType {
   Builtin = "Builtin",
   Camera = "Camera",
@@ -214,7 +214,7 @@ Enum |
 
 > Definition
 
-```javascript
+```ecmascript
 interface EventListener  {
   onEvent(eventSource: ScryptedDevice, eventDetails: EventDetails, eventData: object): void;
 }
@@ -246,7 +246,7 @@ This device type can be hooked by Automation actions to handle events. The event
 
 > Definition
 
-```javascript
+```ecmascript
 interface EventListenerRegister  {
   getListener(): EventListener;
   removeListener(): void;
@@ -293,7 +293,7 @@ void removeListener()
 
 > Definition
 
-```javascript
+```ecmascript
 interface Logger  {
   a(msg: string): void;
   clear(): void;
@@ -386,7 +386,7 @@ Warn
 
 > Definition
 
-```javascript
+```ecmascript
 interface DeviceManager  {
   getDeviceLogger(nativeId: string): Logger;
   getDeviceState(): DeviceState;
@@ -473,7 +473,7 @@ onDevicesChanged is used to sync Scrypted with devices that are attached to a hu
 
 > Definition
 
-```javascript
+```ecmascript
 interface DeviceProvider  {
   discoverDevices(duration: number): void;
   getDevice(nativeId: string): object;
@@ -518,7 +518,7 @@ Get an instance of a previously discovered device that was reported to the devic
 
 > Definition
 
-```javascript
+```ecmascript
 interface DeviceManifest  {
   devices: Device[];
 }
@@ -556,7 +556,7 @@ devices | <a href='#device'>Device</a>[]
 
 > Definition
 
-```javascript
+```ecmascript
 interface Device  {
   interfaces: string[];
   model: string;
@@ -604,7 +604,7 @@ type | ScryptedDeviceType
 
 > Definition
 
-```javascript
+```ecmascript
 interface Refresh  {
   getRefreshFrequency(): number;
   refresh(refreshInterface: string, userInitiated: boolean): void;
@@ -649,7 +649,7 @@ This method is called by Scrypted when the properties of the device need to be r
 
 > Definition
 
-```javascript
+```ecmascript
 interface DeviceState  {
   on: boolean;
   brightness: number;
@@ -662,6 +662,7 @@ interface DeviceState  {
   temperature: number;
   temperatureUnit: TemperatureUnit;
   humidity: number;
+  thermostatAvailableModes: ThermostatMode[];
   thermostatMode: ThermostatMode;
   thermostatSetpoint: number;
   thermostatSetpointHigh: number;
@@ -710,6 +711,7 @@ docked | boolean
 temperature | number
 temperatureUnit | <a href='#temperatureunit'>TemperatureUnit</a>
 humidity | number
+thermostatAvailableModes | <a href='#thermostatmode'>ThermostatMode</a>[]
 thermostatMode | <a href='#thermostatmode'>ThermostatMode</a>
 thermostatSetpoint | number
 thermostatSetpointHigh | number
@@ -747,7 +749,7 @@ luminance | number
 
 > Definition
 
-```javascript
+```ecmascript
 interface MediaManager  {
   convertMediaObjectToBuffer(mediaObject: MediaObject, toMimeType: string): Promise<Buffer>;
   convertMediaObjectToUri(mediaObject: MediaObject, toMimeType: string): Promise<string>;
@@ -791,7 +793,7 @@ Create a MediaObject. The mime type needs to be provided up front, but the data 
 
 > Definition
 
-```javascript
+```ecmascript
 interface MediaObject  {
   mimeType: string;
 }
@@ -835,7 +837,7 @@ mimeType | string
 
 > Definition
 
-```javascript
+```ecmascript
 interface ZwaveManager  {
   getNodeManufacturerName(homeId: number, nodeId: number): string;
   getNodeName(homeId: number, nodeId: number): string;
@@ -939,7 +941,7 @@ void setValueRaw(<a href='#zwavevalueid'>ZwaveValueId</a> valueId, Buffer value)
 
 > Definition
 
-```javascript
+```ecmascript
 interface ZwaveNotification  {
   byteData: number;
   event: number;
@@ -972,7 +974,7 @@ valueId | <a href='#zwavevalueid'>ZwaveValueId</a>
 ## ZwaveNotificationType
 
 
-```javascript
+```ecmascript
 enum ZwaveNotificationType {
   Type_ValueAdded = "Type_ValueAdded",
   Type_ValueRemoved = "Type_ValueRemoved",
@@ -1069,7 +1071,7 @@ Enum |
 
 > Definition
 
-```javascript
+```ecmascript
 interface ZwaveValueId  {
   commandClass: number;
   genre: number;
@@ -1123,7 +1125,7 @@ type | number
 
 > Definition
 
-```javascript
+```ecmascript
 interface EventListenerOptions  {
   denoise: boolean;
   event: string;
@@ -1163,7 +1165,7 @@ watch | boolean
 
 > Definition
 
-```javascript
+```ecmascript
 interface EventDetails  {
   changed: boolean;
   eventInterface: string;
@@ -1205,7 +1207,7 @@ property | string
 
 > Definition
 
-```javascript
+```ecmascript
 interface OnOff  {
   on: boolean;
 
@@ -1258,7 +1260,7 @@ void turnOn()
 
 > Definition
 
-```javascript
+```ecmascript
 interface Brightness  {
   brightness: number;
 
@@ -1305,7 +1307,7 @@ void setBrightness(number brightness)
 
 > Definition
 
-```javascript
+```ecmascript
 interface ColorSettingTemperature  {
   colorTemperature: number;
 
@@ -1364,7 +1366,7 @@ void setTemperature(number kelvin)
 
 > Definition
 
-```javascript
+```ecmascript
 interface ColorSettingRgb  {
   rgb: ColorRgb;
 
@@ -1411,7 +1413,7 @@ void setRgb(number r, number g, number b)
 
 > Definition
 
-```javascript
+```ecmascript
 interface ColorRgb  {
   b: number;
   g: number;
@@ -1453,7 +1455,7 @@ r | number
 
 > Definition
 
-```javascript
+```ecmascript
 interface ColorSettingHsv  {
   hsv: ColorHsv;
 
@@ -1500,7 +1502,7 @@ void setHsv(number hue, number saturation, number value)
 
 > Definition
 
-```javascript
+```ecmascript
 interface ColorHsv  {
   h: number;
   s: number;
@@ -1542,7 +1544,7 @@ v | number
 
 > Definition
 
-```javascript
+```ecmascript
 interface Notifier  {
   sendNotification(title: string, body: string, media: URL|MediaObject, mimeType: string): void;
 }
@@ -1582,7 +1584,7 @@ Passing null uses the native type of the MediaObject. If that is not supported b
 
 > Definition
 
-```javascript
+```ecmascript
 interface StartStop  {
   paused: boolean;
   running: boolean;
@@ -1655,7 +1657,7 @@ void stop()
 
 > Definition
 
-```javascript
+```ecmascript
 interface Dock  {
   docked: boolean;
 
@@ -1702,14 +1704,14 @@ void dock()
 
 > Definition
 
-```javascript
+```ecmascript
 interface TemperatureSetting implements Thermometer, HumiditySensor {
+  thermostatAvailableModes: ThermostatMode[];
   thermostatMode: ThermostatMode;
   thermostatSetpoint: number;
   thermostatSetpointHigh: number;
   thermostatSetpointLow: number;
 
-  getThermostatAvailableModes(): ThermostatMode[];
   setThermostatMode(mode: ThermostatMode): void;
   setThermostatSetpoint(degrees: number): void;
   setThermostatSetpointHigh(high: number): void;
@@ -1733,6 +1735,7 @@ TemperatureSetting represents a thermostat device.
 ### Properties
 Name      | Type
 --------- | ----
+thermostatAvailableModes | <a href='#thermostatmode'>ThermostatMode</a>[]
 thermostatMode | <a href='#thermostatmode'>ThermostatMode</a>
 thermostatSetpoint | number
 thermostatSetpointHigh | number
@@ -1740,11 +1743,6 @@ thermostatSetpointLow | number
 
 
 
-
-
-
-### getThermostatAvailableModes
-<a href='#thermostatmode'>ThermostatMode</a>[] getThermostatAvailableModes()
 
 
 
@@ -1779,7 +1777,7 @@ void setThermostatSetpointLow(number low)
 
 > Definition
 
-```javascript
+```ecmascript
 interface Thermometer  {
   temperature: number;
   temperatureUnit: TemperatureUnit;
@@ -1808,7 +1806,7 @@ temperatureUnit | <a href='#temperatureunit'>TemperatureUnit</a>
 ## TemperatureUnit
 
 
-```javascript
+```ecmascript
 enum TemperatureUnit {
   C = "C",
   F = "F",
@@ -1845,7 +1843,7 @@ Enum |
 
 > Definition
 
-```javascript
+```ecmascript
 interface HumiditySensor  {
   humidity: number;
 }
@@ -1872,7 +1870,7 @@ humidity | number
 ## ThermostatMode
 
 
-```javascript
+```ecmascript
 enum ThermostatMode {
   Off = "Off",
   Cool = "Cool",
@@ -1925,7 +1923,7 @@ Enum |
 
 > Definition
 
-```javascript
+```ecmascript
 interface Camera  {
   takePicture(): MediaObject;
 }
@@ -1964,7 +1962,7 @@ Camera devices can take still photos.
 
 > Definition
 
-```javascript
+```ecmascript
 interface VideoCamera  {
   getVideoStream(): MediaObject;
 }
@@ -2003,7 +2001,7 @@ VideoCamera devices can capture video streams.
 
 > Definition
 
-```javascript
+```ecmascript
 interface Lock  {
   lockState: LockState;
 
@@ -2054,7 +2052,7 @@ void unlock()
 ## LockState
 
 
-```javascript
+```ecmascript
 enum LockState {
   Locked = "Locked",
   Unlocked = "Unlocked",
@@ -2093,7 +2091,7 @@ Enum |
 
 > Definition
 
-```javascript
+```ecmascript
 interface PasswordStore implements Authenticator {
   passwords: string[];
 
@@ -2146,7 +2144,7 @@ void removePassword(string password)
 
 > Definition
 
-```javascript
+```ecmascript
 interface Authenticator  {
   checkPassword(password: string): boolean;
 }
@@ -2185,7 +2183,7 @@ boolean checkPassword(string password)
 
 > Definition
 
-```javascript
+```ecmascript
 interface Scene  {
   activate(): void;
   deactivate(): void;
@@ -2236,7 +2234,7 @@ If a scene can be reversed, isReversible should return true. Otherwise deactivat
 
 > Definition
 
-```javascript
+```ecmascript
 interface Entry implements EntrySensor {
   closeEntry(): void;
   openEntry(): void;
@@ -2281,7 +2279,7 @@ void openEntry()
 
 > Definition
 
-```javascript
+```ecmascript
 interface EntrySensor  {
   entryOpen: boolean;
 }
@@ -2310,7 +2308,7 @@ entryOpen | boolean
 
 > Definition
 
-```javascript
+```ecmascript
 interface Alarm  {
   getClockType(): ClockType;
   getHour(): number;
@@ -2358,7 +2356,7 @@ boolean isEnabled(number day)
 ## ClockType
 
 
-```javascript
+```ecmascript
 enum ClockType {
   AM = "AM",
   PM = "PM",
@@ -2405,7 +2403,7 @@ Enum |
 
 > Definition
 
-```javascript
+```ecmascript
 interface Battery  {
   batteryLevel: number;
 }
@@ -2441,7 +2439,7 @@ batteryLevel | number
 
 > Definition
 
-```javascript
+```ecmascript
 interface MediaPlayer  {
   load(media: URL|MediaObject, options: MediaPlayerOptions): void;
   pause(): void;
@@ -2498,7 +2496,7 @@ void stop()
 
 > Definition
 
-```javascript
+```ecmascript
 interface MediaPlayerOptions  {
   autoplay: boolean;
   mimeType: string;
@@ -2536,7 +2534,7 @@ mimeType | string
 
 > Definition
 
-```javascript
+```ecmascript
 interface Online  {
   online: boolean;
 }
@@ -2572,7 +2570,7 @@ online | boolean
 
 > Definition
 
-```javascript
+```ecmascript
 interface Program  {
   run(args: object[]): object;
   runAsync(args: object[]): Future;
@@ -2610,7 +2608,7 @@ Asynchronously run a script given the provided arguments.
 
 > Definition
 
-```javascript
+```ecmascript
 interface SoftwareUpdate  {
   updateAvailable: boolean;
 
@@ -2663,7 +2661,7 @@ void installUpdate()
 
 > Definition
 
-```javascript
+```ecmascript
 interface BufferConverter  {
   fromMimeType: string;
   toMimeType: string;
@@ -2712,7 +2710,7 @@ Promise\<Buffer> convert(Buffer buffer, string fromMimeType)
 
 > Definition
 
-```javascript
+```ecmascript
 interface BinarySensor  {
   binaryState: boolean;
 }
@@ -2741,7 +2739,7 @@ binaryState | boolean
 
 > Definition
 
-```javascript
+```ecmascript
 interface IntrusionSensor  {
   intrusionDetected: boolean;
 }
@@ -2785,7 +2783,7 @@ intrusionDetected | boolean
 
 > Definition
 
-```javascript
+```ecmascript
 interface MotionSensor  {
   motionDetected: boolean;
 }
@@ -2829,7 +2827,7 @@ motionDetected | boolean
 
 > Definition
 
-```javascript
+```ecmascript
 interface FloodSensor  {
   flooded: boolean;
 }
@@ -2858,7 +2856,7 @@ flooded | boolean
 
 > Definition
 
-```javascript
+```ecmascript
 interface UltravioletSensor  {
   ultraviolet: number;
 }
@@ -2887,7 +2885,7 @@ ultraviolet | number
 
 > Definition
 
-```javascript
+```ecmascript
 interface LuminanceSensor  {
   luminance: number;
 }
@@ -2916,7 +2914,7 @@ luminance | number
 
 > Definition
 
-```javascript
+```ecmascript
 interface MediaSource  {
   getMedia(): MediaObject;
 }
@@ -2963,7 +2961,7 @@ Get a MediaObject that will be automatically converted for playback on other dev
 
 > Definition
 
-```javascript
+```ecmascript
 interface Settings  {
   getSetting(key: string): boolean|number|string;
   getSettings(): Setting[];
@@ -3014,7 +3012,7 @@ void putSetting(string key, boolean|number|string value)
 
 > Definition
 
-```javascript
+```ecmascript
 interface Setting  {
   choices: string[];
   description: string;
@@ -3064,7 +3062,7 @@ value | boolean|number|string
 
 > Definition
 
-```javascript
+```ecmascript
 interface OauthClient  {
   getOauthUrl(): string;
   onOauthCallback(callbackUrl: string): void;
@@ -3109,7 +3107,7 @@ When an oauth request by a plugin completes, the callback url, with the code/tok
 
 > Definition
 
-```javascript
+```ecmascript
 interface HttpRequestHandler  {
   getEndpoint(): string;
   onRequest(request: HttpRequest, response: HttpResponse): void;
@@ -3154,7 +3152,7 @@ Callback to handle an incoming request.
 
 > Definition
 
-```javascript
+```ecmascript
 interface HttpRequest  {
   body: string;
   headers: object;
@@ -3198,7 +3196,7 @@ url | string
 
 > Definition
 
-```javascript
+```ecmascript
 interface HttpResponse  {
   send(options: HttpResponseOptions, body: string): void;
   send(options: HttpResponseOptions, body: Buffer): void;
@@ -3257,7 +3255,7 @@ void send(Buffer body)
 
 > Definition
 
-```javascript
+```ecmascript
 interface HttpResponseOptions  {
   asContent: boolean;
   code: number;

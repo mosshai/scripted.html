@@ -23,7 +23,7 @@ search: true
 {% if c.methods.length or c.fields.length %}
 > Definition
 
-```javascript
+```ecmascript
 interface {{ name }} {% if c.superclass.length %}implements {{ mapSupers(c.superclass) }}{% endif %} {
 {% for field in c.fields %}  {{ field.name }}: {{ mapType(field) }};
 {% endfor -%}{% if c.methods.length and c.fields.length %}
@@ -35,7 +35,7 @@ interface {{ name }} {% if c.superclass.length %}implements {{ mapSupers(c.super
 {% endif %}
 
 {%- if c.values.length %}
-```javascript
+```ecmascript
 enum {{ name }} {
 {%- for value in c.values %}
   {{ value }} = "{{ value }}",

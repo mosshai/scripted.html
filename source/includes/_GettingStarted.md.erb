@@ -4,8 +4,8 @@
 
 > Toggle a light
 
-```javascript
-if (light.isOn()) {
+```ecmascript
+if (light.on) {
     light.turnOff();
 }
 else {
@@ -35,24 +35,24 @@ to use as a plugin.
 
 > Create a new light
 
-```javascript
+```ecmascript
 log.i('Hello World. This will create a virtual OnOff device.');
 
 function Device() {
     // The state of the device is persisted by Scrypted. Restore the last known state.
     this._state = deviceManager.getDeviceState();
     // Ensure the light state is not null.
-    this._state.isOn = this._state.isOn || false;
+    this._state.on = this._state.on || false;
 }
 
 Device.prototype.turnOff = function () {
     log.i('turnOff was called!');
-    this._state.isOn = false;
+    this._state.on = false;
 };
 
 Device.prototype.turnOn = function () {
     log.i('turnOn was called!');
-    this._state.isOn = true;
+    this._state.on = true;
 };
 
 exports.default = new Device();
@@ -75,54 +75,26 @@ Watch the logs for the new light and turn the light on and off using the button 
 
 > src/main
 
-```javascript
-import axios from 'axios';
-import sdk from "@scrypted/sdk";
-const { log, deviceManager } = sdk;
-log.i('Hello World. This will create a virtual OnOff device.');
-
-class Device {
-    constructor() {
-        this._state = deviceManager.getDeviceState();
-    }
-    turnOff() {
-        // set a breakpoint here.
-        log.i('turnOff was called!');
-        this._state.isOn = false;
-    }
-    async turnOn() {
-        // set a breakpoint here.
-        log.i('turnOn was called!');
-        log.i("Let's pretend to perform a web request on an API that would turn on a light.");
-        const ip = await axios.get('http://jsonip.com');
-        log.i('my ip: ' + ip.data.ip);
-        this._state.isOn = true;
-    }
-}
-
-export default new Device();
-```
-
-
-```typescript
+```transpilescript
 // https://developer.scrypted.app/#getting-started
 import axios from 'axios';
-import { OnOff, DeviceState } from '@scrypted/sdk';
+import { OnOff, ScryptedDeviceBase } from '@scrypted/sdk';
 import sdk from '@scrypted/sdk';
 const { log, deviceManager } = sdk;
 
 log.i('Hello World. This will create a virtual OnOff device.');
 
-class Device implements OnOff {
-    private _state: DeviceState;
+class Device extends ScryptedDeviceBase implements OnOff {
     constructor() {
-        this._state = deviceManager.getDeviceState();
+        super();
+        // Ensure the light state is not null.
+        this.on = this.on || false;
     }
     turnOff(): void {
         log.i('turnOff was called!');
-        this._state.isOn = false;
+        this.on = false;
     }
-    async turnOn(): Promise<void> {
+    async turnOn() {
         // set a breakpoint here.
         log.i('turnOn was called!');
 
@@ -130,7 +102,7 @@ class Device implements OnOff {
         const ip = await axios.get('http://jsonip.com');
         log.i(`my ip: ${ip.data.ip}`);
 
-        this._state.isOn = true;
+        this.on = true;
     }
 }
 
