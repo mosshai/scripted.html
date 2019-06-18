@@ -28,7 +28,6 @@ const Sections = {
     'Z-Wave Reference': [
         'ZwaveManager',
         'ZwaveNotification',
-        'ZwaveNotifications',
         'ZwaveNotificationType',
         'ZwaveValueId',
     ],
