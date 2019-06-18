@@ -586,8 +586,8 @@ to use as a plugin.
 
 <span class="nx">exports</span><span class="p">.</span><span class="k">default</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Device</span><span class="p">();</span>
 </code></pre>
-<p>Scripts can also be used to add support for new devices, like a wifi lightbulb. These new devices will
-be synced to upstream integration providers, such as Google Home or Apple Homekit.</p>
+<p>Scripts can add support for new devices, like a wifi lightbulb. These devices will then
+be synced to upstream integration providers like Google Home or Apple Homekit.</p>
 
 <p>This sample creates a simple OnOff device that outputs on and off clicks to the log.</p>
 
@@ -699,8 +699,21 @@ contains the information about the device implementation in the <code>&quot;scry
 Devices are a core object of a home automation platform, and have two main properties: Interfaces and Events.
 </aside>
 
-<h2 id='interfaces'>Interfaces</h2>
-
+<h2 id='interfaces'>Interfaces</h2><pre class="highlight typescript tab-typescript"><code><span class="c1">// Interfaces describe how the current state of a device, and can be used to modify that state.</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">light</span><span class="p">.</span><span class="nx">on</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">light</span><span class="p">.</span><span class="nx">turnOff</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="k">else</span> <span class="p">{</span>
+    <span class="nx">light</span><span class="p">.</span><span class="nx">turnOn</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="c1">// Interfaces describe how the current state of a device, and can be used to modify that state.</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">light</span><span class="p">.</span><span class="nx">on</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">light</span><span class="p">.</span><span class="nx">turnOff</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="k">else</span> <span class="p">{</span>
+    <span class="nx">light</span><span class="p">.</span><span class="nx">turnOn</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre>
 <p>Interfaces are how devices expose their capabilities to Scrypted. An OnOff interface represents a binary switch. The Brightness
 interface represents a light that can be dimmed. The ColorSettingRgb interface indicates the light can change color.
 A device may expose multiple different interfaces to describe its functionality.</p>
@@ -720,43 +733,51 @@ exposing multiple other devices to Scrypted.</p>
 
 <p>Interfaces also provide a way to query the device state. Such as checking whether an outlet is on or off, the current brightness level,
 or the current color.</p>
+<h2 id='events'>Events</h2><pre class="highlight typescript tab-typescript"><code><span class="c1">// Events are triggered by the device on update, and can be observed.</span>
+<span class="nx">light</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="p">(</span><span class="nx">eventSource</span><span class="p">:</span> <span class="nx">ScryptedDevice</span><span class="p">,</span> <span class="nx">eventDetails</span><span class="p">:</span> <span class="nx">EventDetails</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="nx">object</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">eventData</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">log</span><span class="p">.</span><span class="nx">i</span><span class="p">(</span><span class="s1">'The light was turned on.'</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">log</span><span class="p">.</span><span class="nx">i</span><span class="p">(</span><span class="s1">'The light was turned off.'</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="c1">// Events are triggered by the device on update, and can be observed.</span>
+<span class="nx">light</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="p">(</span><span class="nx">eventSource</span><span class="p">,</span> <span class="nx">eventDetails</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">eventData</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">log</span><span class="p">.</span><span class="nx">i</span><span class="p">(</span><span class="s1">'The light was turned on.'</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">log</span><span class="p">.</span><span class="nx">i</span><span class="p">(</span><span class="s1">'The light was turned off.'</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+<p>Scrypted maintains the state of all connected devices. Whenever the state of an interface is updated on a device, an Event
+will be triggered for that particular interface.</p>
 
-<h2 id='events'>Events</h2>
-
-<p>Events are how devices notify Scrypted when something has changed on their interface. For example, when a light turns on,
-the Light device would send an OnOff event. If a Slack message is received, the Slack device would send a <a href="#messagingendpoint">MessagingEndpoint</a>
+<p>For example, when a light turns on, the Light device would send an OnOff event. If a Slack message is received,
+the Slack device would send a <a href="#messagingendpoint">MessagingEndpoint</a>
 event. Setting a schedule for sunrise on weekdays would send an <a href="#alarm">Alarm</a> event on that schedule.</p>
 
-<p>Automations can subscribe tp these events and your smart home can be customized to react accordingly.</p>
+<p>Automations subscribe to these events in your smart home setup and react accordingly.</p>
 
-<p>Like device interfaces, a device can be a source for as many events as it wants. For example, the table of events for a given device:</p>
 
-<ul>
-<li>Simple Bulb: <a href="#onoff">OnOff</a>,</li>
-<li>Dimmable Bulb: <a href="#onoff">OnOff</a>, <a href="#brightness">Brightness</a>,</li>
-<li>Color Bulb: <a href="#onoff">OnOff</a>, <a href="#brightness">Brightness</a>, <a href="#colorsettingrgb">ColorSettingRgb</a></li>
-</ul>
-
-<p>While this looks exactly the same as above, note that this isn&#39;t always the case. The <a href="#httprequesthandler">HttpRequestHandler</a>
-interface, for example, has no corresponding event.</p>
-
-<p><h1 id='sdk-scrypted-sdk'>SDK: @scrypted/sdk</h1><pre class="highlight typescript tab-typescript"><code><span class="kd">const</span> <span class="nx">sdk</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;@scrypted/sdk&#39;</span><span class="p">);</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">sdk</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;@scrypted/sdk&#39;</span><span class="p">);</span>
+<h1 id='sdk-scrypted-sdk'>SDK: @scrypted/sdk</h1><pre class="highlight typescript tab-typescript"><code><span class="kd">const</span> <span class="nx">sdk</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'@scrypted/sdk'</span><span class="p">);</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">sdk</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'@scrypted/sdk'</span><span class="p">);</span>
 </code></pre>
 <blockquote>
 <p>or</p>
 </blockquote>
-<pre class="highlight typescript tab-typescript"><code><span class="k">import</span> <span class="nx">sdk</span> <span class="k">from</span> <span class="s1">&#39;@scrypted/sdk&#39;</span><span class="p">;</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">import</span> <span class="nx">sdk</span> <span class="nx">from</span> <span class="s1">&#39;@scrypted/sdk&#39;</span><span class="p">;</span>
+<pre class="highlight typescript tab-typescript"><code><span class="k">import</span> <span class="nx">sdk</span> <span class="k">from</span> <span class="s1">'@scrypted/sdk'</span><span class="p">;</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">import</span> <span class="nx">sdk</span> <span class="nx">from</span> <span class="s1">'@scrypted/sdk'</span><span class="p">;</span>
 </code></pre>
-<p>The Scrypted SDK can be installed off npm.</p></p>
+<p>The Scrypted SDK can be installed off npm.</p>
 
 <p><code>npm install @scrypted/sdk --save</code></p>
 
 <blockquote>
 <p>Definition</p>
 </blockquote>
-
 <pre class="highlight typescript tab-typescript"><code><span class="k">export</span> <span class="kr">interface</span> <span class="nx">ZwaveManagerDevice</span> <span class="k">extends</span> <span class="nx">ZwaveManager</span><span class="p">,</span> <span class="nx">ScryptedDevice</span> <span class="p">{</span>
 <span class="p">}</span>
 
@@ -782,9 +803,11 @@ interface, for example, has no corresponding event.</p>
 <span class="p">}</span>
 
 </code></pre><h2 id='sdk-scriptsettings'>sdk.scriptSettings</h2>
+
 <blockquote>
 <p>Example</p>
 </blockquote>
+
 <pre class="highlight typescript tab-typescript"><code><span class="kd">const</span> <span class="p">{</span><span class="nx">scriptSettings</span><span class="p">}</span> <span class="o">=</span> <span class="nx">sdk</span><span class="p">;</span>
 <span class="nx">scriptSettings</span><span class="p">.</span><span class="nx">putString</span><span class="p">(</span><span class="s1">'access_token'</span><span class="p">,</span> <span class="s1">'abcdefg'</span><span class="p">);</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="p">{</span><span class="nx">scriptSettings</span><span class="p">}</span> <span class="o">=</span> <span class="nx">sdk</span><span class="p">;</span>
@@ -833,7 +856,6 @@ More information can be found in the <a href='#media-reference'>Media Reference<
 <p>Definition</p>
 </blockquote>
 <pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">ScryptedDevice</span>  <span class="p">{</span>
-  <span class="nl">events</span><span class="p">:</span> <span class="kr">string</span><span class="p">[];</span>
   <span class="nl">id</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
   <span class="nl">interfaces</span><span class="p">:</span> <span class="kr">string</span><span class="p">[];</span>
   <span class="nl">name</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
@@ -842,7 +864,6 @@ More information can be found in the <a href='#media-reference'>Media Reference<
   <span class="nx">listen</span><span class="p">(</span><span class="nx">event</span><span class="p">:</span> <span class="kr">string</span><span class="o">|</span><span class="nx">EventListenerOptions</span><span class="p">,</span> <span class="nx">callback</span><span class="p">:</span> <span class="p">(</span><span class="nx">eventSource</span><span class="p">:</span> <span class="nx">ScryptedDevice</span><span class="p">,</span> <span class="nx">eventDetails</span><span class="p">:</span> <span class="nx">EventDetails</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="nx">object</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">):</span> <span class="nx">EventListenerRegister</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">ScryptedDevice</span>  <span class="p">{</span>
-  <span class="nl">events</span><span class="p">:</span> <span class="nx">string</span><span class="p">[];</span>
   <span class="nl">id</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
   <span class="nl">interfaces</span><span class="p">:</span> <span class="nx">string</span><span class="p">[];</span>
   <span class="nl">name</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
@@ -864,10 +885,6 @@ All devices in Scrypted implement ScryptedDevice, which contains the id, name, a
 <th>Type</th>
 </tr>
 </thead><tbody>
-<tr>
-<td>events</td>
-<td>string[]</td>
-</tr>
 <tr>
 <td>id</td>
 <td>string</td>

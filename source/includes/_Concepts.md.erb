@@ -6,6 +6,16 @@ Devices are a core object of a home automation platform, and have two main prope
 
 ## Interfaces
 
+```ecmascript
+// Interfaces describe how the current state of a device, and can be used to modify that state.
+if (light.on) {
+    light.turnOff();
+}
+else {
+    light.turnOn();
+}
+```
+
 Interfaces are how devices expose their capabilities to Scrypted. An OnOff interface represents a binary switch. The Brightness
 interface represents a light that can be dimmed. The ColorSettingRgb interface indicates the light can change color.
 A device may expose multiple different interfaces to describe its functionality.
@@ -26,17 +36,23 @@ or the current color.
 
 ## Events
 
-Events are how devices notify Scrypted when something has changed on their interface. For example, when a light turns on,
-the Light device would send an OnOff event. If a Slack message is received, the Slack device would send a [MessagingEndpoint](#messagingendpoint)
+```transpilescript
+// Events are triggered by the device on update, and can be observed.
+light.on('OnOff', (eventSource: ScryptedDevice, eventDetails: EventDetails, eventData: object) => {
+  if (eventData) {
+    log.i('The light was turned on.');
+  }
+  else {
+    log.i('The light was turned off.');
+  }
+});
+```
+
+Scrypted maintains the state of all connected devices. Whenever the state of an interface is updated on a device, an Event
+will be triggered for that particular interface.
+
+For example, when a light turns on, the Light device would send an OnOff event. If a Slack message is received,
+the Slack device would send a [MessagingEndpoint](#messagingendpoint)
 event. Setting a schedule for sunrise on weekdays would send an [Alarm](#alarm) event on that schedule.
 
-Automations can subscribe tp these events and your smart home can be customized to react accordingly.
-
-Like device interfaces, a device can be a source for as many events as it wants. For example, the table of events for a given device:
-
-* Simple Bulb: [OnOff](#onoff),
-* Dimmable Bulb: [OnOff](#onoff), [Brightness](#brightness),
-* Color Bulb: [OnOff](#onoff), [Brightness](#brightness), [ColorSettingRgb](#colorsettingrgb)
-
-While this looks exactly the same as above, note that this isn't always the case. The [HttpRequestHandler](#httprequesthandler)
-interface, for example, has no corresponding event.
+Automations subscribe to these events in your smart home setup and react accordingly.
