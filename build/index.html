@@ -734,7 +734,7 @@ exposing multiple other devices to Scrypted.</p>
 <p>Interfaces also provide a way to query the device state. Such as checking whether an outlet is on or off, the current brightness level,
 or the current color.</p>
 <h2 id='events'>Events</h2><pre class="highlight typescript tab-typescript"><code><span class="c1">// Events are triggered by the device on update, and can be observed.</span>
-<span class="nx">light</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="p">(</span><span class="nx">eventSource</span><span class="p">:</span> <span class="nx">ScryptedDevice</span><span class="p">,</span> <span class="nx">eventDetails</span><span class="p">:</span> <span class="nx">EventDetails</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="nx">object</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+<span class="nx">light</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="p">(</span><span class="nx">eventSource</span><span class="p">:</span> <span class="nx">ScryptedDevice</span><span class="p">,</span> <span class="nx">eventDetails</span><span class="p">:</span> <span class="nx">EventDetails</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="nx">object</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">eventData</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">log</span><span class="p">.</span><span class="nx">i</span><span class="p">(</span><span class="s1">'The light was turned on.'</span><span class="p">);</span>
   <span class="p">}</span>
@@ -743,7 +743,7 @@ or the current color.</p>
   <span class="p">}</span>
 <span class="p">});</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="c1">// Events are triggered by the device on update, and can be observed.</span>
-<span class="nx">light</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="p">(</span><span class="nx">eventSource</span><span class="p">,</span> <span class="nx">eventDetails</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+<span class="nx">light</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="p">(</span><span class="nx">eventSource</span><span class="p">,</span> <span class="nx">eventDetails</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="nx">eventData</span><span class="p">)</span> <span class="p">{</span>
         <span class="nx">log</span><span class="p">.</span><span class="nx">i</span><span class="p">(</span><span class="s1">'The light was turned on.'</span><span class="p">);</span>
     <span class="p">}</span>
@@ -1098,7 +1098,7 @@ Used by <a href='#scrypteddevice'>ScryptedDevice</a>.
 <p>Example</p>
 </blockquote>
 
-<pre class="highlight typescript tab-typescript"><code><span class="nx">light</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="p">(</span><span class="nx">eventSource</span><span class="p">:</span> <span class="nx">ScryptedDevice</span><span class="p">,</span> <span class="nx">eventDetails</span><span class="p">:</span> <span class="nx">EventDetails</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="nx">object</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+<pre class="highlight typescript tab-typescript"><code><span class="nx">light</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="p">(</span><span class="nx">eventSource</span><span class="p">:</span> <span class="nx">ScryptedDevice</span><span class="p">,</span> <span class="nx">eventDetails</span><span class="p">:</span> <span class="nx">EventDetails</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="nx">object</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">eventData</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">log</span><span class="p">.</span><span class="nx">i</span><span class="p">(</span><span class="s1">'The light was turned on.'</span><span class="p">);</span>
   <span class="p">}</span>
@@ -1106,7 +1106,7 @@ Used by <a href='#scrypteddevice'>ScryptedDevice</a>.
     <span class="nx">log</span><span class="p">.</span><span class="nx">i</span><span class="p">(</span><span class="s1">'The light was turned off.'</span><span class="p">);</span>
   <span class="p">}</span>
 <span class="p">});</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="nx">light</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="p">(</span><span class="nx">eventSource</span><span class="p">,</span> <span class="nx">eventDetails</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="nx">light</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="s1">'OnOff'</span><span class="p">,</span> <span class="p">(</span><span class="nx">eventSource</span><span class="p">,</span> <span class="nx">eventDetails</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="nx">eventData</span><span class="p">)</span> <span class="p">{</span>
         <span class="nx">log</span><span class="p">.</span><span class="nx">i</span><span class="p">(</span><span class="s1">'The light was turned on.'</span><span class="p">);</span>
     <span class="p">}</span>
