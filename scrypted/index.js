@@ -76,6 +76,7 @@ const TypeMap = {
     long: 'number',
     double: 'number',
     Double: 'number',
+    Any: 'any',
 };
 
 (async function () {

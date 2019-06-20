@@ -2,10 +2,12 @@ export interface ZwaveManagerDevice extends ZwaveManager, ScryptedDevice {
 }
 
 export interface ScryptedStatic {
-    scriptSettings: Settings,
     log: Logger,
-    systemManager: SystemManager,
+    scriptSettings: Settings,
+
     deviceManager: DeviceManager,
+    endpointManager: EndpointManager,
     mediaManager: MediaManager,
+    systemManager: SystemManager,
     zwaveManager: ZwaveManagerDevice,
 }

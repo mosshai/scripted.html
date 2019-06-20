@@ -391,9 +391,10 @@ interface DeviceManager  {
   getDeviceState(nativeId: string): DeviceState;
   getDeviceStorage(): Storage;
   getDeviceStorage(nativeId: string): Storage;
+  getNativeIds(): string[];
   onDeviceDiscovered(device: Device): void;
-  onDeviceEvent(eventInterface: string, eventData: object): void;
-  onDeviceEvent(nativeId: string, eventInterface: string, eventData: object): void;
+  onDeviceEvent(eventInterface: string, eventData: any): void;
+  onDeviceEvent(nativeId: string, eventInterface: string, eventData: any): void;
   onDevicesChanged(devices: DeviceManifest): void;
 }
 ```
@@ -433,10 +434,15 @@ Get the device state maintained by Scrypted. Setting properties on this state wi
 ### getDeviceStorage
 Storage getDeviceStorage()
 
-
+Get the per script Storage object.
 
 ### getDeviceStorage
 Storage getDeviceStorage(string nativeId)
+
+Get the per device Storage object.
+
+### getNativeIds
+string[] getNativeIds()
 
 
 
@@ -446,12 +452,12 @@ void onDeviceDiscovered(<a href='#device'>Device</a> device)
 onDeviceDiscovered is used to report new devices that are trickle discovered, one by one, such as via a network broadcast.
 
 ### onDeviceEvent
-void onDeviceEvent(string eventInterface, object eventData)
+void onDeviceEvent(string eventInterface, any eventData)
 
 Fire an event for this plugin's device.
 
 ### onDeviceEvent
-void onDeviceEvent(string nativeId, string eventInterface, object eventData)
+void onDeviceEvent(string nativeId, string eventInterface, any eventData)
 
 Fire an event for a device provided by this plugin.
 
@@ -676,6 +682,7 @@ interface DeviceState  {
   binaryState: boolean;
   intrusionDetected: boolean;
   motionDetected: boolean;
+  occupied: boolean;
   flooded: boolean;
   ultraviolet: number;
   luminance: number;
@@ -725,6 +732,7 @@ toMimeType | string
 binaryState | boolean
 intrusionDetected | boolean
 motionDetected | boolean
+occupied | boolean
 flooded | boolean
 ultraviolet | number
 luminance | number
@@ -751,6 +759,7 @@ luminance | number
 interface MediaManager  {
   convertMediaObjectToBuffer(mediaObject: MediaObject, toMimeType: string): Promise<Buffer>;
   convertMediaObjectToUri(mediaObject: MediaObject, toMimeType: string): Promise<string>;
+  createFFmpegMediaObject(ffMpegInput: FFMpegInput): MediaObject;
   createMediaObject(data: string|Buffer|Promise<string|Buffer>, mimeType: string): MediaObject;
 }
 ```
@@ -774,6 +783,11 @@ Convert a media object to a Buffer of the given mime type.
 Promise\<string> convertMediaObjectToUri(<a href='#mediaobject'>MediaObject</a> mediaObject, string toMimeType)
 
 Convert a media object to a publically accessible uri that serves a media file of the given mime type.
+
+### createFFmpegMediaObject
+<a href='#mediaobject'>MediaObject</a> createFFmpegMediaObject(<a href='#ffmpeginput'>FFMpegInput</a> ffMpegInput)
+
+Create a MediaObject. The media will be created from the provided FFmpeg input arguments.
 
 ### createMediaObject
 <a href='#mediaobject'>MediaObject</a> createMediaObject(string|Buffer|Promise\<string|Buffer> data, string mimeType)
@@ -2571,7 +2585,7 @@ online | boolean
 ```ecmascript
 interface Program  {
   run(args: object[]): object;
-  runAsync(args: object[]): Future;
+  runAsync(args: object[]): Promise<object>;
 }
 ```
 
@@ -2591,7 +2605,7 @@ object run(object[] args)
 Synchronously run a script given the provided arguments.
 
 ### runAsync
-Future runAsync(object[] args)
+Promise\<object> runAsync(object[] args)
 
 Asynchronously run a script given the provided arguments.
 
@@ -2808,10 +2822,24 @@ motionDetected | boolean
 ## OccupancySensor
 
 
+> Definition
+
+```ecmascript
+interface OccupancySensor  {
+  occupied: boolean;
+}
+```
+
 
 <%= partial "includes/scrypted/OccupancySensor.md.erb" %>
 
 
+
+
+### Properties
+Name      | Type
+--------- | ----
+occupied | boolean
 
 
 
@@ -3016,7 +3044,7 @@ interface Setting  {
   description: string;
   key: string;
   placeholder: string;
-  reload: boolean;
+  readonly: boolean;
   title: string;
   type: string;
   value: boolean|number|string;
@@ -3043,7 +3071,7 @@ choices | string[]
 description | string
 key | string
 placeholder | string
-reload | boolean
+readonly | boolean
 title | string
 type | string
 value | boolean|number|string
@@ -3093,6 +3121,87 @@ Get the Oauth URL to navigate to in the browser. The redirect_uri parameter is n
 void onOauthCallback(string callbackUrl)
 
 When an oauth request by a plugin completes, the callback url, with the code/token, will be passed to this method.
+
+
+
+
+
+
+
+## FFMpegInput
+
+
+> Definition
+
+```ecmascript
+interface FFMpegInput  {
+  inputArguments: string[];
+}
+```
+
+
+<%= partial "includes/scrypted/FFMpegInput.md.erb" %>
+
+
+<aside class="notice">
+
+Used by <a href='#mediamanager'>MediaManager</a>.
+
+
+</aside>
+
+
+
+### Properties
+Name      | Type
+--------- | ----
+inputArguments | string[]
+
+
+
+
+
+
+
+
+## EndpointManager
+
+
+> Definition
+
+```ecmascript
+interface EndpointManager  {
+  getPublicCloudEndpoint(): Promise<string>;
+  getPublicPushEndpoint(): Promise<string>;
+}
+```
+
+
+<%= partial "includes/scrypted/EndpointManager.md.erb" %>
+
+
+<aside class="notice">
+
+
+EndpointManager creates publicly accessible external URLs that can be used to contact your Scrypted Plugin.
+
+</aside>
+
+
+
+
+
+
+
+### getPublicCloudEndpoint
+Promise\<string> getPublicCloudEndpoint()
+
+Get an URL that can be externally accessed by anyone with the link. Plugin implementation is responsible for authentication and token mechanisms.
+
+### getPublicPushEndpoint
+Promise\<string> getPublicPushEndpoint()
+
+Get an URL that can be used to send a push message to the client. This differs from a cloud endpoint, in that, the Plugin does not send a response back. Plugin implementation is responsible for authentication and token mechanisms.
 
 
 
@@ -3154,6 +3263,7 @@ Callback to handle an incoming request.
 interface HttpRequest  {
   body: string;
   headers: object;
+  isPublicEndpoint: boolean;
   method: string;
   rootPath: string;
   url: string;
@@ -3178,6 +3288,7 @@ Name      | Type
 --------- | ----
 body | string
 headers | object
+isPublicEndpoint | boolean
 method | string
 rootPath | string
 url | string
@@ -3281,6 +3392,44 @@ asContent | boolean
 code | number
 headers | object
 
+
+
+
+
+
+
+
+## PushHandler
+
+
+> Definition
+
+```ecmascript
+interface PushHandler  {
+  getEndpoint(): string;
+  onPush(request: HttpRequest): void;
+}
+```
+
+
+<%= partial "includes/scrypted/PushHandler.md.erb" %>
+
+
+
+
+
+
+
+
+### getEndpoint
+string getEndpoint()
+
+Get the preferred endpoint of this HttpRequestHandler. Local/development scripts can set this to any value. This is ignored if the plugin is installed via npm: the endpoint will always be the npm package name.
+
+### onPush
+void onPush(<a href='#httprequest'>HttpRequest</a> request)
+
+Callback to handle an incoming push.
 
 
 
