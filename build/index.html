@@ -1983,11 +1983,15 @@ MediaObject is an intermediate object within Scrypted to represent all media obj
 <p>Definition</p>
 </blockquote>
 <pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">EndpointManager</span>  <span class="p">{</span>
+  <span class="nx">getInsecurePublicLocalEndpoint</span><span class="p">():</span> <span class="kr">string</span><span class="p">;</span>
   <span class="nx">getPublicCloudEndpoint</span><span class="p">():</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="kr">string</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">getPublicLocalEndpoint</span><span class="p">():</span> <span class="kr">string</span><span class="p">;</span>
   <span class="nx">getPublicPushEndpoint</span><span class="p">():</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="kr">string</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">EndpointManager</span>  <span class="p">{</span>
+  <span class="nx">getInsecurePublicLocalEndpoint</span><span class="p">():</span> <span class="nx">string</span><span class="p">;</span>
   <span class="nx">getPublicCloudEndpoint</span><span class="p">():</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">getPublicLocalEndpoint</span><span class="p">():</span> <span class="nx">string</span><span class="p">;</span>
   <span class="nx">getPublicPushEndpoint</span><span class="p">():</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
@@ -1997,14 +2001,22 @@ MediaObject is an intermediate object within Scrypted to represent all media obj
 EndpointManager creates publicly accessible external URLs that can be used to contact your Scrypted Plugin.
 
 </aside>
+<h3 id='getinsecurepubliclocalendpoint'>getInsecurePublicLocalEndpoint</h3>
+<p>string getInsecurePublicLocalEndpoint()</p>
+
+<p>Get an URL that can only be accessed on your local network by anyone with the link. HTTP requests and responses are without any encyption. Plugin implementation is responsible for authentication.</p>
 <h3 id='getpubliccloudendpoint'>getPublicCloudEndpoint</h3>
 <p>Promise&lt;string&gt; getPublicCloudEndpoint()</p>
 
-<p>Get an URL that can be externally accessed by anyone with the link. Plugin implementation is responsible for authentication and token mechanisms.</p>
+<p>Get an URL that can be externally accessed by anyone with the link. Plugin implementation is responsible for authentication.</p>
+<h3 id='getpubliclocalendpoint'>getPublicLocalEndpoint</h3>
+<p>string getPublicLocalEndpoint()</p>
+
+<p>Get an URL that can only be accessed on your local network by anyone with the link. HTTP requests and responses are over SSL with a self signed certificate. Plugin implementation is responsible for authentication.</p>
 <h3 id='getpublicpushendpoint'>getPublicPushEndpoint</h3>
 <p>Promise&lt;string&gt; getPublicPushEndpoint()</p>
 
-<p>Get an URL that can be used to send a push message to the client. This differs from a cloud endpoint, in that, the Plugin does not send a response back. Plugin implementation is responsible for authentication and token mechanisms.</p>
+<p>Get an URL that can be used to send a push message to the client. This differs from a cloud endpoint, in that, the Plugin does not send a response back. Plugin implementation is responsible for authentication.</p>
 <h1 id='android-intent-reference'>Android Intent Reference</h1><h2 id='android'>Android</h2>
 <blockquote>
 <p>Definition</p>
