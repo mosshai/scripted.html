@@ -901,6 +901,234 @@ Get an URL that can be used to send a push message to the client. This differs f
 
 
 
+## HttpRequestHandler
+
+
+> Definition
+
+```ecmascript
+interface HttpRequestHandler  {
+  getEndpoint(): string;
+  onRequest(request: HttpRequest, response: HttpResponse): void;
+}
+```
+
+
+<%= partial "includes/scrypted/HttpRequestHandler.md.erb" %>
+
+
+<aside class="notice">
+
+
+The HttpRequestHandler allows handling of web requests under the endpoint path: /endpoint/<endpoint>/*.
+
+</aside>
+
+
+
+
+
+
+
+### getEndpoint
+string getEndpoint()
+
+Get the preferred endpoint of this HttpRequestHandler. Local/development scripts can set this to any value. This is ignored if the plugin is installed via npm: the endpoint will always be the npm package name.
+
+### onRequest
+void onRequest(<a href='#httprequest'>HttpRequest</a> request, <a href='#httpresponse'>HttpResponse</a> response)
+
+Callback to handle an incoming request.
+
+
+
+
+
+
+
+## PushHandler
+
+
+> Definition
+
+```ecmascript
+interface PushHandler  {
+  getEndpoint(): string;
+  onPush(request: HttpRequest): void;
+}
+```
+
+
+<%= partial "includes/scrypted/PushHandler.md.erb" %>
+
+
+
+
+
+
+
+
+### getEndpoint
+string getEndpoint()
+
+Get the preferred endpoint of this HttpRequestHandler. Local/development scripts can set this to any value. This is ignored if the plugin is installed via npm: the endpoint will always be the npm package name.
+
+### onPush
+void onPush(<a href='#httprequest'>HttpRequest</a> request)
+
+Callback to handle an incoming push.
+
+
+
+
+
+
+
+## HttpRequest
+
+
+> Definition
+
+```ecmascript
+interface HttpRequest  {
+  body: string;
+  headers: object;
+  isPublicEndpoint: boolean;
+  method: string;
+  rootPath: string;
+  url: string;
+}
+```
+
+
+<%= partial "includes/scrypted/HttpRequest.md.erb" %>
+
+
+<aside class="notice">
+
+Used by <a href='#httprequesthandler'>HttpRequestHandler</a>.
+
+
+</aside>
+
+
+
+### Properties
+Name      | Type
+--------- | ----
+body | string
+headers | object
+isPublicEndpoint | boolean
+method | string
+rootPath | string
+url | string
+
+
+
+
+
+
+
+
+## HttpResponse
+
+
+> Definition
+
+```ecmascript
+interface HttpResponse  {
+  send(options: HttpResponseOptions, body: string): void;
+  send(options: HttpResponseOptions, body: Buffer): void;
+  send(body: string): void;
+  send(body: Buffer): void;
+}
+```
+
+
+<%= partial "includes/scrypted/HttpResponse.md.erb" %>
+
+
+<aside class="notice">
+
+Used by <a href='#httprequesthandler'>HttpRequestHandler</a>.
+
+
+Response object provided by the HttpRequestHandler.
+
+</aside>
+
+
+
+
+
+
+
+### send
+void send(<a href='#httpresponseoptions'>HttpResponseOptions</a> options, string body)
+
+
+
+### send
+void send(<a href='#httpresponseoptions'>HttpResponseOptions</a> options, Buffer body)
+
+
+
+### send
+void send(string body)
+
+
+
+### send
+void send(Buffer body)
+
+
+
+
+
+
+
+
+
+## HttpResponseOptions
+
+
+> Definition
+
+```ecmascript
+interface HttpResponseOptions  {
+  asContent: boolean;
+  code: number;
+  headers: object;
+}
+```
+
+
+<%= partial "includes/scrypted/HttpResponseOptions.md.erb" %>
+
+
+<aside class="notice">
+
+Used by <a href='#httpresponse'>HttpResponse</a>.
+
+
+</aside>
+
+
+
+### Properties
+Name      | Type
+--------- | ----
+asContent | boolean
+code | number
+headers | object
+
+
+
+
+
+
+
+
 
 
 
@@ -3283,234 +3511,6 @@ Name      | Type
 --------- | ----
 inputArguments | string[]
 
-
-
-
-
-
-
-
-## HttpRequestHandler
-
-
-> Definition
-
-```ecmascript
-interface HttpRequestHandler  {
-  getEndpoint(): string;
-  onRequest(request: HttpRequest, response: HttpResponse): void;
-}
-```
-
-
-<%= partial "includes/scrypted/HttpRequestHandler.md.erb" %>
-
-
-<aside class="notice">
-
-
-The HttpRequestHandler allows handling of web requests under the endpoint path: /endpoint/<endpoint>/*.
-
-</aside>
-
-
-
-
-
-
-
-### getEndpoint
-string getEndpoint()
-
-Get the preferred endpoint of this HttpRequestHandler. Local/development scripts can set this to any value. This is ignored if the plugin is installed via npm: the endpoint will always be the npm package name.
-
-### onRequest
-void onRequest(<a href='#httprequest'>HttpRequest</a> request, <a href='#httpresponse'>HttpResponse</a> response)
-
-Callback to handle an incoming request.
-
-
-
-
-
-
-
-## HttpRequest
-
-
-> Definition
-
-```ecmascript
-interface HttpRequest  {
-  body: string;
-  headers: object;
-  isPublicEndpoint: boolean;
-  method: string;
-  rootPath: string;
-  url: string;
-}
-```
-
-
-<%= partial "includes/scrypted/HttpRequest.md.erb" %>
-
-
-<aside class="notice">
-
-Used by <a href='#httprequesthandler'>HttpRequestHandler</a>.
-
-
-</aside>
-
-
-
-### Properties
-Name      | Type
---------- | ----
-body | string
-headers | object
-isPublicEndpoint | boolean
-method | string
-rootPath | string
-url | string
-
-
-
-
-
-
-
-
-## HttpResponse
-
-
-> Definition
-
-```ecmascript
-interface HttpResponse  {
-  send(options: HttpResponseOptions, body: string): void;
-  send(options: HttpResponseOptions, body: Buffer): void;
-  send(body: string): void;
-  send(body: Buffer): void;
-}
-```
-
-
-<%= partial "includes/scrypted/HttpResponse.md.erb" %>
-
-
-<aside class="notice">
-
-Used by <a href='#httprequesthandler'>HttpRequestHandler</a>.
-
-
-Response object provided by the HttpRequestHandler.
-
-</aside>
-
-
-
-
-
-
-
-### send
-void send(<a href='#httpresponseoptions'>HttpResponseOptions</a> options, string body)
-
-
-
-### send
-void send(<a href='#httpresponseoptions'>HttpResponseOptions</a> options, Buffer body)
-
-
-
-### send
-void send(string body)
-
-
-
-### send
-void send(Buffer body)
-
-
-
-
-
-
-
-
-
-## HttpResponseOptions
-
-
-> Definition
-
-```ecmascript
-interface HttpResponseOptions  {
-  asContent: boolean;
-  code: number;
-  headers: object;
-}
-```
-
-
-<%= partial "includes/scrypted/HttpResponseOptions.md.erb" %>
-
-
-<aside class="notice">
-
-Used by <a href='#httpresponse'>HttpResponse</a>.
-
-
-</aside>
-
-
-
-### Properties
-Name      | Type
---------- | ----
-asContent | boolean
-code | number
-headers | object
-
-
-
-
-
-
-
-
-## PushHandler
-
-
-> Definition
-
-```ecmascript
-interface PushHandler  {
-  getEndpoint(): string;
-  onPush(request: HttpRequest): void;
-}
-```
-
-
-<%= partial "includes/scrypted/PushHandler.md.erb" %>
-
-
-
-
-
-
-
-
-### getEndpoint
-string getEndpoint()
-
-Get the preferred endpoint of this HttpRequestHandler. Local/development scripts can set this to any value. This is ignored if the plugin is installed via npm: the endpoint will always be the npm package name.
-
-### onPush
-void onPush(<a href='#httprequest'>HttpRequest</a> request)
-
-Callback to handle an incoming push.
 
 
 

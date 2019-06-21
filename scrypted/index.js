@@ -27,6 +27,11 @@ const Sections = {
     ],
     "Webhook and Push Reference": [
         "EndpointManager",
+        "HttpRequestHandler",
+        "PushHandler",
+        "HttpRequest",
+        "HttpResponse",
+        "HttpResponseOptions",
     ],
     "Android Intent Reference": [
         "Android",

@@ -325,6 +325,21 @@
                   <li>
                     <a href="#endpointmanager" class="toc-h2 toc-link" data-title="EndpointManager">EndpointManager</a>
                   </li>
+                  <li>
+                    <a href="#httprequesthandler" class="toc-h2 toc-link" data-title="HttpRequestHandler">HttpRequestHandler</a>
+                  </li>
+                  <li>
+                    <a href="#pushhandler" class="toc-h2 toc-link" data-title="PushHandler">PushHandler</a>
+                  </li>
+                  <li>
+                    <a href="#httprequest" class="toc-h2 toc-link" data-title="HttpRequest">HttpRequest</a>
+                  </li>
+                  <li>
+                    <a href="#httpresponse" class="toc-h2 toc-link" data-title="HttpResponse">HttpResponse</a>
+                  </li>
+                  <li>
+                    <a href="#httpresponseoptions" class="toc-h2 toc-link" data-title="HttpResponseOptions">HttpResponseOptions</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -501,21 +516,6 @@
                   </li>
                   <li>
                     <a href="#ffmpeginput" class="toc-h2 toc-link" data-title="FFMpegInput">FFMpegInput</a>
-                  </li>
-                  <li>
-                    <a href="#httprequesthandler" class="toc-h2 toc-link" data-title="HttpRequestHandler">HttpRequestHandler</a>
-                  </li>
-                  <li>
-                    <a href="#httprequest" class="toc-h2 toc-link" data-title="HttpRequest">HttpRequest</a>
-                  </li>
-                  <li>
-                    <a href="#httpresponse" class="toc-h2 toc-link" data-title="HttpResponse">HttpResponse</a>
-                  </li>
-                  <li>
-                    <a href="#httpresponseoptions" class="toc-h2 toc-link" data-title="HttpResponseOptions">HttpResponseOptions</a>
-                  </li>
-                  <li>
-                    <a href="#pushhandler" class="toc-h2 toc-link" data-title="PushHandler">PushHandler</a>
                   </li>
               </ul>
           </li>
@@ -2017,6 +2017,219 @@ EndpointManager creates publicly accessible external URLs that can be used to co
 <p>Promise&lt;string&gt; getPublicPushEndpoint()</p>
 
 <p>Get an URL that can be used to send a push message to the client. This differs from a cloud endpoint, in that, the Plugin does not send a response back. Plugin implementation is responsible for authentication.</p>
+<h2 id='httprequesthandler'>HttpRequestHandler</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">HttpRequestHandler</span>  <span class="p">{</span>
+  <span class="nx">getEndpoint</span><span class="p">():</span> <span class="kr">string</span><span class="p">;</span>
+  <span class="nx">onRequest</span><span class="p">(</span><span class="nx">request</span><span class="p">:</span> <span class="nx">HttpRequest</span><span class="p">,</span> <span class="nx">response</span><span class="p">:</span> <span class="nx">HttpResponse</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">HttpRequestHandler</span>  <span class="p">{</span>
+  <span class="nx">getEndpoint</span><span class="p">():</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nx">onRequest</span><span class="p">(</span><span class="nx">request</span><span class="p">:</span> <span class="nx">HttpRequest</span><span class="p">,</span> <span class="nx">response</span><span class="p">:</span> <span class="nx">HttpResponse</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+<blockquote>
+<p>Example</p>
+</blockquote>
+
+<pre class="highlight typescript tab-typescript"><code><span class="kr">class</span> <span class="nx">HttpHandler</span> <span class="k">implements</span> <span class="nx">HttpRequestHnadler</span> <span class="p">{</span>
+    <span class="c1">// See documentation! </span>
+    <span class="c1">// Will handle requests at https://&lt;local-ip&gt;:9443/endpoint/test/ (or /endpoint/@koush/test)</span>
+    <span class="nx">getEndpoint</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="s1">'test'</span><span class="p">;</span>
+        <span class="c1">// or, an npm user/org namespace works as well:</span>
+        <span class="c1">// return '@koush/test';</span>
+    <span class="p">}</span>
+    <span class="nx">onRequest</span><span class="p">(</span><span class="nx">request</span><span class="p">:</span> <span class="nx">HttpRequest</span><span class="p">,</span> <span class="nx">response</span><span class="p">:</span> <span class="nx">HttpResponse</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">response</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="s1">'hello world!!'</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="k">new</span> <span class="nx">HttpHandler</span><span class="p">();</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">class</span> <span class="nx">HttpHandler</span> <span class="p">{</span>
+    <span class="c1">// See documentation! </span>
+    <span class="c1">// Will handle requests at https://&lt;local-ip&gt;:9443/endpoint/test/ (or /endpoint/@koush/test)</span>
+    <span class="nx">getEndpoint</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="s1">'test'</span><span class="p">;</span>
+        <span class="c1">// or, an npm user/org namespace works as well:</span>
+        <span class="c1">// return '@koush/test';</span>
+    <span class="p">}</span>
+    <span class="nx">onRequest</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">response</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="s1">'hello world!!'</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="kr">export</span> <span class="k">default</span> <span class="k">new</span> <span class="nx">HttpHandler</span><span class="p">();</span>
+</code></pre>
+
+<aside class="notice">
+
+
+The HttpRequestHandler allows handling of web requests under the endpoint path: /endpoint/<endpoint>/*.
+
+</aside>
+<h3 id='getendpoint'>getEndpoint</h3>
+<p>string getEndpoint()</p>
+
+<p>Get the preferred endpoint of this HttpRequestHandler. Local/development scripts can set this to any value. This is ignored if the plugin is installed via npm: the endpoint will always be the npm package name.</p>
+<h3 id='onrequest'>onRequest</h3>
+<p>void onRequest(<a href='#httprequest'>HttpRequest</a> request, <a href='#httpresponse'>HttpResponse</a> response)</p>
+
+<p>Callback to handle an incoming request.</p>
+<h2 id='pushhandler'>PushHandler</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">PushHandler</span>  <span class="p">{</span>
+  <span class="nx">getEndpoint</span><span class="p">():</span> <span class="kr">string</span><span class="p">;</span>
+  <span class="nx">onPush</span><span class="p">(</span><span class="nx">request</span><span class="p">:</span> <span class="nx">HttpRequest</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">PushHandler</span>  <span class="p">{</span>
+  <span class="nx">getEndpoint</span><span class="p">():</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nx">onPush</span><span class="p">(</span><span class="nx">request</span><span class="p">:</span> <span class="nx">HttpRequest</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><h3 id='getendpoint-2'>getEndpoint</h3>
+<p>string getEndpoint()</p>
+
+<p>Get the preferred endpoint of this HttpRequestHandler. Local/development scripts can set this to any value. This is ignored if the plugin is installed via npm: the endpoint will always be the npm package name.</p>
+<h3 id='onpush'>onPush</h3>
+<p>void onPush(<a href='#httprequest'>HttpRequest</a> request)</p>
+
+<p>Callback to handle an incoming push.</p>
+<h2 id='httprequest'>HttpRequest</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">HttpRequest</span>  <span class="p">{</span>
+  <span class="nl">body</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+  <span class="nl">headers</span><span class="p">:</span> <span class="nx">object</span><span class="p">;</span>
+  <span class="nl">isPublicEndpoint</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
+  <span class="nl">method</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+  <span class="nl">rootPath</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+  <span class="nl">url</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">HttpRequest</span>  <span class="p">{</span>
+  <span class="nl">body</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nl">headers</span><span class="p">:</span> <span class="nx">object</span><span class="p">;</span>
+  <span class="nl">isPublicEndpoint</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
+  <span class="nl">method</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nl">rootPath</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nl">url</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+<aside class="notice">
+
+Used by <a href='#httprequesthandler'>HttpRequestHandler</a>.
+
+
+</aside>
+<h3 id='properties-6'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>body</td>
+<td>string</td>
+</tr>
+<tr>
+<td>headers</td>
+<td>object</td>
+</tr>
+<tr>
+<td>isPublicEndpoint</td>
+<td>boolean</td>
+</tr>
+<tr>
+<td>method</td>
+<td>string</td>
+</tr>
+<tr>
+<td>rootPath</td>
+<td>string</td>
+</tr>
+<tr>
+<td>url</td>
+<td>string</td>
+</tr>
+</tbody></table>
+<h2 id='httpresponse'>HttpResponse</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">HttpResponse</span>  <span class="p">{</span>
+  <span class="nx">send</span><span class="p">(</span><span class="nx">options</span><span class="p">:</span> <span class="nx">HttpResponseOptions</span><span class="p">,</span> <span class="nx">body</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">send</span><span class="p">(</span><span class="nx">options</span><span class="p">:</span> <span class="nx">HttpResponseOptions</span><span class="p">,</span> <span class="nx">body</span><span class="p">:</span> <span class="nx">Buffer</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">send</span><span class="p">(</span><span class="nx">body</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">send</span><span class="p">(</span><span class="nx">body</span><span class="p">:</span> <span class="nx">Buffer</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">HttpResponse</span>  <span class="p">{</span>
+  <span class="nx">send</span><span class="p">(</span><span class="nx">options</span><span class="p">:</span> <span class="nx">HttpResponseOptions</span><span class="p">,</span> <span class="nx">body</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">send</span><span class="p">(</span><span class="nx">options</span><span class="p">:</span> <span class="nx">HttpResponseOptions</span><span class="p">,</span> <span class="nx">body</span><span class="p">:</span> <span class="nx">Buffer</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">send</span><span class="p">(</span><span class="nx">body</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">send</span><span class="p">(</span><span class="nx">body</span><span class="p">:</span> <span class="nx">Buffer</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+<aside class="notice">
+
+Used by <a href='#httprequesthandler'>HttpRequestHandler</a>.
+
+
+Response object provided by the HttpRequestHandler.
+
+</aside>
+<h3 id='send'>send</h3>
+<p>void send(<a href='#httpresponseoptions'>HttpResponseOptions</a> options, string body)</p>
+<h3 id='send-2'>send</h3>
+<p>void send(<a href='#httpresponseoptions'>HttpResponseOptions</a> options, Buffer body)</p>
+<h3 id='send-3'>send</h3>
+<p>void send(string body)</p>
+<h3 id='send-4'>send</h3>
+<p>void send(Buffer body)</p>
+<h2 id='httpresponseoptions'>HttpResponseOptions</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">HttpResponseOptions</span>  <span class="p">{</span>
+  <span class="nl">asContent</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
+  <span class="nl">code</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
+  <span class="nl">headers</span><span class="p">:</span> <span class="nx">object</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">HttpResponseOptions</span>  <span class="p">{</span>
+  <span class="nl">asContent</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
+  <span class="nl">code</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
+  <span class="nl">headers</span><span class="p">:</span> <span class="nx">object</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+<aside class="notice">
+
+Used by <a href='#httpresponse'>HttpResponse</a>.
+
+
+</aside>
+<h3 id='properties-7'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>asContent</td>
+<td>boolean</td>
+</tr>
+<tr>
+<td>code</td>
+<td>number</td>
+</tr>
+<tr>
+<td>headers</td>
+<td>object</td>
+</tr>
+</tbody></table>
 <h1 id='android-intent-reference'>Android Intent Reference</h1><h2 id='android'>Android</h2>
 <blockquote>
 <p>Definition</p>
@@ -2126,7 +2339,7 @@ Android provides limited access to the Android system, to send Intents to other 
   <span class="nl">type</span><span class="p">:</span> <span class="nx">ZwaveNotificationType</span><span class="p">;</span>
   <span class="nl">valueId</span><span class="p">:</span> <span class="nx">ZwaveValueId</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-6'>Properties</h3>
+</code></pre><h3 id='properties-8'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2357,7 +2570,7 @@ Used by <a href='#zwavemanager'>ZwaveManager</a>.
 
 
 </aside>
-<h3 id='properties-7'>Properties</h3>
+<h3 id='properties-9'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2414,7 +2627,7 @@ Used by <a href='#scrypteddevice'>ScryptedDevice</a>.
 
 
 </aside>
-<h3 id='properties-8'>Properties</h3>
+<h3 id='properties-10'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2457,7 +2670,7 @@ Used by <a href='#eventlistener'>EventListener</a>.
 
 
 </aside>
-<h3 id='properties-9'>Properties</h3>
+<h3 id='properties-11'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2524,7 +2737,7 @@ Used by <a href='#eventlistener'>EventListener</a>.
 OnOff is a basic binary switch.
 
 </aside>
-<h3 id='properties-10'>Properties</h3>
+<h3 id='properties-12'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2571,7 +2784,7 @@ OnOff is a basic binary switch.
 Brightness is a lighting device that can be dimmed/lit between 0 to 100.
 
 </aside>
-<h3 id='properties-11'>Properties</h3>
+<h3 id='properties-13'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2620,7 +2833,7 @@ Brightness is a lighting device that can be dimmed/lit between 0 to 100.
 ColorSettingTemperature sets the color temperature of a light in Kelvin.
 
 </aside>
-<h3 id='properties-12'>Properties</h3>
+<h3 id='properties-14'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2677,7 +2890,7 @@ ColorSettingTemperature sets the color temperature of a light in Kelvin.
 ColorSettingRgb sets the color of a colored light using the RGB representation.
 
 </aside>
-<h3 id='properties-13'>Properties</h3>
+<h3 id='properties-15'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2714,7 +2927,7 @@ Used by <a href='#colorsettingrgb'>ColorSettingRgb</a>.
 Represents an RGB color with component values between 0 and 255.
 
 </aside>
-<h3 id='properties-14'>Properties</h3>
+<h3 id='properties-16'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2773,7 +2986,7 @@ Represents an RGB color with component values between 0 and 255.
 ColorSettingHsv sets the color of a colored light using the HSV representation.
 
 </aside>
-<h3 id='properties-15'>Properties</h3>
+<h3 id='properties-17'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2810,7 +3023,7 @@ Used by <a href='#colorsettinghsv'>ColorSettingHsv</a>.
 Represents an HSV color value component.
 
 </aside>
-<h3 id='properties-16'>Properties</h3>
+<h3 id='properties-18'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2925,7 +3138,7 @@ Passing null uses the native type of the MediaObject. If that is not supported b
 StartStop represents a device that can be started, stopped, and possibly paused and resumed. Typically vacuum cleaners or washers.
 
 </aside>
-<h3 id='properties-17'>Properties</h3>
+<h3 id='properties-19'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2982,7 +3195,7 @@ StartStop represents a device that can be started, stopped, and possibly paused 
 Dock instructs devices that have a base station or charger, to return to their home.
 
 </aside>
-<h3 id='properties-18'>Properties</h3>
+<h3 id='properties-20'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3031,7 +3244,7 @@ Dock instructs devices that have a base station or charger, to return to their h
 TemperatureSetting represents a thermostat device.
 
 </aside>
-<h3 id='properties-19'>Properties</h3>
+<h3 id='properties-21'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3079,7 +3292,7 @@ TemperatureSetting represents a thermostat device.
   <span class="nl">temperature</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
   <span class="nl">temperatureUnit</span><span class="p">:</span> <span class="nx">TemperatureUnit</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-20'>Properties</h3>
+</code></pre><h3 id='properties-22'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3133,7 +3346,7 @@ Used by <a href='#thermometer'>Thermometer</a>.
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">HumiditySensor</span>  <span class="p">{</span>
   <span class="nl">humidity</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-21'>Properties</h3>
+</code></pre><h3 id='properties-23'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3274,7 +3487,7 @@ VideoCamera devices can capture video streams.
 Lock controls devices that can lock or unlock entries. Often works in tandem with PasswordControl.
 
 </aside>
-<h3 id='properties-22'>Properties</h3>
+<h3 id='properties-24'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3346,7 +3559,7 @@ Used by <a href='#lock'>Lock</a>.
 PasswordControl represents devices that authorize users via a passcode or pin code.
 
 </aside>
-<h3 id='properties-23'>Properties</h3>
+<h3 id='properties-25'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3453,7 +3666,7 @@ Entry represents devices that can open and close barriers, such as garage doors.
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">EntrySensor</span>  <span class="p">{</span>
   <span class="nl">entryOpen</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-24'>Properties</h3>
+</code></pre><h3 id='properties-26'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3559,7 +3772,7 @@ Used by <a href='#alarm'>Alarm</a>.
 Battery retrieves the battery level of battery powered devices.
 
 </aside>
-<h3 id='properties-25'>Properties</h3>
+<h3 id='properties-27'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3621,7 +3834,7 @@ Used by <a href='#mediaplayer'>MediaPlayer</a>.
 
 
 </aside>
-<h3 id='properties-26'>Properties</h3>
+<h3 id='properties-28'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3654,7 +3867,7 @@ Used by <a href='#mediaplayer'>MediaPlayer</a>.
 Online denotes whether the device is online or unresponsive. It may be unresponsive due to being unplugged, network error, etc.
 
 </aside>
-<h3 id='properties-27'>Properties</h3>
+<h3 id='properties-29'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3709,7 +3922,7 @@ Online denotes whether the device is online or unresponsive. It may be unrespons
 SoftwareUpdate provides a way to check for updates and install them. This may be a Scrypted Plugin or device firmware.
 
 </aside>
-<h3 id='properties-28'>Properties</h3>
+<h3 id='properties-30'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3748,7 +3961,7 @@ SoftwareUpdate provides a way to check for updates and install them. This may be
 Add a converter to be used by Scrypted to convert buffers from one mime type to another mime type.
 
 </aside>
-<h3 id='properties-29'>Properties</h3>
+<h3 id='properties-31'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3776,7 +3989,7 @@ Add a converter to be used by Scrypted to convert buffers from one mime type to 
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">BinarySensor</span>  <span class="p">{</span>
   <span class="nl">binaryState</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-30'>Properties</h3>
+</code></pre><h3 id='properties-32'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3798,7 +4011,7 @@ Add a converter to be used by Scrypted to convert buffers from one mime type to 
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">IntrusionSensor</span>  <span class="p">{</span>
   <span class="nl">intrusionDetected</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-31'>Properties</h3>
+</code></pre><h3 id='properties-33'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3820,7 +4033,7 @@ Add a converter to be used by Scrypted to convert buffers from one mime type to 
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">MotionSensor</span>  <span class="p">{</span>
   <span class="nl">motionDetected</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-32'>Properties</h3>
+</code></pre><h3 id='properties-34'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3842,7 +4055,7 @@ Add a converter to be used by Scrypted to convert buffers from one mime type to 
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">OccupancySensor</span>  <span class="p">{</span>
   <span class="nl">occupied</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-33'>Properties</h3>
+</code></pre><h3 id='properties-35'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3864,7 +4077,7 @@ Add a converter to be used by Scrypted to convert buffers from one mime type to 
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">FloodSensor</span>  <span class="p">{</span>
   <span class="nl">flooded</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-34'>Properties</h3>
+</code></pre><h3 id='properties-36'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3886,7 +4099,7 @@ Add a converter to be used by Scrypted to convert buffers from one mime type to 
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">UltravioletSensor</span>  <span class="p">{</span>
   <span class="nl">ultraviolet</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-35'>Properties</h3>
+</code></pre><h3 id='properties-37'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3908,7 +4121,7 @@ Add a converter to be used by Scrypted to convert buffers from one mime type to 
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">LuminanceSensor</span>  <span class="p">{</span>
   <span class="nl">luminance</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-36'>Properties</h3>
+</code></pre><h3 id='properties-38'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3992,7 +4205,7 @@ Used by <a href='#settings'>Settings</a>.
 
 
 </aside>
-<h3 id='properties-37'>Properties</h3>
+<h3 id='properties-39'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4076,7 +4289,7 @@ Used by <a href='#mediamanager'>MediaManager</a>.
 
 
 </aside>
-<h3 id='properties-38'>Properties</h3>
+<h3 id='properties-40'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4088,219 +4301,6 @@ Used by <a href='#mediamanager'>MediaManager</a>.
 <td>string[]</td>
 </tr>
 </tbody></table>
-<h2 id='httprequesthandler'>HttpRequestHandler</h2>
-<blockquote>
-<p>Definition</p>
-</blockquote>
-<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">HttpRequestHandler</span>  <span class="p">{</span>
-  <span class="nx">getEndpoint</span><span class="p">():</span> <span class="kr">string</span><span class="p">;</span>
-  <span class="nx">onRequest</span><span class="p">(</span><span class="nx">request</span><span class="p">:</span> <span class="nx">HttpRequest</span><span class="p">,</span> <span class="nx">response</span><span class="p">:</span> <span class="nx">HttpResponse</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">HttpRequestHandler</span>  <span class="p">{</span>
-  <span class="nx">getEndpoint</span><span class="p">():</span> <span class="nx">string</span><span class="p">;</span>
-  <span class="nx">onRequest</span><span class="p">(</span><span class="nx">request</span><span class="p">:</span> <span class="nx">HttpRequest</span><span class="p">,</span> <span class="nx">response</span><span class="p">:</span> <span class="nx">HttpResponse</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre>
-<blockquote>
-<p>Example</p>
-</blockquote>
-
-<pre class="highlight typescript tab-typescript"><code><span class="kr">class</span> <span class="nx">HttpHandler</span> <span class="k">implements</span> <span class="nx">HttpRequestHnadler</span> <span class="p">{</span>
-    <span class="c1">// See documentation! </span>
-    <span class="c1">// Will handle requests at https://&lt;local-ip&gt;:9443/endpoint/test/ (or /endpoint/@koush/test)</span>
-    <span class="nx">getEndpoint</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="s1">'test'</span><span class="p">;</span>
-        <span class="c1">// or, an npm user/org namespace works as well:</span>
-        <span class="c1">// return '@koush/test';</span>
-    <span class="p">}</span>
-    <span class="nx">onRequest</span><span class="p">(</span><span class="nx">request</span><span class="p">:</span> <span class="nx">HttpRequest</span><span class="p">,</span> <span class="nx">response</span><span class="p">:</span> <span class="nx">HttpResponse</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">response</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="s1">'hello world!!'</span><span class="p">)</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="k">export</span> <span class="k">default</span> <span class="k">new</span> <span class="nx">HttpHandler</span><span class="p">();</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">class</span> <span class="nx">HttpHandler</span> <span class="p">{</span>
-    <span class="c1">// See documentation! </span>
-    <span class="c1">// Will handle requests at https://&lt;local-ip&gt;:9443/endpoint/test/ (or /endpoint/@koush/test)</span>
-    <span class="nx">getEndpoint</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="s1">'test'</span><span class="p">;</span>
-        <span class="c1">// or, an npm user/org namespace works as well:</span>
-        <span class="c1">// return '@koush/test';</span>
-    <span class="p">}</span>
-    <span class="nx">onRequest</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">response</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="s1">'hello world!!'</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-<span class="kr">export</span> <span class="k">default</span> <span class="k">new</span> <span class="nx">HttpHandler</span><span class="p">();</span>
-</code></pre>
-
-<aside class="notice">
-
-
-The HttpRequestHandler allows handling of web requests under the endpoint path: /endpoint/<endpoint>/*.
-
-</aside>
-<h3 id='getendpoint'>getEndpoint</h3>
-<p>string getEndpoint()</p>
-
-<p>Get the preferred endpoint of this HttpRequestHandler. Local/development scripts can set this to any value. This is ignored if the plugin is installed via npm: the endpoint will always be the npm package name.</p>
-<h3 id='onrequest'>onRequest</h3>
-<p>void onRequest(<a href='#httprequest'>HttpRequest</a> request, <a href='#httpresponse'>HttpResponse</a> response)</p>
-
-<p>Callback to handle an incoming request.</p>
-<h2 id='httprequest'>HttpRequest</h2>
-<blockquote>
-<p>Definition</p>
-</blockquote>
-<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">HttpRequest</span>  <span class="p">{</span>
-  <span class="nl">body</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
-  <span class="nl">headers</span><span class="p">:</span> <span class="nx">object</span><span class="p">;</span>
-  <span class="nl">isPublicEndpoint</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
-  <span class="nl">method</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
-  <span class="nl">rootPath</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
-  <span class="nl">url</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">HttpRequest</span>  <span class="p">{</span>
-  <span class="nl">body</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
-  <span class="nl">headers</span><span class="p">:</span> <span class="nx">object</span><span class="p">;</span>
-  <span class="nl">isPublicEndpoint</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
-  <span class="nl">method</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
-  <span class="nl">rootPath</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
-  <span class="nl">url</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre>
-<aside class="notice">
-
-Used by <a href='#httprequesthandler'>HttpRequestHandler</a>.
-
-
-</aside>
-<h3 id='properties-39'>Properties</h3>
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>body</td>
-<td>string</td>
-</tr>
-<tr>
-<td>headers</td>
-<td>object</td>
-</tr>
-<tr>
-<td>isPublicEndpoint</td>
-<td>boolean</td>
-</tr>
-<tr>
-<td>method</td>
-<td>string</td>
-</tr>
-<tr>
-<td>rootPath</td>
-<td>string</td>
-</tr>
-<tr>
-<td>url</td>
-<td>string</td>
-</tr>
-</tbody></table>
-<h2 id='httpresponse'>HttpResponse</h2>
-<blockquote>
-<p>Definition</p>
-</blockquote>
-<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">HttpResponse</span>  <span class="p">{</span>
-  <span class="nx">send</span><span class="p">(</span><span class="nx">options</span><span class="p">:</span> <span class="nx">HttpResponseOptions</span><span class="p">,</span> <span class="nx">body</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">send</span><span class="p">(</span><span class="nx">options</span><span class="p">:</span> <span class="nx">HttpResponseOptions</span><span class="p">,</span> <span class="nx">body</span><span class="p">:</span> <span class="nx">Buffer</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">send</span><span class="p">(</span><span class="nx">body</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">send</span><span class="p">(</span><span class="nx">body</span><span class="p">:</span> <span class="nx">Buffer</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">HttpResponse</span>  <span class="p">{</span>
-  <span class="nx">send</span><span class="p">(</span><span class="nx">options</span><span class="p">:</span> <span class="nx">HttpResponseOptions</span><span class="p">,</span> <span class="nx">body</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">send</span><span class="p">(</span><span class="nx">options</span><span class="p">:</span> <span class="nx">HttpResponseOptions</span><span class="p">,</span> <span class="nx">body</span><span class="p">:</span> <span class="nx">Buffer</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">send</span><span class="p">(</span><span class="nx">body</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">send</span><span class="p">(</span><span class="nx">body</span><span class="p">:</span> <span class="nx">Buffer</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre>
-<aside class="notice">
-
-Used by <a href='#httprequesthandler'>HttpRequestHandler</a>.
-
-
-Response object provided by the HttpRequestHandler.
-
-</aside>
-<h3 id='send'>send</h3>
-<p>void send(<a href='#httpresponseoptions'>HttpResponseOptions</a> options, string body)</p>
-<h3 id='send-2'>send</h3>
-<p>void send(<a href='#httpresponseoptions'>HttpResponseOptions</a> options, Buffer body)</p>
-<h3 id='send-3'>send</h3>
-<p>void send(string body)</p>
-<h3 id='send-4'>send</h3>
-<p>void send(Buffer body)</p>
-<h2 id='httpresponseoptions'>HttpResponseOptions</h2>
-<blockquote>
-<p>Definition</p>
-</blockquote>
-<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">HttpResponseOptions</span>  <span class="p">{</span>
-  <span class="nl">asContent</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
-  <span class="nl">code</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
-  <span class="nl">headers</span><span class="p">:</span> <span class="nx">object</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">HttpResponseOptions</span>  <span class="p">{</span>
-  <span class="nl">asContent</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
-  <span class="nl">code</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
-  <span class="nl">headers</span><span class="p">:</span> <span class="nx">object</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre>
-<aside class="notice">
-
-Used by <a href='#httpresponse'>HttpResponse</a>.
-
-
-</aside>
-<h3 id='properties-40'>Properties</h3>
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>asContent</td>
-<td>boolean</td>
-</tr>
-<tr>
-<td>code</td>
-<td>number</td>
-</tr>
-<tr>
-<td>headers</td>
-<td>object</td>
-</tr>
-</tbody></table>
-<h2 id='pushhandler'>PushHandler</h2>
-<blockquote>
-<p>Definition</p>
-</blockquote>
-<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">PushHandler</span>  <span class="p">{</span>
-  <span class="nx">getEndpoint</span><span class="p">():</span> <span class="kr">string</span><span class="p">;</span>
-  <span class="nx">onPush</span><span class="p">(</span><span class="nx">request</span><span class="p">:</span> <span class="nx">HttpRequest</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">PushHandler</span>  <span class="p">{</span>
-  <span class="nx">getEndpoint</span><span class="p">():</span> <span class="nx">string</span><span class="p">;</span>
-  <span class="nx">onPush</span><span class="p">(</span><span class="nx">request</span><span class="p">:</span> <span class="nx">HttpRequest</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre><h3 id='getendpoint-2'>getEndpoint</h3>
-<p>string getEndpoint()</p>
-
-<p>Get the preferred endpoint of this HttpRequestHandler. Local/development scripts can set this to any value. This is ignored if the plugin is installed via npm: the endpoint will always be the npm package name.</p>
-<h3 id='onpush'>onPush</h3>
-<p>void onPush(<a href='#httprequest'>HttpRequest</a> request)</p>
-
-<p>Callback to handle an incoming push.</p>
 
       </div>
       <div class="dark-box">
