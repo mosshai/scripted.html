@@ -2066,7 +2066,7 @@ EndpointManager creates publicly accessible external URLs that can be used to co
 <aside class="notice">
 
 
-The HttpRequestHandler allows handling of web requests under the endpoint path: /endpoint/<endpoint>/*.
+The HttpRequestHandler allows handling of web requests under the endpoint path: /endpoint/npm-package-name/*.
 
 </aside>
 <h3 id='getendpoint'>getEndpoint</h3>
@@ -2236,15 +2236,15 @@ Used by <a href='#httpresponse'>HttpResponse</a>.
 </blockquote>
 <pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">Android</span>  <span class="p">{</span>
   <span class="nx">newIntent</span><span class="p">():</span> <span class="nx">Intent</span><span class="p">;</span>
-  <span class="nx">sendBroadcast</span><span class="p">(</span><span class="nx">arg0</span><span class="p">:</span> <span class="nx">Intent</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">startActivity</span><span class="p">(</span><span class="nx">arg0</span><span class="p">:</span> <span class="nx">Intent</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">startService</span><span class="p">(</span><span class="nx">arg0</span><span class="p">:</span> <span class="nx">Intent</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">sendBroadcast</span><span class="p">(</span><span class="nx">intent</span><span class="p">:</span> <span class="nx">Intent</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">startActivity</span><span class="p">(</span><span class="nx">intent</span><span class="p">:</span> <span class="nx">Intent</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">startService</span><span class="p">(</span><span class="nx">intent</span><span class="p">:</span> <span class="nx">Intent</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Android</span>  <span class="p">{</span>
   <span class="nx">newIntent</span><span class="p">():</span> <span class="nx">Intent</span><span class="p">;</span>
-  <span class="nx">sendBroadcast</span><span class="p">(</span><span class="nx">arg0</span><span class="p">:</span> <span class="nx">Intent</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">startActivity</span><span class="p">(</span><span class="nx">arg0</span><span class="p">:</span> <span class="nx">Intent</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">startService</span><span class="p">(</span><span class="nx">arg0</span><span class="p">:</span> <span class="nx">Intent</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">sendBroadcast</span><span class="p">(</span><span class="nx">intent</span><span class="p">:</span> <span class="nx">Intent</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">startActivity</span><span class="p">(</span><span class="nx">intent</span><span class="p">:</span> <span class="nx">Intent</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">startService</span><span class="p">(</span><span class="nx">intent</span><span class="p">:</span> <span class="nx">Intent</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
 <aside class="notice">
@@ -2258,11 +2258,11 @@ Android provides limited access to the Android system, to send Intents to other 
 
 <p>Create a new Intent. Use one of the send methods to send broadcasts, start activities, or start services.</p>
 <h3 id='sendbroadcast'>sendBroadcast</h3>
-<p>void sendBroadcast(Intent arg0)</p>
+<p>void sendBroadcast(Intent intent)</p>
 <h3 id='startactivity'>startActivity</h3>
-<p>void startActivity(Intent arg0)</p>
+<p>void startActivity(Intent intent)</p>
 <h3 id='startservice'>startService</h3>
-<p>void startService(Intent arg0)</p>
+<p>void startService(Intent intent)</p>
 <h1 id='z-wave-reference'>Z-Wave Reference</h1><h2 id='zwavemanager'>ZwaveManager</h2>
 <blockquote>
 <p>Definition</p>
