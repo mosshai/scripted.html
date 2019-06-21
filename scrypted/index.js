@@ -25,6 +25,12 @@ const Sections = {
         'MediaManager',
         'MediaObject',
     ],
+    "Webhook and Push Reference": [
+        "EndpointManager",
+    ],
+    "Android Intent Reference": [
+        "Android",
+    ],
     'Z-Wave Reference': [
         'ZwaveManager',
         'ZwaveNotification',
