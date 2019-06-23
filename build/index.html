@@ -1998,7 +1998,7 @@ MediaObject is an intermediate object within Scrypted to represent all media obj
 <aside class="notice">
 
 
-EndpointManager creates publicly accessible external URLs that can be used to contact your Scrypted Plugin.
+EndpointManager provides publicly accessible URLs that can be used to contact your Scrypted Plugin.
 
 </aside>
 <h3 id='getinsecurepubliclocalendpoint'>getInsecurePublicLocalEndpoint</h3>
@@ -2165,12 +2165,16 @@ Used by <a href='#httprequesthandler'>HttpRequestHandler</a>.
   <span class="nx">send</span><span class="p">(</span><span class="nx">options</span><span class="p">:</span> <span class="nx">HttpResponseOptions</span><span class="p">,</span> <span class="nx">body</span><span class="p">:</span> <span class="nx">Buffer</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
   <span class="nx">send</span><span class="p">(</span><span class="nx">body</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
   <span class="nx">send</span><span class="p">(</span><span class="nx">body</span><span class="p">:</span> <span class="nx">Buffer</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">sendFile</span><span class="p">(</span><span class="nx">options</span><span class="p">:</span> <span class="nx">HttpResponseOptions</span><span class="p">,</span> <span class="nx">path</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">sendFile</span><span class="p">(</span><span class="nx">path</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">HttpResponse</span>  <span class="p">{</span>
   <span class="nx">send</span><span class="p">(</span><span class="nx">options</span><span class="p">:</span> <span class="nx">HttpResponseOptions</span><span class="p">,</span> <span class="nx">body</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
   <span class="nx">send</span><span class="p">(</span><span class="nx">options</span><span class="p">:</span> <span class="nx">HttpResponseOptions</span><span class="p">,</span> <span class="nx">body</span><span class="p">:</span> <span class="nx">Buffer</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
   <span class="nx">send</span><span class="p">(</span><span class="nx">body</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
   <span class="nx">send</span><span class="p">(</span><span class="nx">body</span><span class="p">:</span> <span class="nx">Buffer</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">sendFile</span><span class="p">(</span><span class="nx">options</span><span class="p">:</span> <span class="nx">HttpResponseOptions</span><span class="p">,</span> <span class="nx">path</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">sendFile</span><span class="p">(</span><span class="nx">path</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
 <aside class="notice">
@@ -2189,6 +2193,10 @@ Response object provided by the HttpRequestHandler.
 <p>void send(string body)</p>
 <h3 id='send-4'>send</h3>
 <p>void send(Buffer body)</p>
+<h3 id='sendfile'>sendFile</h3>
+<p>void sendFile(<a href='#httpresponseoptions'>HttpResponseOptions</a> options, string path)</p>
+<h3 id='sendfile-2'>sendFile</h3>
+<p>void sendFile(string path)</p>
 <h2 id='httpresponseoptions'>HttpResponseOptions</h2>
 <blockquote>
 <p>Definition</p>

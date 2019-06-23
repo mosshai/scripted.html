@@ -865,7 +865,7 @@ interface EndpointManager  {
 <aside class="notice">
 
 
-EndpointManager creates publicly accessible external URLs that can be used to contact your Scrypted Plugin.
+EndpointManager provides publicly accessible URLs that can be used to contact your Scrypted Plugin.
 
 </aside>
 
@@ -1041,6 +1041,8 @@ interface HttpResponse  {
   send(options: HttpResponseOptions, body: Buffer): void;
   send(body: string): void;
   send(body: Buffer): void;
+  sendFile(options: HttpResponseOptions, path: string): void;
+  sendFile(path: string): void;
 }
 ```
 
@@ -1080,6 +1082,16 @@ void send(string body)
 
 ### send
 void send(Buffer body)
+
+
+
+### sendFile
+void sendFile(<a href='#httpresponseoptions'>HttpResponseOptions</a> options, string path)
+
+
+
+### sendFile
+void sendFile(string path)
 
 
 
