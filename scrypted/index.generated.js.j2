@@ -1,43 +1,61 @@
 class ScryptedDeviceBase {
     constructor(nativeId) {
-        this._nativeId = nativeId;
+        this.nativeId = nativeId;
     }
 
     get storage() {
         if (!this._storage) {
-            this._storage = deviceManager.getDeviceStorage(this._nativeId);
+            this._storage = deviceManager.getDeviceStorage(this.nativeId);
         }
         return this._storage;
     }
 
     get log() {
         if (!this._log) {
-            this._log = deviceManager.getDeviceLogger(this._nativeId);
+            this._log = deviceManager.getDeviceLogger(this.nativeId);
         }
         return this._log;
     }
 
     _lazyLoadDeviceState() {
         if (!this._deviceState) {
-            if (this._nativeId) {
-                this._deviceState = deviceManager.getDeviceState(this._nativeId);
+            if (this.nativeId) {
+                this._deviceState = deviceManager.getDeviceState(this.nativeId);
             }
             else {
                 this._deviceState = deviceManager.getDeviceState();
             }
         }
     }
-{% for field in state.fields %}
-    get {{ field.name }}() {
-        this._lazyLoadDeviceState();
-        return this._deviceState.{{ field.name }};
-    }
-    set {{ field.name }}(value) {
-        this._lazyLoadDeviceState();
-        this._deviceState.{{ field.name }} = value;
-    }
-{% endfor %}
 }
+
+(function() {
+function _createGetState(state) {
+    return function() {
+        this._lazyLoadDeviceState();
+        return this._deviceState[state];
+    };
+}
+
+function _createSetState(state) {
+    return function(value) {
+        this._lazyLoadDeviceState();
+        this._deviceState[state] = value;
+    };
+}
+
+var fields = [{%- for field in state.fields -%}
+"{{ field.name }}",
+{%- endfor %}
+];
+for (var field of fields) {
+    Object.defineProperty(ScryptedDeviceBase.prototype, field, {
+        set: _createSetState(field),
+        get: _createGetState(field),
+    });
+}
+})();
+
 
 const sdk = {
     ScryptedDeviceBase,
@@ -55,3 +73,31 @@ module.exports.{{ name }} = {
 }
 {%- endif %}
 {%- endfor %}
+
+module.exports.ScryptedInterface = {
+  {%- for name, c in classes -%}
+  {%- if c.implementable %}
+  {{ name }}: "{{ name }}",
+  {%- endif %}
+  {%- endfor %}
+}
+
+module.exports.ScryptedInterfaceDescriptors = {
+  {%- for name, c in classes -%}
+  {%- if c.implementable %}
+  {{ name }}: {
+      name: "{{ name }}",
+      properties: [
+        {%- for f in c.fields %}
+        "{{ f.name }}",
+        {%- endfor %}
+      ],
+      methods: [
+        {%- for m in c.methods %}
+        "{{ m.name }}",
+        {%- endfor %}
+      ]
+  },
+  {%- endif %}
+  {%- endfor %}
+}

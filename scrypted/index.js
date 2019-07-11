@@ -67,13 +67,15 @@ const TypeMap = {
     Class: 'string',
     ClassSet: 'string[]',
     StringSet: 'string[]',
-    ScryptedInterface: 'ScryptedDevice',
+    StringMap: 'any',
+    ScryptedInterface: 'ScryptedDevice|null',
+    Interfaces: "ScryptedInterface",
 
     // todo: clean this up with strong types
     Set: 'string[]',
     List: 'string[]',
     Map: 'object',
-    JsonObject: 'object',
+    JsonObject: 'any',
 
     Boolean: 'boolean',
     ByteBuffer: 'Buffer',

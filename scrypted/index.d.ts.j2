@@ -22,7 +22,7 @@ export interface {{ name }}
    */
   {% endif -%}
   {{ method.name }}({{ mapMethodArguments(method.arguments) | join(', ') }}): {{ mapType(method) }};
-{%- endfor %}
+{% endfor %}
 
 {%- for field in c.fields %}
   {% if field.description -%}
@@ -40,10 +40,10 @@ export interface {{ name }} {
 {%- endfor %}
 
 export class ScryptedDeviceBase implements DeviceState {
-  _nativeId: string;
+  constructor(nativeId?: string);
+  nativeId: string;
   log: Logger;
   storage: Storage;
-  constructor(nativeId?: string);
 {%- for field in classes['DeviceState'].fields %}
   {% if field.description -%}
   /**
@@ -51,6 +51,14 @@ export class ScryptedDeviceBase implements DeviceState {
    */
   {% endif -%}  {{ field.name }}?: {{ mapType(field) }};
 {%- endfor %}
+}
+
+export enum ScryptedInterface {
+  {%- for name, c in classes -%}
+  {%- if c.implementable %}
+  {{ name }} = "{{ name }}",
+  {%- endif %}
+  {%- endfor %}
 }
 
 {% include 'sdk.d.ts' %}

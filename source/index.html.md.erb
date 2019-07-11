@@ -25,12 +25,18 @@ search: true
 
 ```ecmascript
 interface ScryptedDevice  {
+  component: string;
   id: string;
   interfaces: string[];
+  metadata: any;
   name: string;
+  room: string;
   type: ScryptedDeviceType;
 
-  listen(event: string|EventListenerOptions, callback: (eventSource: ScryptedDevice, eventDetails: EventDetails, eventData: object) => void): EventListenerRegister;
+  listen(event: ScryptedInterface|EventListenerOptions, callback: (eventSource: ScryptedDevice|null, eventDetails: EventDetails, eventData: object) => void): EventListenerRegister;
+  setName(name: string): void;
+  setRoom(arg0: string): void;
+  setType(type: ScryptedDeviceType): void;
 }
 ```
 
@@ -50,9 +56,12 @@ All devices in Scrypted implement ScryptedDevice, which contains the id, name, a
 ### Properties
 Name      | Type
 --------- | ----
+component | string
 id | string
 interfaces | string[]
+metadata | any
 name | string
+room | string
 type | ScryptedDeviceType
 
 
@@ -61,9 +70,24 @@ type | ScryptedDeviceType
 
 
 ### listen
-<a href='#eventlistenerregister'>EventListenerRegister</a> listen(string|<a href='#eventlisteneroptions'>EventListenerOptions</a> event, <a href='#eventlistener'>EventListener</a> callback)
+<a href='#eventlistenerregister'>EventListenerRegister</a> listen(ScryptedInterface|<a href='#eventlisteneroptions'>EventListenerOptions</a> event, <a href='#eventlistener'>EventListener</a> callback)
 
 Subscribe to events from a specific interface on a device, such as 'OnOff' or 'Brightness'.
+
+### setName
+void setName(string name)
+
+
+
+### setRoom
+void setRoom(string arg0)
+
+
+
+### setType
+void setType(ScryptedDeviceType type)
+
+
 
 
 
@@ -78,10 +102,11 @@ Subscribe to events from a specific interface on a device, such as 'OnOff' or 'B
 
 ```ecmascript
 interface SystemManager  {
-  getDeviceById(id: string): ScryptedDevice;
-  getDeviceByName(name: string): ScryptedDevice;
-  getDeviceState(id: string): object;
-  getSystemState(): object;
+  getDeviceById(id: string): ScryptedDevice|null;
+  getDeviceByName(name: string): ScryptedDevice|null;
+  getDeviceState(id: string): any;
+  getSystemState(): any;
+  listen(callback: (eventSource: ScryptedDevice|null, eventDetails: EventDetails, eventData: object) => void): EventListenerRegister;
 }
 ```
 
@@ -103,24 +128,29 @@ SystemManager is used by scripts to query device state and access devices.
 
 
 ### getDeviceById
-ScryptedDevice getDeviceById(string id)
+ScryptedDevice|null getDeviceById(string id)
 
 Find a Scrypted device by id.
 
 ### getDeviceByName
-ScryptedDevice getDeviceByName(string name)
+ScryptedDevice|null getDeviceByName(string name)
 
 Find a Scrypted device by name.
 
 ### getDeviceState
-object getDeviceState(string id)
+any getDeviceState(string id)
 
 Get the current state of a device.
 
 ### getSystemState
-object getSystemState()
+any getSystemState()
 
 Get the current state of every device.
+
+### listen
+<a href='#eventlistenerregister'>EventListenerRegister</a> listen(<a href='#eventlistener'>EventListener</a> callback)
+
+Passively (without polling) listen to property changed events.
 
 
 
@@ -214,7 +244,7 @@ Enum |
 
 ```ecmascript
 interface EventListener  {
-  onEvent(eventSource: ScryptedDevice, eventDetails: EventDetails, eventData: object): void;
+  onEvent(eventSource: ScryptedDevice|null, eventDetails: EventDetails, eventData: object): void;
 }
 ```
 
@@ -229,7 +259,7 @@ interface EventListener  {
 
 
 ### onEvent
-void onEvent(ScryptedDevice eventSource, <a href='#eventdetails'>EventDetails</a> eventDetails, object eventData)
+void onEvent(ScryptedDevice|null eventSource, <a href='#eventdetails'>EventDetails</a> eventDetails, object eventData)
 
 This device type can be hooked by Automation actions to handle events. The event source, event details (interface, time, property), and event data are all passed to the listener as arguments.
 
@@ -246,7 +276,6 @@ This device type can be hooked by Automation actions to handle events. The event
 
 ```ecmascript
 interface EventListenerRegister  {
-  getListener(): EventListener;
   removeListener(): void;
 }
 ```
@@ -267,11 +296,6 @@ Returned when an event listener is attached to an EventEmitter. Call removeListe
 
 
 
-
-
-
-### getListener
-<a href='#eventlistener'>EventListener</a> getListener()
 
 
 
@@ -655,6 +679,13 @@ This method is called by Scrypted when the properties of the device need to be r
 
 ```ecmascript
 interface DeviceState  {
+  component: string;
+  id: string;
+  interfaces: string[];
+  metadata: any;
+  name: string;
+  room: string;
+  type: ScryptedDeviceType;
   on: boolean;
   brightness: number;
   colorTemperature: number;
@@ -705,6 +736,13 @@ DeviceState is returned by DeviceManager.getDeviceState, and allows getting/sett
 ### Properties
 Name      | Type
 --------- | ----
+component | string
+id | string
+interfaces | string[]
+metadata | any
+name | string
+room | string
+type | ScryptedDeviceType
 on | boolean
 brightness | number
 colorTemperature | number
@@ -758,6 +796,7 @@ luminance | number
 ```ecmascript
 interface MediaManager  {
   convertMediaObjectToBuffer(mediaObject: MediaObject, toMimeType: string): Promise<Buffer>;
+  convertMediaObjectToLocalUri(mediaObject: MediaObject, toMimeType: string): Promise<string>;
   convertMediaObjectToUri(mediaObject: MediaObject, toMimeType: string): Promise<string>;
   createFFmpegMediaObject(ffMpegInput: FFMpegInput): MediaObject;
   createMediaObject(data: string|Buffer|Promise<string|Buffer>, mimeType: string): MediaObject;
@@ -778,6 +817,11 @@ interface MediaManager  {
 Promise\<Buffer> convertMediaObjectToBuffer(<a href='#mediaobject'>MediaObject</a> mediaObject, string toMimeType)
 
 Convert a media object to a Buffer of the given mime type.
+
+### convertMediaObjectToLocalUri
+Promise\<string> convertMediaObjectToLocalUri(<a href='#mediaobject'>MediaObject</a> mediaObject, string toMimeType)
+
+Convert a media object to a locally accessible uri that serves a media file of the given mime type.
 
 ### convertMediaObjectToUri
 Promise\<string> convertMediaObjectToUri(<a href='#mediaobject'>MediaObject</a> mediaObject, string toMimeType)
@@ -907,8 +951,7 @@ Get an URL that can be used to send a push message to the client. This differs f
 > Definition
 
 ```ecmascript
-interface HttpRequestHandler  {
-  getEndpoint(): string;
+interface HttpRequestHandler implements EndpointHandler {
   onRequest(request: HttpRequest, response: HttpResponse): void;
 }
 ```
@@ -930,11 +973,6 @@ The HttpRequestHandler allows handling of web requests under the endpoint path: 
 
 
 
-### getEndpoint
-string getEndpoint()
-
-Get the preferred endpoint of this HttpRequestHandler. Local/development scripts can set this to any value. This is ignored if the plugin is installed via npm: the endpoint will always be the npm package name.
-
 ### onRequest
 void onRequest(<a href='#httprequest'>HttpRequest</a> request, <a href='#httpresponse'>HttpResponse</a> response)
 
@@ -952,8 +990,7 @@ Callback to handle an incoming request.
 > Definition
 
 ```ecmascript
-interface PushHandler  {
-  getEndpoint(): string;
+interface PushHandler implements EndpointHandler {
   onPush(request: HttpRequest): void;
 }
 ```
@@ -967,11 +1004,6 @@ interface PushHandler  {
 
 
 
-
-### getEndpoint
-string getEndpoint()
-
-Get the preferred endpoint of this HttpRequestHandler. Local/development scripts can set this to any value. This is ignored if the plugin is installed via npm: the endpoint will always be the npm package name.
 
 ### onPush
 void onPush(<a href='#httprequest'>HttpRequest</a> request)
@@ -1506,7 +1538,7 @@ type | number
 ```ecmascript
 interface EventListenerOptions  {
   denoise: boolean;
-  event: string;
+  event: ScryptedInterface;
   watch: boolean;
 }
 ```
@@ -1528,50 +1560,8 @@ Used by <a href='#scrypteddevice'>ScryptedDevice</a>.
 Name      | Type
 --------- | ----
 denoise | boolean
-event | string
+event | ScryptedInterface
 watch | boolean
-
-
-
-
-
-
-
-
-## EventDetails
-
-
-> Definition
-
-```ecmascript
-interface EventDetails  {
-  changed: boolean;
-  eventInterface: string;
-  eventTime: number;
-  property: string;
-}
-```
-
-
-<%= partial "includes/scrypted/EventDetails.md.erb" %>
-
-
-<aside class="notice">
-
-Used by <a href='#eventlistener'>EventListener</a>.
-
-
-</aside>
-
-
-
-### Properties
-Name      | Type
---------- | ----
-changed | boolean
-eventInterface | string
-eventTime | number
-property | string
 
 
 
@@ -3301,6 +3291,48 @@ luminance | number
 
 
 
+## EventDetails
+
+
+> Definition
+
+```ecmascript
+interface EventDetails  {
+  changed: boolean;
+  eventInterface: string;
+  eventTime: number;
+  property: string;
+}
+```
+
+
+<%= partial "includes/scrypted/EventDetails.md.erb" %>
+
+
+<aside class="notice">
+
+Used by <a href='#eventlistener'>EventListener</a>.
+
+
+</aside>
+
+
+
+### Properties
+Name      | Type
+--------- | ----
+changed | boolean
+eventInterface | string
+eventTime | number
+property | string
+
+
+
+
+
+
+
+
 ## MediaSource
 
 
@@ -3522,6 +3554,77 @@ Used by <a href='#mediamanager'>MediaManager</a>.
 Name      | Type
 --------- | ----
 inputArguments | string[]
+
+
+
+
+
+
+
+
+## EndpointHandler
+
+
+> Definition
+
+```ecmascript
+interface EndpointHandler  {
+  getEndpoint(): string;
+}
+```
+
+
+<%= partial "includes/scrypted/EndpointHandler.md.erb" %>
+
+
+<aside class="notice">
+
+Used by <a href='#httprequesthandler'>HttpRequestHandler</a>.
+
+
+</aside>
+
+
+
+
+
+
+
+### getEndpoint
+string getEndpoint()
+
+Get the preferred endpoint of this HTTP/Push/EngineIO handler. Local/development scripts can set this to any value. This is ignored if the plugin is installed via npm: the endpoint will always be the npm package name.
+
+
+
+
+
+
+
+## EngineIOHandler
+
+
+> Definition
+
+```ecmascript
+interface EngineIOHandler implements EndpointHandler {
+  onConnection(request: HttpRequest, webSocketUrl: string): void;
+}
+```
+
+
+<%= partial "includes/scrypted/EngineIOHandler.md.erb" %>
+
+
+
+
+
+
+
+
+### onConnection
+void onConnection(<a href='#httprequest'>HttpRequest</a> request, string webSocketUrl)
+
 
 
 
