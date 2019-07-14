@@ -92,6 +92,10 @@ const TypeMap = {
     Any: 'any',
 };
 
+const FunctionalInterfaces = [
+    'EventListener',
+];
+
 (async function () {
     var response = await axios.get(`https://${ip}:9443/types`, {
         httpsAgent: new https.Agent({
@@ -237,10 +241,10 @@ const TypeMap = {
     }
 
     function massageArg(arg) {
-        if (arg.type == 'JavaScriptObject') {
-            var interfaceType = json[arg.name];
+        if (FunctionalInterfaces.includes(arg.type)) {
+            var interfaceType = json[arg.type];
             var method = interfaceType.methods[0];
-            return `callback: (${mapMethodArguments(method.arguments).join(', ')}) => void`;
+            return `${arg.name}: (${mapMethodArguments(method.arguments).join(', ')}) => void`;
         }
         var optional = arg.optional ? '?': '';
         return `${arg.name}${optional}: ${mapType(arg)}`;
