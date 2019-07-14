@@ -404,6 +404,9 @@
                     <a href="#startstop" class="toc-h2 toc-link" data-title="StartStop">StartStop</a>
                   </li>
                   <li>
+                    <a href="#pause" class="toc-h2 toc-link" data-title="Pause">Pause</a>
+                  </li>
+                  <li>
                     <a href="#dock" class="toc-h2 toc-link" data-title="Dock">Dock</a>
                   </li>
                   <li>
@@ -1734,8 +1737,8 @@ Refresh indicates that this device has properties that are not automatically upd
   <span class="nl">colorTemperature</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
   <span class="nl">rgb</span><span class="p">:</span> <span class="nx">ColorRgb</span><span class="p">;</span>
   <span class="nl">hsv</span><span class="p">:</span> <span class="nx">ColorHsv</span><span class="p">;</span>
-  <span class="nl">paused</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
   <span class="nl">running</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
+  <span class="nl">paused</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
   <span class="nl">docked</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
   <span class="nl">temperature</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
   <span class="nl">temperatureUnit</span><span class="p">:</span> <span class="nx">TemperatureUnit</span><span class="p">;</span>
@@ -1774,8 +1777,8 @@ Refresh indicates that this device has properties that are not automatically upd
   <span class="nl">colorTemperature</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
   <span class="nl">rgb</span><span class="p">:</span> <span class="nx">ColorRgb</span><span class="p">;</span>
   <span class="nl">hsv</span><span class="p">:</span> <span class="nx">ColorHsv</span><span class="p">;</span>
-  <span class="nl">paused</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
   <span class="nl">running</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
+  <span class="nl">paused</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
   <span class="nl">docked</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
   <span class="nl">temperature</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
   <span class="nl">temperatureUnit</span><span class="p">:</span> <span class="nx">TemperatureUnit</span><span class="p">;</span>
@@ -1864,11 +1867,11 @@ DeviceState is returned by DeviceManager.getDeviceState, and allows getting/sett
 <td><a href='#colorhsv'>ColorHsv</a></td>
 </tr>
 <tr>
-<td>paused</td>
+<td>running</td>
 <td>boolean</td>
 </tr>
 <tr>
-<td>running</td>
+<td>paused</td>
 <td>boolean</td>
 </tr>
 <tr>
@@ -3186,22 +3189,14 @@ Passing null uses the native type of the MediaObject. If that is not supported b
 <p>Definition</p>
 </blockquote>
 <pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">StartStop</span>  <span class="p">{</span>
-  <span class="nl">paused</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
   <span class="nl">running</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
 
-  <span class="nx">isPausable</span><span class="p">():</span> <span class="kr">boolean</span><span class="p">;</span>
-  <span class="nx">pause</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">resume</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
   <span class="nx">start</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
   <span class="nx">stop</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">StartStop</span>  <span class="p">{</span>
-  <span class="nl">paused</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
   <span class="nl">running</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
 
-  <span class="nx">isPausable</span><span class="p">():</span> <span class="kr">boolean</span><span class="p">;</span>
-  <span class="nx">pause</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">resume</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
   <span class="nx">start</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
   <span class="nx">stop</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
 <span class="p">}</span>
@@ -3234,24 +3229,46 @@ StartStop represents a device that can be started, stopped, and possibly paused 
 </tr>
 </thead><tbody>
 <tr>
-<td>paused</td>
-<td>boolean</td>
-</tr>
-<tr>
 <td>running</td>
 <td>boolean</td>
 </tr>
 </tbody></table>
-<h3 id='ispausable'>isPausable</h3>
-<p>boolean isPausable()</p>
-<h3 id='pause'>pause</h3>
-<p>void pause()</p>
-<h3 id='resume'>resume</h3>
-<p>void resume()</p>
 <h3 id='start'>start</h3>
 <p>void start()</p>
 <h3 id='stop'>stop</h3>
 <p>void stop()</p>
+<h2 id='pause'>Pause</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">Pause</span>  <span class="p">{</span>
+  <span class="nl">paused</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
+
+  <span class="nx">pause</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">resume</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Pause</span>  <span class="p">{</span>
+  <span class="nl">paused</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
+
+  <span class="nx">pause</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">resume</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><h3 id='properties-20'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>paused</td>
+<td>boolean</td>
+</tr>
+</tbody></table>
+<h3 id='pause-2'>pause</h3>
+<p>void pause()</p>
+<h3 id='resume'>resume</h3>
+<p>void resume()</p>
 <h2 id='dock'>Dock</h2>
 <blockquote>
 <p>Definition</p>
@@ -3283,7 +3300,7 @@ StartStop represents a device that can be started, stopped, and possibly paused 
 Dock instructs devices that have a base station or charger, to return to their home.
 
 </aside>
-<h3 id='properties-20'>Properties</h3>
+<h3 id='properties-21'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3332,7 +3349,7 @@ Dock instructs devices that have a base station or charger, to return to their h
 TemperatureSetting represents a thermostat device.
 
 </aside>
-<h3 id='properties-21'>Properties</h3>
+<h3 id='properties-22'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3380,7 +3397,7 @@ TemperatureSetting represents a thermostat device.
   <span class="nl">temperature</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
   <span class="nl">temperatureUnit</span><span class="p">:</span> <span class="nx">TemperatureUnit</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-22'>Properties</h3>
+</code></pre><h3 id='properties-23'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3434,7 +3451,7 @@ Used by <a href='#thermometer'>Thermometer</a>.
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">HumiditySensor</span>  <span class="p">{</span>
   <span class="nl">humidity</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-23'>Properties</h3>
+</code></pre><h3 id='properties-24'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3575,7 +3592,7 @@ VideoCamera devices can capture video streams.
 Lock controls devices that can lock or unlock entries. Often works in tandem with PasswordControl.
 
 </aside>
-<h3 id='properties-24'>Properties</h3>
+<h3 id='properties-25'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3647,7 +3664,7 @@ Used by <a href='#lock'>Lock</a>.
 PasswordControl represents devices that authorize users via a passcode or pin code.
 
 </aside>
-<h3 id='properties-25'>Properties</h3>
+<h3 id='properties-26'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3754,7 +3771,7 @@ Entry represents devices that can open and close barriers, such as garage doors.
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">EntrySensor</span>  <span class="p">{</span>
   <span class="nl">entryOpen</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-26'>Properties</h3>
+</code></pre><h3 id='properties-27'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3783,7 +3800,7 @@ Entry represents devices that can open and close barriers, such as garage doors.
 Battery retrieves the battery level of battery powered devices.
 
 </aside>
-<h3 id='properties-27'>Properties</h3>
+<h3 id='properties-28'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3820,7 +3837,7 @@ MediaPlayer allows media playback on screen or speaker devices, such as Chromeca
 </aside>
 <h3 id='load'>load</h3>
 <p>void load(URL|<a href='#mediaobject'>MediaObject</a> media, <a href='#mediaplayeroptions'>MediaPlayerOptions</a> options)</p>
-<h3 id='pause-2'>pause</h3>
+<h3 id='pause-3'>pause</h3>
 <p>void pause()</p>
 <h3 id='play'>play</h3>
 <p>void play()</p>
@@ -3845,7 +3862,7 @@ Used by <a href='#mediaplayer'>MediaPlayer</a>.
 
 
 </aside>
-<h3 id='properties-28'>Properties</h3>
+<h3 id='properties-29'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3878,7 +3895,7 @@ Used by <a href='#mediaplayer'>MediaPlayer</a>.
 Online denotes whether the device is online or unresponsive. It may be unresponsive due to being unplugged, network error, etc.
 
 </aside>
-<h3 id='properties-29'>Properties</h3>
+<h3 id='properties-30'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3927,7 +3944,7 @@ Online denotes whether the device is online or unresponsive. It may be unrespons
 SoftwareUpdate provides a way to check for updates and install them. This may be a Scrypted Plugin or device firmware.
 
 </aside>
-<h3 id='properties-30'>Properties</h3>
+<h3 id='properties-31'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3966,7 +3983,7 @@ SoftwareUpdate provides a way to check for updates and install them. This may be
 Add a converter to be used by Scrypted to convert buffers from one mime type to another mime type.
 
 </aside>
-<h3 id='properties-31'>Properties</h3>
+<h3 id='properties-32'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3989,12 +4006,10 @@ Add a converter to be used by Scrypted to convert buffers from one mime type to 
 <p>Definition</p>
 </blockquote>
 <pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">Settings</span>  <span class="p">{</span>
-  <span class="nx">getSetting</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="kr">boolean</span><span class="o">|</span><span class="kr">number</span><span class="o">|</span><span class="kr">string</span><span class="p">;</span>
   <span class="nx">getSettings</span><span class="p">():</span> <span class="nx">Setting</span><span class="p">[];</span>
   <span class="nx">putSetting</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="kr">string</span><span class="p">,</span> <span class="nx">value</span><span class="p">:</span> <span class="kr">boolean</span><span class="o">|</span><span class="kr">number</span><span class="o">|</span><span class="kr">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Settings</span>  <span class="p">{</span>
-  <span class="nx">getSetting</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="kr">boolean</span><span class="o">|</span><span class="nx">number</span><span class="o">|</span><span class="nx">string</span><span class="p">;</span>
   <span class="nx">getSettings</span><span class="p">():</span> <span class="nx">Setting</span><span class="p">[];</span>
   <span class="nx">putSetting</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">value</span><span class="p">:</span> <span class="kr">boolean</span><span class="o">|</span><span class="nx">number</span><span class="o">|</span><span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
 <span class="p">}</span>
@@ -4005,8 +4020,6 @@ Add a converter to be used by Scrypted to convert buffers from one mime type to 
 Settings viewing and editing of device configurations that describe or modify behavior.
 
 </aside>
-<h3 id='getsetting'>getSetting</h3>
-<p>boolean|number|string getSetting(string key)</p>
 <h3 id='getsettings'>getSettings</h3>
 <p><a href='#setting'>Setting</a>[] getSettings()</p>
 <h3 id='putsetting'>putSetting</h3>
@@ -4042,7 +4055,7 @@ Used by <a href='#settings'>Settings</a>.
 
 
 </aside>
-<h3 id='properties-32'>Properties</h3>
+<h3 id='properties-33'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4092,7 +4105,7 @@ Used by <a href='#settings'>Settings</a>.
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">BinarySensor</span>  <span class="p">{</span>
   <span class="nl">binaryState</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-33'>Properties</h3>
+</code></pre><h3 id='properties-34'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4114,7 +4127,7 @@ Used by <a href='#settings'>Settings</a>.
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">IntrusionSensor</span>  <span class="p">{</span>
   <span class="nl">intrusionDetected</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-34'>Properties</h3>
+</code></pre><h3 id='properties-35'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4136,7 +4149,7 @@ Used by <a href='#settings'>Settings</a>.
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">MotionSensor</span>  <span class="p">{</span>
   <span class="nl">motionDetected</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-35'>Properties</h3>
+</code></pre><h3 id='properties-36'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4158,7 +4171,7 @@ Used by <a href='#settings'>Settings</a>.
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">OccupancySensor</span>  <span class="p">{</span>
   <span class="nl">occupied</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-36'>Properties</h3>
+</code></pre><h3 id='properties-37'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4180,7 +4193,7 @@ Used by <a href='#settings'>Settings</a>.
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">FloodSensor</span>  <span class="p">{</span>
   <span class="nl">flooded</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-37'>Properties</h3>
+</code></pre><h3 id='properties-38'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4202,7 +4215,7 @@ Used by <a href='#settings'>Settings</a>.
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">UltravioletSensor</span>  <span class="p">{</span>
   <span class="nl">ultraviolet</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-38'>Properties</h3>
+</code></pre><h3 id='properties-39'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4224,7 +4237,7 @@ Used by <a href='#settings'>Settings</a>.
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">LuminanceSensor</span>  <span class="p">{</span>
   <span class="nl">luminance</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-39'>Properties</h3>
+</code></pre><h3 id='properties-40'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4294,7 +4307,7 @@ Used by <a href='#mediamanager'>MediaManager</a>.
 
 
 </aside>
-<h3 id='properties-40'>Properties</h3>
+<h3 id='properties-41'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>

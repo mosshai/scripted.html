@@ -691,8 +691,8 @@ interface DeviceState  {
   colorTemperature: number;
   rgb: ColorRgb;
   hsv: ColorHsv;
-  paused: boolean;
   running: boolean;
+  paused: boolean;
   docked: boolean;
   temperature: number;
   temperatureUnit: TemperatureUnit;
@@ -748,8 +748,8 @@ brightness | number
 colorTemperature | number
 rgb | <a href='#colorrgb'>ColorRgb</a>
 hsv | <a href='#colorhsv'>ColorHsv</a>
-paused | boolean
 running | boolean
+paused | boolean
 docked | boolean
 temperature | number
 temperatureUnit | <a href='#temperatureunit'>TemperatureUnit</a>
@@ -2000,12 +2000,8 @@ Passing null uses the native type of the MediaObject. If that is not supported b
 
 ```ecmascript
 interface StartStop  {
-  paused: boolean;
   running: boolean;
 
-  isPausable(): boolean;
-  pause(): void;
-  resume(): void;
   start(): void;
   stop(): void;
 }
@@ -2027,26 +2023,10 @@ StartStop represents a device that can be started, stopped, and possibly paused 
 ### Properties
 Name      | Type
 --------- | ----
-paused | boolean
 running | boolean
 
 
 
-
-
-
-### isPausable
-boolean isPausable()
-
-
-
-### pause
-void pause()
-
-
-
-### resume
-void resume()
 
 
 
@@ -2057,6 +2037,52 @@ void start()
 
 ### stop
 void stop()
+
+
+
+
+
+
+
+
+
+## Pause
+
+
+> Definition
+
+```ecmascript
+interface Pause  {
+  paused: boolean;
+
+  pause(): void;
+  resume(): void;
+}
+```
+
+
+<%= partial "includes/scrypted/Pause.md.erb" %>
+
+
+
+
+### Properties
+Name      | Type
+--------- | ----
+paused | boolean
+
+
+
+
+
+
+### pause
+void pause()
+
+
+
+### resume
+void resume()
 
 
 
@@ -3025,7 +3051,6 @@ Promise\<Buffer> convert(Buffer buffer, string fromMimeType)
 
 ```ecmascript
 interface Settings  {
-  getSetting(key: string): boolean|number|string;
   getSettings(): Setting[];
   putSetting(key: string, value: boolean|number|string): void;
 }
@@ -3045,11 +3070,6 @@ Settings viewing and editing of device configurations that describe or modify be
 
 
 
-
-
-
-### getSetting
-boolean|number|string getSetting(string key)
 
 
 
