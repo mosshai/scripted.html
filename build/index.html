@@ -1749,7 +1749,6 @@ Refresh indicates that this device has properties that are not automatically upd
   <span class="nl">thermostatSetpointHigh</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
   <span class="nl">thermostatSetpointLow</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
   <span class="nl">lockState</span><span class="p">:</span> <span class="nx">LockState</span><span class="p">;</span>
-  <span class="nl">passwords</span><span class="p">:</span> <span class="kr">string</span><span class="p">[];</span>
   <span class="nl">entryOpen</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
   <span class="nl">batteryLevel</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
   <span class="nl">online</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
@@ -1789,7 +1788,6 @@ Refresh indicates that this device has properties that are not automatically upd
   <span class="nl">thermostatSetpointHigh</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
   <span class="nl">thermostatSetpointLow</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
   <span class="nl">lockState</span><span class="p">:</span> <span class="nx">LockState</span><span class="p">;</span>
-  <span class="nl">passwords</span><span class="p">:</span> <span class="nx">string</span><span class="p">[];</span>
   <span class="nl">entryOpen</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
   <span class="nl">batteryLevel</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
   <span class="nl">online</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
@@ -1913,10 +1911,6 @@ DeviceState is returned by DeviceManager.getDeviceState, and allows getting/sett
 <tr>
 <td>lockState</td>
 <td><a href='#lockstate'>LockState</a></td>
-</tr>
-<tr>
-<td>passwords</td>
-<td>string[]</td>
 </tr>
 <tr>
 <td>entryOpen</td>
@@ -2898,14 +2892,14 @@ Brightness is a lighting device that can be dimmed/lit between 0 to 100.
 
   <span class="nx">getTemperatureMaxK</span><span class="p">():</span> <span class="kr">number</span><span class="p">;</span>
   <span class="nx">getTemperatureMinK</span><span class="p">():</span> <span class="kr">number</span><span class="p">;</span>
-  <span class="nx">setTemperature</span><span class="p">(</span><span class="nx">kelvin</span><span class="p">:</span> <span class="kr">number</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">setColorTemperature</span><span class="p">(</span><span class="nx">kelvin</span><span class="p">:</span> <span class="kr">number</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">ColorSettingTemperature</span>  <span class="p">{</span>
   <span class="nl">colorTemperature</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
 
   <span class="nx">getTemperatureMaxK</span><span class="p">():</span> <span class="nx">number</span><span class="p">;</span>
   <span class="nx">getTemperatureMinK</span><span class="p">():</span> <span class="nx">number</span><span class="p">;</span>
-  <span class="nx">setTemperature</span><span class="p">(</span><span class="nx">kelvin</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">setColorTemperature</span><span class="p">(</span><span class="nx">kelvin</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
 <blockquote>
@@ -2940,8 +2934,8 @@ ColorSettingTemperature sets the color temperature of a light in Kelvin.
 <p>number getTemperatureMaxK()</p>
 <h3 id='gettemperaturemink'>getTemperatureMinK</h3>
 <p>number getTemperatureMinK()</p>
-<h3 id='settemperature'>setTemperature</h3>
-<p>void setTemperature(number kelvin)</p>
+<h3 id='setcolortemperature'>setColorTemperature</h3>
+<p>void setColorTemperature(number kelvin)</p>
 <h2 id='colorsettingrgb'>ColorSettingRgb</h2>
 <blockquote>
 <p>Definition</p>
@@ -3646,15 +3640,13 @@ Used by <a href='#lock'>Lock</a>.
 <p>Definition</p>
 </blockquote>
 <pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">PasswordStore</span> <span class="k">implements</span> <span class="nx">Authenticator</span> <span class="p">{</span>
-  <span class="nl">passwords</span><span class="p">:</span> <span class="kr">string</span><span class="p">[];</span>
-
   <span class="nx">addPassword</span><span class="p">(</span><span class="nx">password</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">getPasswords</span><span class="p">():</span> <span class="kr">string</span><span class="p">[];</span>
   <span class="nx">removePassword</span><span class="p">(</span><span class="nx">password</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">PasswordStore</span> <span class="kr">implements</span> <span class="nx">Authenticator</span> <span class="p">{</span>
-  <span class="nl">passwords</span><span class="p">:</span> <span class="nx">string</span><span class="p">[];</span>
-
   <span class="nx">addPassword</span><span class="p">(</span><span class="nx">password</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">getPasswords</span><span class="p">():</span> <span class="nx">string</span><span class="p">[];</span>
   <span class="nx">removePassword</span><span class="p">(</span><span class="nx">password</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
@@ -3664,20 +3656,10 @@ Used by <a href='#lock'>Lock</a>.
 PasswordControl represents devices that authorize users via a passcode or pin code.
 
 </aside>
-<h3 id='properties-26'>Properties</h3>
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>passwords</td>
-<td>string[]</td>
-</tr>
-</tbody></table>
 <h3 id='addpassword'>addPassword</h3>
 <p>void addPassword(string password)</p>
+<h3 id='getpasswords'>getPasswords</h3>
+<p>string[] getPasswords()</p>
 <h3 id='removepassword'>removePassword</h3>
 <p>void removePassword(string password)</p>
 <h2 id='authenticator'>Authenticator</h2>
@@ -3771,7 +3753,7 @@ Entry represents devices that can open and close barriers, such as garage doors.
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">EntrySensor</span>  <span class="p">{</span>
   <span class="nl">entryOpen</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-27'>Properties</h3>
+</code></pre><h3 id='properties-26'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3800,7 +3782,7 @@ Entry represents devices that can open and close barriers, such as garage doors.
 Battery retrieves the battery level of battery powered devices.
 
 </aside>
-<h3 id='properties-28'>Properties</h3>
+<h3 id='properties-27'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3862,7 +3844,7 @@ Used by <a href='#mediaplayer'>MediaPlayer</a>.
 
 
 </aside>
-<h3 id='properties-29'>Properties</h3>
+<h3 id='properties-28'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3895,7 +3877,7 @@ Used by <a href='#mediaplayer'>MediaPlayer</a>.
 Online denotes whether the device is online or unresponsive. It may be unresponsive due to being unplugged, network error, etc.
 
 </aside>
-<h3 id='properties-30'>Properties</h3>
+<h3 id='properties-29'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3944,7 +3926,7 @@ Online denotes whether the device is online or unresponsive. It may be unrespons
 SoftwareUpdate provides a way to check for updates and install them. This may be a Scrypted Plugin or device firmware.
 
 </aside>
-<h3 id='properties-31'>Properties</h3>
+<h3 id='properties-30'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3983,7 +3965,7 @@ SoftwareUpdate provides a way to check for updates and install them. This may be
 Add a converter to be used by Scrypted to convert buffers from one mime type to another mime type.
 
 </aside>
-<h3 id='properties-32'>Properties</h3>
+<h3 id='properties-31'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4055,7 +4037,7 @@ Used by <a href='#settings'>Settings</a>.
 
 
 </aside>
-<h3 id='properties-33'>Properties</h3>
+<h3 id='properties-32'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4105,7 +4087,7 @@ Used by <a href='#settings'>Settings</a>.
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">BinarySensor</span>  <span class="p">{</span>
   <span class="nl">binaryState</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-34'>Properties</h3>
+</code></pre><h3 id='properties-33'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4127,7 +4109,7 @@ Used by <a href='#settings'>Settings</a>.
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">IntrusionSensor</span>  <span class="p">{</span>
   <span class="nl">intrusionDetected</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-35'>Properties</h3>
+</code></pre><h3 id='properties-34'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4149,7 +4131,7 @@ Used by <a href='#settings'>Settings</a>.
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">MotionSensor</span>  <span class="p">{</span>
   <span class="nl">motionDetected</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-36'>Properties</h3>
+</code></pre><h3 id='properties-35'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4171,7 +4153,7 @@ Used by <a href='#settings'>Settings</a>.
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">OccupancySensor</span>  <span class="p">{</span>
   <span class="nl">occupied</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-37'>Properties</h3>
+</code></pre><h3 id='properties-36'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4193,7 +4175,7 @@ Used by <a href='#settings'>Settings</a>.
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">FloodSensor</span>  <span class="p">{</span>
   <span class="nl">flooded</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-38'>Properties</h3>
+</code></pre><h3 id='properties-37'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4215,7 +4197,7 @@ Used by <a href='#settings'>Settings</a>.
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">UltravioletSensor</span>  <span class="p">{</span>
   <span class="nl">ultraviolet</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-39'>Properties</h3>
+</code></pre><h3 id='properties-38'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4237,7 +4219,7 @@ Used by <a href='#settings'>Settings</a>.
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">LuminanceSensor</span>  <span class="p">{</span>
   <span class="nl">luminance</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-40'>Properties</h3>
+</code></pre><h3 id='properties-39'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4307,7 +4289,7 @@ Used by <a href='#mediamanager'>MediaManager</a>.
 
 
 </aside>
-<h3 id='properties-41'>Properties</h3>
+<h3 id='properties-40'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>

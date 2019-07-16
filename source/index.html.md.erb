@@ -703,7 +703,6 @@ interface DeviceState  {
   thermostatSetpointHigh: number;
   thermostatSetpointLow: number;
   lockState: LockState;
-  passwords: string[];
   entryOpen: boolean;
   batteryLevel: number;
   online: boolean;
@@ -760,7 +759,6 @@ thermostatSetpoint | number
 thermostatSetpointHigh | number
 thermostatSetpointLow | number
 lockState | <a href='#lockstate'>LockState</a>
-passwords | string[]
 entryOpen | boolean
 batteryLevel | number
 online | boolean
@@ -895,10 +893,10 @@ mimeType | string
 
 ```ecmascript
 interface EndpointManager  {
-  getAuthenticatedPath(): Future;
-  getInsecurePublicLocalEndpoint(): Future;
+  getAuthenticatedPath(): Promise<string>;
+  getInsecurePublicLocalEndpoint(): Promise<string>;
   getPublicCloudEndpoint(): Promise<string>;
-  getPublicLocalEndpoint(): Future;
+  getPublicLocalEndpoint(): Promise<string>;
   getPublicPushEndpoint(): Promise<string>;
 }
 ```
@@ -921,12 +919,12 @@ EndpointManager provides publicly accessible URLs that can be used to contact yo
 
 
 ### getAuthenticatedPath
-Future getAuthenticatedPath()
+Promise\<string> getAuthenticatedPath()
 
 Get an URL pathname that can be accessed on your local network or cloud while authenticated. This is an absolute path that requires cookie authentication, and generally used only in browser contexts.
 
 ### getInsecurePublicLocalEndpoint
-Future getInsecurePublicLocalEndpoint()
+Promise\<string> getInsecurePublicLocalEndpoint()
 
 Get an URL that can only be accessed on your local network by anyone with the link. HTTP requests and responses are without any encryption. Plugin implementation is responsible for authentication.
 
@@ -936,7 +934,7 @@ Promise\<string> getPublicCloudEndpoint()
 Get an URL that can be externally accessed by anyone with the link. Plugin implementation is responsible for authentication.
 
 ### getPublicLocalEndpoint
-Future getPublicLocalEndpoint()
+Promise\<string> getPublicLocalEndpoint()
 
 Get an URL that can only be accessed on your local network by anyone with the link. HTTP requests and responses are over SSL with a self signed certificate. Plugin implementation is responsible for authentication.
 
@@ -1727,7 +1725,7 @@ interface ColorSettingTemperature  {
 
   getTemperatureMaxK(): number;
   getTemperatureMinK(): number;
-  setTemperature(kelvin: number): void;
+  setColorTemperature(kelvin: number): void;
 }
 ```
 
@@ -1764,8 +1762,8 @@ number getTemperatureMinK()
 
 
 
-### setTemperature
-void setTemperature(number kelvin)
+### setColorTemperature
+void setColorTemperature(number kelvin)
 
 
 
@@ -2533,9 +2531,8 @@ Enum |
 
 ```ecmascript
 interface PasswordStore implements Authenticator {
-  passwords: string[];
-
   addPassword(password: string): void;
+  getPasswords(): string[];
   removePassword(password: string): void;
 }
 ```
@@ -2553,18 +2550,17 @@ PasswordControl represents devices that authorize users via a passcode or pin co
 
 
 
-### Properties
-Name      | Type
---------- | ----
-passwords | string[]
-
-
 
 
 
 
 ### addPassword
 void addPassword(string password)
+
+
+
+### getPasswords
+string[] getPasswords()
 
 
 
