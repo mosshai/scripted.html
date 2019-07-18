@@ -522,6 +522,9 @@
                   </li>
               </ul>
           </li>
+          <li>
+            <a href="#sample-plugins" class="toc-h1 toc-link" data-title="Sample Plugins ">Sample Plugins <br></a>
+          </li>
       </ul>
     </div>
     <div class="page-wrapper">
@@ -904,7 +907,7 @@ More information can be found in the <a href='#media-reference'>Media Reference<
   <span class="nl">room</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
   <span class="nl">type</span><span class="p">:</span> <span class="nx">ScryptedDeviceType</span><span class="p">;</span>
 
-  <span class="nx">listen</span><span class="p">(</span><span class="nx">event</span><span class="p">:</span> <span class="nx">ScryptedInterface</span><span class="o">|</span><span class="nx">EventListenerOptions</span><span class="p">,</span> <span class="nx">callback</span><span class="p">:</span> <span class="p">(</span><span class="nx">eventSource</span><span class="p">:</span> <span class="nx">ScryptedDevice</span><span class="o">|</span><span class="kc">null</span><span class="p">,</span> <span class="nx">eventDetails</span><span class="p">:</span> <span class="nx">EventDetails</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="nx">object</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">):</span> <span class="nx">EventListenerRegister</span><span class="p">;</span>
+  <span class="nx">listen</span><span class="p">(</span><span class="nx">event</span><span class="p">:</span> <span class="nx">ScryptedInterface</span><span class="o">|</span><span class="kr">string</span><span class="o">|</span><span class="nx">EventListenerOptions</span><span class="p">,</span> <span class="nx">callback</span><span class="p">:</span> <span class="p">(</span><span class="nx">eventSource</span><span class="p">:</span> <span class="nx">ScryptedDevice</span><span class="o">|</span><span class="kc">null</span><span class="p">,</span> <span class="nx">eventDetails</span><span class="p">:</span> <span class="nx">EventDetails</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="nx">object</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">):</span> <span class="nx">EventListenerRegister</span><span class="p">;</span>
   <span class="nx">setName</span><span class="p">(</span><span class="nx">name</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
   <span class="nx">setRoom</span><span class="p">(</span><span class="nx">room</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
   <span class="nx">setType</span><span class="p">(</span><span class="kd">type</span><span class="p">:</span> <span class="nx">ScryptedDeviceType</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
@@ -918,7 +921,7 @@ More information can be found in the <a href='#media-reference'>Media Reference<
   <span class="nl">room</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
   <span class="nl">type</span><span class="p">:</span> <span class="nx">ScryptedDeviceType</span><span class="p">;</span>
 
-  <span class="nx">listen</span><span class="p">(</span><span class="nx">event</span><span class="p">:</span> <span class="nx">ScryptedInterface</span><span class="o">|</span><span class="nx">EventListenerOptions</span><span class="p">,</span> <span class="nx">callback</span><span class="p">:</span> <span class="p">(</span><span class="nx">eventSource</span><span class="p">:</span> <span class="nx">ScryptedDevice</span><span class="o">|</span><span class="kc">null</span><span class="p">,</span> <span class="nx">eventDetails</span><span class="p">:</span> <span class="nx">EventDetails</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="nx">object</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">):</span> <span class="nx">EventListenerRegister</span><span class="p">;</span>
+  <span class="nx">listen</span><span class="p">(</span><span class="nx">event</span><span class="p">:</span> <span class="nx">ScryptedInterface</span><span class="o">|</span><span class="nx">string</span><span class="o">|</span><span class="nx">EventListenerOptions</span><span class="p">,</span> <span class="nx">callback</span><span class="p">:</span> <span class="p">(</span><span class="nx">eventSource</span><span class="p">:</span> <span class="nx">ScryptedDevice</span><span class="o">|</span><span class="kc">null</span><span class="p">,</span> <span class="nx">eventDetails</span><span class="p">:</span> <span class="nx">EventDetails</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="nx">object</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">):</span> <span class="nx">EventListenerRegister</span><span class="p">;</span>
   <span class="nx">setName</span><span class="p">(</span><span class="nx">name</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
   <span class="nx">setRoom</span><span class="p">(</span><span class="nx">room</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
   <span class="nx">setType</span><span class="p">(</span><span class="nx">type</span><span class="p">:</span> <span class="nx">ScryptedDeviceType</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
@@ -989,7 +992,7 @@ All devices in Scrypted implement ScryptedDevice, which contains the id, name, a
 </tr>
 </tbody></table>
 <h3 id='listen'>listen</h3>
-<p><a href='#eventlistenerregister'>EventListenerRegister</a> listen(ScryptedInterface|<a href='#eventlisteneroptions'>EventListenerOptions</a> event, <a href='#eventlistener'>EventListener</a> callback)</p>
+<p><a href='#eventlistenerregister'>EventListenerRegister</a> listen(ScryptedInterface|string|<a href='#eventlisteneroptions'>EventListenerOptions</a> event, <a href='#eventlistener'>EventListener</a> callback)</p>
 
 <p>Subscribe to events from a specific interface on a device, such as &#39;OnOff&#39; or &#39;Brightness&#39;.</p>
 <h3 id='setname'>setName</h3>
@@ -1540,7 +1543,7 @@ DeviceProvider acts as a controller/hub and exposes multiple devices to Scrypted
 <h3 id='discoverdevices'>discoverDevices</h3>
 <p>void discoverDevices(number duration)</p>
 
-<p>Initiate device discovery for the specified duration.</p>
+<p>Perform device discovery for the specified duration in seconds.</p>
 <h3 id='getdevice'>getDevice</h3>
 <p>object getDevice(string nativeId)</p>
 
@@ -2072,17 +2075,17 @@ MediaObject is an intermediate object within Scrypted to represent all media obj
 <p>Definition</p>
 </blockquote>
 <pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">EndpointManager</span>  <span class="p">{</span>
-  <span class="nx">getAuthenticatedPath</span><span class="p">():</span> <span class="nx">Future</span><span class="p">;</span>
-  <span class="nx">getInsecurePublicLocalEndpoint</span><span class="p">():</span> <span class="nx">Future</span><span class="p">;</span>
+  <span class="nx">getAuthenticatedPath</span><span class="p">():</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="kr">string</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">getInsecurePublicLocalEndpoint</span><span class="p">():</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="kr">string</span><span class="o">&gt;</span><span class="p">;</span>
   <span class="nx">getPublicCloudEndpoint</span><span class="p">():</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="kr">string</span><span class="o">&gt;</span><span class="p">;</span>
-  <span class="nx">getPublicLocalEndpoint</span><span class="p">():</span> <span class="nx">Future</span><span class="p">;</span>
+  <span class="nx">getPublicLocalEndpoint</span><span class="p">():</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="kr">string</span><span class="o">&gt;</span><span class="p">;</span>
   <span class="nx">getPublicPushEndpoint</span><span class="p">():</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="kr">string</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">EndpointManager</span>  <span class="p">{</span>
-  <span class="nx">getAuthenticatedPath</span><span class="p">():</span> <span class="nx">Future</span><span class="p">;</span>
-  <span class="nx">getInsecurePublicLocalEndpoint</span><span class="p">():</span> <span class="nx">Future</span><span class="p">;</span>
+  <span class="nx">getAuthenticatedPath</span><span class="p">():</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">getInsecurePublicLocalEndpoint</span><span class="p">():</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">;</span>
   <span class="nx">getPublicCloudEndpoint</span><span class="p">():</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">;</span>
-  <span class="nx">getPublicLocalEndpoint</span><span class="p">():</span> <span class="nx">Future</span><span class="p">;</span>
+  <span class="nx">getPublicLocalEndpoint</span><span class="p">():</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">;</span>
   <span class="nx">getPublicPushEndpoint</span><span class="p">():</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
@@ -2093,11 +2096,11 @@ EndpointManager provides publicly accessible URLs that can be used to contact yo
 
 </aside>
 <h3 id='getauthenticatedpath'>getAuthenticatedPath</h3>
-<p>Future getAuthenticatedPath()</p>
+<p>Promise&lt;string&gt; getAuthenticatedPath()</p>
 
 <p>Get an URL pathname that can be accessed on your local network or cloud while authenticated. This is an absolute path that requires cookie authentication, and generally used only in browser contexts.</p>
 <h3 id='getinsecurepubliclocalendpoint'>getInsecurePublicLocalEndpoint</h3>
-<p>Future getInsecurePublicLocalEndpoint()</p>
+<p>Promise&lt;string&gt; getInsecurePublicLocalEndpoint()</p>
 
 <p>Get an URL that can only be accessed on your local network by anyone with the link. HTTP requests and responses are without any encryption. Plugin implementation is responsible for authentication.</p>
 <h3 id='getpubliccloudendpoint'>getPublicCloudEndpoint</h3>
@@ -2105,7 +2108,7 @@ EndpointManager provides publicly accessible URLs that can be used to contact yo
 
 <p>Get an URL that can be externally accessed by anyone with the link. Plugin implementation is responsible for authentication.</p>
 <h3 id='getpubliclocalendpoint'>getPublicLocalEndpoint</h3>
-<p>Future getPublicLocalEndpoint()</p>
+<p>Promise&lt;string&gt; getPublicLocalEndpoint()</p>
 
 <p>Get an URL that can only be accessed on your local network by anyone with the link. HTTP requests and responses are over SSL with a self signed certificate. Plugin implementation is responsible for authentication.</p>
 <h3 id='getpublicpushendpoint'>getPublicPushEndpoint</h3>
@@ -2697,12 +2700,12 @@ Used by <a href='#zwavemanager'>ZwaveManager</a>.
 </blockquote>
 <pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">EventListenerOptions</span>  <span class="p">{</span>
   <span class="nl">denoise</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
-  <span class="nl">event</span><span class="p">:</span> <span class="nx">ScryptedInterface</span><span class="p">;</span>
+  <span class="nl">event</span><span class="p">:</span> <span class="nx">ScryptedInterface</span><span class="o">|</span><span class="kr">string</span><span class="p">;</span>
   <span class="nl">watch</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">EventListenerOptions</span>  <span class="p">{</span>
   <span class="nl">denoise</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
-  <span class="nl">event</span><span class="p">:</span> <span class="nx">ScryptedInterface</span><span class="p">;</span>
+  <span class="nl">event</span><span class="p">:</span> <span class="nx">ScryptedInterface</span><span class="o">|</span><span class="nx">string</span><span class="p">;</span>
   <span class="nl">watch</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
@@ -4334,6 +4337,11 @@ Used by <a href='#httprequesthandler'>HttpRequestHandler</a>.
 <span class="p">}</span>
 </code></pre><h3 id='onconnection'>onConnection</h3>
 <p>void onConnection(<a href='#httprequest'>HttpRequest</a> request, string webSocketUrl)</p>
+
+<h1 id='sample-plugins'>Sample Plugins <br/></h1>
+
+<p>All of the official Scrypted plugins are open source, and can be found on Github. The <a href="https://github.com/koush/scrypted-lifx">Lifx</a>
+and <a href="https://github.com/koush/scrypted-owntracks">Owntracks</a> plugins are recommended starting points for learning how to create your own integrations.</p>
 
       </div>
       <div class="dark-box">
