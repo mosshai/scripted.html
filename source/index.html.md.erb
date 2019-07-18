@@ -33,7 +33,7 @@ interface ScryptedDevice  {
   room: string;
   type: ScryptedDeviceType;
 
-  listen(event: ScryptedInterface|EventListenerOptions, callback: (eventSource: ScryptedDevice|null, eventDetails: EventDetails, eventData: object) => void): EventListenerRegister;
+  listen(event: ScryptedInterface|string|EventListenerOptions, callback: (eventSource: ScryptedDevice|null, eventDetails: EventDetails, eventData: object) => void): EventListenerRegister;
   setName(name: string): void;
   setRoom(room: string): void;
   setType(type: ScryptedDeviceType): void;
@@ -70,7 +70,7 @@ type | ScryptedDeviceType
 
 
 ### listen
-<a href='#eventlistenerregister'>EventListenerRegister</a> listen(ScryptedInterface|<a href='#eventlisteneroptions'>EventListenerOptions</a> event, <a href='#eventlistener'>EventListener</a> callback)
+<a href='#eventlistenerregister'>EventListenerRegister</a> listen(ScryptedInterface|string|<a href='#eventlisteneroptions'>EventListenerOptions</a> event, <a href='#eventlistener'>EventListener</a> callback)
 
 Subscribe to events from a specific interface on a device, such as 'OnOff' or 'Brightness'.
 
@@ -1540,7 +1540,7 @@ type | number
 ```ecmascript
 interface EventListenerOptions  {
   denoise: boolean;
-  event: ScryptedInterface;
+  event: ScryptedInterface|string;
   watch: boolean;
 }
 ```
@@ -1562,7 +1562,7 @@ Used by <a href='#scrypteddevice'>ScryptedDevice</a>.
 Name      | Type
 --------- | ----
 denoise | boolean
-event | ScryptedInterface
+event | ScryptedInterface|string
 watch | boolean
 
 
