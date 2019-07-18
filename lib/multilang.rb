@@ -1,3 +1,5 @@
+require 'digest'
+
 module Multilang
   def block_code(code, full_lang_name)
     if full_lang_name == 'ecmascript'
@@ -14,15 +16,37 @@ module Multilang
         match + " tab-typescript"
       end
 
-      File.open('scrypted/typescript.ts', 'w') { |file| file.write(code) }
-      Dir.chdir('scrypted') {
-        system('tsc -t ES2018 -m ES6 typescript.ts')
-      }
-      jscode = File.read('scrypted/typescript.js')
+      # File.open('scrypted/typescript.ts', 'w') { |file| file.write(code) }
+      # Dir.chdir('scrypted') {
+      #   system('tsc -t ES2018 -m ES6 typescript.ts')
+      # }
+      # jscode = File.read('scrypted/typescript.js')
+      # js = super(jscode, 'javascript').sub("highlight javascript") do |match|
+      #   match + " tab-javascript"
+      # end
+      
+      
+      # return ts + js
 
+      md5 = Digest::MD5.new
+      md5.update code
+      hex = md5.hexdigest
+      devDir = '/tmp/developer.scrypted.app'
+      hexTs = "#{devDir}/#{hex}.ts"
+      hexJs = "#{devDir}/#{hex}.js"
+      FileUtils.mkdir_p devDir
+      if (!File.file?(hexJs))
+        File.open(hexTs, 'w') { |file| file.write(code) }
+        Dir.chdir(devDir) {
+          system("tsc -t ES2018 -m ES6 #{hexTs}")
+        }
+      end
+
+      jscode = File.read(hexJs)
       js = super(jscode, 'javascript').sub("highlight javascript") do |match|
         match + " tab-javascript"
       end
+
       ts + js
     elsif full_lang_name
       parts = full_lang_name.split('--')
