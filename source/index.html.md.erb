@@ -716,6 +716,7 @@ interface DeviceState  {
   flooded: boolean;
   ultraviolet: number;
   luminance: number;
+  position: Position;
 }
 ```
 
@@ -772,6 +773,7 @@ occupied | boolean
 flooded | boolean
 ultraviolet | number
 luminance | number
+position | <a href='#position'>Position</a>
 
 
 
@@ -3099,7 +3101,7 @@ interface Setting  {
   readonly: boolean;
   title: string;
   type: string;
-  value: boolean|number|string;
+  value: string;
 }
 ```
 
@@ -3126,7 +3128,7 @@ placeholder | string
 readonly | boolean
 title | string
 type | string
-value | boolean|number|string
+value | string
 
 
 
@@ -3345,6 +3347,75 @@ interface LuminanceSensor  {
 Name      | Type
 --------- | ----
 luminance | number
+
+
+
+
+
+
+
+
+## PositionSensor
+
+
+> Definition
+
+```ecmascript
+interface PositionSensor  {
+  position: Position;
+}
+```
+
+
+<%= partial "includes/scrypted/PositionSensor.md.erb" %>
+
+
+
+
+### Properties
+Name      | Type
+--------- | ----
+position | <a href='#position'>Position</a>
+
+
+
+
+
+
+
+
+## Position
+
+
+> Definition
+
+```ecmascript
+interface Position  {
+  accuracyRadius: number;
+  latitude: number;
+  longitude: number;
+}
+```
+
+
+<%= partial "includes/scrypted/Position.md.erb" %>
+
+
+<aside class="notice">
+
+Used by <a href='#positionsensor'>PositionSensor</a>.
+
+
+</aside>
+
+
+
+### Properties
+Name      | Type
+--------- | ----
+accuracyRadius | number
+latitude | number
+longitude | number
 
 
 
