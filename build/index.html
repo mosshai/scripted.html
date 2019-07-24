@@ -2206,6 +2206,7 @@ The HttpRequestHandler allows handling of web requests under the endpoint path: 
   <span class="nl">method</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
   <span class="nl">rootPath</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
   <span class="nl">url</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+  <span class="nl">username</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">HttpRequest</span>  <span class="p">{</span>
   <span class="nl">body</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
@@ -2214,6 +2215,7 @@ The HttpRequestHandler allows handling of web requests under the endpoint path: 
   <span class="nl">method</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
   <span class="nl">rootPath</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
   <span class="nl">url</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nl">username</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
 <aside class="notice">
@@ -2251,6 +2253,10 @@ Used by <a href='#httprequesthandler'>HttpRequestHandler</a>.
 </tr>
 <tr>
 <td>url</td>
+<td>string</td>
+</tr>
+<tr>
+<td>username</td>
 <td>string</td>
 </tr>
 </tbody></table>
