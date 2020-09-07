@@ -458,6 +458,12 @@
                     <a href="#mediaplayer" class="toc-h2 toc-link" data-title="MediaPlayer">MediaPlayer</a>
                   </li>
                   <li>
+                    <a href="#mediastatus" class="toc-h2 toc-link" data-title="MediaStatus">MediaStatus</a>
+                  </li>
+                  <li>
+                    <a href="#mediaplayerstate" class="toc-h2 toc-link" data-title="MediaPlayerState">MediaPlayerState</a>
+                  </li>
+                  <li>
                     <a href="#mediaplayeroptions" class="toc-h2 toc-link" data-title="MediaPlayerOptions">MediaPlayerOptions</a>
                   </li>
                   <li>
@@ -483,6 +489,9 @@
                   </li>
                   <li>
                     <a href="#intrusionsensor" class="toc-h2 toc-link" data-title="IntrusionSensor">IntrusionSensor</a>
+                  </li>
+                  <li>
+                    <a href="#powersensor" class="toc-h2 toc-link" data-title="PowerSensor">PowerSensor</a>
                   </li>
                   <li>
                     <a href="#audiosensor" class="toc-h2 toc-link" data-title="AudioSensor">AudioSensor</a>
@@ -1017,6 +1026,7 @@ All devices in Scrypted implement ScryptedDevice, which contains the id, name, a
   <span class="nx">getDeviceState</span><span class="p">(</span><span class="nx">id</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="kr">any</span><span class="p">;</span>
   <span class="nx">getSystemState</span><span class="p">():</span> <span class="kr">any</span><span class="p">;</span>
   <span class="nx">listen</span><span class="p">(</span><span class="nx">EventListener</span><span class="p">:</span> <span class="p">(</span><span class="nx">eventSource</span><span class="p">:</span> <span class="nx">ScryptedDevice</span><span class="o">|</span><span class="kc">null</span><span class="p">,</span> <span class="nx">eventDetails</span><span class="p">:</span> <span class="nx">EventDetails</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="nx">object</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">):</span> <span class="nx">EventListenerRegister</span><span class="p">;</span>
+  <span class="nx">listenDevice</span><span class="p">(</span><span class="nx">id</span><span class="p">:</span> <span class="kr">string</span><span class="p">,</span> <span class="nx">event</span><span class="p">:</span> <span class="nx">ScryptedInterface</span><span class="o">|</span><span class="kr">string</span><span class="o">|</span><span class="nx">EventListenerOptions</span><span class="p">,</span> <span class="nx">callback</span><span class="p">:</span> <span class="p">(</span><span class="nx">eventSource</span><span class="p">:</span> <span class="nx">ScryptedDevice</span><span class="o">|</span><span class="kc">null</span><span class="p">,</span> <span class="nx">eventDetails</span><span class="p">:</span> <span class="nx">EventDetails</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="nx">object</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">):</span> <span class="nx">EventListenerRegister</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">SystemManager</span>  <span class="p">{</span>
   <span class="nx">getDeviceById</span><span class="p">(</span><span class="nx">id</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">ScryptedDevice</span><span class="o">|</span><span class="kc">null</span><span class="p">;</span>
@@ -1024,6 +1034,7 @@ All devices in Scrypted implement ScryptedDevice, which contains the id, name, a
   <span class="nx">getDeviceState</span><span class="p">(</span><span class="nx">id</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">any</span><span class="p">;</span>
   <span class="nx">getSystemState</span><span class="p">():</span> <span class="nx">any</span><span class="p">;</span>
   <span class="nx">listen</span><span class="p">(</span><span class="nx">EventListener</span><span class="p">:</span> <span class="p">(</span><span class="nx">eventSource</span><span class="p">:</span> <span class="nx">ScryptedDevice</span><span class="o">|</span><span class="kc">null</span><span class="p">,</span> <span class="nx">eventDetails</span><span class="p">:</span> <span class="nx">EventDetails</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="nx">object</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">):</span> <span class="nx">EventListenerRegister</span><span class="p">;</span>
+  <span class="nx">listenDevice</span><span class="p">(</span><span class="nx">id</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">event</span><span class="p">:</span> <span class="nx">ScryptedInterface</span><span class="o">|</span><span class="nx">string</span><span class="o">|</span><span class="nx">EventListenerOptions</span><span class="p">,</span> <span class="nx">callback</span><span class="p">:</span> <span class="p">(</span><span class="nx">eventSource</span><span class="p">:</span> <span class="nx">ScryptedDevice</span><span class="o">|</span><span class="kc">null</span><span class="p">,</span> <span class="nx">eventDetails</span><span class="p">:</span> <span class="nx">EventDetails</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="nx">object</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">):</span> <span class="nx">EventListenerRegister</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
 <aside class="notice">
@@ -1052,6 +1063,10 @@ SystemManager is used by scripts to query device state and access devices.
 <p><a href='#eventlistenerregister'>EventListenerRegister</a> listen(<a href='#eventlistener'>EventListener</a> EventListener)</p>
 
 <p>Passively (without polling) listen to property changed events.</p>
+<h3 id='listendevice'>listenDevice</h3>
+<p><a href='#eventlistenerregister'>EventListenerRegister</a> listenDevice(string id, ScryptedInterface|string|<a href='#eventlisteneroptions'>EventListenerOptions</a> event, <a href='#eventlistener'>EventListener</a> callback)</p>
+
+<p>Subscribe to events from a specific interface on a device id, such as &#39;OnOff&#39; or &#39;Brightness&#39;. This is a convenience method for ScryptedDevice.listen.</p>
 <h2 id='scrypteddevicetype'>ScryptedDeviceType</h2><pre class="highlight typescript tab-typescript"><code><span class="kr">enum</span> <span class="nx">ScryptedDeviceType</span> <span class="p">{</span>
   <span class="nx">Builtin</span> <span class="o">=</span> <span class="s2">"Builtin"</span><span class="p">,</span>
   <span class="nx">Camera</span> <span class="o">=</span> <span class="s2">"Camera"</span><span class="p">,</span>
@@ -1629,6 +1644,7 @@ DeviceManifest is passed to DeviceManager.onDevicesChanged to sync a full list o
 </blockquote>
 <pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">Device</span>  <span class="p">{</span>
   <span class="nl">interfaces</span><span class="p">:</span> <span class="kr">string</span><span class="p">[];</span>
+  <span class="nl">metadata</span><span class="p">:</span> <span class="kr">any</span><span class="p">;</span>
   <span class="nl">model</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
   <span class="nl">name</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
   <span class="nl">nativeId</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
@@ -1637,6 +1653,7 @@ DeviceManifest is passed to DeviceManager.onDevicesChanged to sync a full list o
 <span class="p">}</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Device</span>  <span class="p">{</span>
   <span class="nl">interfaces</span><span class="p">:</span> <span class="nx">string</span><span class="p">[];</span>
+  <span class="nl">metadata</span><span class="p">:</span> <span class="nx">any</span><span class="p">;</span>
   <span class="nl">model</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
   <span class="nl">name</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
   <span class="nl">nativeId</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
@@ -1680,6 +1697,10 @@ Device objects are created by DeviceProviders when new devices are discover and 
 <tr>
 <td>interfaces</td>
 <td>string[]</td>
+</tr>
+<tr>
+<td>metadata</td>
+<td>any</td>
 </tr>
 <tr>
 <td>model</td>
@@ -1766,6 +1787,7 @@ Refresh indicates that this device has properties that are not automatically upd
   <span class="nl">toMimeType</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
   <span class="nl">binaryState</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
   <span class="nl">intrusionDetected</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
+  <span class="nl">powerDetected</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
   <span class="nl">motionDetected</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
   <span class="nl">occupied</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
   <span class="nl">flooded</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
@@ -1806,6 +1828,7 @@ Refresh indicates that this device has properties that are not automatically upd
   <span class="nl">toMimeType</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
   <span class="nl">binaryState</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
   <span class="nl">intrusionDetected</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
+  <span class="nl">powerDetected</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
   <span class="nl">motionDetected</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
   <span class="nl">occupied</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
   <span class="nl">flooded</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
@@ -1953,6 +1976,10 @@ DeviceState is returned by DeviceManager.getDeviceState, and allows getting/sett
 </tr>
 <tr>
 <td>intrusionDetected</td>
+<td>boolean</td>
+</tr>
+<tr>
+<td>powerDetected</td>
 <td>boolean</td>
 </tr>
 <tr>
@@ -3819,17 +3846,19 @@ Battery retrieves the battery level of battery powered devices.
 <blockquote>
 <p>Definition</p>
 </blockquote>
-<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">MediaPlayer</span>  <span class="p">{</span>
+<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">MediaPlayer</span> <span class="k">implements</span> <span class="nx">StartStop</span><span class="p">,</span> <span class="nx">Pause</span> <span class="p">{</span>
+  <span class="nx">getMediaStatus</span><span class="p">():</span> <span class="nx">MediaStatus</span><span class="p">;</span>
   <span class="nx">load</span><span class="p">(</span><span class="nx">media</span><span class="p">:</span> <span class="nx">URL</span><span class="o">|</span><span class="nx">MediaObject</span><span class="p">,</span> <span class="nx">options</span><span class="p">:</span> <span class="nx">MediaPlayerOptions</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">pause</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">play</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">stop</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">seek</span><span class="p">(</span><span class="nx">milliseconds</span><span class="p">:</span> <span class="kr">number</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">skipNext</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">skipPrevious</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">MediaPlayer</span>  <span class="p">{</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">MediaPlayer</span> <span class="kr">implements</span> <span class="nx">StartStop</span><span class="p">,</span> <span class="nx">Pause</span> <span class="p">{</span>
+  <span class="nx">getMediaStatus</span><span class="p">():</span> <span class="nx">MediaStatus</span><span class="p">;</span>
   <span class="nx">load</span><span class="p">(</span><span class="nx">media</span><span class="p">:</span> <span class="nx">URL</span><span class="o">|</span><span class="nx">MediaObject</span><span class="p">,</span> <span class="nx">options</span><span class="p">:</span> <span class="nx">MediaPlayerOptions</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">pause</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">play</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">stop</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">seek</span><span class="p">(</span><span class="nx">milliseconds</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">skipNext</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">skipPrevious</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
 <aside class="notice">
@@ -3838,14 +3867,101 @@ Battery retrieves the battery level of battery powered devices.
 MediaPlayer allows media playback on screen or speaker devices, such as Chromecasts or TVs.
 
 </aside>
+<h3 id='getmediastatus'>getMediaStatus</h3>
+<p><a href='#mediastatus'>MediaStatus</a> getMediaStatus()</p>
 <h3 id='load'>load</h3>
 <p>void load(URL|<a href='#mediaobject'>MediaObject</a> media, <a href='#mediaplayeroptions'>MediaPlayerOptions</a> options)</p>
-<h3 id='pause-3'>pause</h3>
-<p>void pause()</p>
-<h3 id='play'>play</h3>
-<p>void play()</p>
-<h3 id='stop-2'>stop</h3>
-<p>void stop()</p>
+<h3 id='seek'>seek</h3>
+<p>void seek(number milliseconds)</p>
+<h3 id='skipnext'>skipNext</h3>
+<p>void skipNext()</p>
+<h3 id='skipprevious'>skipPrevious</h3>
+<p>void skipPrevious()</p>
+<h2 id='mediastatus'>MediaStatus</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">MediaStatus</span>  <span class="p">{</span>
+  <span class="nl">duration</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
+  <span class="nl">mediaPlayerState</span><span class="p">:</span> <span class="nx">MediaPlayerState</span><span class="p">;</span>
+  <span class="nl">metadata</span><span class="p">:</span> <span class="kr">any</span><span class="p">;</span>
+  <span class="nl">position</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">MediaStatus</span>  <span class="p">{</span>
+  <span class="nl">duration</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
+  <span class="nl">mediaPlayerState</span><span class="p">:</span> <span class="nx">MediaPlayerState</span><span class="p">;</span>
+  <span class="nl">metadata</span><span class="p">:</span> <span class="nx">any</span><span class="p">;</span>
+  <span class="nl">position</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+<aside class="notice">
+
+Used by <a href='#mediaplayer'>MediaPlayer</a>.
+
+
+</aside>
+<h3 id='properties-28'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>duration</td>
+<td>number</td>
+</tr>
+<tr>
+<td>mediaPlayerState</td>
+<td><a href='#mediaplayerstate'>MediaPlayerState</a></td>
+</tr>
+<tr>
+<td>metadata</td>
+<td>any</td>
+</tr>
+<tr>
+<td>position</td>
+<td>number</td>
+</tr>
+</tbody></table>
+<h2 id='mediaplayerstate'>MediaPlayerState</h2><pre class="highlight typescript tab-typescript"><code><span class="kr">enum</span> <span class="nx">MediaPlayerState</span> <span class="p">{</span>
+  <span class="nx">Idle</span> <span class="o">=</span> <span class="s2">"Idle"</span><span class="p">,</span>
+  <span class="nx">Playing</span> <span class="o">=</span> <span class="s2">"Playing"</span><span class="p">,</span>
+  <span class="nx">Paused</span> <span class="o">=</span> <span class="s2">"Paused"</span><span class="p">,</span>
+  <span class="nx">Buffering</span> <span class="o">=</span> <span class="s2">"Buffering"</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">enum</span> <span class="nx">MediaPlayerState</span> <span class="p">{</span>
+  <span class="nx">Idle</span> <span class="o">=</span> <span class="s2">"Idle"</span><span class="p">,</span>
+  <span class="nx">Playing</span> <span class="o">=</span> <span class="s2">"Playing"</span><span class="p">,</span>
+  <span class="nx">Paused</span> <span class="o">=</span> <span class="s2">"Paused"</span><span class="p">,</span>
+  <span class="nx">Buffering</span> <span class="o">=</span> <span class="s2">"Buffering"</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre>
+<aside class="notice">
+
+Used by <a href='#mediastatus'>MediaStatus</a>.
+
+
+</aside>
+
+<table><thead>
+<tr>
+<th>Enum</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>&quot;Idle&quot;</td>
+</tr>
+<tr>
+<td>&quot;Playing&quot;</td>
+</tr>
+<tr>
+<td>&quot;Paused&quot;</td>
+</tr>
+<tr>
+<td>&quot;Buffering&quot;</td>
+</tr>
+</tbody></table>
 <h2 id='mediaplayeroptions'>MediaPlayerOptions</h2>
 <blockquote>
 <p>Definition</p>
@@ -3865,7 +3981,7 @@ Used by <a href='#mediaplayer'>MediaPlayer</a>.
 
 
 </aside>
-<h3 id='properties-28'>Properties</h3>
+<h3 id='properties-29'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3898,7 +4014,7 @@ Used by <a href='#mediaplayer'>MediaPlayer</a>.
 Online denotes whether the device is online or unresponsive. It may be unresponsive due to being unplugged, network error, etc.
 
 </aside>
-<h3 id='properties-29'>Properties</h3>
+<h3 id='properties-30'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3947,7 +4063,7 @@ Online denotes whether the device is online or unresponsive. It may be unrespons
 SoftwareUpdate provides a way to check for updates and install them. This may be a Scrypted Plugin or device firmware.
 
 </aside>
-<h3 id='properties-30'>Properties</h3>
+<h3 id='properties-31'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3986,7 +4102,7 @@ SoftwareUpdate provides a way to check for updates and install them. This may be
 Add a converter to be used by Scrypted to convert buffers from one mime type to another mime type.
 
 </aside>
-<h3 id='properties-31'>Properties</h3>
+<h3 id='properties-32'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4058,7 +4174,7 @@ Used by <a href='#settings'>Settings</a>.
 
 
 </aside>
-<h3 id='properties-32'>Properties</h3>
+<h3 id='properties-33'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4108,7 +4224,7 @@ Used by <a href='#settings'>Settings</a>.
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">BinarySensor</span>  <span class="p">{</span>
   <span class="nl">binaryState</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-33'>Properties</h3>
+</code></pre><h3 id='properties-34'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4130,7 +4246,7 @@ Used by <a href='#settings'>Settings</a>.
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">IntrusionSensor</span>  <span class="p">{</span>
   <span class="nl">intrusionDetected</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-34'>Properties</h3>
+</code></pre><h3 id='properties-35'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4139,6 +4255,28 @@ Used by <a href='#settings'>Settings</a>.
 </thead><tbody>
 <tr>
 <td>intrusionDetected</td>
+<td>boolean</td>
+</tr>
+</tbody></table>
+<h2 id='powersensor'>PowerSensor</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">PowerSensor</span>  <span class="p">{</span>
+  <span class="nl">powerDetected</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">PowerSensor</span>  <span class="p">{</span>
+  <span class="nl">powerDetected</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><h3 id='properties-36'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>powerDetected</td>
 <td>boolean</td>
 </tr>
 </tbody></table>
@@ -4152,7 +4290,7 @@ Used by <a href='#settings'>Settings</a>.
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">MotionSensor</span>  <span class="p">{</span>
   <span class="nl">motionDetected</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-35'>Properties</h3>
+</code></pre><h3 id='properties-37'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4174,7 +4312,7 @@ Used by <a href='#settings'>Settings</a>.
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">OccupancySensor</span>  <span class="p">{</span>
   <span class="nl">occupied</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-36'>Properties</h3>
+</code></pre><h3 id='properties-38'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4196,7 +4334,7 @@ Used by <a href='#settings'>Settings</a>.
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">FloodSensor</span>  <span class="p">{</span>
   <span class="nl">flooded</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-37'>Properties</h3>
+</code></pre><h3 id='properties-39'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4218,7 +4356,7 @@ Used by <a href='#settings'>Settings</a>.
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">UltravioletSensor</span>  <span class="p">{</span>
   <span class="nl">ultraviolet</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-38'>Properties</h3>
+</code></pre><h3 id='properties-40'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4240,7 +4378,7 @@ Used by <a href='#settings'>Settings</a>.
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">LuminanceSensor</span>  <span class="p">{</span>
   <span class="nl">luminance</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-39'>Properties</h3>
+</code></pre><h3 id='properties-41'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4262,7 +4400,7 @@ Used by <a href='#settings'>Settings</a>.
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">PositionSensor</span>  <span class="p">{</span>
   <span class="nl">position</span><span class="p">:</span> <span class="nx">Position</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-40'>Properties</h3>
+</code></pre><h3 id='properties-42'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4295,7 +4433,7 @@ Used by <a href='#positionsensor'>PositionSensor</a>.
 
 
 </aside>
-<h3 id='properties-41'>Properties</h3>
+<h3 id='properties-43'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4373,7 +4511,7 @@ Used by <a href='#mediamanager'>MediaManager</a>.
 
 
 </aside>
-<h3 id='properties-42'>Properties</h3>
+<h3 id='properties-44'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>

@@ -107,6 +107,7 @@ interface SystemManager  {
   getDeviceState(id: string): any;
   getSystemState(): any;
   listen(EventListener: (eventSource: ScryptedDevice|null, eventDetails: EventDetails, eventData: object) => void): EventListenerRegister;
+  listenDevice(id: string, event: ScryptedInterface|string|EventListenerOptions, callback: (eventSource: ScryptedDevice|null, eventDetails: EventDetails, eventData: object) => void): EventListenerRegister;
 }
 ```
 
@@ -151,6 +152,11 @@ Get the current state of every device.
 <a href='#eventlistenerregister'>EventListenerRegister</a> listen(<a href='#eventlistener'>EventListener</a> EventListener)
 
 Passively (without polling) listen to property changed events.
+
+### listenDevice
+<a href='#eventlistenerregister'>EventListenerRegister</a> listenDevice(string id, ScryptedInterface|string|<a href='#eventlisteneroptions'>EventListenerOptions</a> event, <a href='#eventlistener'>EventListener</a> callback)
+
+Subscribe to events from a specific interface on a device id, such as 'OnOff' or 'Brightness'. This is a convenience method for ScryptedDevice.listen.
 
 
 
@@ -587,6 +593,7 @@ devices | <a href='#device'>Device</a>[]
 ```ecmascript
 interface Device  {
   interfaces: string[];
+  metadata: any;
   model: string;
   name: string;
   nativeId: string;
@@ -614,6 +621,7 @@ Device objects are created by DeviceProviders when new devices are discover and 
 Name      | Type
 --------- | ----
 interfaces | string[]
+metadata | any
 model | string
 name | string
 nativeId | string
@@ -711,6 +719,7 @@ interface DeviceState  {
   toMimeType: string;
   binaryState: boolean;
   intrusionDetected: boolean;
+  powerDetected: boolean;
   motionDetected: boolean;
   occupied: boolean;
   flooded: boolean;
@@ -768,6 +777,7 @@ fromMimeType | string
 toMimeType | string
 binaryState | boolean
 intrusionDetected | boolean
+powerDetected | boolean
 motionDetected | boolean
 occupied | boolean
 flooded | boolean
@@ -2785,11 +2795,12 @@ batteryLevel | number
 > Definition
 
 ```ecmascript
-interface MediaPlayer  {
+interface MediaPlayer implements StartStop, Pause {
+  getMediaStatus(): MediaStatus;
   load(media: URL|MediaObject, options: MediaPlayerOptions): void;
-  pause(): void;
-  play(): void;
-  stop(): void;
+  seek(milliseconds: number): void;
+  skipNext(): void;
+  skipPrevious(): void;
 }
 ```
 
@@ -2810,28 +2821,114 @@ MediaPlayer allows media playback on screen or speaker devices, such as Chromeca
 
 
 
+### getMediaStatus
+<a href='#mediastatus'>MediaStatus</a> getMediaStatus()
+
+
+
 ### load
 void load(URL|<a href='#mediaobject'>MediaObject</a> media, <a href='#mediaplayeroptions'>MediaPlayerOptions</a> options)
 
 
 
-### pause
-void pause()
+### seek
+void seek(number milliseconds)
 
 
 
-### play
-void play()
+### skipNext
+void skipNext()
 
 
 
-### stop
-void stop()
+### skipPrevious
+void skipPrevious()
 
 
 
 
 
+
+
+
+
+## MediaStatus
+
+
+> Definition
+
+```ecmascript
+interface MediaStatus  {
+  duration: number;
+  mediaPlayerState: MediaPlayerState;
+  metadata: any;
+  position: number;
+}
+```
+
+
+<%= partial "includes/scrypted/MediaStatus.md.erb" %>
+
+
+<aside class="notice">
+
+Used by <a href='#mediaplayer'>MediaPlayer</a>.
+
+
+</aside>
+
+
+
+### Properties
+Name      | Type
+--------- | ----
+duration | number
+mediaPlayerState | <a href='#mediaplayerstate'>MediaPlayerState</a>
+metadata | any
+position | number
+
+
+
+
+
+
+
+
+## MediaPlayerState
+
+
+```ecmascript
+enum MediaPlayerState {
+  Idle = "Idle",
+  Playing = "Playing",
+  Paused = "Paused",
+  Buffering = "Buffering",
+}
+```
+
+
+<%= partial "includes/scrypted/MediaPlayerState.md.erb" %>
+
+
+<aside class="notice">
+
+Used by <a href='#mediastatus'>MediaStatus</a>.
+
+
+</aside>
+
+
+
+
+
+
+
+Enum |
+----
+"Idle" |
+"Playing" |
+"Paused" |
+"Buffering" |
 
 
 
@@ -3189,6 +3286,35 @@ interface IntrusionSensor  {
 Name      | Type
 --------- | ----
 intrusionDetected | boolean
+
+
+
+
+
+
+
+
+## PowerSensor
+
+
+> Definition
+
+```ecmascript
+interface PowerSensor  {
+  powerDetected: boolean;
+}
+```
+
+
+<%= partial "includes/scrypted/PowerSensor.md.erb" %>
+
+
+
+
+### Properties
+Name      | Type
+--------- | ----
+powerDetected | boolean
 
 
 
