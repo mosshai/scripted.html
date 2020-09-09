@@ -1,0 +1,2 @@
+- name: Middleman Github Pages Action
+  uses: yurikoval/middleman-gh-pages-action@v1.0.0
