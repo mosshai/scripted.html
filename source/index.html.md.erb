@@ -30,10 +30,13 @@ interface ScryptedDevice  {
   interfaces: string[];
   metadata: any;
   name: string;
+  providedName: ScryptedDeviceType;
+  providedType: ScryptedDeviceType;
+  providerId: string;
   room: string;
   type: ScryptedDeviceType;
 
-  listen(event: ScryptedInterface|string|EventListenerOptions, callback: (eventSource: ScryptedDevice|null, eventDetails: EventDetails, eventData: object) => void): EventListenerRegister;
+  listen(event: ScryptedInterface|string|EventListenerOptions, callback: (eventSource: ScryptedDevice|null, eventDetails: EventDetails, eventData: any) => void): EventListenerRegister;
   setName(name: string): void;
   setRoom(room: string): void;
   setType(type: ScryptedDeviceType): void;
@@ -61,6 +64,9 @@ id | string
 interfaces | string[]
 metadata | any
 name | string
+providedName | ScryptedDeviceType
+providedType | ScryptedDeviceType
+providerId | string
 room | string
 type | ScryptedDeviceType
 
@@ -102,12 +108,14 @@ void setType(ScryptedDeviceType type)
 
 ```ecmascript
 interface SystemManager  {
+  getComponent(id: string): Promise<any>;
   getDeviceById(id: string): ScryptedDevice|null;
   getDeviceByName(name: string): ScryptedDevice|null;
   getDeviceState(id: string): any;
-  getSystemState(): any;
-  listen(EventListener: (eventSource: ScryptedDevice|null, eventDetails: EventDetails, eventData: object) => void): EventListenerRegister;
-  listenDevice(id: string, event: ScryptedInterface|string|EventListenerOptions, callback: (eventSource: ScryptedDevice|null, eventDetails: EventDetails, eventData: object) => void): EventListenerRegister;
+  getSystemState(): {[id: string]: {[property: string]: SystemDeviceState}};
+  listen(EventListener: (eventSource: ScryptedDevice|null, eventDetails: EventDetails, eventData: any) => void): EventListenerRegister;
+  listenDevice(id: string, event: ScryptedInterface|string|EventListenerOptions, callback: (eventSource: ScryptedDevice|null, eventDetails: EventDetails, eventData: any) => void): EventListenerRegister;
+  removeDevice(id: string): void;
 }
 ```
 
@@ -128,6 +136,11 @@ SystemManager is used by scripts to query device state and access devices.
 
 
 
+### getComponent
+Promise\<any> getComponent(string id)
+
+Retrieve a system service.
+
 ### getDeviceById
 ScryptedDevice|null getDeviceById(string id)
 
@@ -144,7 +157,7 @@ any getDeviceState(string id)
 Get the current state of a device.
 
 ### getSystemState
-any getSystemState()
+{[id: string]: {[property: string]: SystemDeviceState}} getSystemState()
 
 Get the current state of every device.
 
@@ -157,6 +170,11 @@ Passively (without polling) listen to property changed events.
 <a href='#eventlistenerregister'>EventListenerRegister</a> listenDevice(string id, ScryptedInterface|string|<a href='#eventlisteneroptions'>EventListenerOptions</a> event, <a href='#eventlistener'>EventListener</a> callback)
 
 Subscribe to events from a specific interface on a device id, such as 'OnOff' or 'Brightness'. This is a convenience method for ScryptedDevice.listen.
+
+### removeDevice
+void removeDevice(string id)
+
+Remove a device from Scrypted. Plugins should use DeviceManager.onDevicesChanged or DeviceManager.onDeviceRemoved to remove their own devices
 
 
 
@@ -250,7 +268,7 @@ Enum |
 
 ```ecmascript
 interface EventListener  {
-  onEvent(eventSource: ScryptedDevice|null, eventDetails: EventDetails, eventData: object): void;
+  onEvent(eventSource: ScryptedDevice|null, eventDetails: EventDetails, eventData: any): void;
 }
 ```
 
@@ -265,7 +283,7 @@ interface EventListener  {
 
 
 ### onEvent
-void onEvent(ScryptedDevice|null eventSource, <a href='#eventdetails'>EventDetails</a> eventDetails, object eventData)
+void onEvent(ScryptedDevice|null eventSource, <a href='#eventdetails'>EventDetails</a> eventDetails, any eventData)
 
 This device type can be hooked by Automation actions to handle events. The event source, event details (interface, time, property), and event data are all passed to the listener as arguments.
 
@@ -308,6 +326,39 @@ Returned when an event listener is attached to an EventEmitter. Call removeListe
 ### removeListener
 void removeListener()
 
+
+
+
+
+
+
+
+
+## SystemDeviceState
+
+
+> Definition
+
+```ecmascript
+interface SystemDeviceState  {
+  lastEventTime: number;
+  stateTime: number;
+  value: any;
+}
+```
+
+
+<%= partial "includes/scrypted/SystemDeviceState.md.erb" %>
+
+
+
+
+### Properties
+Name      | Type
+--------- | ----
+lastEventTime | number
+stateTime | number
+value | any
 
 
 
@@ -422,10 +473,10 @@ interface DeviceManager  {
   getDeviceStorage(): Storage;
   getDeviceStorage(nativeId: string): Storage;
   getNativeIds(): string[];
-  onDeviceDiscovered(device: Device): void;
-  onDeviceEvent(eventInterface: string, eventData: any): void;
-  onDeviceEvent(nativeId: string, eventInterface: string, eventData: any): void;
-  onDevicesChanged(devices: DeviceManifest): void;
+  onDeviceDiscovered(device: Device): Promise<void>;
+  onDeviceEvent(nativeId: string, eventInterface: string, eventData: any): Promise<void>;
+  onDeviceRemoved(nativeId: string): Promise<void>;
+  onDevicesChanged(devices: DeviceManifest): Promise<void>;
 }
 ```
 
@@ -477,22 +528,22 @@ string[] getNativeIds()
 
 
 ### onDeviceDiscovered
-void onDeviceDiscovered(<a href='#device'>Device</a> device)
+Promise\<void> onDeviceDiscovered(<a href='#device'>Device</a> device)
 
 onDeviceDiscovered is used to report new devices that are trickle discovered, one by one, such as via a network broadcast.
 
 ### onDeviceEvent
-void onDeviceEvent(string eventInterface, any eventData)
-
-Fire an event for this plugin's device.
-
-### onDeviceEvent
-void onDeviceEvent(string nativeId, string eventInterface, any eventData)
+Promise\<void> onDeviceEvent(string nativeId, string eventInterface, any eventData)
 
 Fire an event for a device provided by this plugin.
 
+### onDeviceRemoved
+Promise\<void> onDeviceRemoved(string nativeId)
+
+onDeviceRemoved is used to report when discovered devices are removed.
+
 ### onDevicesChanged
-void onDevicesChanged(<a href='#devicemanifest'>DeviceManifest</a> devices)
+Promise\<void> onDevicesChanged(<a href='#devicemanifest'>DeviceManifest</a> devices)
 
 onDevicesChanged is used to sync Scrypted with devices that are attached to a hub, such as Hue or SmartThings. All the devices should be reported at once.
 
@@ -510,7 +561,7 @@ onDevicesChanged is used to sync Scrypted with devices that are attached to a hu
 ```ecmascript
 interface DeviceProvider  {
   discoverDevices(duration: number): void;
-  getDevice(nativeId: string): object;
+  getDevice(nativeId: string): any;
 }
 ```
 
@@ -537,7 +588,7 @@ void discoverDevices(number duration)
 Perform device discovery for the specified duration in seconds.
 
 ### getDevice
-object getDevice(string nativeId)
+any getDevice(string nativeId)
 
 Get an instance of a previously discovered device that was reported to the device manager.
 
@@ -597,6 +648,7 @@ interface Device  {
   model: string;
   name: string;
   nativeId: string;
+  providerNativeId: string;
   room: string;
   type: ScryptedDeviceType;
 }
@@ -625,6 +677,7 @@ metadata | any
 model | string
 name | string
 nativeId | string
+providerNativeId | string
 room | string
 type | ScryptedDeviceType
 
@@ -642,7 +695,7 @@ type | ScryptedDeviceType
 
 ```ecmascript
 interface Refresh  {
-  getRefreshFrequency(): number;
+  getRefreshFrequency(): Promise<number>;
   refresh(refreshInterface: string, userInitiated: boolean): void;
 }
 ```
@@ -665,7 +718,7 @@ Refresh indicates that this device has properties that are not automatically upd
 
 
 ### getRefreshFrequency
-number getRefreshFrequency()
+Promise\<number> getRefreshFrequency()
 
 Get the recommended refresh/poll frequency in seconds for this device.
 
@@ -692,6 +745,9 @@ interface DeviceState  {
   interfaces: string[];
   metadata: any;
   name: string;
+  providedName: ScryptedDeviceType;
+  providedType: ScryptedDeviceType;
+  providerId: string;
   room: string;
   type: ScryptedDeviceType;
   on: boolean;
@@ -750,6 +806,9 @@ id | string
 interfaces | string[]
 metadata | any
 name | string
+providedName | ScryptedDeviceType
+providedType | ScryptedDeviceType
+providerId | string
 room | string
 type | ScryptedDeviceType
 on | boolean
@@ -806,6 +865,7 @@ position | <a href='#position'>Position</a>
 ```ecmascript
 interface MediaManager  {
   convertMediaObjectToBuffer(mediaObject: MediaObject, toMimeType: string): Promise<Buffer>;
+  convertMediaObjectToInsecureLocalUrl(mediaObject: MediaObject, toMimeType: string): Promise<string>;
   convertMediaObjectToLocalUrl(mediaObject: MediaObject, toMimeType: string): Promise<string>;
   convertMediaObjectToUrl(mediaObject: MediaObject, toMimeType: string): Promise<string>;
   createFFmpegMediaObject(ffMpegInput: FFMpegInput): MediaObject;
@@ -827,6 +887,11 @@ interface MediaManager  {
 Promise\<Buffer> convertMediaObjectToBuffer(<a href='#mediaobject'>MediaObject</a> mediaObject, string toMimeType)
 
 Convert a media object to a Buffer of the given mime type.
+
+### convertMediaObjectToInsecureLocalUrl
+Promise\<string> convertMediaObjectToInsecureLocalUrl(<a href='#mediaobject'>MediaObject</a> mediaObject, string toMimeType)
+
+Convert a media object to a locally accessible URL that serves a media file of the given mime type. If the media object is an externally accessible URL, that will be returned.
 
 ### convertMediaObjectToLocalUrl
 Promise\<string> convertMediaObjectToLocalUrl(<a href='#mediaobject'>MediaObject</a> mediaObject, string toMimeType)
@@ -1087,12 +1152,12 @@ username | string
 
 ```ecmascript
 interface HttpResponse  {
-  send(options: HttpResponseOptions, body: string): void;
-  send(options: HttpResponseOptions, body: Buffer): void;
   send(body: string): void;
+  send(body: string, options: HttpResponseOptions): void;
   send(body: Buffer): void;
-  sendFile(options: HttpResponseOptions, path: string): void;
+  send(body: Buffer, options: HttpResponseOptions): void;
   sendFile(path: string): void;
+  sendFile(path: string, options: HttpResponseOptions): void;
 }
 ```
 
@@ -1116,17 +1181,12 @@ Response object provided by the HttpRequestHandler.
 
 
 ### send
-void send(<a href='#httpresponseoptions'>HttpResponseOptions</a> options, string body)
-
-
-
-### send
-void send(<a href='#httpresponseoptions'>HttpResponseOptions</a> options, Buffer body)
-
-
-
-### send
 void send(string body)
+
+
+
+### send
+void send(string body, <a href='#httpresponseoptions'>HttpResponseOptions</a> options)
 
 
 
@@ -1135,13 +1195,18 @@ void send(Buffer body)
 
 
 
-### sendFile
-void sendFile(<a href='#httpresponseoptions'>HttpResponseOptions</a> options, string path)
+### send
+void send(Buffer body, <a href='#httpresponseoptions'>HttpResponseOptions</a> options)
 
 
 
 ### sendFile
 void sendFile(string path)
+
+
+
+### sendFile
+void sendFile(string path, <a href='#httpresponseoptions'>HttpResponseOptions</a> options)
 
 
 
@@ -1244,294 +1309,6 @@ void startActivity(Intent intent)
 ### startService
 void startService(Intent intent)
 
-
-
-
-
-
-
-
-
-
-
-
-# Z-Wave Reference
-
-
-## ZwaveManager
-
-
-> Definition
-
-```ecmascript
-interface ZwaveManager  {
-  getNodeManufacturerName(homeId: number, nodeId: number): string;
-  getNodeName(homeId: number, nodeId: number): string;
-  getNodeProductName(homeId: number, nodeId: number): string;
-  getValue(valueId: ZwaveValueId): string;
-  getValueHelp(valueId: ZwaveValueId): string;
-  getValueLabel(valueId: ZwaveValueId): string;
-  getValueListItems(valueId: ZwaveValueId): string[];
-  getValueListValues(valueId: ZwaveValueId): number[];
-  getValueUnit(valueId: ZwaveValueId): string;
-  refreshValue(valueId: ZwaveValueId): void;
-  setNodeName(homeId: number, nodeId: number, name: string): void;
-  setValue(valueId: ZwaveValueId, value: string): void;
-  setValueRaw(valueId: ZwaveValueId, value: Buffer): void;
-}
-```
-
-
-<%= partial "includes/scrypted/ZwaveManager.md.erb" %>
-
-
-
-
-
-
-
-
-### getNodeManufacturerName
-string getNodeManufacturerName(number homeId, number nodeId)
-
-
-
-### getNodeName
-string getNodeName(number homeId, number nodeId)
-
-
-
-### getNodeProductName
-string getNodeProductName(number homeId, number nodeId)
-
-
-
-### getValue
-string getValue(<a href='#zwavevalueid'>ZwaveValueId</a> valueId)
-
-
-
-### getValueHelp
-string getValueHelp(<a href='#zwavevalueid'>ZwaveValueId</a> valueId)
-
-
-
-### getValueLabel
-string getValueLabel(<a href='#zwavevalueid'>ZwaveValueId</a> valueId)
-
-
-
-### getValueListItems
-string[] getValueListItems(<a href='#zwavevalueid'>ZwaveValueId</a> valueId)
-
-
-
-### getValueListValues
-number[] getValueListValues(<a href='#zwavevalueid'>ZwaveValueId</a> valueId)
-
-
-
-### getValueUnit
-string getValueUnit(<a href='#zwavevalueid'>ZwaveValueId</a> valueId)
-
-
-
-### refreshValue
-void refreshValue(<a href='#zwavevalueid'>ZwaveValueId</a> valueId)
-
-
-
-### setNodeName
-void setNodeName(number homeId, number nodeId, string name)
-
-
-
-### setValue
-void setValue(<a href='#zwavevalueid'>ZwaveValueId</a> valueId, string value)
-
-
-
-### setValueRaw
-void setValueRaw(<a href='#zwavevalueid'>ZwaveValueId</a> valueId, Buffer value)
-
-
-
-
-
-
-
-
-
-## ZwaveNotification
-
-
-> Definition
-
-```ecmascript
-interface ZwaveNotification  {
-  byteData: number;
-  event: number;
-  type: ZwaveNotificationType;
-  valueId: ZwaveValueId;
-}
-```
-
-
-<%= partial "includes/scrypted/ZwaveNotification.md.erb" %>
-
-
-
-
-### Properties
-Name      | Type
---------- | ----
-byteData | number
-event | number
-type | <a href='#zwavenotificationtype'>ZwaveNotificationType</a>
-valueId | <a href='#zwavevalueid'>ZwaveValueId</a>
-
-
-
-
-
-
-
-
-## ZwaveNotificationType
-
-
-```ecmascript
-enum ZwaveNotificationType {
-  Type_ValueAdded = "Type_ValueAdded",
-  Type_ValueRemoved = "Type_ValueRemoved",
-  Type_ValueChanged = "Type_ValueChanged",
-  Type_ValueRefreshed = "Type_ValueRefreshed",
-  Type_Group = "Type_Group",
-  Type_NodeNew = "Type_NodeNew",
-  Type_NodeAdded = "Type_NodeAdded",
-  Type_NodeRemoved = "Type_NodeRemoved",
-  Type_NodeProtocolInfo = "Type_NodeProtocolInfo",
-  Type_NodeNaming = "Type_NodeNaming",
-  Type_NodeEvent = "Type_NodeEvent",
-  Type_PollingDisabled = "Type_PollingDisabled",
-  Type_PollingEnabled = "Type_PollingEnabled",
-  Type_SceneEvent = "Type_SceneEvent",
-  Type_CreateButton = "Type_CreateButton",
-  Type_DeleteButton = "Type_DeleteButton",
-  Type_ButtonOn = "Type_ButtonOn",
-  Type_ButtonOff = "Type_ButtonOff",
-  Type_DriverReady = "Type_DriverReady",
-  Type_DriverFailed = "Type_DriverFailed",
-  Type_DriverReset = "Type_DriverReset",
-  Type_EssentialNodeQueriesComplete = "Type_EssentialNodeQueriesComplete",
-  Type_NodeQueriesComplete = "Type_NodeQueriesComplete",
-  Type_AwakeNodesQueried = "Type_AwakeNodesQueried",
-  Type_AllNodesQueriedSomeDead = "Type_AllNodesQueriedSomeDead",
-  Type_AllNodesQueried = "Type_AllNodesQueried",
-  Type_Notification = "Type_Notification",
-  Type_DriverRemoved = "Type_DriverRemoved",
-  Type_ControllerCommand = "Type_ControllerCommand",
-  Type_NodeReset = "Type_NodeReset",
-  Type_UserAlerts = "Type_UserAlerts",
-  Type_ManufacturerSpecificDBReady = "Type_ManufacturerSpecificDBReady",
-}
-```
-
-
-<%= partial "includes/scrypted/ZwaveNotificationType.md.erb" %>
-
-
-<aside class="notice">
-
-Used by <a href='#zwavenotification'>ZwaveNotification</a>.
-
-
-</aside>
-
-
-
-
-
-
-
-Enum |
-----
-"Type_ValueAdded" |
-"Type_ValueRemoved" |
-"Type_ValueChanged" |
-"Type_ValueRefreshed" |
-"Type_Group" |
-"Type_NodeNew" |
-"Type_NodeAdded" |
-"Type_NodeRemoved" |
-"Type_NodeProtocolInfo" |
-"Type_NodeNaming" |
-"Type_NodeEvent" |
-"Type_PollingDisabled" |
-"Type_PollingEnabled" |
-"Type_SceneEvent" |
-"Type_CreateButton" |
-"Type_DeleteButton" |
-"Type_ButtonOn" |
-"Type_ButtonOff" |
-"Type_DriverReady" |
-"Type_DriverFailed" |
-"Type_DriverReset" |
-"Type_EssentialNodeQueriesComplete" |
-"Type_NodeQueriesComplete" |
-"Type_AwakeNodesQueried" |
-"Type_AllNodesQueriedSomeDead" |
-"Type_AllNodesQueried" |
-"Type_Notification" |
-"Type_DriverRemoved" |
-"Type_ControllerCommand" |
-"Type_NodeReset" |
-"Type_UserAlerts" |
-"Type_ManufacturerSpecificDBReady" |
-
-
-
-
-## ZwaveValueId
-
-
-> Definition
-
-```ecmascript
-interface ZwaveValueId  {
-  commandClass: number;
-  genre: number;
-  homeId: number;
-  index: number;
-  instance: number;
-  nodeId: number;
-  type: number;
-}
-```
-
-
-<%= partial "includes/scrypted/ZwaveValueId.md.erb" %>
-
-
-<aside class="notice">
-
-Used by <a href='#zwavemanager'>ZwaveManager</a>.
-
-
-</aside>
-
-
-
-### Properties
-Name      | Type
---------- | ----
-commandClass | number
-genre | number
-homeId | number
-index | number
-instance | number
-nodeId | number
-type | number
 
 
 
@@ -2546,7 +2323,7 @@ Enum |
 ```ecmascript
 interface PasswordStore implements Authenticator {
   addPassword(password: string): void;
-  getPasswords(): string[];
+  getPasswords(): Promise<string[]>;
   removePassword(password: string): void;
 }
 ```
@@ -2574,7 +2351,7 @@ void addPassword(string password)
 
 
 ### getPasswords
-string[] getPasswords()
+Promise\<string[]> getPasswords()
 
 
 
@@ -2596,7 +2373,7 @@ void removePassword(string password)
 
 ```ecmascript
 interface Authenticator  {
-  checkPassword(password: string): boolean;
+  checkPassword(password: string): Promise<boolean>;
 }
 ```
 
@@ -2618,7 +2395,7 @@ Authenticator can be used to require a password before allowing interaction with
 
 
 ### checkPassword
-boolean checkPassword(string password)
+Promise\<boolean> checkPassword(string password)
 
 
 
@@ -3014,7 +2791,7 @@ online | boolean
 
 ```ecmascript
 interface Program  {
-  run(args: object[]): Promise<object>;
+  run(args: any[]): Promise<any>;
 }
 ```
 
@@ -3029,7 +2806,7 @@ interface Program  {
 
 
 ### run
-Promise\<object> run(object[] args)
+Promise\<any> run(any[] args)
 
 Asynchronously run a script given the provided arguments.
 
@@ -3148,7 +2925,7 @@ Promise\<Buffer> convert(Buffer buffer, string fromMimeType)
 
 ```ecmascript
 interface Settings  {
-  getSettings(): Setting[];
+  getSettings(): Promise<Setting[]>;
   putSetting(key: string, value: boolean|number|string): void;
 }
 ```
@@ -3171,63 +2948,13 @@ Settings viewing and editing of device configurations that describe or modify be
 
 
 ### getSettings
-<a href='#setting'>Setting</a>[] getSettings()
+Promise\<<a href='#setting'>Setting</a>[]> getSettings()
 
 
 
 ### putSetting
 void putSetting(string key, boolean|number|string value)
 
-
-
-
-
-
-
-
-
-## Setting
-
-
-> Definition
-
-```ecmascript
-interface Setting  {
-  choices: string[];
-  description: string;
-  key: string;
-  placeholder: string;
-  readonly: boolean;
-  title: string;
-  type: string;
-  value: string;
-}
-```
-
-
-<%= partial "includes/scrypted/Setting.md.erb" %>
-
-
-<aside class="notice">
-
-Used by <a href='#settings'>Settings</a>.
-
-
-</aside>
-
-
-
-### Properties
-Name      | Type
---------- | ----
-choices | string[]
-description | string
-key | string
-placeholder | string
-readonly | boolean
-title | string
-type | string
-value | string
 
 
 
@@ -3743,6 +3470,49 @@ interface EngineIOHandler implements EndpointHandler {
 ### onConnection
 void onConnection(<a href='#httprequest'>HttpRequest</a> request, string webSocketUrl)
 
+
+
+
+
+
+
+
+
+## Setting
+
+
+> Definition
+
+```ecmascript
+interface Setting  {
+  choices: string[];
+  description: string;
+  key: string;
+  placeholder: string;
+  readonly: boolean;
+  title: string;
+  type: string;
+  value: string;
+}
+```
+
+
+<%= partial "includes/scrypted/Setting.md.erb" %>
+
+
+
+
+### Properties
+Name      | Type
+--------- | ----
+choices | string[]
+description | string
+key | string
+placeholder | string
+readonly | boolean
+title | string
+type | string
+value | string
 
 
 

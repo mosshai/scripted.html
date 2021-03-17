@@ -38,7 +38,7 @@ module Multilang
       if (!File.file?(hexJs))
         File.open(hexTs, 'w') { |file| file.write(code) }
         Dir.chdir(devDir) {
-          system("tsc -t ES2018 -m ES6 #{hexTs}")
+          system("tsc -t ES6 #{hexTs}")
         }
       end
 

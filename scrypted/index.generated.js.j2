@@ -61,43 +61,8 @@ const sdk = {
     ScryptedDeviceBase,
 }
 
+const types = require('./types.generated.js');
+Object.assign(sdk, types);
+
 module.exports = sdk;
 module.exports.default = sdk;
-
-{%- for name, c in classes -%}
-{%- if c.values.length %}
-module.exports.{{ name }} = {
-{%- for value in c.values %}
-  {{ value }}: "{{ value }}",
-{%- endfor %}
-}
-{%- endif %}
-{%- endfor %}
-
-module.exports.ScryptedInterface = {
-  {%- for name, c in classes -%}
-  {%- if c.implementable %}
-  {{ name }}: "{{ name }}",
-  {%- endif %}
-  {%- endfor %}
-}
-
-module.exports.ScryptedInterfaceDescriptors = {
-  {%- for name, c in classes -%}
-  {%- if c.implementable %}
-  {{ name }}: {
-      name: "{{ name }}",
-      properties: [
-        {%- for f in c.fields %}
-        "{{ f.name }}",
-        {%- endfor %}
-      ],
-      methods: [
-        {%- for m in c.methods %}
-        "{{ m.name }}",
-        {%- endfor %}
-      ]
-  },
-  {%- endif %}
-  {%- endfor %}
-}

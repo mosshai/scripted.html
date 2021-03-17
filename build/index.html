@@ -281,6 +281,9 @@
                     <a href="#eventlistenerregister" class="toc-h2 toc-link" data-title="EventListenerRegister">EventListenerRegister</a>
                   </li>
                   <li>
+                    <a href="#systemdevicestate" class="toc-h2 toc-link" data-title="SystemDeviceState">SystemDeviceState</a>
+                  </li>
+                  <li>
                     <a href="#logger" class="toc-h2 toc-link" data-title="Logger">Logger</a>
                   </li>
               </ul>
@@ -347,23 +350,6 @@
               <ul class="toc-list-h2">
                   <li>
                     <a href="#android" class="toc-h2 toc-link" data-title="Android">Android</a>
-                  </li>
-              </ul>
-          </li>
-          <li>
-            <a href="#z-wave-reference" class="toc-h1 toc-link" data-title="Z-Wave Reference">Z-Wave Reference</a>
-              <ul class="toc-list-h2">
-                  <li>
-                    <a href="#zwavemanager" class="toc-h2 toc-link" data-title="ZwaveManager">ZwaveManager</a>
-                  </li>
-                  <li>
-                    <a href="#zwavenotification" class="toc-h2 toc-link" data-title="ZwaveNotification">ZwaveNotification</a>
-                  </li>
-                  <li>
-                    <a href="#zwavenotificationtype" class="toc-h2 toc-link" data-title="ZwaveNotificationType">ZwaveNotificationType</a>
-                  </li>
-                  <li>
-                    <a href="#zwavevalueid" class="toc-h2 toc-link" data-title="ZwaveValueId">ZwaveValueId</a>
                   </li>
               </ul>
           </li>
@@ -482,9 +468,6 @@
                     <a href="#settings" class="toc-h2 toc-link" data-title="Settings">Settings</a>
                   </li>
                   <li>
-                    <a href="#setting" class="toc-h2 toc-link" data-title="Setting">Setting</a>
-                  </li>
-                  <li>
                     <a href="#binarysensor" class="toc-h2 toc-link" data-title="BinarySensor">BinarySensor</a>
                   </li>
                   <li>
@@ -534,6 +517,9 @@
                   </li>
                   <li>
                     <a href="#engineiohandler" class="toc-h2 toc-link" data-title="EngineIOHandler">EngineIOHandler</a>
+                  </li>
+                  <li>
+                    <a href="#setting" class="toc-h2 toc-link" data-title="Setting">Setting</a>
                   </li>
               </ul>
           </li>
@@ -675,15 +661,14 @@ be synced to upstream integration providers like Google Home or Apple Homekit.</
 <span class="p">}</span>
 
 <span class="k">export</span> <span class="k">default</span> <span class="k">new</span> <span class="nx">ExampleDevice</span><span class="p">();</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="c1">// https://developer.scrypted.app/#getting-started</span>
-<span class="kr">import</span> <span class="nx">axios</span> <span class="nx">from</span> <span class="s1">'axios'</span><span class="p">;</span>
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">ScryptedDeviceBase</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'@scrypted/sdk'</span><span class="p">;</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">import</span> <span class="p">{</span> <span class="nx">ScryptedDeviceBase</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'@scrypted/sdk'</span><span class="p">;</span>
 <span class="kr">import</span> <span class="nx">sdk</span> <span class="nx">from</span> <span class="s1">'@scrypted/sdk'</span><span class="p">;</span>
 <span class="kr">const</span> <span class="p">{</span> <span class="nx">log</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">sdk</span><span class="p">;</span>
 <span class="nx">log</span><span class="p">.</span><span class="nx">i</span><span class="p">(</span><span class="s1">'Hello World. This will create a virtual OnOff device.'</span><span class="p">);</span>
 <span class="kr">class</span> <span class="nx">ExampleDevice</span> <span class="kr">extends</span> <span class="nx">ScryptedDeviceBase</span> <span class="p">{</span>
     <span class="nx">constructor</span><span class="p">()</span> <span class="p">{</span>
         <span class="kr">super</span><span class="p">();</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">async</span> <span class="o">=</span> <span class="nx">turnOn</span><span class="p">();</span>
         <span class="c1">// Ensure the light state is not null.</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">on</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">on</span> <span class="o">||</span> <span class="kc">false</span><span class="p">;</span>
     <span class="p">}</span>
@@ -691,14 +676,14 @@ be synced to upstream integration providers like Google Home or Apple Homekit.</
         <span class="nx">log</span><span class="p">.</span><span class="nx">i</span><span class="p">(</span><span class="s1">'turnOff was called!'</span><span class="p">);</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">on</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
     <span class="p">}</span>
-    <span class="nx">async</span> <span class="nx">turnOn</span><span class="p">()</span> <span class="p">{</span>
-        <span class="c1">// set a breakpoint here.</span>
-        <span class="nx">log</span><span class="p">.</span><span class="nx">i</span><span class="p">(</span><span class="s1">'turnOn was called!'</span><span class="p">);</span>
-        <span class="nx">log</span><span class="p">.</span><span class="nx">i</span><span class="p">(</span><span class="s2">"Let's pretend to perform a web request on an API that would turn on a light."</span><span class="p">);</span>
-        <span class="kr">const</span> <span class="nx">ip</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">axios</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'http://jsonip.com'</span><span class="p">);</span>
-        <span class="nx">log</span><span class="p">.</span><span class="nx">i</span><span class="p">(</span><span class="s2">`my ip: </span><span class="p">${</span><span class="nx">ip</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">ip</span><span class="p">}</span><span class="s2">`</span><span class="p">);</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">on</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
-    <span class="p">}</span>
+<span class="p">}</span>
+<span class="p">{</span>
+    <span class="c1">// set a breakpoint here.</span>
+    <span class="nx">log</span><span class="p">.</span><span class="nx">i</span><span class="p">(</span><span class="s1">'turnOn was called!'</span><span class="p">);</span>
+    <span class="nx">log</span><span class="p">.</span><span class="nx">i</span><span class="p">(</span><span class="s2">"Let's pretend to perform a web request on an API that would turn on a light."</span><span class="p">);</span>
+    <span class="kr">const</span> <span class="nx">ip</span> <span class="o">=</span> <span class="nx">await</span><span class="p">,</span> <span class="nx">axios</span><span class="p">,</span> <span class="nx">get</span> <span class="o">=</span> <span class="p">(</span><span class="s1">'http://jsonip.com'</span><span class="p">);</span>
+    <span class="nx">log</span><span class="p">.</span><span class="nx">i</span><span class="p">(</span><span class="s2">`my ip: </span><span class="p">${</span><span class="nx">ip</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">ip</span><span class="p">}</span><span class="s2">`</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">on</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
 <span class="p">}</span>
 <span class="kr">export</span> <span class="k">default</span> <span class="k">new</span> <span class="nx">ExampleDevice</span><span class="p">();</span>
 </code></pre>
@@ -820,8 +805,8 @@ event. Setting a schedule for sunrise on weekdays would send an <a href="#alarm"
 <blockquote>
 <p>Definition</p>
 </blockquote>
-<pre class="highlight typescript tab-typescript"><code><span class="k">export</span> <span class="kr">interface</span> <span class="nx">ZwaveManagerDevice</span> <span class="k">extends</span> <span class="nx">ZwaveManager</span><span class="p">,</span> <span class="nx">ScryptedDevice</span> <span class="p">{</span>
-<span class="p">}</span>
+<pre class="highlight typescript tab-typescript"><code><span class="c1">// export interface ZwaveManagerDevice extends ZwaveManager, ScryptedDevice {</span>
+<span class="c1">// }</span>
 
 <span class="cm">/**
  * Android Intent.
@@ -830,7 +815,13 @@ event. Setting a schedule for sunrise on weekdays would send an <a href="#alarm"
 <span class="kr">interface</span> <span class="nx">Intent</span> <span class="p">{</span>
 <span class="p">}</span>
 
-<span class="kr">declare</span> <span class="kd">const</span> <span class="nx">ScryptedInterfaceDescriptors</span><span class="p">:</span> <span class="kr">any</span><span class="p">;</span>
+<span class="k">export</span> <span class="kr">interface</span> <span class="nx">ScryptedInterfaceDescriptor</span> <span class="p">{</span>
+    <span class="nl">name</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+    <span class="nl">properties</span><span class="p">:</span> <span class="nx">ScryptedInterfaceProperty</span><span class="p">[];</span>
+    <span class="nl">methods</span><span class="p">:</span> <span class="kr">string</span><span class="p">[];</span>
+<span class="p">}</span>
+
+<span class="kr">declare</span> <span class="kd">const</span> <span class="nx">ScryptedInterfaceDescriptors</span><span class="p">:</span> <span class="p">{</span> <span class="p">[</span><span class="nx">scryptedInterface</span><span class="p">:</span> <span class="kr">string</span><span class="p">]:</span> <span class="nx">ScryptedInterfaceDescriptor</span> <span class="p">};</span>
 <span class="k">export</span> <span class="p">{</span>
     <span class="nx">ScryptedInterfaceDescriptors</span>
 <span class="p">}</span>
@@ -844,11 +835,11 @@ event. Setting a schedule for sunrise on weekdays would send an <a href="#alarm"
     <span class="nx">endpointManager</span><span class="p">?:</span> <span class="nx">EndpointManager</span><span class="p">,</span>
     <span class="nx">mediaManager</span><span class="p">?:</span> <span class="nx">MediaManager</span><span class="p">,</span>
     <span class="nx">systemManager</span><span class="p">:</span> <span class="nx">SystemManager</span><span class="p">,</span>
-    <span class="nx">zwaveManager</span><span class="p">?:</span> <span class="nx">ZwaveManagerDevice</span><span class="p">,</span>
+    <span class="c1">// zwaveManager?: ZwaveManagerDevice,</span>
 <span class="p">}</span>
 
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">export</span> <span class="kr">interface</span> <span class="nx">ZwaveManagerDevice</span> <span class="kr">extends</span> <span class="nx">ZwaveManager</span><span class="p">,</span> <span class="nx">ScryptedDevice</span> <span class="p">{</span>
-<span class="p">}</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="c1">// export interface ZwaveManagerDevice extends ZwaveManager, ScryptedDevice {</span>
+<span class="c1">// }</span>
 
 <span class="cm">/**
  * Android Intent.
@@ -857,7 +848,13 @@ event. Setting a schedule for sunrise on weekdays would send an <a href="#alarm"
 <span class="kr">interface</span> <span class="nx">Intent</span> <span class="p">{</span>
 <span class="p">}</span>
 
-<span class="nx">declare</span> <span class="kr">const</span> <span class="nx">ScryptedInterfaceDescriptors</span><span class="p">:</span> <span class="nx">any</span><span class="p">;</span>
+<span class="kr">export</span> <span class="kr">interface</span> <span class="nx">ScryptedInterfaceDescriptor</span> <span class="p">{</span>
+    <span class="nl">name</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+    <span class="nl">properties</span><span class="p">:</span> <span class="nx">ScryptedInterfaceProperty</span><span class="p">[];</span>
+    <span class="nl">methods</span><span class="p">:</span> <span class="nx">string</span><span class="p">[];</span>
+<span class="p">}</span>
+
+<span class="nx">declare</span> <span class="kr">const</span> <span class="nx">ScryptedInterfaceDescriptors</span><span class="p">:</span> <span class="p">{</span> <span class="p">[</span><span class="nx">scryptedInterface</span><span class="p">:</span> <span class="nx">string</span><span class="p">]:</span> <span class="nx">ScryptedInterfaceDescriptor</span> <span class="p">};</span>
 <span class="kr">export</span> <span class="p">{</span>
     <span class="nx">ScryptedInterfaceDescriptors</span>
 <span class="p">}</span>
@@ -871,7 +868,7 @@ event. Setting a schedule for sunrise on weekdays would send an <a href="#alarm"
     <span class="nx">endpointManager</span><span class="p">?:</span> <span class="nx">EndpointManager</span><span class="p">,</span>
     <span class="nx">mediaManager</span><span class="p">?:</span> <span class="nx">MediaManager</span><span class="p">,</span>
     <span class="nx">systemManager</span><span class="p">:</span> <span class="nx">SystemManager</span><span class="p">,</span>
-    <span class="nx">zwaveManager</span><span class="p">?:</span> <span class="nx">ZwaveManagerDevice</span><span class="p">,</span>
+    <span class="c1">// zwaveManager?: ZwaveManagerDevice,</span>
 <span class="p">}</span>
 
 </code></pre><h2 id='sdk-log'>sdk.log</h2>
@@ -919,10 +916,13 @@ More information can be found in the <a href='#media-reference'>Media Reference<
   <span class="nl">interfaces</span><span class="p">:</span> <span class="kr">string</span><span class="p">[];</span>
   <span class="nl">metadata</span><span class="p">:</span> <span class="kr">any</span><span class="p">;</span>
   <span class="nl">name</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+  <span class="nl">providedName</span><span class="p">:</span> <span class="nx">ScryptedDeviceType</span><span class="p">;</span>
+  <span class="nl">providedType</span><span class="p">:</span> <span class="nx">ScryptedDeviceType</span><span class="p">;</span>
+  <span class="nl">providerId</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
   <span class="nl">room</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
   <span class="nl">type</span><span class="p">:</span> <span class="nx">ScryptedDeviceType</span><span class="p">;</span>
 
-  <span class="nx">listen</span><span class="p">(</span><span class="nx">event</span><span class="p">:</span> <span class="nx">ScryptedInterface</span><span class="o">|</span><span class="kr">string</span><span class="o">|</span><span class="nx">EventListenerOptions</span><span class="p">,</span> <span class="nx">callback</span><span class="p">:</span> <span class="p">(</span><span class="nx">eventSource</span><span class="p">:</span> <span class="nx">ScryptedDevice</span><span class="o">|</span><span class="kc">null</span><span class="p">,</span> <span class="nx">eventDetails</span><span class="p">:</span> <span class="nx">EventDetails</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="nx">object</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">):</span> <span class="nx">EventListenerRegister</span><span class="p">;</span>
+  <span class="nx">listen</span><span class="p">(</span><span class="nx">event</span><span class="p">:</span> <span class="nx">ScryptedInterface</span><span class="o">|</span><span class="kr">string</span><span class="o">|</span><span class="nx">EventListenerOptions</span><span class="p">,</span> <span class="nx">callback</span><span class="p">:</span> <span class="p">(</span><span class="nx">eventSource</span><span class="p">:</span> <span class="nx">ScryptedDevice</span><span class="o">|</span><span class="kc">null</span><span class="p">,</span> <span class="nx">eventDetails</span><span class="p">:</span> <span class="nx">EventDetails</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="kr">any</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">):</span> <span class="nx">EventListenerRegister</span><span class="p">;</span>
   <span class="nx">setName</span><span class="p">(</span><span class="nx">name</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
   <span class="nx">setRoom</span><span class="p">(</span><span class="nx">room</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
   <span class="nx">setType</span><span class="p">(</span><span class="kd">type</span><span class="p">:</span> <span class="nx">ScryptedDeviceType</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
@@ -933,10 +933,13 @@ More information can be found in the <a href='#media-reference'>Media Reference<
   <span class="nl">interfaces</span><span class="p">:</span> <span class="nx">string</span><span class="p">[];</span>
   <span class="nl">metadata</span><span class="p">:</span> <span class="nx">any</span><span class="p">;</span>
   <span class="nl">name</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nl">providedName</span><span class="p">:</span> <span class="nx">ScryptedDeviceType</span><span class="p">;</span>
+  <span class="nl">providedType</span><span class="p">:</span> <span class="nx">ScryptedDeviceType</span><span class="p">;</span>
+  <span class="nl">providerId</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
   <span class="nl">room</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
   <span class="nl">type</span><span class="p">:</span> <span class="nx">ScryptedDeviceType</span><span class="p">;</span>
 
-  <span class="nx">listen</span><span class="p">(</span><span class="nx">event</span><span class="p">:</span> <span class="nx">ScryptedInterface</span><span class="o">|</span><span class="nx">string</span><span class="o">|</span><span class="nx">EventListenerOptions</span><span class="p">,</span> <span class="nx">callback</span><span class="p">:</span> <span class="p">(</span><span class="nx">eventSource</span><span class="p">:</span> <span class="nx">ScryptedDevice</span><span class="o">|</span><span class="kc">null</span><span class="p">,</span> <span class="nx">eventDetails</span><span class="p">:</span> <span class="nx">EventDetails</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="nx">object</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">):</span> <span class="nx">EventListenerRegister</span><span class="p">;</span>
+  <span class="nx">listen</span><span class="p">(</span><span class="nx">event</span><span class="p">:</span> <span class="nx">ScryptedInterface</span><span class="o">|</span><span class="nx">string</span><span class="o">|</span><span class="nx">EventListenerOptions</span><span class="p">,</span> <span class="nx">callback</span><span class="p">:</span> <span class="p">(</span><span class="nx">eventSource</span><span class="p">:</span> <span class="nx">ScryptedDevice</span><span class="o">|</span><span class="kc">null</span><span class="p">,</span> <span class="nx">eventDetails</span><span class="p">:</span> <span class="nx">EventDetails</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="nx">any</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">):</span> <span class="nx">EventListenerRegister</span><span class="p">;</span>
   <span class="nx">setName</span><span class="p">(</span><span class="nx">name</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
   <span class="nx">setRoom</span><span class="p">(</span><span class="nx">room</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
   <span class="nx">setType</span><span class="p">(</span><span class="nx">type</span><span class="p">:</span> <span class="nx">ScryptedDeviceType</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
@@ -998,6 +1001,18 @@ All devices in Scrypted implement ScryptedDevice, which contains the id, name, a
 <td>string</td>
 </tr>
 <tr>
+<td>providedName</td>
+<td>ScryptedDeviceType</td>
+</tr>
+<tr>
+<td>providedType</td>
+<td>ScryptedDeviceType</td>
+</tr>
+<tr>
+<td>providerId</td>
+<td>string</td>
+</tr>
+<tr>
 <td>room</td>
 <td>string</td>
 </tr>
@@ -1021,20 +1036,24 @@ All devices in Scrypted implement ScryptedDevice, which contains the id, name, a
 <p>Definition</p>
 </blockquote>
 <pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">SystemManager</span>  <span class="p">{</span>
+  <span class="nx">getComponent</span><span class="p">(</span><span class="nx">id</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="kr">any</span><span class="o">&gt;</span><span class="p">;</span>
   <span class="nx">getDeviceById</span><span class="p">(</span><span class="nx">id</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="nx">ScryptedDevice</span><span class="o">|</span><span class="kc">null</span><span class="p">;</span>
   <span class="nx">getDeviceByName</span><span class="p">(</span><span class="nx">name</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="nx">ScryptedDevice</span><span class="o">|</span><span class="kc">null</span><span class="p">;</span>
   <span class="nx">getDeviceState</span><span class="p">(</span><span class="nx">id</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="kr">any</span><span class="p">;</span>
-  <span class="nx">getSystemState</span><span class="p">():</span> <span class="kr">any</span><span class="p">;</span>
-  <span class="nx">listen</span><span class="p">(</span><span class="nx">EventListener</span><span class="p">:</span> <span class="p">(</span><span class="nx">eventSource</span><span class="p">:</span> <span class="nx">ScryptedDevice</span><span class="o">|</span><span class="kc">null</span><span class="p">,</span> <span class="nx">eventDetails</span><span class="p">:</span> <span class="nx">EventDetails</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="nx">object</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">):</span> <span class="nx">EventListenerRegister</span><span class="p">;</span>
-  <span class="nx">listenDevice</span><span class="p">(</span><span class="nx">id</span><span class="p">:</span> <span class="kr">string</span><span class="p">,</span> <span class="nx">event</span><span class="p">:</span> <span class="nx">ScryptedInterface</span><span class="o">|</span><span class="kr">string</span><span class="o">|</span><span class="nx">EventListenerOptions</span><span class="p">,</span> <span class="nx">callback</span><span class="p">:</span> <span class="p">(</span><span class="nx">eventSource</span><span class="p">:</span> <span class="nx">ScryptedDevice</span><span class="o">|</span><span class="kc">null</span><span class="p">,</span> <span class="nx">eventDetails</span><span class="p">:</span> <span class="nx">EventDetails</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="nx">object</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">):</span> <span class="nx">EventListenerRegister</span><span class="p">;</span>
+  <span class="nx">getSystemState</span><span class="p">():</span> <span class="p">{[</span><span class="nx">id</span><span class="p">:</span> <span class="kr">string</span><span class="p">]:</span> <span class="p">{[</span><span class="nx">property</span><span class="p">:</span> <span class="kr">string</span><span class="p">]:</span> <span class="nx">SystemDeviceState</span><span class="p">}};</span>
+  <span class="nx">listen</span><span class="p">(</span><span class="nx">EventListener</span><span class="p">:</span> <span class="p">(</span><span class="nx">eventSource</span><span class="p">:</span> <span class="nx">ScryptedDevice</span><span class="o">|</span><span class="kc">null</span><span class="p">,</span> <span class="nx">eventDetails</span><span class="p">:</span> <span class="nx">EventDetails</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="kr">any</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">):</span> <span class="nx">EventListenerRegister</span><span class="p">;</span>
+  <span class="nx">listenDevice</span><span class="p">(</span><span class="nx">id</span><span class="p">:</span> <span class="kr">string</span><span class="p">,</span> <span class="nx">event</span><span class="p">:</span> <span class="nx">ScryptedInterface</span><span class="o">|</span><span class="kr">string</span><span class="o">|</span><span class="nx">EventListenerOptions</span><span class="p">,</span> <span class="nx">callback</span><span class="p">:</span> <span class="p">(</span><span class="nx">eventSource</span><span class="p">:</span> <span class="nx">ScryptedDevice</span><span class="o">|</span><span class="kc">null</span><span class="p">,</span> <span class="nx">eventDetails</span><span class="p">:</span> <span class="nx">EventDetails</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="kr">any</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">):</span> <span class="nx">EventListenerRegister</span><span class="p">;</span>
+  <span class="nx">removeDevice</span><span class="p">(</span><span class="nx">id</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">SystemManager</span>  <span class="p">{</span>
+  <span class="nx">getComponent</span><span class="p">(</span><span class="nx">id</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span><span class="p">;</span>
   <span class="nx">getDeviceById</span><span class="p">(</span><span class="nx">id</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">ScryptedDevice</span><span class="o">|</span><span class="kc">null</span><span class="p">;</span>
   <span class="nx">getDeviceByName</span><span class="p">(</span><span class="nx">name</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">ScryptedDevice</span><span class="o">|</span><span class="kc">null</span><span class="p">;</span>
   <span class="nx">getDeviceState</span><span class="p">(</span><span class="nx">id</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">any</span><span class="p">;</span>
-  <span class="nx">getSystemState</span><span class="p">():</span> <span class="nx">any</span><span class="p">;</span>
-  <span class="nx">listen</span><span class="p">(</span><span class="nx">EventListener</span><span class="p">:</span> <span class="p">(</span><span class="nx">eventSource</span><span class="p">:</span> <span class="nx">ScryptedDevice</span><span class="o">|</span><span class="kc">null</span><span class="p">,</span> <span class="nx">eventDetails</span><span class="p">:</span> <span class="nx">EventDetails</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="nx">object</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">):</span> <span class="nx">EventListenerRegister</span><span class="p">;</span>
-  <span class="nx">listenDevice</span><span class="p">(</span><span class="nx">id</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">event</span><span class="p">:</span> <span class="nx">ScryptedInterface</span><span class="o">|</span><span class="nx">string</span><span class="o">|</span><span class="nx">EventListenerOptions</span><span class="p">,</span> <span class="nx">callback</span><span class="p">:</span> <span class="p">(</span><span class="nx">eventSource</span><span class="p">:</span> <span class="nx">ScryptedDevice</span><span class="o">|</span><span class="kc">null</span><span class="p">,</span> <span class="nx">eventDetails</span><span class="p">:</span> <span class="nx">EventDetails</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="nx">object</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">):</span> <span class="nx">EventListenerRegister</span><span class="p">;</span>
+  <span class="nx">getSystemState</span><span class="p">():</span> <span class="p">{[</span><span class="nx">id</span><span class="p">:</span> <span class="nx">string</span><span class="p">]:</span> <span class="p">{[</span><span class="nx">property</span><span class="p">:</span> <span class="nx">string</span><span class="p">]:</span> <span class="nx">SystemDeviceState</span><span class="p">}};</span>
+  <span class="nx">listen</span><span class="p">(</span><span class="nx">EventListener</span><span class="p">:</span> <span class="p">(</span><span class="nx">eventSource</span><span class="p">:</span> <span class="nx">ScryptedDevice</span><span class="o">|</span><span class="kc">null</span><span class="p">,</span> <span class="nx">eventDetails</span><span class="p">:</span> <span class="nx">EventDetails</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="nx">any</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">):</span> <span class="nx">EventListenerRegister</span><span class="p">;</span>
+  <span class="nx">listenDevice</span><span class="p">(</span><span class="nx">id</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">event</span><span class="p">:</span> <span class="nx">ScryptedInterface</span><span class="o">|</span><span class="nx">string</span><span class="o">|</span><span class="nx">EventListenerOptions</span><span class="p">,</span> <span class="nx">callback</span><span class="p">:</span> <span class="p">(</span><span class="nx">eventSource</span><span class="p">:</span> <span class="nx">ScryptedDevice</span><span class="o">|</span><span class="kc">null</span><span class="p">,</span> <span class="nx">eventDetails</span><span class="p">:</span> <span class="nx">EventDetails</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="nx">any</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">):</span> <span class="nx">EventListenerRegister</span><span class="p">;</span>
+  <span class="nx">removeDevice</span><span class="p">(</span><span class="nx">id</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
 <aside class="notice">
@@ -1043,6 +1062,10 @@ All devices in Scrypted implement ScryptedDevice, which contains the id, name, a
 SystemManager is used by scripts to query device state and access devices.
 
 </aside>
+<h3 id='getcomponent'>getComponent</h3>
+<p>Promise&lt;any&gt; getComponent(string id)</p>
+
+<p>Retrieve a system service.</p>
 <h3 id='getdevicebyid'>getDeviceById</h3>
 <p>ScryptedDevice|null getDeviceById(string id)</p>
 
@@ -1056,7 +1079,7 @@ SystemManager is used by scripts to query device state and access devices.
 
 <p>Get the current state of a device.</p>
 <h3 id='getsystemstate'>getSystemState</h3>
-<p>any getSystemState()</p>
+<p>{[id: string]: {[property: string]: SystemDeviceState}} getSystemState()</p>
 
 <p>Get the current state of every device.</p>
 <h3 id='listen-2'>listen</h3>
@@ -1067,6 +1090,10 @@ SystemManager is used by scripts to query device state and access devices.
 <p><a href='#eventlistenerregister'>EventListenerRegister</a> listenDevice(string id, ScryptedInterface|string|<a href='#eventlisteneroptions'>EventListenerOptions</a> event, <a href='#eventlistener'>EventListener</a> callback)</p>
 
 <p>Subscribe to events from a specific interface on a device id, such as &#39;OnOff&#39; or &#39;Brightness&#39;. This is a convenience method for ScryptedDevice.listen.</p>
+<h3 id='removedevice'>removeDevice</h3>
+<p>void removeDevice(string id)</p>
+
+<p>Remove a device from Scrypted. Plugins should use DeviceManager.onDevicesChanged or DeviceManager.onDeviceRemoved to remove their own devices</p>
 <h2 id='scrypteddevicetype'>ScryptedDeviceType</h2><pre class="highlight typescript tab-typescript"><code><span class="kr">enum</span> <span class="nx">ScryptedDeviceType</span> <span class="p">{</span>
   <span class="nx">Builtin</span> <span class="o">=</span> <span class="s2">"Builtin"</span><span class="p">,</span>
   <span class="nx">Camera</span> <span class="o">=</span> <span class="s2">"Camera"</span><span class="p">,</span>
@@ -1210,13 +1237,13 @@ Used by <a href='#scrypteddevice'>ScryptedDevice</a>.
 <p>Definition</p>
 </blockquote>
 <pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">EventListener</span>  <span class="p">{</span>
-  <span class="nx">onEvent</span><span class="p">(</span><span class="nx">eventSource</span><span class="p">:</span> <span class="nx">ScryptedDevice</span><span class="o">|</span><span class="kc">null</span><span class="p">,</span> <span class="nx">eventDetails</span><span class="p">:</span> <span class="nx">EventDetails</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="nx">object</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">onEvent</span><span class="p">(</span><span class="nx">eventSource</span><span class="p">:</span> <span class="nx">ScryptedDevice</span><span class="o">|</span><span class="kc">null</span><span class="p">,</span> <span class="nx">eventDetails</span><span class="p">:</span> <span class="nx">EventDetails</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="kr">any</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">EventListener</span>  <span class="p">{</span>
-  <span class="nx">onEvent</span><span class="p">(</span><span class="nx">eventSource</span><span class="p">:</span> <span class="nx">ScryptedDevice</span><span class="o">|</span><span class="kc">null</span><span class="p">,</span> <span class="nx">eventDetails</span><span class="p">:</span> <span class="nx">EventDetails</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="nx">object</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">onEvent</span><span class="p">(</span><span class="nx">eventSource</span><span class="p">:</span> <span class="nx">ScryptedDevice</span><span class="o">|</span><span class="kc">null</span><span class="p">,</span> <span class="nx">eventDetails</span><span class="p">:</span> <span class="nx">EventDetails</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="nx">any</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><h3 id='onevent'>onEvent</h3>
-<p>void onEvent(ScryptedDevice|null eventSource, <a href='#eventdetails'>EventDetails</a> eventDetails, object eventData)</p>
+<p>void onEvent(ScryptedDevice|null eventSource, <a href='#eventdetails'>EventDetails</a> eventDetails, any eventData)</p>
 
 <p>This device type can be hooked by Automation actions to handle events. The event source, event details (interface, time, property), and event data are all passed to the listener as arguments.</p>
 <h2 id='eventlistenerregister'>EventListenerRegister</h2>
@@ -1240,6 +1267,40 @@ Returned when an event listener is attached to an EventEmitter. Call removeListe
 </aside>
 <h3 id='removelistener'>removeListener</h3>
 <p>void removeListener()</p>
+<h2 id='systemdevicestate'>SystemDeviceState</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">SystemDeviceState</span>  <span class="p">{</span>
+  <span class="nl">lastEventTime</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
+  <span class="nl">stateTime</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
+  <span class="nl">value</span><span class="p">:</span> <span class="kr">any</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">SystemDeviceState</span>  <span class="p">{</span>
+  <span class="nl">lastEventTime</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
+  <span class="nl">stateTime</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
+  <span class="nl">value</span><span class="p">:</span> <span class="nx">any</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><h3 id='properties-2'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>lastEventTime</td>
+<td>number</td>
+</tr>
+<tr>
+<td>stateTime</td>
+<td>number</td>
+</tr>
+<tr>
+<td>value</td>
+<td>any</td>
+</tr>
+</tbody></table>
 <h2 id='logger'>Logger</h2>
 <blockquote>
 <p>Definition</p>
@@ -1320,10 +1381,10 @@ Logger is exposed via log.* to allow writing to the Scrypted log.
   <span class="nx">getDeviceStorage</span><span class="p">():</span> <span class="nx">Storage</span><span class="p">;</span>
   <span class="nx">getDeviceStorage</span><span class="p">(</span><span class="nx">nativeId</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="nx">Storage</span><span class="p">;</span>
   <span class="nx">getNativeIds</span><span class="p">():</span> <span class="kr">string</span><span class="p">[];</span>
-  <span class="nx">onDeviceDiscovered</span><span class="p">(</span><span class="nx">device</span><span class="p">:</span> <span class="nx">Device</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">onDeviceEvent</span><span class="p">(</span><span class="nx">eventInterface</span><span class="p">:</span> <span class="kr">string</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="kr">any</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">onDeviceEvent</span><span class="p">(</span><span class="nx">nativeId</span><span class="p">:</span> <span class="kr">string</span><span class="p">,</span> <span class="nx">eventInterface</span><span class="p">:</span> <span class="kr">string</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="kr">any</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">onDevicesChanged</span><span class="p">(</span><span class="nx">devices</span><span class="p">:</span> <span class="nx">DeviceManifest</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">onDeviceDiscovered</span><span class="p">(</span><span class="nx">device</span><span class="p">:</span> <span class="nx">Device</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">onDeviceEvent</span><span class="p">(</span><span class="nx">nativeId</span><span class="p">:</span> <span class="kr">string</span><span class="p">,</span> <span class="nx">eventInterface</span><span class="p">:</span> <span class="kr">string</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="kr">any</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">onDeviceRemoved</span><span class="p">(</span><span class="nx">nativeId</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">onDevicesChanged</span><span class="p">(</span><span class="nx">devices</span><span class="p">:</span> <span class="nx">DeviceManifest</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">DeviceManager</span>  <span class="p">{</span>
   <span class="nx">getDeviceLogger</span><span class="p">(</span><span class="nx">nativeId</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">Logger</span><span class="p">;</span>
@@ -1332,10 +1393,10 @@ Logger is exposed via log.* to allow writing to the Scrypted log.
   <span class="nx">getDeviceStorage</span><span class="p">():</span> <span class="nx">Storage</span><span class="p">;</span>
   <span class="nx">getDeviceStorage</span><span class="p">(</span><span class="nx">nativeId</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">Storage</span><span class="p">;</span>
   <span class="nx">getNativeIds</span><span class="p">():</span> <span class="nx">string</span><span class="p">[];</span>
-  <span class="nx">onDeviceDiscovered</span><span class="p">(</span><span class="nx">device</span><span class="p">:</span> <span class="nx">Device</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">onDeviceEvent</span><span class="p">(</span><span class="nx">eventInterface</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="nx">any</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">onDeviceEvent</span><span class="p">(</span><span class="nx">nativeId</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">eventInterface</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="nx">any</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">onDevicesChanged</span><span class="p">(</span><span class="nx">devices</span><span class="p">:</span> <span class="nx">DeviceManifest</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">onDeviceDiscovered</span><span class="p">(</span><span class="nx">device</span><span class="p">:</span> <span class="nx">Device</span><span class="p">):</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">onDeviceEvent</span><span class="p">(</span><span class="nx">nativeId</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">eventInterface</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="nx">any</span><span class="p">):</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">onDeviceRemoved</span><span class="p">(</span><span class="nx">nativeId</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">onDevicesChanged</span><span class="p">(</span><span class="nx">devices</span><span class="p">:</span> <span class="nx">DeviceManifest</span><span class="p">):</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
 <blockquote>
@@ -1417,19 +1478,19 @@ DeviceManager is the interface used by DeviceProvider to report new devices, dev
 <h3 id='getnativeids'>getNativeIds</h3>
 <p>string[] getNativeIds()</p>
 <h3 id='ondevicediscovered'>onDeviceDiscovered</h3>
-<p>void onDeviceDiscovered(<a href='#device'>Device</a> device)</p>
+<p>Promise&lt;void&gt; onDeviceDiscovered(<a href='#device'>Device</a> device)</p>
 
 <p>onDeviceDiscovered is used to report new devices that are trickle discovered, one by one, such as via a network broadcast.</p>
 <h3 id='ondeviceevent'>onDeviceEvent</h3>
-<p>void onDeviceEvent(string eventInterface, any eventData)</p>
-
-<p>Fire an event for this plugin&#39;s device.</p>
-<h3 id='ondeviceevent-2'>onDeviceEvent</h3>
-<p>void onDeviceEvent(string nativeId, string eventInterface, any eventData)</p>
+<p>Promise&lt;void&gt; onDeviceEvent(string nativeId, string eventInterface, any eventData)</p>
 
 <p>Fire an event for a device provided by this plugin.</p>
+<h3 id='ondeviceremoved'>onDeviceRemoved</h3>
+<p>Promise&lt;void&gt; onDeviceRemoved(string nativeId)</p>
+
+<p>onDeviceRemoved is used to report when discovered devices are removed.</p>
 <h3 id='ondeviceschanged'>onDevicesChanged</h3>
-<p>void onDevicesChanged(<a href='#devicemanifest'>DeviceManifest</a> devices)</p>
+<p>Promise&lt;void&gt; onDevicesChanged(<a href='#devicemanifest'>DeviceManifest</a> devices)</p>
 
 <p>onDevicesChanged is used to sync Scrypted with devices that are attached to a hub, such as Hue or SmartThings. All the devices should be reported at once.</p>
 <h2 id='deviceprovider'>DeviceProvider</h2>
@@ -1438,11 +1499,11 @@ DeviceManager is the interface used by DeviceProvider to report new devices, dev
 </blockquote>
 <pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">DeviceProvider</span>  <span class="p">{</span>
   <span class="nx">discoverDevices</span><span class="p">(</span><span class="nx">duration</span><span class="p">:</span> <span class="kr">number</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">getDevice</span><span class="p">(</span><span class="nx">nativeId</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="nx">object</span><span class="p">;</span>
+  <span class="nx">getDevice</span><span class="p">(</span><span class="nx">nativeId</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="kr">any</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">DeviceProvider</span>  <span class="p">{</span>
   <span class="nx">discoverDevices</span><span class="p">(</span><span class="nx">duration</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">getDevice</span><span class="p">(</span><span class="nx">nativeId</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">object</span><span class="p">;</span>
+  <span class="nx">getDevice</span><span class="p">(</span><span class="nx">nativeId</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">any</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
 <blockquote>
@@ -1566,7 +1627,7 @@ DeviceProvider acts as a controller/hub and exposes multiple devices to Scrypted
 
 <p>Perform device discovery for the specified duration in seconds.</p>
 <h3 id='getdevice'>getDevice</h3>
-<p>object getDevice(string nativeId)</p>
+<p>any getDevice(string nativeId)</p>
 
 <p>Get an instance of a previously discovered device that was reported to the device manager.</p>
 <h2 id='devicemanifest'>DeviceManifest</h2>
@@ -1626,7 +1687,7 @@ Used by <a href='#devicemanager'>DeviceManager</a>.
 DeviceManifest is passed to DeviceManager.onDevicesChanged to sync a full list of devices from the controller/hub (Hue, SmartThings, etc)
 
 </aside>
-<h3 id='properties-2'>Properties</h3>
+<h3 id='properties-3'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -1648,6 +1709,7 @@ DeviceManifest is passed to DeviceManager.onDevicesChanged to sync a full list o
   <span class="nl">model</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
   <span class="nl">name</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
   <span class="nl">nativeId</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+  <span class="nl">providerNativeId</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
   <span class="nl">room</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
   <span class="nl">type</span><span class="p">:</span> <span class="nx">ScryptedDeviceType</span><span class="p">;</span>
 <span class="p">}</span>
@@ -1657,6 +1719,7 @@ DeviceManifest is passed to DeviceManager.onDevicesChanged to sync a full list o
   <span class="nl">model</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
   <span class="nl">name</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
   <span class="nl">nativeId</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nl">providerNativeId</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
   <span class="nl">room</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
   <span class="nl">type</span><span class="p">:</span> <span class="nx">ScryptedDeviceType</span><span class="p">;</span>
 <span class="p">}</span>
@@ -1687,7 +1750,7 @@ Used by <a href='#devicemanager'>DeviceManager</a>.
 Device objects are created by DeviceProviders when new devices are discover and synced to Scrypted via the DeviceManager.
 
 </aside>
-<h3 id='properties-3'>Properties</h3>
+<h3 id='properties-4'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -1715,6 +1778,10 @@ Device objects are created by DeviceProviders when new devices are discover and 
 <td>string</td>
 </tr>
 <tr>
+<td>providerNativeId</td>
+<td>string</td>
+</tr>
+<tr>
 <td>room</td>
 <td>string</td>
 </tr>
@@ -1728,11 +1795,11 @@ Device objects are created by DeviceProviders when new devices are discover and 
 <p>Definition</p>
 </blockquote>
 <pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">Refresh</span>  <span class="p">{</span>
-  <span class="nx">getRefreshFrequency</span><span class="p">():</span> <span class="kr">number</span><span class="p">;</span>
+  <span class="nx">getRefreshFrequency</span><span class="p">():</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="kr">number</span><span class="o">&gt;</span><span class="p">;</span>
   <span class="nx">refresh</span><span class="p">(</span><span class="nx">refreshInterface</span><span class="p">:</span> <span class="kr">string</span><span class="p">,</span> <span class="nx">userInitiated</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Refresh</span>  <span class="p">{</span>
-  <span class="nx">getRefreshFrequency</span><span class="p">():</span> <span class="nx">number</span><span class="p">;</span>
+  <span class="nx">getRefreshFrequency</span><span class="p">():</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">number</span><span class="o">&gt;</span><span class="p">;</span>
   <span class="nx">refresh</span><span class="p">(</span><span class="nx">refreshInterface</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">userInitiated</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
@@ -1743,7 +1810,7 @@ Refresh indicates that this device has properties that are not automatically upd
 
 </aside>
 <h3 id='getrefreshfrequency'>getRefreshFrequency</h3>
-<p>number getRefreshFrequency()</p>
+<p>Promise&lt;number&gt; getRefreshFrequency()</p>
 
 <p>Get the recommended refresh/poll frequency in seconds for this device.</p>
 <h3 id='refresh-2'>refresh</h3>
@@ -1760,6 +1827,9 @@ Refresh indicates that this device has properties that are not automatically upd
   <span class="nl">interfaces</span><span class="p">:</span> <span class="kr">string</span><span class="p">[];</span>
   <span class="nl">metadata</span><span class="p">:</span> <span class="kr">any</span><span class="p">;</span>
   <span class="nl">name</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+  <span class="nl">providedName</span><span class="p">:</span> <span class="nx">ScryptedDeviceType</span><span class="p">;</span>
+  <span class="nl">providedType</span><span class="p">:</span> <span class="nx">ScryptedDeviceType</span><span class="p">;</span>
+  <span class="nl">providerId</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
   <span class="nl">room</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
   <span class="nl">type</span><span class="p">:</span> <span class="nx">ScryptedDeviceType</span><span class="p">;</span>
   <span class="nl">on</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
@@ -1801,6 +1871,9 @@ Refresh indicates that this device has properties that are not automatically upd
   <span class="nl">interfaces</span><span class="p">:</span> <span class="nx">string</span><span class="p">[];</span>
   <span class="nl">metadata</span><span class="p">:</span> <span class="nx">any</span><span class="p">;</span>
   <span class="nl">name</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nl">providedName</span><span class="p">:</span> <span class="nx">ScryptedDeviceType</span><span class="p">;</span>
+  <span class="nl">providedType</span><span class="p">:</span> <span class="nx">ScryptedDeviceType</span><span class="p">;</span>
+  <span class="nl">providerId</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
   <span class="nl">room</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
   <span class="nl">type</span><span class="p">:</span> <span class="nx">ScryptedDeviceType</span><span class="p">;</span>
   <span class="nl">on</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
@@ -1843,7 +1916,7 @@ Refresh indicates that this device has properties that are not automatically upd
 DeviceState is returned by DeviceManager.getDeviceState, and allows getting/setting of a device provided by a DeviceProvider.
 
 </aside>
-<h3 id='properties-4'>Properties</h3>
+<h3 id='properties-5'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -1868,6 +1941,18 @@ DeviceState is returned by DeviceManager.getDeviceState, and allows getting/sett
 </tr>
 <tr>
 <td>name</td>
+<td>string</td>
+</tr>
+<tr>
+<td>providedName</td>
+<td>ScryptedDeviceType</td>
+</tr>
+<tr>
+<td>providedType</td>
+<td>ScryptedDeviceType</td>
+</tr>
+<tr>
+<td>providerId</td>
 <td>string</td>
 </tr>
 <tr>
@@ -2013,6 +2098,7 @@ DeviceState is returned by DeviceManager.getDeviceState, and allows getting/sett
 </blockquote>
 <pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">MediaManager</span>  <span class="p">{</span>
   <span class="nx">convertMediaObjectToBuffer</span><span class="p">(</span><span class="nx">mediaObject</span><span class="p">:</span> <span class="nx">MediaObject</span><span class="p">,</span> <span class="nx">toMimeType</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">Buffer</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">convertMediaObjectToInsecureLocalUrl</span><span class="p">(</span><span class="nx">mediaObject</span><span class="p">:</span> <span class="nx">MediaObject</span><span class="p">,</span> <span class="nx">toMimeType</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="kr">string</span><span class="o">&gt;</span><span class="p">;</span>
   <span class="nx">convertMediaObjectToLocalUrl</span><span class="p">(</span><span class="nx">mediaObject</span><span class="p">:</span> <span class="nx">MediaObject</span><span class="p">,</span> <span class="nx">toMimeType</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="kr">string</span><span class="o">&gt;</span><span class="p">;</span>
   <span class="nx">convertMediaObjectToUrl</span><span class="p">(</span><span class="nx">mediaObject</span><span class="p">:</span> <span class="nx">MediaObject</span><span class="p">,</span> <span class="nx">toMimeType</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="kr">string</span><span class="o">&gt;</span><span class="p">;</span>
   <span class="nx">createFFmpegMediaObject</span><span class="p">(</span><span class="nx">ffMpegInput</span><span class="p">:</span> <span class="nx">FFMpegInput</span><span class="p">):</span> <span class="nx">MediaObject</span><span class="p">;</span>
@@ -2020,6 +2106,7 @@ DeviceState is returned by DeviceManager.getDeviceState, and allows getting/sett
 <span class="p">}</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">MediaManager</span>  <span class="p">{</span>
   <span class="nx">convertMediaObjectToBuffer</span><span class="p">(</span><span class="nx">mediaObject</span><span class="p">:</span> <span class="nx">MediaObject</span><span class="p">,</span> <span class="nx">toMimeType</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">Buffer</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">convertMediaObjectToInsecureLocalUrl</span><span class="p">(</span><span class="nx">mediaObject</span><span class="p">:</span> <span class="nx">MediaObject</span><span class="p">,</span> <span class="nx">toMimeType</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">;</span>
   <span class="nx">convertMediaObjectToLocalUrl</span><span class="p">(</span><span class="nx">mediaObject</span><span class="p">:</span> <span class="nx">MediaObject</span><span class="p">,</span> <span class="nx">toMimeType</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">;</span>
   <span class="nx">convertMediaObjectToUrl</span><span class="p">(</span><span class="nx">mediaObject</span><span class="p">:</span> <span class="nx">MediaObject</span><span class="p">,</span> <span class="nx">toMimeType</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">;</span>
   <span class="nx">createFFmpegMediaObject</span><span class="p">(</span><span class="nx">ffMpegInput</span><span class="p">:</span> <span class="nx">FFMpegInput</span><span class="p">):</span> <span class="nx">MediaObject</span><span class="p">;</span>
@@ -2062,6 +2149,10 @@ The speaker is not aware of the source media type, and only needs it to be conve
 <p>Promise&lt;Buffer&gt; convertMediaObjectToBuffer(<a href='#mediaobject'>MediaObject</a> mediaObject, string toMimeType)</p>
 
 <p>Convert a media object to a Buffer of the given mime type.</p>
+<h3 id='convertmediaobjecttoinsecurelocalurl'>convertMediaObjectToInsecureLocalUrl</h3>
+<p>Promise&lt;string&gt; convertMediaObjectToInsecureLocalUrl(<a href='#mediaobject'>MediaObject</a> mediaObject, string toMimeType)</p>
+
+<p>Convert a media object to a locally accessible URL that serves a media file of the given mime type. If the media object is an externally accessible URL, that will be returned.</p>
 <h3 id='convertmediaobjecttolocalurl'>convertMediaObjectToLocalUrl</h3>
 <p>Promise&lt;string&gt; convertMediaObjectToLocalUrl(<a href='#mediaobject'>MediaObject</a> mediaObject, string toMimeType)</p>
 
@@ -2097,7 +2188,7 @@ Used by <a href='#notifier'>Notifier</a>.
 MediaObject is an intermediate object within Scrypted to represent all media objects. Plugins should use the MediaConverter to convert the Scrypted MediaObject into a desired type, whether it is a externally accessible URL, a Buffer, etc.
 
 </aside>
-<h3 id='properties-5'>Properties</h3>
+<h3 id='properties-6'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2251,7 +2342,7 @@ Used by <a href='#httprequesthandler'>HttpRequestHandler</a>.
 
 
 </aside>
-<h3 id='properties-6'>Properties</h3>
+<h3 id='properties-7'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2292,20 +2383,20 @@ Used by <a href='#httprequesthandler'>HttpRequestHandler</a>.
 <p>Definition</p>
 </blockquote>
 <pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">HttpResponse</span>  <span class="p">{</span>
-  <span class="nx">send</span><span class="p">(</span><span class="nx">options</span><span class="p">:</span> <span class="nx">HttpResponseOptions</span><span class="p">,</span> <span class="nx">body</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">send</span><span class="p">(</span><span class="nx">options</span><span class="p">:</span> <span class="nx">HttpResponseOptions</span><span class="p">,</span> <span class="nx">body</span><span class="p">:</span> <span class="nx">Buffer</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
   <span class="nx">send</span><span class="p">(</span><span class="nx">body</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">send</span><span class="p">(</span><span class="nx">body</span><span class="p">:</span> <span class="kr">string</span><span class="p">,</span> <span class="nx">options</span><span class="p">:</span> <span class="nx">HttpResponseOptions</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
   <span class="nx">send</span><span class="p">(</span><span class="nx">body</span><span class="p">:</span> <span class="nx">Buffer</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">sendFile</span><span class="p">(</span><span class="nx">options</span><span class="p">:</span> <span class="nx">HttpResponseOptions</span><span class="p">,</span> <span class="nx">path</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">send</span><span class="p">(</span><span class="nx">body</span><span class="p">:</span> <span class="nx">Buffer</span><span class="p">,</span> <span class="nx">options</span><span class="p">:</span> <span class="nx">HttpResponseOptions</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
   <span class="nx">sendFile</span><span class="p">(</span><span class="nx">path</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">sendFile</span><span class="p">(</span><span class="nx">path</span><span class="p">:</span> <span class="kr">string</span><span class="p">,</span> <span class="nx">options</span><span class="p">:</span> <span class="nx">HttpResponseOptions</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">HttpResponse</span>  <span class="p">{</span>
-  <span class="nx">send</span><span class="p">(</span><span class="nx">options</span><span class="p">:</span> <span class="nx">HttpResponseOptions</span><span class="p">,</span> <span class="nx">body</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">send</span><span class="p">(</span><span class="nx">options</span><span class="p">:</span> <span class="nx">HttpResponseOptions</span><span class="p">,</span> <span class="nx">body</span><span class="p">:</span> <span class="nx">Buffer</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
   <span class="nx">send</span><span class="p">(</span><span class="nx">body</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">send</span><span class="p">(</span><span class="nx">body</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">options</span><span class="p">:</span> <span class="nx">HttpResponseOptions</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
   <span class="nx">send</span><span class="p">(</span><span class="nx">body</span><span class="p">:</span> <span class="nx">Buffer</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">sendFile</span><span class="p">(</span><span class="nx">options</span><span class="p">:</span> <span class="nx">HttpResponseOptions</span><span class="p">,</span> <span class="nx">path</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">send</span><span class="p">(</span><span class="nx">body</span><span class="p">:</span> <span class="nx">Buffer</span><span class="p">,</span> <span class="nx">options</span><span class="p">:</span> <span class="nx">HttpResponseOptions</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
   <span class="nx">sendFile</span><span class="p">(</span><span class="nx">path</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">sendFile</span><span class="p">(</span><span class="nx">path</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">options</span><span class="p">:</span> <span class="nx">HttpResponseOptions</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
 <aside class="notice">
@@ -2317,17 +2408,17 @@ Response object provided by the HttpRequestHandler.
 
 </aside>
 <h3 id='send'>send</h3>
-<p>void send(<a href='#httpresponseoptions'>HttpResponseOptions</a> options, string body)</p>
-<h3 id='send-2'>send</h3>
-<p>void send(<a href='#httpresponseoptions'>HttpResponseOptions</a> options, Buffer body)</p>
-<h3 id='send-3'>send</h3>
 <p>void send(string body)</p>
-<h3 id='send-4'>send</h3>
+<h3 id='send-2'>send</h3>
+<p>void send(string body, <a href='#httpresponseoptions'>HttpResponseOptions</a> options)</p>
+<h3 id='send-3'>send</h3>
 <p>void send(Buffer body)</p>
+<h3 id='send-4'>send</h3>
+<p>void send(Buffer body, <a href='#httpresponseoptions'>HttpResponseOptions</a> options)</p>
 <h3 id='sendfile'>sendFile</h3>
-<p>void sendFile(<a href='#httpresponseoptions'>HttpResponseOptions</a> options, string path)</p>
-<h3 id='sendfile-2'>sendFile</h3>
 <p>void sendFile(string path)</p>
+<h3 id='sendfile-2'>sendFile</h3>
+<p>void sendFile(string path, <a href='#httpresponseoptions'>HttpResponseOptions</a> options)</p>
 <h2 id='httpresponseoptions'>HttpResponseOptions</h2>
 <blockquote>
 <p>Definition</p>
@@ -2347,7 +2438,7 @@ Used by <a href='#httpresponse'>HttpResponse</a>.
 
 
 </aside>
-<h3 id='properties-7'>Properties</h3>
+<h3 id='properties-8'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2396,349 +2487,6 @@ Android provides limited access to the Android system, to send Intents to other 
 <p>void startActivity(Intent intent)</p>
 <h3 id='startservice'>startService</h3>
 <p>void startService(Intent intent)</p>
-<h1 id='z-wave-reference'>Z-Wave Reference</h1><h2 id='zwavemanager'>ZwaveManager</h2>
-<blockquote>
-<p>Definition</p>
-</blockquote>
-<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">ZwaveManager</span>  <span class="p">{</span>
-  <span class="nx">getNodeManufacturerName</span><span class="p">(</span><span class="nx">homeId</span><span class="p">:</span> <span class="kr">number</span><span class="p">,</span> <span class="nx">nodeId</span><span class="p">:</span> <span class="kr">number</span><span class="p">):</span> <span class="kr">string</span><span class="p">;</span>
-  <span class="nx">getNodeName</span><span class="p">(</span><span class="nx">homeId</span><span class="p">:</span> <span class="kr">number</span><span class="p">,</span> <span class="nx">nodeId</span><span class="p">:</span> <span class="kr">number</span><span class="p">):</span> <span class="kr">string</span><span class="p">;</span>
-  <span class="nx">getNodeProductName</span><span class="p">(</span><span class="nx">homeId</span><span class="p">:</span> <span class="kr">number</span><span class="p">,</span> <span class="nx">nodeId</span><span class="p">:</span> <span class="kr">number</span><span class="p">):</span> <span class="kr">string</span><span class="p">;</span>
-  <span class="nx">getValue</span><span class="p">(</span><span class="nx">valueId</span><span class="p">:</span> <span class="nx">ZwaveValueId</span><span class="p">):</span> <span class="kr">string</span><span class="p">;</span>
-  <span class="nx">getValueHelp</span><span class="p">(</span><span class="nx">valueId</span><span class="p">:</span> <span class="nx">ZwaveValueId</span><span class="p">):</span> <span class="kr">string</span><span class="p">;</span>
-  <span class="nx">getValueLabel</span><span class="p">(</span><span class="nx">valueId</span><span class="p">:</span> <span class="nx">ZwaveValueId</span><span class="p">):</span> <span class="kr">string</span><span class="p">;</span>
-  <span class="nx">getValueListItems</span><span class="p">(</span><span class="nx">valueId</span><span class="p">:</span> <span class="nx">ZwaveValueId</span><span class="p">):</span> <span class="kr">string</span><span class="p">[];</span>
-  <span class="nx">getValueListValues</span><span class="p">(</span><span class="nx">valueId</span><span class="p">:</span> <span class="nx">ZwaveValueId</span><span class="p">):</span> <span class="kr">number</span><span class="p">[];</span>
-  <span class="nx">getValueUnit</span><span class="p">(</span><span class="nx">valueId</span><span class="p">:</span> <span class="nx">ZwaveValueId</span><span class="p">):</span> <span class="kr">string</span><span class="p">;</span>
-  <span class="nx">refreshValue</span><span class="p">(</span><span class="nx">valueId</span><span class="p">:</span> <span class="nx">ZwaveValueId</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">setNodeName</span><span class="p">(</span><span class="nx">homeId</span><span class="p">:</span> <span class="kr">number</span><span class="p">,</span> <span class="nx">nodeId</span><span class="p">:</span> <span class="kr">number</span><span class="p">,</span> <span class="nx">name</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">setValue</span><span class="p">(</span><span class="nx">valueId</span><span class="p">:</span> <span class="nx">ZwaveValueId</span><span class="p">,</span> <span class="nx">value</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">setValueRaw</span><span class="p">(</span><span class="nx">valueId</span><span class="p">:</span> <span class="nx">ZwaveValueId</span><span class="p">,</span> <span class="nx">value</span><span class="p">:</span> <span class="nx">Buffer</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">ZwaveManager</span>  <span class="p">{</span>
-  <span class="nx">getNodeManufacturerName</span><span class="p">(</span><span class="nx">homeId</span><span class="p">:</span> <span class="nx">number</span><span class="p">,</span> <span class="nx">nodeId</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="nx">string</span><span class="p">;</span>
-  <span class="nx">getNodeName</span><span class="p">(</span><span class="nx">homeId</span><span class="p">:</span> <span class="nx">number</span><span class="p">,</span> <span class="nx">nodeId</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="nx">string</span><span class="p">;</span>
-  <span class="nx">getNodeProductName</span><span class="p">(</span><span class="nx">homeId</span><span class="p">:</span> <span class="nx">number</span><span class="p">,</span> <span class="nx">nodeId</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="nx">string</span><span class="p">;</span>
-  <span class="nx">getValue</span><span class="p">(</span><span class="nx">valueId</span><span class="p">:</span> <span class="nx">ZwaveValueId</span><span class="p">):</span> <span class="nx">string</span><span class="p">;</span>
-  <span class="nx">getValueHelp</span><span class="p">(</span><span class="nx">valueId</span><span class="p">:</span> <span class="nx">ZwaveValueId</span><span class="p">):</span> <span class="nx">string</span><span class="p">;</span>
-  <span class="nx">getValueLabel</span><span class="p">(</span><span class="nx">valueId</span><span class="p">:</span> <span class="nx">ZwaveValueId</span><span class="p">):</span> <span class="nx">string</span><span class="p">;</span>
-  <span class="nx">getValueListItems</span><span class="p">(</span><span class="nx">valueId</span><span class="p">:</span> <span class="nx">ZwaveValueId</span><span class="p">):</span> <span class="nx">string</span><span class="p">[];</span>
-  <span class="nx">getValueListValues</span><span class="p">(</span><span class="nx">valueId</span><span class="p">:</span> <span class="nx">ZwaveValueId</span><span class="p">):</span> <span class="nx">number</span><span class="p">[];</span>
-  <span class="nx">getValueUnit</span><span class="p">(</span><span class="nx">valueId</span><span class="p">:</span> <span class="nx">ZwaveValueId</span><span class="p">):</span> <span class="nx">string</span><span class="p">;</span>
-  <span class="nx">refreshValue</span><span class="p">(</span><span class="nx">valueId</span><span class="p">:</span> <span class="nx">ZwaveValueId</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">setNodeName</span><span class="p">(</span><span class="nx">homeId</span><span class="p">:</span> <span class="nx">number</span><span class="p">,</span> <span class="nx">nodeId</span><span class="p">:</span> <span class="nx">number</span><span class="p">,</span> <span class="nx">name</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">setValue</span><span class="p">(</span><span class="nx">valueId</span><span class="p">:</span> <span class="nx">ZwaveValueId</span><span class="p">,</span> <span class="nx">value</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">setValueRaw</span><span class="p">(</span><span class="nx">valueId</span><span class="p">:</span> <span class="nx">ZwaveValueId</span><span class="p">,</span> <span class="nx">value</span><span class="p">:</span> <span class="nx">Buffer</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre><h3 id='getnodemanufacturername'>getNodeManufacturerName</h3>
-<p>string getNodeManufacturerName(number homeId, number nodeId)</p>
-<h3 id='getnodename'>getNodeName</h3>
-<p>string getNodeName(number homeId, number nodeId)</p>
-<h3 id='getnodeproductname'>getNodeProductName</h3>
-<p>string getNodeProductName(number homeId, number nodeId)</p>
-<h3 id='getvalue'>getValue</h3>
-<p>string getValue(<a href='#zwavevalueid'>ZwaveValueId</a> valueId)</p>
-<h3 id='getvaluehelp'>getValueHelp</h3>
-<p>string getValueHelp(<a href='#zwavevalueid'>ZwaveValueId</a> valueId)</p>
-<h3 id='getvaluelabel'>getValueLabel</h3>
-<p>string getValueLabel(<a href='#zwavevalueid'>ZwaveValueId</a> valueId)</p>
-<h3 id='getvaluelistitems'>getValueListItems</h3>
-<p>string[] getValueListItems(<a href='#zwavevalueid'>ZwaveValueId</a> valueId)</p>
-<h3 id='getvaluelistvalues'>getValueListValues</h3>
-<p>number[] getValueListValues(<a href='#zwavevalueid'>ZwaveValueId</a> valueId)</p>
-<h3 id='getvalueunit'>getValueUnit</h3>
-<p>string getValueUnit(<a href='#zwavevalueid'>ZwaveValueId</a> valueId)</p>
-<h3 id='refreshvalue'>refreshValue</h3>
-<p>void refreshValue(<a href='#zwavevalueid'>ZwaveValueId</a> valueId)</p>
-<h3 id='setnodename'>setNodeName</h3>
-<p>void setNodeName(number homeId, number nodeId, string name)</p>
-<h3 id='setvalue'>setValue</h3>
-<p>void setValue(<a href='#zwavevalueid'>ZwaveValueId</a> valueId, string value)</p>
-<h3 id='setvalueraw'>setValueRaw</h3>
-<p>void setValueRaw(<a href='#zwavevalueid'>ZwaveValueId</a> valueId, Buffer value)</p>
-<h2 id='zwavenotification'>ZwaveNotification</h2>
-<blockquote>
-<p>Definition</p>
-</blockquote>
-<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">ZwaveNotification</span>  <span class="p">{</span>
-  <span class="nl">byteData</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
-  <span class="nl">event</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
-  <span class="nl">type</span><span class="p">:</span> <span class="nx">ZwaveNotificationType</span><span class="p">;</span>
-  <span class="nl">valueId</span><span class="p">:</span> <span class="nx">ZwaveValueId</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">ZwaveNotification</span>  <span class="p">{</span>
-  <span class="nl">byteData</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
-  <span class="nl">event</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
-  <span class="nl">type</span><span class="p">:</span> <span class="nx">ZwaveNotificationType</span><span class="p">;</span>
-  <span class="nl">valueId</span><span class="p">:</span> <span class="nx">ZwaveValueId</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre><h3 id='properties-8'>Properties</h3>
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>byteData</td>
-<td>number</td>
-</tr>
-<tr>
-<td>event</td>
-<td>number</td>
-</tr>
-<tr>
-<td>type</td>
-<td><a href='#zwavenotificationtype'>ZwaveNotificationType</a></td>
-</tr>
-<tr>
-<td>valueId</td>
-<td><a href='#zwavevalueid'>ZwaveValueId</a></td>
-</tr>
-</tbody></table>
-<h2 id='zwavenotificationtype'>ZwaveNotificationType</h2><pre class="highlight typescript tab-typescript"><code><span class="kr">enum</span> <span class="nx">ZwaveNotificationType</span> <span class="p">{</span>
-  <span class="nx">Type_ValueAdded</span> <span class="o">=</span> <span class="s2">"Type_ValueAdded"</span><span class="p">,</span>
-  <span class="nx">Type_ValueRemoved</span> <span class="o">=</span> <span class="s2">"Type_ValueRemoved"</span><span class="p">,</span>
-  <span class="nx">Type_ValueChanged</span> <span class="o">=</span> <span class="s2">"Type_ValueChanged"</span><span class="p">,</span>
-  <span class="nx">Type_ValueRefreshed</span> <span class="o">=</span> <span class="s2">"Type_ValueRefreshed"</span><span class="p">,</span>
-  <span class="nx">Type_Group</span> <span class="o">=</span> <span class="s2">"Type_Group"</span><span class="p">,</span>
-  <span class="nx">Type_NodeNew</span> <span class="o">=</span> <span class="s2">"Type_NodeNew"</span><span class="p">,</span>
-  <span class="nx">Type_NodeAdded</span> <span class="o">=</span> <span class="s2">"Type_NodeAdded"</span><span class="p">,</span>
-  <span class="nx">Type_NodeRemoved</span> <span class="o">=</span> <span class="s2">"Type_NodeRemoved"</span><span class="p">,</span>
-  <span class="nx">Type_NodeProtocolInfo</span> <span class="o">=</span> <span class="s2">"Type_NodeProtocolInfo"</span><span class="p">,</span>
-  <span class="nx">Type_NodeNaming</span> <span class="o">=</span> <span class="s2">"Type_NodeNaming"</span><span class="p">,</span>
-  <span class="nx">Type_NodeEvent</span> <span class="o">=</span> <span class="s2">"Type_NodeEvent"</span><span class="p">,</span>
-  <span class="nx">Type_PollingDisabled</span> <span class="o">=</span> <span class="s2">"Type_PollingDisabled"</span><span class="p">,</span>
-  <span class="nx">Type_PollingEnabled</span> <span class="o">=</span> <span class="s2">"Type_PollingEnabled"</span><span class="p">,</span>
-  <span class="nx">Type_SceneEvent</span> <span class="o">=</span> <span class="s2">"Type_SceneEvent"</span><span class="p">,</span>
-  <span class="nx">Type_CreateButton</span> <span class="o">=</span> <span class="s2">"Type_CreateButton"</span><span class="p">,</span>
-  <span class="nx">Type_DeleteButton</span> <span class="o">=</span> <span class="s2">"Type_DeleteButton"</span><span class="p">,</span>
-  <span class="nx">Type_ButtonOn</span> <span class="o">=</span> <span class="s2">"Type_ButtonOn"</span><span class="p">,</span>
-  <span class="nx">Type_ButtonOff</span> <span class="o">=</span> <span class="s2">"Type_ButtonOff"</span><span class="p">,</span>
-  <span class="nx">Type_DriverReady</span> <span class="o">=</span> <span class="s2">"Type_DriverReady"</span><span class="p">,</span>
-  <span class="nx">Type_DriverFailed</span> <span class="o">=</span> <span class="s2">"Type_DriverFailed"</span><span class="p">,</span>
-  <span class="nx">Type_DriverReset</span> <span class="o">=</span> <span class="s2">"Type_DriverReset"</span><span class="p">,</span>
-  <span class="nx">Type_EssentialNodeQueriesComplete</span> <span class="o">=</span> <span class="s2">"Type_EssentialNodeQueriesComplete"</span><span class="p">,</span>
-  <span class="nx">Type_NodeQueriesComplete</span> <span class="o">=</span> <span class="s2">"Type_NodeQueriesComplete"</span><span class="p">,</span>
-  <span class="nx">Type_AwakeNodesQueried</span> <span class="o">=</span> <span class="s2">"Type_AwakeNodesQueried"</span><span class="p">,</span>
-  <span class="nx">Type_AllNodesQueriedSomeDead</span> <span class="o">=</span> <span class="s2">"Type_AllNodesQueriedSomeDead"</span><span class="p">,</span>
-  <span class="nx">Type_AllNodesQueried</span> <span class="o">=</span> <span class="s2">"Type_AllNodesQueried"</span><span class="p">,</span>
-  <span class="nx">Type_Notification</span> <span class="o">=</span> <span class="s2">"Type_Notification"</span><span class="p">,</span>
-  <span class="nx">Type_DriverRemoved</span> <span class="o">=</span> <span class="s2">"Type_DriverRemoved"</span><span class="p">,</span>
-  <span class="nx">Type_ControllerCommand</span> <span class="o">=</span> <span class="s2">"Type_ControllerCommand"</span><span class="p">,</span>
-  <span class="nx">Type_NodeReset</span> <span class="o">=</span> <span class="s2">"Type_NodeReset"</span><span class="p">,</span>
-  <span class="nx">Type_UserAlerts</span> <span class="o">=</span> <span class="s2">"Type_UserAlerts"</span><span class="p">,</span>
-  <span class="nx">Type_ManufacturerSpecificDBReady</span> <span class="o">=</span> <span class="s2">"Type_ManufacturerSpecificDBReady"</span><span class="p">,</span>
-<span class="p">}</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">enum</span> <span class="nx">ZwaveNotificationType</span> <span class="p">{</span>
-  <span class="nx">Type_ValueAdded</span> <span class="o">=</span> <span class="s2">"Type_ValueAdded"</span><span class="p">,</span>
-  <span class="nx">Type_ValueRemoved</span> <span class="o">=</span> <span class="s2">"Type_ValueRemoved"</span><span class="p">,</span>
-  <span class="nx">Type_ValueChanged</span> <span class="o">=</span> <span class="s2">"Type_ValueChanged"</span><span class="p">,</span>
-  <span class="nx">Type_ValueRefreshed</span> <span class="o">=</span> <span class="s2">"Type_ValueRefreshed"</span><span class="p">,</span>
-  <span class="nx">Type_Group</span> <span class="o">=</span> <span class="s2">"Type_Group"</span><span class="p">,</span>
-  <span class="nx">Type_NodeNew</span> <span class="o">=</span> <span class="s2">"Type_NodeNew"</span><span class="p">,</span>
-  <span class="nx">Type_NodeAdded</span> <span class="o">=</span> <span class="s2">"Type_NodeAdded"</span><span class="p">,</span>
-  <span class="nx">Type_NodeRemoved</span> <span class="o">=</span> <span class="s2">"Type_NodeRemoved"</span><span class="p">,</span>
-  <span class="nx">Type_NodeProtocolInfo</span> <span class="o">=</span> <span class="s2">"Type_NodeProtocolInfo"</span><span class="p">,</span>
-  <span class="nx">Type_NodeNaming</span> <span class="o">=</span> <span class="s2">"Type_NodeNaming"</span><span class="p">,</span>
-  <span class="nx">Type_NodeEvent</span> <span class="o">=</span> <span class="s2">"Type_NodeEvent"</span><span class="p">,</span>
-  <span class="nx">Type_PollingDisabled</span> <span class="o">=</span> <span class="s2">"Type_PollingDisabled"</span><span class="p">,</span>
-  <span class="nx">Type_PollingEnabled</span> <span class="o">=</span> <span class="s2">"Type_PollingEnabled"</span><span class="p">,</span>
-  <span class="nx">Type_SceneEvent</span> <span class="o">=</span> <span class="s2">"Type_SceneEvent"</span><span class="p">,</span>
-  <span class="nx">Type_CreateButton</span> <span class="o">=</span> <span class="s2">"Type_CreateButton"</span><span class="p">,</span>
-  <span class="nx">Type_DeleteButton</span> <span class="o">=</span> <span class="s2">"Type_DeleteButton"</span><span class="p">,</span>
-  <span class="nx">Type_ButtonOn</span> <span class="o">=</span> <span class="s2">"Type_ButtonOn"</span><span class="p">,</span>
-  <span class="nx">Type_ButtonOff</span> <span class="o">=</span> <span class="s2">"Type_ButtonOff"</span><span class="p">,</span>
-  <span class="nx">Type_DriverReady</span> <span class="o">=</span> <span class="s2">"Type_DriverReady"</span><span class="p">,</span>
-  <span class="nx">Type_DriverFailed</span> <span class="o">=</span> <span class="s2">"Type_DriverFailed"</span><span class="p">,</span>
-  <span class="nx">Type_DriverReset</span> <span class="o">=</span> <span class="s2">"Type_DriverReset"</span><span class="p">,</span>
-  <span class="nx">Type_EssentialNodeQueriesComplete</span> <span class="o">=</span> <span class="s2">"Type_EssentialNodeQueriesComplete"</span><span class="p">,</span>
-  <span class="nx">Type_NodeQueriesComplete</span> <span class="o">=</span> <span class="s2">"Type_NodeQueriesComplete"</span><span class="p">,</span>
-  <span class="nx">Type_AwakeNodesQueried</span> <span class="o">=</span> <span class="s2">"Type_AwakeNodesQueried"</span><span class="p">,</span>
-  <span class="nx">Type_AllNodesQueriedSomeDead</span> <span class="o">=</span> <span class="s2">"Type_AllNodesQueriedSomeDead"</span><span class="p">,</span>
-  <span class="nx">Type_AllNodesQueried</span> <span class="o">=</span> <span class="s2">"Type_AllNodesQueried"</span><span class="p">,</span>
-  <span class="nx">Type_Notification</span> <span class="o">=</span> <span class="s2">"Type_Notification"</span><span class="p">,</span>
-  <span class="nx">Type_DriverRemoved</span> <span class="o">=</span> <span class="s2">"Type_DriverRemoved"</span><span class="p">,</span>
-  <span class="nx">Type_ControllerCommand</span> <span class="o">=</span> <span class="s2">"Type_ControllerCommand"</span><span class="p">,</span>
-  <span class="nx">Type_NodeReset</span> <span class="o">=</span> <span class="s2">"Type_NodeReset"</span><span class="p">,</span>
-  <span class="nx">Type_UserAlerts</span> <span class="o">=</span> <span class="s2">"Type_UserAlerts"</span><span class="p">,</span>
-  <span class="nx">Type_ManufacturerSpecificDBReady</span> <span class="o">=</span> <span class="s2">"Type_ManufacturerSpecificDBReady"</span><span class="p">,</span>
-<span class="p">}</span>
-</code></pre>
-<aside class="notice">
-
-Used by <a href='#zwavenotification'>ZwaveNotification</a>.
-
-
-</aside>
-
-<table><thead>
-<tr>
-<th>Enum</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>&quot;Type_ValueAdded&quot;</td>
-</tr>
-<tr>
-<td>&quot;Type_ValueRemoved&quot;</td>
-</tr>
-<tr>
-<td>&quot;Type_ValueChanged&quot;</td>
-</tr>
-<tr>
-<td>&quot;Type_ValueRefreshed&quot;</td>
-</tr>
-<tr>
-<td>&quot;Type_Group&quot;</td>
-</tr>
-<tr>
-<td>&quot;Type_NodeNew&quot;</td>
-</tr>
-<tr>
-<td>&quot;Type_NodeAdded&quot;</td>
-</tr>
-<tr>
-<td>&quot;Type_NodeRemoved&quot;</td>
-</tr>
-<tr>
-<td>&quot;Type_NodeProtocolInfo&quot;</td>
-</tr>
-<tr>
-<td>&quot;Type_NodeNaming&quot;</td>
-</tr>
-<tr>
-<td>&quot;Type_NodeEvent&quot;</td>
-</tr>
-<tr>
-<td>&quot;Type_PollingDisabled&quot;</td>
-</tr>
-<tr>
-<td>&quot;Type_PollingEnabled&quot;</td>
-</tr>
-<tr>
-<td>&quot;Type_SceneEvent&quot;</td>
-</tr>
-<tr>
-<td>&quot;Type_CreateButton&quot;</td>
-</tr>
-<tr>
-<td>&quot;Type_DeleteButton&quot;</td>
-</tr>
-<tr>
-<td>&quot;Type_ButtonOn&quot;</td>
-</tr>
-<tr>
-<td>&quot;Type_ButtonOff&quot;</td>
-</tr>
-<tr>
-<td>&quot;Type_DriverReady&quot;</td>
-</tr>
-<tr>
-<td>&quot;Type_DriverFailed&quot;</td>
-</tr>
-<tr>
-<td>&quot;Type_DriverReset&quot;</td>
-</tr>
-<tr>
-<td>&quot;Type_EssentialNodeQueriesComplete&quot;</td>
-</tr>
-<tr>
-<td>&quot;Type_NodeQueriesComplete&quot;</td>
-</tr>
-<tr>
-<td>&quot;Type_AwakeNodesQueried&quot;</td>
-</tr>
-<tr>
-<td>&quot;Type_AllNodesQueriedSomeDead&quot;</td>
-</tr>
-<tr>
-<td>&quot;Type_AllNodesQueried&quot;</td>
-</tr>
-<tr>
-<td>&quot;Type_Notification&quot;</td>
-</tr>
-<tr>
-<td>&quot;Type_DriverRemoved&quot;</td>
-</tr>
-<tr>
-<td>&quot;Type_ControllerCommand&quot;</td>
-</tr>
-<tr>
-<td>&quot;Type_NodeReset&quot;</td>
-</tr>
-<tr>
-<td>&quot;Type_UserAlerts&quot;</td>
-</tr>
-<tr>
-<td>&quot;Type_ManufacturerSpecificDBReady&quot;</td>
-</tr>
-</tbody></table>
-<h2 id='zwavevalueid'>ZwaveValueId</h2>
-<blockquote>
-<p>Definition</p>
-</blockquote>
-<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">ZwaveValueId</span>  <span class="p">{</span>
-  <span class="nl">commandClass</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
-  <span class="nl">genre</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
-  <span class="nl">homeId</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
-  <span class="nl">index</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
-  <span class="nl">instance</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
-  <span class="nl">nodeId</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
-  <span class="nl">type</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">ZwaveValueId</span>  <span class="p">{</span>
-  <span class="nl">commandClass</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
-  <span class="nl">genre</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
-  <span class="nl">homeId</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
-  <span class="nl">index</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
-  <span class="nl">instance</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
-  <span class="nl">nodeId</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
-  <span class="nl">type</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre>
-<aside class="notice">
-
-Used by <a href='#zwavemanager'>ZwaveManager</a>.
-
-
-</aside>
-<h3 id='properties-9'>Properties</h3>
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>commandClass</td>
-<td>number</td>
-</tr>
-<tr>
-<td>genre</td>
-<td>number</td>
-</tr>
-<tr>
-<td>homeId</td>
-<td>number</td>
-</tr>
-<tr>
-<td>index</td>
-<td>number</td>
-</tr>
-<tr>
-<td>instance</td>
-<td>number</td>
-</tr>
-<tr>
-<td>nodeId</td>
-<td>number</td>
-</tr>
-<tr>
-<td>type</td>
-<td>number</td>
-</tr>
-</tbody></table>
 <h1 id='device-interface-reference'>Device Interface Reference</h1><h2 id='eventlisteneroptions'>EventListenerOptions</h2>
 <blockquote>
 <p>Definition</p>
@@ -2760,7 +2508,7 @@ Used by <a href='#scrypteddevice'>ScryptedDevice</a>.
 
 
 </aside>
-<h3 id='properties-10'>Properties</h3>
+<h3 id='properties-9'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2803,7 +2551,7 @@ Used by <a href='#eventlistener'>EventListener</a>.
 
 
 </aside>
-<h3 id='properties-11'>Properties</h3>
+<h3 id='properties-10'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2870,7 +2618,7 @@ Used by <a href='#eventlistener'>EventListener</a>.
 OnOff is a basic binary switch.
 
 </aside>
-<h3 id='properties-12'>Properties</h3>
+<h3 id='properties-11'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2917,7 +2665,7 @@ OnOff is a basic binary switch.
 Brightness is a lighting device that can be dimmed/lit between 0 to 100.
 
 </aside>
-<h3 id='properties-13'>Properties</h3>
+<h3 id='properties-12'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2966,7 +2714,7 @@ Brightness is a lighting device that can be dimmed/lit between 0 to 100.
 ColorSettingTemperature sets the color temperature of a light in Kelvin.
 
 </aside>
-<h3 id='properties-14'>Properties</h3>
+<h3 id='properties-13'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3023,7 +2771,7 @@ ColorSettingTemperature sets the color temperature of a light in Kelvin.
 ColorSettingRgb sets the color of a colored light using the RGB representation.
 
 </aside>
-<h3 id='properties-15'>Properties</h3>
+<h3 id='properties-14'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3060,7 +2808,7 @@ Used by <a href='#colorsettingrgb'>ColorSettingRgb</a>.
 Represents an RGB color with component values between 0 and 255.
 
 </aside>
-<h3 id='properties-16'>Properties</h3>
+<h3 id='properties-15'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3119,7 +2867,7 @@ Represents an RGB color with component values between 0 and 255.
 ColorSettingHsv sets the color of a colored light using the HSV representation.
 
 </aside>
-<h3 id='properties-17'>Properties</h3>
+<h3 id='properties-16'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3156,7 +2904,7 @@ Used by <a href='#colorsettinghsv'>ColorSettingHsv</a>.
 Represents an HSV color value component.
 
 </aside>
-<h3 id='properties-18'>Properties</h3>
+<h3 id='properties-17'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3263,7 +3011,7 @@ Passing null uses the native type of the MediaObject. If that is not supported b
 StartStop represents a device that can be started, stopped, and possibly paused and resumed. Typically vacuum cleaners or washers.
 
 </aside>
-<h3 id='properties-19'>Properties</h3>
+<h3 id='properties-18'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3295,7 +3043,7 @@ StartStop represents a device that can be started, stopped, and possibly paused 
   <span class="nx">pause</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
   <span class="nx">resume</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-20'>Properties</h3>
+</code></pre><h3 id='properties-19'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3342,7 +3090,7 @@ StartStop represents a device that can be started, stopped, and possibly paused 
 Dock instructs devices that have a base station or charger, to return to their home.
 
 </aside>
-<h3 id='properties-21'>Properties</h3>
+<h3 id='properties-20'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3391,7 +3139,7 @@ Dock instructs devices that have a base station or charger, to return to their h
 TemperatureSetting represents a thermostat device.
 
 </aside>
-<h3 id='properties-22'>Properties</h3>
+<h3 id='properties-21'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3439,7 +3187,7 @@ TemperatureSetting represents a thermostat device.
   <span class="nl">temperature</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
   <span class="nl">temperatureUnit</span><span class="p">:</span> <span class="nx">TemperatureUnit</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-23'>Properties</h3>
+</code></pre><h3 id='properties-22'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3493,7 +3241,7 @@ Used by <a href='#thermometer'>Thermometer</a>.
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">HumiditySensor</span>  <span class="p">{</span>
   <span class="nl">humidity</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-24'>Properties</h3>
+</code></pre><h3 id='properties-23'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3634,7 +3382,7 @@ VideoCamera devices can capture video streams.
 Lock controls devices that can lock or unlock entries. Often works in tandem with PasswordControl.
 
 </aside>
-<h3 id='properties-25'>Properties</h3>
+<h3 id='properties-24'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3689,12 +3437,12 @@ Used by <a href='#lock'>Lock</a>.
 </blockquote>
 <pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">PasswordStore</span> <span class="k">implements</span> <span class="nx">Authenticator</span> <span class="p">{</span>
   <span class="nx">addPassword</span><span class="p">(</span><span class="nx">password</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">getPasswords</span><span class="p">():</span> <span class="kr">string</span><span class="p">[];</span>
+  <span class="nx">getPasswords</span><span class="p">():</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="kr">string</span><span class="p">[]</span><span class="o">&gt;</span><span class="p">;</span>
   <span class="nx">removePassword</span><span class="p">(</span><span class="nx">password</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">PasswordStore</span> <span class="kr">implements</span> <span class="nx">Authenticator</span> <span class="p">{</span>
   <span class="nx">addPassword</span><span class="p">(</span><span class="nx">password</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">getPasswords</span><span class="p">():</span> <span class="nx">string</span><span class="p">[];</span>
+  <span class="nx">getPasswords</span><span class="p">():</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">string</span><span class="p">[]</span><span class="o">&gt;</span><span class="p">;</span>
   <span class="nx">removePassword</span><span class="p">(</span><span class="nx">password</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
@@ -3707,7 +3455,7 @@ PasswordControl represents devices that authorize users via a passcode or pin co
 <h3 id='addpassword'>addPassword</h3>
 <p>void addPassword(string password)</p>
 <h3 id='getpasswords'>getPasswords</h3>
-<p>string[] getPasswords()</p>
+<p>Promise&lt;string[]&gt; getPasswords()</p>
 <h3 id='removepassword'>removePassword</h3>
 <p>void removePassword(string password)</p>
 <h2 id='authenticator'>Authenticator</h2>
@@ -3715,10 +3463,10 @@ PasswordControl represents devices that authorize users via a passcode or pin co
 <p>Definition</p>
 </blockquote>
 <pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">Authenticator</span>  <span class="p">{</span>
-  <span class="nx">checkPassword</span><span class="p">(</span><span class="nx">password</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="kr">boolean</span><span class="p">;</span>
+  <span class="nx">checkPassword</span><span class="p">(</span><span class="nx">password</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="kr">boolean</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Authenticator</span>  <span class="p">{</span>
-  <span class="nx">checkPassword</span><span class="p">(</span><span class="nx">password</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="kr">boolean</span><span class="p">;</span>
+  <span class="nx">checkPassword</span><span class="p">(</span><span class="nx">password</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="kr">boolean</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
 <aside class="notice">
@@ -3728,7 +3476,7 @@ Authenticator can be used to require a password before allowing interaction with
 
 </aside>
 <h3 id='checkpassword'>checkPassword</h3>
-<p>boolean checkPassword(string password)</p>
+<p>Promise&lt;boolean&gt; checkPassword(string password)</p>
 <h2 id='scene'>Scene</h2>
 <blockquote>
 <p>Definition</p>
@@ -3801,7 +3549,7 @@ Entry represents devices that can open and close barriers, such as garage doors.
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">EntrySensor</span>  <span class="p">{</span>
   <span class="nl">entryOpen</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-26'>Properties</h3>
+</code></pre><h3 id='properties-25'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3830,7 +3578,7 @@ Entry represents devices that can open and close barriers, such as garage doors.
 Battery retrieves the battery level of battery powered devices.
 
 </aside>
-<h3 id='properties-27'>Properties</h3>
+<h3 id='properties-26'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3900,7 +3648,7 @@ Used by <a href='#mediaplayer'>MediaPlayer</a>.
 
 
 </aside>
-<h3 id='properties-28'>Properties</h3>
+<h3 id='properties-27'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3981,7 +3729,7 @@ Used by <a href='#mediaplayer'>MediaPlayer</a>.
 
 
 </aside>
-<h3 id='properties-29'>Properties</h3>
+<h3 id='properties-28'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4014,7 +3762,7 @@ Used by <a href='#mediaplayer'>MediaPlayer</a>.
 Online denotes whether the device is online or unresponsive. It may be unresponsive due to being unplugged, network error, etc.
 
 </aside>
-<h3 id='properties-30'>Properties</h3>
+<h3 id='properties-29'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4031,13 +3779,13 @@ Online denotes whether the device is online or unresponsive. It may be unrespons
 <p>Definition</p>
 </blockquote>
 <pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">Program</span>  <span class="p">{</span>
-  <span class="nx">run</span><span class="p">(</span><span class="nx">args</span><span class="p">:</span> <span class="nx">object</span><span class="p">[]):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">object</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">run</span><span class="p">(</span><span class="nx">args</span><span class="p">:</span> <span class="kr">any</span><span class="p">[]):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="kr">any</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Program</span>  <span class="p">{</span>
-  <span class="nx">run</span><span class="p">(</span><span class="nx">args</span><span class="p">:</span> <span class="nx">object</span><span class="p">[]):</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">object</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">run</span><span class="p">(</span><span class="nx">args</span><span class="p">:</span> <span class="nx">any</span><span class="p">[]):</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><h3 id='run'>run</h3>
-<p>Promise&lt;object&gt; run(object[] args)</p>
+<p>Promise&lt;any&gt; run(any[] args)</p>
 
 <p>Asynchronously run a script given the provided arguments.</p>
 <h2 id='softwareupdate'>SoftwareUpdate</h2>
@@ -4063,7 +3811,7 @@ Online denotes whether the device is online or unresponsive. It may be unrespons
 SoftwareUpdate provides a way to check for updates and install them. This may be a Scrypted Plugin or device firmware.
 
 </aside>
-<h3 id='properties-31'>Properties</h3>
+<h3 id='properties-30'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4102,7 +3850,7 @@ SoftwareUpdate provides a way to check for updates and install them. This may be
 Add a converter to be used by Scrypted to convert buffers from one mime type to another mime type.
 
 </aside>
-<h3 id='properties-32'>Properties</h3>
+<h3 id='properties-31'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4125,11 +3873,11 @@ Add a converter to be used by Scrypted to convert buffers from one mime type to 
 <p>Definition</p>
 </blockquote>
 <pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">Settings</span>  <span class="p">{</span>
-  <span class="nx">getSettings</span><span class="p">():</span> <span class="nx">Setting</span><span class="p">[];</span>
+  <span class="nx">getSettings</span><span class="p">():</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">Setting</span><span class="p">[]</span><span class="o">&gt;</span><span class="p">;</span>
   <span class="nx">putSetting</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="kr">string</span><span class="p">,</span> <span class="nx">value</span><span class="p">:</span> <span class="kr">boolean</span><span class="o">|</span><span class="kr">number</span><span class="o">|</span><span class="kr">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Settings</span>  <span class="p">{</span>
-  <span class="nx">getSettings</span><span class="p">():</span> <span class="nx">Setting</span><span class="p">[];</span>
+  <span class="nx">getSettings</span><span class="p">():</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">Setting</span><span class="p">[]</span><span class="o">&gt;</span><span class="p">;</span>
   <span class="nx">putSetting</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">value</span><span class="p">:</span> <span class="kr">boolean</span><span class="o">|</span><span class="nx">number</span><span class="o">|</span><span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
@@ -4140,80 +3888,9 @@ Settings viewing and editing of device configurations that describe or modify be
 
 </aside>
 <h3 id='getsettings'>getSettings</h3>
-<p><a href='#setting'>Setting</a>[] getSettings()</p>
+<p>Promise&lt;<a href='#setting'>Setting</a>[]&gt; getSettings()</p>
 <h3 id='putsetting'>putSetting</h3>
 <p>void putSetting(string key, boolean|number|string value)</p>
-<h2 id='setting'>Setting</h2>
-<blockquote>
-<p>Definition</p>
-</blockquote>
-<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">Setting</span>  <span class="p">{</span>
-  <span class="nl">choices</span><span class="p">:</span> <span class="kr">string</span><span class="p">[];</span>
-  <span class="nl">description</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
-  <span class="nl">key</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
-  <span class="nl">placeholder</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
-  <span class="nl">readonly</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
-  <span class="nl">title</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
-  <span class="nl">type</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
-  <span class="nl">value</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Setting</span>  <span class="p">{</span>
-  <span class="nl">choices</span><span class="p">:</span> <span class="nx">string</span><span class="p">[];</span>
-  <span class="nl">description</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
-  <span class="nl">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
-  <span class="nl">placeholder</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
-  <span class="nl">readonly</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
-  <span class="nl">title</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
-  <span class="nl">type</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
-  <span class="nl">value</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre>
-<aside class="notice">
-
-Used by <a href='#settings'>Settings</a>.
-
-
-</aside>
-<h3 id='properties-33'>Properties</h3>
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>choices</td>
-<td>string[]</td>
-</tr>
-<tr>
-<td>description</td>
-<td>string</td>
-</tr>
-<tr>
-<td>key</td>
-<td>string</td>
-</tr>
-<tr>
-<td>placeholder</td>
-<td>string</td>
-</tr>
-<tr>
-<td>readonly</td>
-<td>boolean</td>
-</tr>
-<tr>
-<td>title</td>
-<td>string</td>
-</tr>
-<tr>
-<td>type</td>
-<td>string</td>
-</tr>
-<tr>
-<td>value</td>
-<td>string</td>
-</tr>
-</tbody></table>
 <h2 id='binarysensor'>BinarySensor</h2>
 <blockquote>
 <p>Definition</p>
@@ -4224,7 +3901,7 @@ Used by <a href='#settings'>Settings</a>.
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">BinarySensor</span>  <span class="p">{</span>
   <span class="nl">binaryState</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-34'>Properties</h3>
+</code></pre><h3 id='properties-32'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4246,7 +3923,7 @@ Used by <a href='#settings'>Settings</a>.
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">IntrusionSensor</span>  <span class="p">{</span>
   <span class="nl">intrusionDetected</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-35'>Properties</h3>
+</code></pre><h3 id='properties-33'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4268,7 +3945,7 @@ Used by <a href='#settings'>Settings</a>.
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">PowerSensor</span>  <span class="p">{</span>
   <span class="nl">powerDetected</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-36'>Properties</h3>
+</code></pre><h3 id='properties-34'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4290,7 +3967,7 @@ Used by <a href='#settings'>Settings</a>.
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">MotionSensor</span>  <span class="p">{</span>
   <span class="nl">motionDetected</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-37'>Properties</h3>
+</code></pre><h3 id='properties-35'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4312,7 +3989,7 @@ Used by <a href='#settings'>Settings</a>.
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">OccupancySensor</span>  <span class="p">{</span>
   <span class="nl">occupied</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-38'>Properties</h3>
+</code></pre><h3 id='properties-36'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4334,7 +4011,7 @@ Used by <a href='#settings'>Settings</a>.
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">FloodSensor</span>  <span class="p">{</span>
   <span class="nl">flooded</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-39'>Properties</h3>
+</code></pre><h3 id='properties-37'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4356,7 +4033,7 @@ Used by <a href='#settings'>Settings</a>.
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">UltravioletSensor</span>  <span class="p">{</span>
   <span class="nl">ultraviolet</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-40'>Properties</h3>
+</code></pre><h3 id='properties-38'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4378,7 +4055,7 @@ Used by <a href='#settings'>Settings</a>.
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">LuminanceSensor</span>  <span class="p">{</span>
   <span class="nl">luminance</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-41'>Properties</h3>
+</code></pre><h3 id='properties-39'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4400,7 +4077,7 @@ Used by <a href='#settings'>Settings</a>.
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">PositionSensor</span>  <span class="p">{</span>
   <span class="nl">position</span><span class="p">:</span> <span class="nx">Position</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><h3 id='properties-42'>Properties</h3>
+</code></pre><h3 id='properties-40'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4433,7 +4110,7 @@ Used by <a href='#positionsensor'>PositionSensor</a>.
 
 
 </aside>
-<h3 id='properties-43'>Properties</h3>
+<h3 id='properties-41'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4511,7 +4188,7 @@ Used by <a href='#mediamanager'>MediaManager</a>.
 
 
 </aside>
-<h3 id='properties-44'>Properties</h3>
+<h3 id='properties-42'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4556,6 +4233,70 @@ Used by <a href='#httprequesthandler'>HttpRequestHandler</a>.
 <span class="p">}</span>
 </code></pre><h3 id='onconnection'>onConnection</h3>
 <p>void onConnection(<a href='#httprequest'>HttpRequest</a> request, string webSocketUrl)</p>
+<h2 id='setting'>Setting</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">Setting</span>  <span class="p">{</span>
+  <span class="nl">choices</span><span class="p">:</span> <span class="kr">string</span><span class="p">[];</span>
+  <span class="nl">description</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+  <span class="nl">key</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+  <span class="nl">placeholder</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+  <span class="nl">readonly</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
+  <span class="nl">title</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+  <span class="nl">type</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+  <span class="nl">value</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Setting</span>  <span class="p">{</span>
+  <span class="nl">choices</span><span class="p">:</span> <span class="nx">string</span><span class="p">[];</span>
+  <span class="nl">description</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nl">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nl">placeholder</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nl">readonly</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
+  <span class="nl">title</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nl">type</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nl">value</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><h3 id='properties-43'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>choices</td>
+<td>string[]</td>
+</tr>
+<tr>
+<td>description</td>
+<td>string</td>
+</tr>
+<tr>
+<td>key</td>
+<td>string</td>
+</tr>
+<tr>
+<td>placeholder</td>
+<td>string</td>
+</tr>
+<tr>
+<td>readonly</td>
+<td>boolean</td>
+</tr>
+<tr>
+<td>title</td>
+<td>string</td>
+</tr>
+<tr>
+<td>type</td>
+<td>string</td>
+</tr>
+<tr>
+<td>value</td>
+<td>string</td>
+</tr>
+</tbody></table>
 
 <h1 id='sample-plugins'>Sample Plugins <br/></h1>
 

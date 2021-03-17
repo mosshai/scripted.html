@@ -1,5 +1,5 @@
-export interface ZwaveManagerDevice extends ZwaveManager, ScryptedDevice {
-}
+// export interface ZwaveManagerDevice extends ZwaveManager, ScryptedDevice {
+// }
 
 /**
  * Android Intent.
@@ -8,7 +8,13 @@ export interface ZwaveManagerDevice extends ZwaveManager, ScryptedDevice {
 interface Intent {
 }
 
-declare const ScryptedInterfaceDescriptors: any;
+export interface ScryptedInterfaceDescriptor {
+    name: string;
+    properties: ScryptedInterfaceProperty[];
+    methods: string[];
+}
+
+declare const ScryptedInterfaceDescriptors: { [scryptedInterface: string]: ScryptedInterfaceDescriptor };
 export {
     ScryptedInterfaceDescriptors
 }
@@ -22,5 +28,5 @@ export interface ScryptedStatic {
     endpointManager?: EndpointManager,
     mediaManager?: MediaManager,
     systemManager: SystemManager,
-    zwaveManager?: ZwaveManagerDevice,
+    // zwaveManager?: ZwaveManagerDevice,
 }

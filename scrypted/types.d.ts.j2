@@ -1,0 +1,61 @@
+{%- for name, c in classes -%}
+{%- if c.values.length %}
+export enum {{ name }} {
+{%- for value in c.values %}
+  {{ value }} = "{{ value }}",
+{%- endfor %}
+}
+{%- else -%}
+{%- if c.description %}
+/**
+ * {{ c.description }}
+ */
+ {%- endif -%}
+{%- if c.methods.length or c.fields.length %}
+export interface {{ name }}
+{%- if c.superclass.length %} extends {{ mapSupers(c.superclass) }}
+{%- endif %} {
+{%- for method in c.methods %}
+  {% if method.description -%}
+  /**
+   * {{ method.description }}
+   */
+  {% endif -%}
+  {{ method.name }}({{ mapMethodArguments(method.arguments) | join(', ') }}): {{ mapType(method) }};
+{% endfor %}
+
+{%- for field in c.fields %}
+  {% if field.description -%}
+  /**
+   * {{ field.description }}
+   */
+  {% endif -%}  {{ field.name }}?: {{ mapType(field) }};
+{%- endfor %}
+}
+{%- else %}
+export interface {{ name }} {
+}
+{%- endif -%}
+{%- endif -%}
+{%- endfor %}
+
+export enum ScryptedInterface {
+  {%- for name, c in classes -%}
+  {%- if c.implementable %}
+  {{ name }} = "{{ name }}",
+  {%- endif %}
+  {%- endfor %}
+}
+
+export enum ScryptedInterfaceProperty {
+  {%- for name, c in classes -%}
+  {%- if c.implementable %}
+    {%- for f in c.fields %}
+    {{ f.name }} = "{{ f.name }}",
+    {%- endfor %}
+  {%- endif %}
+  {%- endfor %}
+}
+
+{% include 'sdk.d.ts' %}
+

@@ -11,6 +11,7 @@ const Sections = {
         'ScryptedDeviceType',
         'EventListener',
         'EventListenerRegister',
+        'SystemDeviceState',
         'Logger',
     ],
     'Device Provider Reference': [
@@ -36,12 +37,12 @@ const Sections = {
     "Android Intent Reference": [
         "Android",
     ],
-    'Z-Wave Reference': [
-        'ZwaveManager',
-        'ZwaveNotification',
-        'ZwaveNotificationType',
-        'ZwaveValueId',
-    ],
+    // 'Z-Wave Reference': [
+    //     'ZwaveManager',
+    //     'ZwaveNotification',
+    //     'ZwaveNotificationType',
+    //     'ZwaveValueId',
+    // ],
     // 'Sensor API Reference': [
     //     'Thermometer',
     //     'BinarySensor',
@@ -70,6 +71,7 @@ const TypeMap = {
     StringMap: 'any',
     ScryptedInterface: 'ScryptedDevice|null',
     Interfaces: "ScryptedInterface",
+    SystemStateMap: "{[id: string]: {[property: string]: SystemDeviceState}}",
 
     // todo: clean this up with strong types
     Set: 'string[]',
@@ -79,7 +81,7 @@ const TypeMap = {
 
     Boolean: 'boolean',
     ByteBuffer: 'Buffer',
-    Object: 'object',
+    Object: 'any',
     String: 'string',
     float: 'number',
     Float: 'number',
@@ -280,21 +282,27 @@ const FunctionalInterfaces = [
     fs.writeFileSync(path.join(__dirname, '../source/index.html.md.erb'), output);
     fs.writeFileSync(path.join(__dirname, '../source/includes/scrypted/generated/_sdk.erb'), fs.readFileSync(path.join(__dirname, 'sdk.d.ts')));
 
-    var template = fs.readFileSync(path.join(__dirname, './index.d.ts.j2')).toString();
-    var output = nunjucks.renderString(template, {
-        classes: json,
-        mapSupers,
-        methodArguments,
-        mapMethodArguments,
-        linkifyType,
-        mapType,
-    });
-    fs.writeFileSync(path.join(__dirname, '../../scripts/scrypted-deploy/index.d.ts'), output);
+    json['ScryptedDevice'].implementable = true;
 
-    var template = fs.readFileSync(path.join(__dirname, './index.generated.js.j2')).toString();
-    var output = nunjucks.renderString(template, {
-        state: json['DeviceState'],
-        classes: json,
-    });
-    fs.writeFileSync(path.join(__dirname, '../../scripts/scrypted-deploy/index.generated.js'), output);
+    for (const f of ['index.d.ts', 'types.d.ts']) {
+        var template = fs.readFileSync(path.join(__dirname, `./${f}.j2`)).toString();
+        var output = nunjucks.renderString(template, {
+            classes: json,
+            mapSupers,
+            methodArguments,
+            mapMethodArguments,
+            linkifyType,
+            mapType,
+        });
+        fs.writeFileSync(path.join(__dirname, `../../plugins/scrypted-sdk/${f}`), output);
+    }
+
+    for (const f of ['index.generated.js', 'types.generated.js']) {
+        var template = fs.readFileSync(path.join(__dirname, `./${f}.j2`)).toString();
+        var output = nunjucks.renderString(template, {
+            state: json['DeviceState'],
+            classes: json,
+        });
+        fs.writeFileSync(path.join(__dirname, `../../plugins/scrypted-sdk/${f}`), output);
+    }
 })()
