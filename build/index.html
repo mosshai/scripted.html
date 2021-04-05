@@ -444,12 +444,6 @@
                     <a href="#mediaplayer" class="toc-h2 toc-link" data-title="MediaPlayer">MediaPlayer</a>
                   </li>
                   <li>
-                    <a href="#mediastatus" class="toc-h2 toc-link" data-title="MediaStatus">MediaStatus</a>
-                  </li>
-                  <li>
-                    <a href="#mediaplayerstate" class="toc-h2 toc-link" data-title="MediaPlayerState">MediaPlayerState</a>
-                  </li>
-                  <li>
                     <a href="#mediaplayeroptions" class="toc-h2 toc-link" data-title="MediaPlayerOptions">MediaPlayerOptions</a>
                   </li>
                   <li>
@@ -513,10 +507,16 @@
                     <a href="#ffmpeginput" class="toc-h2 toc-link" data-title="FFMpegInput">FFMpegInput</a>
                   </li>
                   <li>
-                    <a href="#endpointhandler" class="toc-h2 toc-link" data-title="EndpointHandler">EndpointHandler</a>
+                    <a href="#mixinprovider" class="toc-h2 toc-link" data-title="MixinProvider">MixinProvider</a>
                   </li>
                   <li>
                     <a href="#engineiohandler" class="toc-h2 toc-link" data-title="EngineIOHandler">EngineIOHandler</a>
+                  </li>
+                  <li>
+                    <a href="#mediastatus" class="toc-h2 toc-link" data-title="MediaStatus">MediaStatus</a>
+                  </li>
+                  <li>
+                    <a href="#mediaplayerstate" class="toc-h2 toc-link" data-title="MediaPlayerState">MediaPlayerState</a>
                   </li>
                   <li>
                     <a href="#setting" class="toc-h2 toc-link" data-title="Setting">Setting</a>
@@ -916,16 +916,18 @@ More information can be found in the <a href='#media-reference'>Media Reference<
   <span class="nl">interfaces</span><span class="p">:</span> <span class="kr">string</span><span class="p">[];</span>
   <span class="nl">metadata</span><span class="p">:</span> <span class="kr">any</span><span class="p">;</span>
   <span class="nl">name</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+  <span class="nl">providedInterfaces</span><span class="p">:</span> <span class="kr">string</span><span class="p">[];</span>
   <span class="nl">providedName</span><span class="p">:</span> <span class="nx">ScryptedDeviceType</span><span class="p">;</span>
+  <span class="nl">providedRoom</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
   <span class="nl">providedType</span><span class="p">:</span> <span class="nx">ScryptedDeviceType</span><span class="p">;</span>
   <span class="nl">providerId</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
   <span class="nl">room</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
   <span class="nl">type</span><span class="p">:</span> <span class="nx">ScryptedDeviceType</span><span class="p">;</span>
 
   <span class="nx">listen</span><span class="p">(</span><span class="nx">event</span><span class="p">:</span> <span class="nx">ScryptedInterface</span><span class="o">|</span><span class="kr">string</span><span class="o">|</span><span class="nx">EventListenerOptions</span><span class="p">,</span> <span class="nx">callback</span><span class="p">:</span> <span class="p">(</span><span class="nx">eventSource</span><span class="p">:</span> <span class="nx">ScryptedDevice</span><span class="o">|</span><span class="kc">null</span><span class="p">,</span> <span class="nx">eventDetails</span><span class="p">:</span> <span class="nx">EventDetails</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="kr">any</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">):</span> <span class="nx">EventListenerRegister</span><span class="p">;</span>
-  <span class="nx">setName</span><span class="p">(</span><span class="nx">name</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">setRoom</span><span class="p">(</span><span class="nx">room</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">setType</span><span class="p">(</span><span class="kd">type</span><span class="p">:</span> <span class="nx">ScryptedDeviceType</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">setName</span><span class="p">(</span><span class="nx">name</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">setRoom</span><span class="p">(</span><span class="nx">room</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">setType</span><span class="p">(</span><span class="kd">type</span><span class="p">:</span> <span class="nx">ScryptedDeviceType</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">ScryptedDevice</span>  <span class="p">{</span>
   <span class="nl">component</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
@@ -933,16 +935,18 @@ More information can be found in the <a href='#media-reference'>Media Reference<
   <span class="nl">interfaces</span><span class="p">:</span> <span class="nx">string</span><span class="p">[];</span>
   <span class="nl">metadata</span><span class="p">:</span> <span class="nx">any</span><span class="p">;</span>
   <span class="nl">name</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nl">providedInterfaces</span><span class="p">:</span> <span class="nx">string</span><span class="p">[];</span>
   <span class="nl">providedName</span><span class="p">:</span> <span class="nx">ScryptedDeviceType</span><span class="p">;</span>
+  <span class="nl">providedRoom</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
   <span class="nl">providedType</span><span class="p">:</span> <span class="nx">ScryptedDeviceType</span><span class="p">;</span>
   <span class="nl">providerId</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
   <span class="nl">room</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
   <span class="nl">type</span><span class="p">:</span> <span class="nx">ScryptedDeviceType</span><span class="p">;</span>
 
   <span class="nx">listen</span><span class="p">(</span><span class="nx">event</span><span class="p">:</span> <span class="nx">ScryptedInterface</span><span class="o">|</span><span class="nx">string</span><span class="o">|</span><span class="nx">EventListenerOptions</span><span class="p">,</span> <span class="nx">callback</span><span class="p">:</span> <span class="p">(</span><span class="nx">eventSource</span><span class="p">:</span> <span class="nx">ScryptedDevice</span><span class="o">|</span><span class="kc">null</span><span class="p">,</span> <span class="nx">eventDetails</span><span class="p">:</span> <span class="nx">EventDetails</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="nx">any</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">):</span> <span class="nx">EventListenerRegister</span><span class="p">;</span>
-  <span class="nx">setName</span><span class="p">(</span><span class="nx">name</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">setRoom</span><span class="p">(</span><span class="nx">room</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">setType</span><span class="p">(</span><span class="nx">type</span><span class="p">:</span> <span class="nx">ScryptedDeviceType</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">setName</span><span class="p">(</span><span class="nx">name</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">setRoom</span><span class="p">(</span><span class="nx">room</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">setType</span><span class="p">(</span><span class="nx">type</span><span class="p">:</span> <span class="nx">ScryptedDeviceType</span><span class="p">):</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
 <blockquote>
@@ -1001,8 +1005,16 @@ All devices in Scrypted implement ScryptedDevice, which contains the id, name, a
 <td>string</td>
 </tr>
 <tr>
+<td>providedInterfaces</td>
+<td>string[]</td>
+</tr>
+<tr>
 <td>providedName</td>
 <td>ScryptedDeviceType</td>
+</tr>
+<tr>
+<td>providedRoom</td>
+<td>string</td>
 </tr>
 <tr>
 <td>providedType</td>
@@ -1026,11 +1038,11 @@ All devices in Scrypted implement ScryptedDevice, which contains the id, name, a
 
 <p>Subscribe to events from a specific interface on a device, such as &#39;OnOff&#39; or &#39;Brightness&#39;.</p>
 <h3 id='setname'>setName</h3>
-<p>void setName(string name)</p>
+<p>Promise&lt;void&gt; setName(string name)</p>
 <h3 id='setroom'>setRoom</h3>
-<p>void setRoom(string room)</p>
+<p>Promise&lt;void&gt; setRoom(string room)</p>
 <h3 id='settype'>setType</h3>
-<p>void setType(ScryptedDeviceType type)</p>
+<p>Promise&lt;void&gt; setType(ScryptedDeviceType type)</p>
 <h2 id='systemmanager'>SystemManager</h2>
 <blockquote>
 <p>Definition</p>
@@ -1043,7 +1055,7 @@ All devices in Scrypted implement ScryptedDevice, which contains the id, name, a
   <span class="nx">getSystemState</span><span class="p">():</span> <span class="p">{[</span><span class="nx">id</span><span class="p">:</span> <span class="kr">string</span><span class="p">]:</span> <span class="p">{[</span><span class="nx">property</span><span class="p">:</span> <span class="kr">string</span><span class="p">]:</span> <span class="nx">SystemDeviceState</span><span class="p">}};</span>
   <span class="nx">listen</span><span class="p">(</span><span class="nx">EventListener</span><span class="p">:</span> <span class="p">(</span><span class="nx">eventSource</span><span class="p">:</span> <span class="nx">ScryptedDevice</span><span class="o">|</span><span class="kc">null</span><span class="p">,</span> <span class="nx">eventDetails</span><span class="p">:</span> <span class="nx">EventDetails</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="kr">any</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">):</span> <span class="nx">EventListenerRegister</span><span class="p">;</span>
   <span class="nx">listenDevice</span><span class="p">(</span><span class="nx">id</span><span class="p">:</span> <span class="kr">string</span><span class="p">,</span> <span class="nx">event</span><span class="p">:</span> <span class="nx">ScryptedInterface</span><span class="o">|</span><span class="kr">string</span><span class="o">|</span><span class="nx">EventListenerOptions</span><span class="p">,</span> <span class="nx">callback</span><span class="p">:</span> <span class="p">(</span><span class="nx">eventSource</span><span class="p">:</span> <span class="nx">ScryptedDevice</span><span class="o">|</span><span class="kc">null</span><span class="p">,</span> <span class="nx">eventDetails</span><span class="p">:</span> <span class="nx">EventDetails</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="kr">any</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">):</span> <span class="nx">EventListenerRegister</span><span class="p">;</span>
-  <span class="nx">removeDevice</span><span class="p">(</span><span class="nx">id</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">removeDevice</span><span class="p">(</span><span class="nx">id</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">SystemManager</span>  <span class="p">{</span>
   <span class="nx">getComponent</span><span class="p">(</span><span class="nx">id</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span><span class="p">;</span>
@@ -1053,7 +1065,7 @@ All devices in Scrypted implement ScryptedDevice, which contains the id, name, a
   <span class="nx">getSystemState</span><span class="p">():</span> <span class="p">{[</span><span class="nx">id</span><span class="p">:</span> <span class="nx">string</span><span class="p">]:</span> <span class="p">{[</span><span class="nx">property</span><span class="p">:</span> <span class="nx">string</span><span class="p">]:</span> <span class="nx">SystemDeviceState</span><span class="p">}};</span>
   <span class="nx">listen</span><span class="p">(</span><span class="nx">EventListener</span><span class="p">:</span> <span class="p">(</span><span class="nx">eventSource</span><span class="p">:</span> <span class="nx">ScryptedDevice</span><span class="o">|</span><span class="kc">null</span><span class="p">,</span> <span class="nx">eventDetails</span><span class="p">:</span> <span class="nx">EventDetails</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="nx">any</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">):</span> <span class="nx">EventListenerRegister</span><span class="p">;</span>
   <span class="nx">listenDevice</span><span class="p">(</span><span class="nx">id</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">event</span><span class="p">:</span> <span class="nx">ScryptedInterface</span><span class="o">|</span><span class="nx">string</span><span class="o">|</span><span class="nx">EventListenerOptions</span><span class="p">,</span> <span class="nx">callback</span><span class="p">:</span> <span class="p">(</span><span class="nx">eventSource</span><span class="p">:</span> <span class="nx">ScryptedDevice</span><span class="o">|</span><span class="kc">null</span><span class="p">,</span> <span class="nx">eventDetails</span><span class="p">:</span> <span class="nx">EventDetails</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="nx">any</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">):</span> <span class="nx">EventListenerRegister</span><span class="p">;</span>
-  <span class="nx">removeDevice</span><span class="p">(</span><span class="nx">id</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">removeDevice</span><span class="p">(</span><span class="nx">id</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
 <aside class="notice">
@@ -1091,7 +1103,7 @@ SystemManager is used by scripts to query device state and access devices.
 
 <p>Subscribe to events from a specific interface on a device id, such as &#39;OnOff&#39; or &#39;Brightness&#39;. This is a convenience method for ScryptedDevice.listen.</p>
 <h3 id='removedevice'>removeDevice</h3>
-<p>void removeDevice(string id)</p>
+<p>Promise&lt;void&gt; removeDevice(string id)</p>
 
 <p>Remove a device from Scrypted. Plugins should use DeviceManager.onDevicesChanged or DeviceManager.onDeviceRemoved to remove their own devices</p>
 <h2 id='scrypteddevicetype'>ScryptedDeviceType</h2><pre class="highlight typescript tab-typescript"><code><span class="kr">enum</span> <span class="nx">ScryptedDeviceType</span> <span class="p">{</span>
@@ -1118,6 +1130,7 @@ SystemManager is used by scripts to query device state and access devices.
   <span class="nx">DeviceProvider</span> <span class="o">=</span> <span class="s2">"DeviceProvider"</span><span class="p">,</span>
   <span class="nx">DataSource</span> <span class="o">=</span> <span class="s2">"DataSource"</span><span class="p">,</span>
   <span class="nx">API</span> <span class="o">=</span> <span class="s2">"API"</span><span class="p">,</span>
+  <span class="nx">Doorbell</span> <span class="o">=</span> <span class="s2">"Doorbell"</span><span class="p">,</span>
   <span class="nx">Unknown</span> <span class="o">=</span> <span class="s2">"Unknown"</span><span class="p">,</span>
 <span class="p">}</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">enum</span> <span class="nx">ScryptedDeviceType</span> <span class="p">{</span>
@@ -1144,6 +1157,7 @@ SystemManager is used by scripts to query device state and access devices.
   <span class="nx">DeviceProvider</span> <span class="o">=</span> <span class="s2">"DeviceProvider"</span><span class="p">,</span>
   <span class="nx">DataSource</span> <span class="o">=</span> <span class="s2">"DataSource"</span><span class="p">,</span>
   <span class="nx">API</span> <span class="o">=</span> <span class="s2">"API"</span><span class="p">,</span>
+  <span class="nx">Doorbell</span> <span class="o">=</span> <span class="s2">"Doorbell"</span><span class="p">,</span>
   <span class="nx">Unknown</span> <span class="o">=</span> <span class="s2">"Unknown"</span><span class="p">,</span>
 <span class="p">}</span>
 </code></pre>
@@ -1229,6 +1243,9 @@ Used by <a href='#scrypteddevice'>ScryptedDevice</a>.
 <td>&quot;API&quot;</td>
 </tr>
 <tr>
+<td>&quot;Doorbell&quot;</td>
+</tr>
+<tr>
 <td>&quot;Unknown&quot;</td>
 </tr>
 </tbody></table>
@@ -1237,13 +1254,13 @@ Used by <a href='#scrypteddevice'>ScryptedDevice</a>.
 <p>Definition</p>
 </blockquote>
 <pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">EventListener</span>  <span class="p">{</span>
-  <span class="nx">onEvent</span><span class="p">(</span><span class="nx">eventSource</span><span class="p">:</span> <span class="nx">ScryptedDevice</span><span class="o">|</span><span class="kc">null</span><span class="p">,</span> <span class="nx">eventDetails</span><span class="p">:</span> <span class="nx">EventDetails</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="kr">any</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">onEvent</span><span class="p">(</span><span class="nx">eventSource</span><span class="p">:</span> <span class="nx">ScryptedDevice</span><span class="o">|</span><span class="kc">null</span><span class="p">,</span> <span class="nx">eventDetails</span><span class="p">:</span> <span class="nx">EventDetails</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="kr">any</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">EventListener</span>  <span class="p">{</span>
-  <span class="nx">onEvent</span><span class="p">(</span><span class="nx">eventSource</span><span class="p">:</span> <span class="nx">ScryptedDevice</span><span class="o">|</span><span class="kc">null</span><span class="p">,</span> <span class="nx">eventDetails</span><span class="p">:</span> <span class="nx">EventDetails</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="nx">any</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">onEvent</span><span class="p">(</span><span class="nx">eventSource</span><span class="p">:</span> <span class="nx">ScryptedDevice</span><span class="o">|</span><span class="kc">null</span><span class="p">,</span> <span class="nx">eventDetails</span><span class="p">:</span> <span class="nx">EventDetails</span><span class="p">,</span> <span class="nx">eventData</span><span class="p">:</span> <span class="nx">any</span><span class="p">):</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><h3 id='onevent'>onEvent</h3>
-<p>void onEvent(ScryptedDevice|null eventSource, <a href='#eventdetails'>EventDetails</a> eventDetails, any eventData)</p>
+<p>Promise&lt;void&gt; onEvent(ScryptedDevice|null eventSource, <a href='#eventdetails'>EventDetails</a> eventDetails, any eventData)</p>
 
 <p>This device type can be hooked by Automation actions to handle events. The event source, event details (interface, time, property), and event data are all passed to the listener as arguments.</p>
 <h2 id='eventlistenerregister'>EventListenerRegister</h2>
@@ -1498,11 +1515,11 @@ DeviceManager is the interface used by DeviceProvider to report new devices, dev
 <p>Definition</p>
 </blockquote>
 <pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">DeviceProvider</span>  <span class="p">{</span>
-  <span class="nx">discoverDevices</span><span class="p">(</span><span class="nx">duration</span><span class="p">:</span> <span class="kr">number</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">discoverDevices</span><span class="p">(</span><span class="nx">duration</span><span class="p">:</span> <span class="kr">number</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
   <span class="nx">getDevice</span><span class="p">(</span><span class="nx">nativeId</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="kr">any</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">DeviceProvider</span>  <span class="p">{</span>
-  <span class="nx">discoverDevices</span><span class="p">(</span><span class="nx">duration</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">discoverDevices</span><span class="p">(</span><span class="nx">duration</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
   <span class="nx">getDevice</span><span class="p">(</span><span class="nx">nativeId</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">any</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
@@ -1623,7 +1640,7 @@ DeviceProvider acts as a controller/hub and exposes multiple devices to Scrypted
 
 </aside>
 <h3 id='discoverdevices'>discoverDevices</h3>
-<p>void discoverDevices(number duration)</p>
+<p>Promise&lt;void&gt; discoverDevices(number duration)</p>
 
 <p>Perform device discovery for the specified duration in seconds.</p>
 <h3 id='getdevice'>getDevice</h3>
@@ -1796,11 +1813,11 @@ Device objects are created by DeviceProviders when new devices are discover and 
 </blockquote>
 <pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">Refresh</span>  <span class="p">{</span>
   <span class="nx">getRefreshFrequency</span><span class="p">():</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="kr">number</span><span class="o">&gt;</span><span class="p">;</span>
-  <span class="nx">refresh</span><span class="p">(</span><span class="nx">refreshInterface</span><span class="p">:</span> <span class="kr">string</span><span class="p">,</span> <span class="nx">userInitiated</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">refresh</span><span class="p">(</span><span class="nx">refreshInterface</span><span class="p">:</span> <span class="kr">string</span><span class="p">,</span> <span class="nx">userInitiated</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Refresh</span>  <span class="p">{</span>
   <span class="nx">getRefreshFrequency</span><span class="p">():</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">number</span><span class="o">&gt;</span><span class="p">;</span>
-  <span class="nx">refresh</span><span class="p">(</span><span class="nx">refreshInterface</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">userInitiated</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">refresh</span><span class="p">(</span><span class="nx">refreshInterface</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">userInitiated</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">):</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
 <aside class="notice">
@@ -1814,7 +1831,7 @@ Refresh indicates that this device has properties that are not automatically upd
 
 <p>Get the recommended refresh/poll frequency in seconds for this device.</p>
 <h3 id='refresh-2'>refresh</h3>
-<p>void refresh(string refreshInterface, boolean userInitiated)</p>
+<p>Promise&lt;void&gt; refresh(string refreshInterface, boolean userInitiated)</p>
 
 <p>This method is called by Scrypted when the properties of the device need to be refreshed. When the device has completed the refresh, the appropriate DeviceState properties should be set. The parameters provide the specific interface that needs to be refreshed and whether it was user initiated (via UI or voice).</p>
 <h2 id='devicestate'>DeviceState</h2>
@@ -1827,7 +1844,9 @@ Refresh indicates that this device has properties that are not automatically upd
   <span class="nl">interfaces</span><span class="p">:</span> <span class="kr">string</span><span class="p">[];</span>
   <span class="nl">metadata</span><span class="p">:</span> <span class="kr">any</span><span class="p">;</span>
   <span class="nl">name</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+  <span class="nl">providedInterfaces</span><span class="p">:</span> <span class="kr">string</span><span class="p">[];</span>
   <span class="nl">providedName</span><span class="p">:</span> <span class="nx">ScryptedDeviceType</span><span class="p">;</span>
+  <span class="nl">providedRoom</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
   <span class="nl">providedType</span><span class="p">:</span> <span class="nx">ScryptedDeviceType</span><span class="p">;</span>
   <span class="nl">providerId</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
   <span class="nl">room</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
@@ -1871,7 +1890,9 @@ Refresh indicates that this device has properties that are not automatically upd
   <span class="nl">interfaces</span><span class="p">:</span> <span class="nx">string</span><span class="p">[];</span>
   <span class="nl">metadata</span><span class="p">:</span> <span class="nx">any</span><span class="p">;</span>
   <span class="nl">name</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nl">providedInterfaces</span><span class="p">:</span> <span class="nx">string</span><span class="p">[];</span>
   <span class="nl">providedName</span><span class="p">:</span> <span class="nx">ScryptedDeviceType</span><span class="p">;</span>
+  <span class="nl">providedRoom</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
   <span class="nl">providedType</span><span class="p">:</span> <span class="nx">ScryptedDeviceType</span><span class="p">;</span>
   <span class="nl">providerId</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
   <span class="nl">room</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
@@ -1944,8 +1965,16 @@ DeviceState is returned by DeviceManager.getDeviceState, and allows getting/sett
 <td>string</td>
 </tr>
 <tr>
+<td>providedInterfaces</td>
+<td>string[]</td>
+</tr>
+<tr>
 <td>providedName</td>
 <td>ScryptedDeviceType</td>
+</tr>
+<tr>
+<td>providedRoom</td>
+<td>string</td>
 </tr>
 <tr>
 <td>providedType</td>
@@ -2097,19 +2126,19 @@ DeviceState is returned by DeviceManager.getDeviceState, and allows getting/sett
 <p>Definition</p>
 </blockquote>
 <pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">MediaManager</span>  <span class="p">{</span>
-  <span class="nx">convertMediaObjectToBuffer</span><span class="p">(</span><span class="nx">mediaObject</span><span class="p">:</span> <span class="nx">MediaObject</span><span class="p">,</span> <span class="nx">toMimeType</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">Buffer</span><span class="o">&gt;</span><span class="p">;</span>
-  <span class="nx">convertMediaObjectToInsecureLocalUrl</span><span class="p">(</span><span class="nx">mediaObject</span><span class="p">:</span> <span class="nx">MediaObject</span><span class="p">,</span> <span class="nx">toMimeType</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="kr">string</span><span class="o">&gt;</span><span class="p">;</span>
-  <span class="nx">convertMediaObjectToLocalUrl</span><span class="p">(</span><span class="nx">mediaObject</span><span class="p">:</span> <span class="nx">MediaObject</span><span class="p">,</span> <span class="nx">toMimeType</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="kr">string</span><span class="o">&gt;</span><span class="p">;</span>
-  <span class="nx">convertMediaObjectToUrl</span><span class="p">(</span><span class="nx">mediaObject</span><span class="p">:</span> <span class="nx">MediaObject</span><span class="p">,</span> <span class="nx">toMimeType</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="kr">string</span><span class="o">&gt;</span><span class="p">;</span>
-  <span class="nx">createFFmpegMediaObject</span><span class="p">(</span><span class="nx">ffMpegInput</span><span class="p">:</span> <span class="nx">FFMpegInput</span><span class="p">):</span> <span class="nx">MediaObject</span><span class="p">;</span>
+  <span class="nx">convertMediaObjectToBuffer</span><span class="p">(</span><span class="nx">mediaObject</span><span class="p">:</span> <span class="kr">string</span><span class="o">|</span><span class="nx">MediaObject</span><span class="p">,</span> <span class="nx">toMimeType</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">Buffer</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">convertMediaObjectToInsecureLocalUrl</span><span class="p">(</span><span class="nx">mediaObject</span><span class="p">:</span> <span class="kr">string</span><span class="o">|</span><span class="nx">MediaObject</span><span class="p">,</span> <span class="nx">toMimeType</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="kr">string</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">convertMediaObjectToLocalUrl</span><span class="p">(</span><span class="nx">mediaObject</span><span class="p">:</span> <span class="kr">string</span><span class="o">|</span><span class="nx">MediaObject</span><span class="p">,</span> <span class="nx">toMimeType</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="kr">string</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">convertMediaObjectToUrl</span><span class="p">(</span><span class="nx">mediaObject</span><span class="p">:</span> <span class="kr">string</span><span class="o">|</span><span class="nx">MediaObject</span><span class="p">,</span> <span class="nx">toMimeType</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="kr">string</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">createFFmpegMediaObject</span><span class="p">(</span><span class="nx">ffmpegInput</span><span class="p">:</span> <span class="nx">FFMpegInput</span><span class="p">):</span> <span class="nx">MediaObject</span><span class="p">;</span>
   <span class="nx">createMediaObject</span><span class="p">(</span><span class="nx">data</span><span class="p">:</span> <span class="kr">string</span><span class="o">|</span><span class="nx">Buffer</span><span class="o">|</span><span class="nb">Promise</span><span class="o">&lt;</span><span class="kr">string</span><span class="o">|</span><span class="nx">Buffer</span><span class="o">&gt;</span><span class="p">,</span> <span class="nx">mimeType</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="nx">MediaObject</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">MediaManager</span>  <span class="p">{</span>
-  <span class="nx">convertMediaObjectToBuffer</span><span class="p">(</span><span class="nx">mediaObject</span><span class="p">:</span> <span class="nx">MediaObject</span><span class="p">,</span> <span class="nx">toMimeType</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">Buffer</span><span class="o">&gt;</span><span class="p">;</span>
-  <span class="nx">convertMediaObjectToInsecureLocalUrl</span><span class="p">(</span><span class="nx">mediaObject</span><span class="p">:</span> <span class="nx">MediaObject</span><span class="p">,</span> <span class="nx">toMimeType</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">;</span>
-  <span class="nx">convertMediaObjectToLocalUrl</span><span class="p">(</span><span class="nx">mediaObject</span><span class="p">:</span> <span class="nx">MediaObject</span><span class="p">,</span> <span class="nx">toMimeType</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">;</span>
-  <span class="nx">convertMediaObjectToUrl</span><span class="p">(</span><span class="nx">mediaObject</span><span class="p">:</span> <span class="nx">MediaObject</span><span class="p">,</span> <span class="nx">toMimeType</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">;</span>
-  <span class="nx">createFFmpegMediaObject</span><span class="p">(</span><span class="nx">ffMpegInput</span><span class="p">:</span> <span class="nx">FFMpegInput</span><span class="p">):</span> <span class="nx">MediaObject</span><span class="p">;</span>
+  <span class="nx">convertMediaObjectToBuffer</span><span class="p">(</span><span class="nx">mediaObject</span><span class="p">:</span> <span class="nx">string</span><span class="o">|</span><span class="nx">MediaObject</span><span class="p">,</span> <span class="nx">toMimeType</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">Buffer</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">convertMediaObjectToInsecureLocalUrl</span><span class="p">(</span><span class="nx">mediaObject</span><span class="p">:</span> <span class="nx">string</span><span class="o">|</span><span class="nx">MediaObject</span><span class="p">,</span> <span class="nx">toMimeType</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">convertMediaObjectToLocalUrl</span><span class="p">(</span><span class="nx">mediaObject</span><span class="p">:</span> <span class="nx">string</span><span class="o">|</span><span class="nx">MediaObject</span><span class="p">,</span> <span class="nx">toMimeType</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">convertMediaObjectToUrl</span><span class="p">(</span><span class="nx">mediaObject</span><span class="p">:</span> <span class="nx">string</span><span class="o">|</span><span class="nx">MediaObject</span><span class="p">,</span> <span class="nx">toMimeType</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">createFFmpegMediaObject</span><span class="p">(</span><span class="nx">ffmpegInput</span><span class="p">:</span> <span class="nx">FFMpegInput</span><span class="p">):</span> <span class="nx">MediaObject</span><span class="p">;</span>
   <span class="nx">createMediaObject</span><span class="p">(</span><span class="nx">data</span><span class="p">:</span> <span class="nx">string</span><span class="o">|</span><span class="nx">Buffer</span><span class="o">|</span><span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">string</span><span class="o">|</span><span class="nx">Buffer</span><span class="o">&gt;</span><span class="p">,</span> <span class="nx">mimeType</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">MediaObject</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
@@ -2146,23 +2175,23 @@ are not concerned about the source type of the media, but need the media to be c
 a type is compatible with the device. For example, a user may want to send text to a speaker for playback.
 The speaker is not aware of the source media type, and only needs it to be converted into an audio url.</p>
 <h3 id='convertmediaobjecttobuffer'>convertMediaObjectToBuffer</h3>
-<p>Promise&lt;Buffer&gt; convertMediaObjectToBuffer(<a href='#mediaobject'>MediaObject</a> mediaObject, string toMimeType)</p>
+<p>Promise&lt;Buffer&gt; convertMediaObjectToBuffer(string|<a href='#mediaobject'>MediaObject</a> mediaObject, string toMimeType)</p>
 
 <p>Convert a media object to a Buffer of the given mime type.</p>
 <h3 id='convertmediaobjecttoinsecurelocalurl'>convertMediaObjectToInsecureLocalUrl</h3>
-<p>Promise&lt;string&gt; convertMediaObjectToInsecureLocalUrl(<a href='#mediaobject'>MediaObject</a> mediaObject, string toMimeType)</p>
+<p>Promise&lt;string&gt; convertMediaObjectToInsecureLocalUrl(string|<a href='#mediaobject'>MediaObject</a> mediaObject, string toMimeType)</p>
 
 <p>Convert a media object to a locally accessible URL that serves a media file of the given mime type. If the media object is an externally accessible URL, that will be returned.</p>
 <h3 id='convertmediaobjecttolocalurl'>convertMediaObjectToLocalUrl</h3>
-<p>Promise&lt;string&gt; convertMediaObjectToLocalUrl(<a href='#mediaobject'>MediaObject</a> mediaObject, string toMimeType)</p>
+<p>Promise&lt;string&gt; convertMediaObjectToLocalUrl(string|<a href='#mediaobject'>MediaObject</a> mediaObject, string toMimeType)</p>
 
 <p>Convert a media object to a locally accessible URL that serves a media file of the given mime type. If the media object is an externally accessible URL, that will be returned.</p>
 <h3 id='convertmediaobjecttourl'>convertMediaObjectToUrl</h3>
-<p>Promise&lt;string&gt; convertMediaObjectToUrl(<a href='#mediaobject'>MediaObject</a> mediaObject, string toMimeType)</p>
+<p>Promise&lt;string&gt; convertMediaObjectToUrl(string|<a href='#mediaobject'>MediaObject</a> mediaObject, string toMimeType)</p>
 
 <p>Convert a media object to a publically accessible URL that serves a media file of the given mime type.</p>
 <h3 id='createffmpegmediaobject'>createFFmpegMediaObject</h3>
-<p><a href='#mediaobject'>MediaObject</a> createFFmpegMediaObject(<a href='#ffmpeginput'>FFMpegInput</a> ffMpegInput)</p>
+<p><a href='#mediaobject'>MediaObject</a> createFFmpegMediaObject(<a href='#ffmpeginput'>FFMpegInput</a> ffmpegInput)</p>
 
 <p>Create a MediaObject. The media will be created from the provided FFmpeg input arguments.</p>
 <h3 id='createmediaobject'>createMediaObject</h3>
@@ -2206,17 +2235,27 @@ MediaObject is an intermediate object within Scrypted to represent all media obj
 </blockquote>
 <pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">EndpointManager</span>  <span class="p">{</span>
   <span class="nx">getAuthenticatedPath</span><span class="p">():</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="kr">string</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">getAuthenticatedPath</span><span class="p">(</span><span class="nx">nativeId</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="kr">string</span><span class="o">&gt;</span><span class="p">;</span>
   <span class="nx">getInsecurePublicLocalEndpoint</span><span class="p">():</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="kr">string</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">getInsecurePublicLocalEndpoint</span><span class="p">(</span><span class="nx">nativeId</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="kr">string</span><span class="o">&gt;</span><span class="p">;</span>
   <span class="nx">getPublicCloudEndpoint</span><span class="p">():</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="kr">string</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">getPublicCloudEndpoint</span><span class="p">(</span><span class="nx">nativeId</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="kr">string</span><span class="o">&gt;</span><span class="p">;</span>
   <span class="nx">getPublicLocalEndpoint</span><span class="p">():</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="kr">string</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">getPublicLocalEndpoint</span><span class="p">(</span><span class="nx">nativeId</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="kr">string</span><span class="o">&gt;</span><span class="p">;</span>
   <span class="nx">getPublicPushEndpoint</span><span class="p">():</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="kr">string</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">getPublicPushEndpoint</span><span class="p">(</span><span class="nx">nativeId</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="kr">string</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">EndpointManager</span>  <span class="p">{</span>
   <span class="nx">getAuthenticatedPath</span><span class="p">():</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">getAuthenticatedPath</span><span class="p">(</span><span class="nx">nativeId</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">;</span>
   <span class="nx">getInsecurePublicLocalEndpoint</span><span class="p">():</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">getInsecurePublicLocalEndpoint</span><span class="p">(</span><span class="nx">nativeId</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">;</span>
   <span class="nx">getPublicCloudEndpoint</span><span class="p">():</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">getPublicCloudEndpoint</span><span class="p">(</span><span class="nx">nativeId</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">;</span>
   <span class="nx">getPublicLocalEndpoint</span><span class="p">():</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">getPublicLocalEndpoint</span><span class="p">(</span><span class="nx">nativeId</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">;</span>
   <span class="nx">getPublicPushEndpoint</span><span class="p">():</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">getPublicPushEndpoint</span><span class="p">(</span><span class="nx">nativeId</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
 <aside class="notice">
@@ -2229,31 +2268,51 @@ EndpointManager provides publicly accessible URLs that can be used to contact yo
 <p>Promise&lt;string&gt; getAuthenticatedPath()</p>
 
 <p>Get an URL pathname that can be accessed on your local network or cloud while authenticated. This is an absolute path that requires cookie authentication, and generally used only in browser contexts.</p>
+<h3 id='getauthenticatedpath-2'>getAuthenticatedPath</h3>
+<p>Promise&lt;string&gt; getAuthenticatedPath(string nativeId)</p>
+
+<p>Get an URL pathname that can be accessed on your local network or cloud while authenticated. This is an absolute path that requires cookie authentication, and generally used only in browser contexts.</p>
 <h3 id='getinsecurepubliclocalendpoint'>getInsecurePublicLocalEndpoint</h3>
 <p>Promise&lt;string&gt; getInsecurePublicLocalEndpoint()</p>
+
+<p>Get an URL that can only be accessed on your local network by anyone with the link. HTTP requests and responses are without any encryption. Plugin implementation is responsible for authentication.</p>
+<h3 id='getinsecurepubliclocalendpoint-2'>getInsecurePublicLocalEndpoint</h3>
+<p>Promise&lt;string&gt; getInsecurePublicLocalEndpoint(string nativeId)</p>
 
 <p>Get an URL that can only be accessed on your local network by anyone with the link. HTTP requests and responses are without any encryption. Plugin implementation is responsible for authentication.</p>
 <h3 id='getpubliccloudendpoint'>getPublicCloudEndpoint</h3>
 <p>Promise&lt;string&gt; getPublicCloudEndpoint()</p>
 
 <p>Get an URL that can be externally accessed by anyone with the link. Plugin implementation is responsible for authentication.</p>
+<h3 id='getpubliccloudendpoint-2'>getPublicCloudEndpoint</h3>
+<p>Promise&lt;string&gt; getPublicCloudEndpoint(string nativeId)</p>
+
+<p>Get an URL that can be externally accessed by anyone with the link. Plugin implementation is responsible for authentication.</p>
 <h3 id='getpubliclocalendpoint'>getPublicLocalEndpoint</h3>
 <p>Promise&lt;string&gt; getPublicLocalEndpoint()</p>
+
+<p>Get an URL that can only be accessed on your local network by anyone with the link. HTTP requests and responses are over SSL with a self signed certificate. Plugin implementation is responsible for authentication.</p>
+<h3 id='getpubliclocalendpoint-2'>getPublicLocalEndpoint</h3>
+<p>Promise&lt;string&gt; getPublicLocalEndpoint(string nativeId)</p>
 
 <p>Get an URL that can only be accessed on your local network by anyone with the link. HTTP requests and responses are over SSL with a self signed certificate. Plugin implementation is responsible for authentication.</p>
 <h3 id='getpublicpushendpoint'>getPublicPushEndpoint</h3>
 <p>Promise&lt;string&gt; getPublicPushEndpoint()</p>
 
 <p>Get an URL that can be used to send a push message to the client. This differs from a cloud endpoint, in that, the Plugin does not send a response back. Plugin implementation is responsible for authentication.</p>
+<h3 id='getpublicpushendpoint-2'>getPublicPushEndpoint</h3>
+<p>Promise&lt;string&gt; getPublicPushEndpoint(string nativeId)</p>
+
+<p>Get an URL that can be used to send a push message to the client. This differs from a cloud endpoint, in that, the Plugin does not send a response back. Plugin implementation is responsible for authentication.</p>
 <h2 id='httprequesthandler'>HttpRequestHandler</h2>
 <blockquote>
 <p>Definition</p>
 </blockquote>
-<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">HttpRequestHandler</span> <span class="k">implements</span> <span class="nx">EndpointHandler</span> <span class="p">{</span>
-  <span class="nx">onRequest</span><span class="p">(</span><span class="nx">request</span><span class="p">:</span> <span class="nx">HttpRequest</span><span class="p">,</span> <span class="nx">response</span><span class="p">:</span> <span class="nx">HttpResponse</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">HttpRequestHandler</span>  <span class="p">{</span>
+  <span class="nx">onRequest</span><span class="p">(</span><span class="nx">request</span><span class="p">:</span> <span class="nx">HttpRequest</span><span class="p">,</span> <span class="nx">response</span><span class="p">:</span> <span class="nx">HttpResponse</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">HttpRequestHandler</span> <span class="kr">implements</span> <span class="nx">EndpointHandler</span> <span class="p">{</span>
-  <span class="nx">onRequest</span><span class="p">(</span><span class="nx">request</span><span class="p">:</span> <span class="nx">HttpRequest</span><span class="p">,</span> <span class="nx">response</span><span class="p">:</span> <span class="nx">HttpResponse</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">HttpRequestHandler</span>  <span class="p">{</span>
+  <span class="nx">onRequest</span><span class="p">(</span><span class="nx">request</span><span class="p">:</span> <span class="nx">HttpRequest</span><span class="p">,</span> <span class="nx">response</span><span class="p">:</span> <span class="nx">HttpResponse</span><span class="p">):</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
 <blockquote>
@@ -2296,21 +2355,21 @@ The HttpRequestHandler allows handling of web requests under the endpoint path: 
 
 </aside>
 <h3 id='onrequest'>onRequest</h3>
-<p>void onRequest(<a href='#httprequest'>HttpRequest</a> request, <a href='#httpresponse'>HttpResponse</a> response)</p>
+<p>Promise&lt;void&gt; onRequest(<a href='#httprequest'>HttpRequest</a> request, <a href='#httpresponse'>HttpResponse</a> response)</p>
 
 <p>Callback to handle an incoming request.</p>
 <h2 id='pushhandler'>PushHandler</h2>
 <blockquote>
 <p>Definition</p>
 </blockquote>
-<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">PushHandler</span> <span class="k">implements</span> <span class="nx">EndpointHandler</span> <span class="p">{</span>
-  <span class="nx">onPush</span><span class="p">(</span><span class="nx">request</span><span class="p">:</span> <span class="nx">HttpRequest</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">PushHandler</span>  <span class="p">{</span>
+  <span class="nx">onPush</span><span class="p">(</span><span class="nx">request</span><span class="p">:</span> <span class="nx">HttpRequest</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">PushHandler</span> <span class="kr">implements</span> <span class="nx">EndpointHandler</span> <span class="p">{</span>
-  <span class="nx">onPush</span><span class="p">(</span><span class="nx">request</span><span class="p">:</span> <span class="nx">HttpRequest</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">PushHandler</span>  <span class="p">{</span>
+  <span class="nx">onPush</span><span class="p">(</span><span class="nx">request</span><span class="p">:</span> <span class="nx">HttpRequest</span><span class="p">):</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><h3 id='onpush'>onPush</h3>
-<p>void onPush(<a href='#httprequest'>HttpRequest</a> request)</p>
+<p>Promise&lt;void&gt; onPush(<a href='#httprequest'>HttpRequest</a> request)</p>
 
 <p>Callback to handle an incoming push.</p>
 <h2 id='httprequest'>HttpRequest</h2>
@@ -2460,15 +2519,15 @@ Used by <a href='#httpresponse'>HttpResponse</a>.
 </blockquote>
 <pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">Android</span>  <span class="p">{</span>
   <span class="nx">newIntent</span><span class="p">():</span> <span class="nx">Intent</span><span class="p">;</span>
-  <span class="nx">sendBroadcast</span><span class="p">(</span><span class="nx">intent</span><span class="p">:</span> <span class="nx">Intent</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">startActivity</span><span class="p">(</span><span class="nx">intent</span><span class="p">:</span> <span class="nx">Intent</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">startService</span><span class="p">(</span><span class="nx">intent</span><span class="p">:</span> <span class="nx">Intent</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">sendBroadcast</span><span class="p">(</span><span class="nx">intent</span><span class="p">:</span> <span class="nx">Intent</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">startActivity</span><span class="p">(</span><span class="nx">intent</span><span class="p">:</span> <span class="nx">Intent</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">startService</span><span class="p">(</span><span class="nx">intent</span><span class="p">:</span> <span class="nx">Intent</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Android</span>  <span class="p">{</span>
   <span class="nx">newIntent</span><span class="p">():</span> <span class="nx">Intent</span><span class="p">;</span>
-  <span class="nx">sendBroadcast</span><span class="p">(</span><span class="nx">intent</span><span class="p">:</span> <span class="nx">Intent</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">startActivity</span><span class="p">(</span><span class="nx">intent</span><span class="p">:</span> <span class="nx">Intent</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">startService</span><span class="p">(</span><span class="nx">intent</span><span class="p">:</span> <span class="nx">Intent</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">sendBroadcast</span><span class="p">(</span><span class="nx">intent</span><span class="p">:</span> <span class="nx">Intent</span><span class="p">):</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">startActivity</span><span class="p">(</span><span class="nx">intent</span><span class="p">:</span> <span class="nx">Intent</span><span class="p">):</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">startService</span><span class="p">(</span><span class="nx">intent</span><span class="p">:</span> <span class="nx">Intent</span><span class="p">):</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
 <aside class="notice">
@@ -2482,11 +2541,11 @@ Android provides limited access to the Android system, to send Intents to other 
 
 <p>Create a new Intent. Use one of the send methods to send broadcasts, start activities, or start services.</p>
 <h3 id='sendbroadcast'>sendBroadcast</h3>
-<p>void sendBroadcast(Intent intent)</p>
+<p>Promise&lt;void&gt; sendBroadcast(Intent intent)</p>
 <h3 id='startactivity'>startActivity</h3>
-<p>void startActivity(Intent intent)</p>
+<p>Promise&lt;void&gt; startActivity(Intent intent)</p>
 <h3 id='startservice'>startService</h3>
-<p>void startService(Intent intent)</p>
+<p>Promise&lt;void&gt; startService(Intent intent)</p>
 <h1 id='device-interface-reference'>Device Interface Reference</h1><h2 id='eventlisteneroptions'>EventListenerOptions</h2>
 <blockquote>
 <p>Definition</p>
@@ -2582,14 +2641,14 @@ Used by <a href='#eventlistener'>EventListener</a>.
 <pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">OnOff</span>  <span class="p">{</span>
   <span class="nl">on</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
 
-  <span class="nx">turnOff</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">turnOn</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">turnOff</span><span class="p">():</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">turnOn</span><span class="p">():</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">OnOff</span>  <span class="p">{</span>
   <span class="nl">on</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
 
-  <span class="nx">turnOff</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">turnOn</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">turnOff</span><span class="p">():</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">turnOn</span><span class="p">():</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
 <blockquote>
@@ -2631,9 +2690,9 @@ OnOff is a basic binary switch.
 </tr>
 </tbody></table>
 <h3 id='turnoff'>turnOff</h3>
-<p>void turnOff()</p>
+<p>Promise&lt;void&gt; turnOff()</p>
 <h3 id='turnon'>turnOn</h3>
-<p>void turnOn()</p>
+<p>Promise&lt;void&gt; turnOn()</p>
 <h2 id='brightness'>Brightness</h2>
 <blockquote>
 <p>Definition</p>
@@ -2641,12 +2700,12 @@ OnOff is a basic binary switch.
 <pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">Brightness</span>  <span class="p">{</span>
   <span class="nl">brightness</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
 
-  <span class="nx">setBrightness</span><span class="p">(</span><span class="nx">brightness</span><span class="p">:</span> <span class="kr">number</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">setBrightness</span><span class="p">(</span><span class="nx">brightness</span><span class="p">:</span> <span class="kr">number</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Brightness</span>  <span class="p">{</span>
   <span class="nl">brightness</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
 
-  <span class="nx">setBrightness</span><span class="p">(</span><span class="nx">brightness</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">setBrightness</span><span class="p">(</span><span class="nx">brightness</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
 <blockquote>
@@ -2678,7 +2737,7 @@ Brightness is a lighting device that can be dimmed/lit between 0 to 100.
 </tr>
 </tbody></table>
 <h3 id='setbrightness'>setBrightness</h3>
-<p>void setBrightness(number brightness)</p>
+<p>Promise&lt;void&gt; setBrightness(number brightness)</p>
 <h2 id='colorsettingtemperature'>ColorSettingTemperature</h2>
 <blockquote>
 <p>Definition</p>
@@ -2686,16 +2745,16 @@ Brightness is a lighting device that can be dimmed/lit between 0 to 100.
 <pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">ColorSettingTemperature</span>  <span class="p">{</span>
   <span class="nl">colorTemperature</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
 
-  <span class="nx">getTemperatureMaxK</span><span class="p">():</span> <span class="kr">number</span><span class="p">;</span>
-  <span class="nx">getTemperatureMinK</span><span class="p">():</span> <span class="kr">number</span><span class="p">;</span>
-  <span class="nx">setColorTemperature</span><span class="p">(</span><span class="nx">kelvin</span><span class="p">:</span> <span class="kr">number</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">getTemperatureMaxK</span><span class="p">():</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="kr">number</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">getTemperatureMinK</span><span class="p">():</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="kr">number</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">setColorTemperature</span><span class="p">(</span><span class="nx">kelvin</span><span class="p">:</span> <span class="kr">number</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">ColorSettingTemperature</span>  <span class="p">{</span>
   <span class="nl">colorTemperature</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
 
-  <span class="nx">getTemperatureMaxK</span><span class="p">():</span> <span class="nx">number</span><span class="p">;</span>
-  <span class="nx">getTemperatureMinK</span><span class="p">():</span> <span class="nx">number</span><span class="p">;</span>
-  <span class="nx">setColorTemperature</span><span class="p">(</span><span class="nx">kelvin</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">getTemperatureMaxK</span><span class="p">():</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">number</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">getTemperatureMinK</span><span class="p">():</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">number</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">setColorTemperature</span><span class="p">(</span><span class="nx">kelvin</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
 <blockquote>
@@ -2727,11 +2786,11 @@ ColorSettingTemperature sets the color temperature of a light in Kelvin.
 </tr>
 </tbody></table>
 <h3 id='gettemperaturemaxk'>getTemperatureMaxK</h3>
-<p>number getTemperatureMaxK()</p>
+<p>Promise&lt;number&gt; getTemperatureMaxK()</p>
 <h3 id='gettemperaturemink'>getTemperatureMinK</h3>
-<p>number getTemperatureMinK()</p>
+<p>Promise&lt;number&gt; getTemperatureMinK()</p>
 <h3 id='setcolortemperature'>setColorTemperature</h3>
-<p>void setColorTemperature(number kelvin)</p>
+<p>Promise&lt;void&gt; setColorTemperature(number kelvin)</p>
 <h2 id='colorsettingrgb'>ColorSettingRgb</h2>
 <blockquote>
 <p>Definition</p>
@@ -2739,12 +2798,12 @@ ColorSettingTemperature sets the color temperature of a light in Kelvin.
 <pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">ColorSettingRgb</span>  <span class="p">{</span>
   <span class="nl">rgb</span><span class="p">:</span> <span class="nx">ColorRgb</span><span class="p">;</span>
 
-  <span class="nx">setRgb</span><span class="p">(</span><span class="nx">r</span><span class="p">:</span> <span class="kr">number</span><span class="p">,</span> <span class="nx">g</span><span class="p">:</span> <span class="kr">number</span><span class="p">,</span> <span class="nx">b</span><span class="p">:</span> <span class="kr">number</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">setRgb</span><span class="p">(</span><span class="nx">r</span><span class="p">:</span> <span class="kr">number</span><span class="p">,</span> <span class="nx">g</span><span class="p">:</span> <span class="kr">number</span><span class="p">,</span> <span class="nx">b</span><span class="p">:</span> <span class="kr">number</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">ColorSettingRgb</span>  <span class="p">{</span>
   <span class="nl">rgb</span><span class="p">:</span> <span class="nx">ColorRgb</span><span class="p">;</span>
 
-  <span class="nx">setRgb</span><span class="p">(</span><span class="nx">r</span><span class="p">:</span> <span class="nx">number</span><span class="p">,</span> <span class="nx">g</span><span class="p">:</span> <span class="nx">number</span><span class="p">,</span> <span class="nx">b</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">setRgb</span><span class="p">(</span><span class="nx">r</span><span class="p">:</span> <span class="nx">number</span><span class="p">,</span> <span class="nx">g</span><span class="p">:</span> <span class="nx">number</span><span class="p">,</span> <span class="nx">b</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
 <blockquote>
@@ -2784,7 +2843,7 @@ ColorSettingRgb sets the color of a colored light using the RGB representation.
 </tr>
 </tbody></table>
 <h3 id='setrgb'>setRgb</h3>
-<p>void setRgb(number r, number g, number b)</p>
+<p>Promise&lt;void&gt; setRgb(number r, number g, number b)</p>
 <h2 id='colorrgb'>ColorRgb</h2>
 <blockquote>
 <p>Definition</p>
@@ -2835,12 +2894,12 @@ Represents an RGB color with component values between 0 and 255.
 <pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">ColorSettingHsv</span>  <span class="p">{</span>
   <span class="nl">hsv</span><span class="p">:</span> <span class="nx">ColorHsv</span><span class="p">;</span>
 
-  <span class="nx">setHsv</span><span class="p">(</span><span class="nx">hue</span><span class="p">:</span> <span class="kr">number</span><span class="p">,</span> <span class="nx">saturation</span><span class="p">:</span> <span class="kr">number</span><span class="p">,</span> <span class="nx">value</span><span class="p">:</span> <span class="kr">number</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">setHsv</span><span class="p">(</span><span class="nx">hue</span><span class="p">:</span> <span class="kr">number</span><span class="p">,</span> <span class="nx">saturation</span><span class="p">:</span> <span class="kr">number</span><span class="p">,</span> <span class="nx">value</span><span class="p">:</span> <span class="kr">number</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">ColorSettingHsv</span>  <span class="p">{</span>
   <span class="nl">hsv</span><span class="p">:</span> <span class="nx">ColorHsv</span><span class="p">;</span>
 
-  <span class="nx">setHsv</span><span class="p">(</span><span class="nx">hue</span><span class="p">:</span> <span class="nx">number</span><span class="p">,</span> <span class="nx">saturation</span><span class="p">:</span> <span class="nx">number</span><span class="p">,</span> <span class="nx">value</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">setHsv</span><span class="p">(</span><span class="nx">hue</span><span class="p">:</span> <span class="nx">number</span><span class="p">,</span> <span class="nx">saturation</span><span class="p">:</span> <span class="nx">number</span><span class="p">,</span> <span class="nx">value</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
 <blockquote>
@@ -2880,7 +2939,7 @@ ColorSettingHsv sets the color of a colored light using the HSV representation.
 </tr>
 </tbody></table>
 <h3 id='sethsv'>setHsv</h3>
-<p>void setHsv(number hue, number saturation, number value)</p>
+<p>Promise&lt;void&gt; setHsv(number hue, number saturation, number value)</p>
 <h2 id='colorhsv'>ColorHsv</h2>
 <blockquote>
 <p>Definition</p>
@@ -2929,10 +2988,10 @@ Represents an HSV color value component.
 <p>Definition</p>
 </blockquote>
 <pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">Notifier</span>  <span class="p">{</span>
-  <span class="nx">sendNotification</span><span class="p">(</span><span class="nx">title</span><span class="p">:</span> <span class="kr">string</span><span class="p">,</span> <span class="nx">body</span><span class="p">:</span> <span class="kr">string</span><span class="p">,</span> <span class="nx">media</span><span class="p">:</span> <span class="nx">URL</span><span class="o">|</span><span class="nx">MediaObject</span><span class="p">,</span> <span class="nx">mimeType</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">sendNotification</span><span class="p">(</span><span class="nx">title</span><span class="p">:</span> <span class="kr">string</span><span class="p">,</span> <span class="nx">body</span><span class="p">:</span> <span class="kr">string</span><span class="p">,</span> <span class="nx">media</span><span class="p">:</span> <span class="kr">string</span><span class="o">|</span><span class="nx">MediaObject</span><span class="p">,</span> <span class="nx">mimeType</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Notifier</span>  <span class="p">{</span>
-  <span class="nx">sendNotification</span><span class="p">(</span><span class="nx">title</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">body</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">media</span><span class="p">:</span> <span class="nx">URL</span><span class="o">|</span><span class="nx">MediaObject</span><span class="p">,</span> <span class="nx">mimeType</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">sendNotification</span><span class="p">(</span><span class="nx">title</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">body</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">media</span><span class="p">:</span> <span class="nx">string</span><span class="o">|</span><span class="nx">MediaObject</span><span class="p">,</span> <span class="nx">mimeType</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
 <blockquote>
@@ -2970,7 +3029,7 @@ Notifier can be any endpoint that can receive messages, such as speakers, phone 
 
 </aside>
 <h3 id='sendnotification'>sendNotification</h3>
-<p>void sendNotification(string title, string body, URL|<a href='#mediaobject'>MediaObject</a> media, string mimeType)</p>
+<p>Promise&lt;void&gt; sendNotification(string title, string body, string|<a href='#mediaobject'>MediaObject</a> media, string mimeType)</p>
 
 <p>If a the media parameter is supplied, the mime type denotes how to send the media within notification. For example, specify &#39;image/*&#39; to send a video MediaObject as an image.
 Passing null uses the native type of the MediaObject. If that is not supported by the notifier, the media will be converted to a compatible type.</p>
@@ -2981,14 +3040,14 @@ Passing null uses the native type of the MediaObject. If that is not supported b
 <pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">StartStop</span>  <span class="p">{</span>
   <span class="nl">running</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
 
-  <span class="nx">start</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">stop</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">start</span><span class="p">():</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">stop</span><span class="p">():</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">StartStop</span>  <span class="p">{</span>
   <span class="nl">running</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
 
-  <span class="nx">start</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">stop</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">start</span><span class="p">():</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">stop</span><span class="p">():</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
 <blockquote>
@@ -3024,9 +3083,9 @@ StartStop represents a device that can be started, stopped, and possibly paused 
 </tr>
 </tbody></table>
 <h3 id='start'>start</h3>
-<p>void start()</p>
+<p>Promise&lt;void&gt; start()</p>
 <h3 id='stop'>stop</h3>
-<p>void stop()</p>
+<p>Promise&lt;void&gt; stop()</p>
 <h2 id='pause'>Pause</h2>
 <blockquote>
 <p>Definition</p>
@@ -3034,14 +3093,14 @@ StartStop represents a device that can be started, stopped, and possibly paused 
 <pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">Pause</span>  <span class="p">{</span>
   <span class="nl">paused</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
 
-  <span class="nx">pause</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">resume</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">pause</span><span class="p">():</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">resume</span><span class="p">():</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Pause</span>  <span class="p">{</span>
   <span class="nl">paused</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
 
-  <span class="nx">pause</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">resume</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">pause</span><span class="p">():</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">resume</span><span class="p">():</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><h3 id='properties-19'>Properties</h3>
 <table><thead>
@@ -3056,9 +3115,9 @@ StartStop represents a device that can be started, stopped, and possibly paused 
 </tr>
 </tbody></table>
 <h3 id='pause-2'>pause</h3>
-<p>void pause()</p>
+<p>Promise&lt;void&gt; pause()</p>
 <h3 id='resume'>resume</h3>
-<p>void resume()</p>
+<p>Promise&lt;void&gt; resume()</p>
 <h2 id='dock'>Dock</h2>
 <blockquote>
 <p>Definition</p>
@@ -3066,12 +3125,12 @@ StartStop represents a device that can be started, stopped, and possibly paused 
 <pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">Dock</span>  <span class="p">{</span>
   <span class="nl">docked</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
 
-  <span class="nx">dock</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">dock</span><span class="p">():</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Dock</span>  <span class="p">{</span>
   <span class="nl">docked</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
 
-  <span class="nx">dock</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">dock</span><span class="p">():</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
 <blockquote>
@@ -3103,7 +3162,7 @@ Dock instructs devices that have a base station or charger, to return to their h
 </tr>
 </tbody></table>
 <h3 id='dock-2'>dock</h3>
-<p>void dock()</p>
+<p>Promise&lt;void&gt; dock()</p>
 <h2 id='temperaturesetting'>TemperatureSetting</h2>
 <blockquote>
 <p>Definition</p>
@@ -3115,10 +3174,10 @@ Dock instructs devices that have a base station or charger, to return to their h
   <span class="nl">thermostatSetpointHigh</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
   <span class="nl">thermostatSetpointLow</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
 
-  <span class="nx">setThermostatMode</span><span class="p">(</span><span class="nx">mode</span><span class="p">:</span> <span class="nx">ThermostatMode</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">setThermostatSetpoint</span><span class="p">(</span><span class="nx">degrees</span><span class="p">:</span> <span class="kr">number</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">setThermostatSetpointHigh</span><span class="p">(</span><span class="nx">high</span><span class="p">:</span> <span class="kr">number</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">setThermostatSetpointLow</span><span class="p">(</span><span class="nx">low</span><span class="p">:</span> <span class="kr">number</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">setThermostatMode</span><span class="p">(</span><span class="nx">mode</span><span class="p">:</span> <span class="nx">ThermostatMode</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">setThermostatSetpoint</span><span class="p">(</span><span class="nx">degrees</span><span class="p">:</span> <span class="kr">number</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">setThermostatSetpointHigh</span><span class="p">(</span><span class="nx">high</span><span class="p">:</span> <span class="kr">number</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">setThermostatSetpointLow</span><span class="p">(</span><span class="nx">low</span><span class="p">:</span> <span class="kr">number</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">TemperatureSetting</span> <span class="kr">implements</span> <span class="nx">Thermometer</span><span class="p">,</span> <span class="nx">HumiditySensor</span> <span class="p">{</span>
   <span class="nl">thermostatAvailableModes</span><span class="p">:</span> <span class="nx">ThermostatMode</span><span class="p">[];</span>
@@ -3127,10 +3186,10 @@ Dock instructs devices that have a base station or charger, to return to their h
   <span class="nl">thermostatSetpointHigh</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
   <span class="nl">thermostatSetpointLow</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
 
-  <span class="nx">setThermostatMode</span><span class="p">(</span><span class="nx">mode</span><span class="p">:</span> <span class="nx">ThermostatMode</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">setThermostatSetpoint</span><span class="p">(</span><span class="nx">degrees</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">setThermostatSetpointHigh</span><span class="p">(</span><span class="nx">high</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">setThermostatSetpointLow</span><span class="p">(</span><span class="nx">low</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">setThermostatMode</span><span class="p">(</span><span class="nx">mode</span><span class="p">:</span> <span class="nx">ThermostatMode</span><span class="p">):</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">setThermostatSetpoint</span><span class="p">(</span><span class="nx">degrees</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">setThermostatSetpointHigh</span><span class="p">(</span><span class="nx">high</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">setThermostatSetpointLow</span><span class="p">(</span><span class="nx">low</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
 <aside class="notice">
@@ -3168,13 +3227,13 @@ TemperatureSetting represents a thermostat device.
 </tr>
 </tbody></table>
 <h3 id='setthermostatmode'>setThermostatMode</h3>
-<p>void setThermostatMode(<a href='#thermostatmode'>ThermostatMode</a> mode)</p>
+<p>Promise&lt;void&gt; setThermostatMode(<a href='#thermostatmode'>ThermostatMode</a> mode)</p>
 <h3 id='setthermostatsetpoint'>setThermostatSetpoint</h3>
-<p>void setThermostatSetpoint(number degrees)</p>
+<p>Promise&lt;void&gt; setThermostatSetpoint(number degrees)</p>
 <h3 id='setthermostatsetpointhigh'>setThermostatSetpointHigh</h3>
-<p>void setThermostatSetpointHigh(number high)</p>
+<p>Promise&lt;void&gt; setThermostatSetpointHigh(number high)</p>
 <h3 id='setthermostatsetpointlow'>setThermostatSetpointLow</h3>
-<p>void setThermostatSetpointLow(number low)</p>
+<p>Promise&lt;void&gt; setThermostatSetpointLow(number low)</p>
 <h2 id='thermometer'>Thermometer</h2>
 <blockquote>
 <p>Definition</p>
@@ -3326,10 +3385,10 @@ Used by <a href='#temperaturesetting'>TemperatureSetting</a>.
 <p>Definition</p>
 </blockquote>
 <pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">Camera</span>  <span class="p">{</span>
-  <span class="nx">takePicture</span><span class="p">():</span> <span class="nx">MediaObject</span><span class="p">;</span>
+  <span class="nx">takePicture</span><span class="p">():</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">MediaObject</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Camera</span>  <span class="p">{</span>
-  <span class="nx">takePicture</span><span class="p">():</span> <span class="nx">MediaObject</span><span class="p">;</span>
+  <span class="nx">takePicture</span><span class="p">():</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">MediaObject</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
 <aside class="notice">
@@ -3339,16 +3398,16 @@ Camera devices can take still photos.
 
 </aside>
 <h3 id='takepicture'>takePicture</h3>
-<p><a href='#mediaobject'>MediaObject</a> takePicture()</p>
+<p>Promise&lt;<a href='#mediaobject'>MediaObject</a>&gt; takePicture()</p>
 <h2 id='videocamera'>VideoCamera</h2>
 <blockquote>
 <p>Definition</p>
 </blockquote>
 <pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">VideoCamera</span>  <span class="p">{</span>
-  <span class="nx">getVideoStream</span><span class="p">():</span> <span class="nx">MediaObject</span><span class="p">;</span>
+  <span class="nx">getVideoStream</span><span class="p">():</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">MediaObject</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">VideoCamera</span>  <span class="p">{</span>
-  <span class="nx">getVideoStream</span><span class="p">():</span> <span class="nx">MediaObject</span><span class="p">;</span>
+  <span class="nx">getVideoStream</span><span class="p">():</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">MediaObject</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
 <aside class="notice">
@@ -3358,7 +3417,7 @@ VideoCamera devices can capture video streams.
 
 </aside>
 <h3 id='getvideostream'>getVideoStream</h3>
-<p><a href='#mediaobject'>MediaObject</a> getVideoStream()</p>
+<p>Promise&lt;<a href='#mediaobject'>MediaObject</a>&gt; getVideoStream()</p>
 <h2 id='lock'>Lock</h2>
 <blockquote>
 <p>Definition</p>
@@ -3366,14 +3425,14 @@ VideoCamera devices can capture video streams.
 <pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">Lock</span>  <span class="p">{</span>
   <span class="nl">lockState</span><span class="p">:</span> <span class="nx">LockState</span><span class="p">;</span>
 
-  <span class="nx">lock</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">unlock</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">lock</span><span class="p">():</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">unlock</span><span class="p">():</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Lock</span>  <span class="p">{</span>
   <span class="nl">lockState</span><span class="p">:</span> <span class="nx">LockState</span><span class="p">;</span>
 
-  <span class="nx">lock</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">unlock</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">lock</span><span class="p">():</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">unlock</span><span class="p">():</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
 <aside class="notice">
@@ -3395,9 +3454,9 @@ Lock controls devices that can lock or unlock entries. Often works in tandem wit
 </tr>
 </tbody></table>
 <h3 id='lock-2'>lock</h3>
-<p>void lock()</p>
+<p>Promise&lt;void&gt; lock()</p>
 <h3 id='unlock'>unlock</h3>
-<p>void unlock()</p>
+<p>Promise&lt;void&gt; unlock()</p>
 <h2 id='lockstate'>LockState</h2><pre class="highlight typescript tab-typescript"><code><span class="kr">enum</span> <span class="nx">LockState</span> <span class="p">{</span>
   <span class="nx">Locked</span> <span class="o">=</span> <span class="s2">"Locked"</span><span class="p">,</span>
   <span class="nx">Unlocked</span> <span class="o">=</span> <span class="s2">"Unlocked"</span><span class="p">,</span>
@@ -3436,14 +3495,14 @@ Used by <a href='#lock'>Lock</a>.
 <p>Definition</p>
 </blockquote>
 <pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">PasswordStore</span> <span class="k">implements</span> <span class="nx">Authenticator</span> <span class="p">{</span>
-  <span class="nx">addPassword</span><span class="p">(</span><span class="nx">password</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">addPassword</span><span class="p">(</span><span class="nx">password</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
   <span class="nx">getPasswords</span><span class="p">():</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="kr">string</span><span class="p">[]</span><span class="o">&gt;</span><span class="p">;</span>
-  <span class="nx">removePassword</span><span class="p">(</span><span class="nx">password</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">removePassword</span><span class="p">(</span><span class="nx">password</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">PasswordStore</span> <span class="kr">implements</span> <span class="nx">Authenticator</span> <span class="p">{</span>
-  <span class="nx">addPassword</span><span class="p">(</span><span class="nx">password</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">addPassword</span><span class="p">(</span><span class="nx">password</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
   <span class="nx">getPasswords</span><span class="p">():</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">string</span><span class="p">[]</span><span class="o">&gt;</span><span class="p">;</span>
-  <span class="nx">removePassword</span><span class="p">(</span><span class="nx">password</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">removePassword</span><span class="p">(</span><span class="nx">password</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
 <aside class="notice">
@@ -3453,11 +3512,11 @@ PasswordControl represents devices that authorize users via a passcode or pin co
 
 </aside>
 <h3 id='addpassword'>addPassword</h3>
-<p>void addPassword(string password)</p>
+<p>Promise&lt;void&gt; addPassword(string password)</p>
 <h3 id='getpasswords'>getPasswords</h3>
 <p>Promise&lt;string[]&gt; getPasswords()</p>
 <h3 id='removepassword'>removePassword</h3>
-<p>void removePassword(string password)</p>
+<p>Promise&lt;void&gt; removePassword(string password)</p>
 <h2 id='authenticator'>Authenticator</h2>
 <blockquote>
 <p>Definition</p>
@@ -3482,13 +3541,13 @@ Authenticator can be used to require a password before allowing interaction with
 <p>Definition</p>
 </blockquote>
 <pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">Scene</span>  <span class="p">{</span>
-  <span class="nx">activate</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">deactivate</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">activate</span><span class="p">():</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">deactivate</span><span class="p">():</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
   <span class="nx">isReversible</span><span class="p">():</span> <span class="kr">boolean</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Scene</span>  <span class="p">{</span>
-  <span class="nx">activate</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">deactivate</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">activate</span><span class="p">():</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">deactivate</span><span class="p">():</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
   <span class="nx">isReversible</span><span class="p">():</span> <span class="kr">boolean</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
@@ -3499,9 +3558,9 @@ Scenes control multiple different devices into a given state.
 
 </aside>
 <h3 id='activate'>activate</h3>
-<p>void activate()</p>
+<p>Promise&lt;void&gt; activate()</p>
 <h3 id='deactivate'>deactivate</h3>
-<p>void deactivate()</p>
+<p>Promise&lt;void&gt; deactivate()</p>
 <h3 id='isreversible'>isReversible</h3>
 <p>boolean isReversible()</p>
 
@@ -3511,12 +3570,12 @@ Scenes control multiple different devices into a given state.
 <p>Definition</p>
 </blockquote>
 <pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">Entry</span> <span class="k">implements</span> <span class="nx">EntrySensor</span> <span class="p">{</span>
-  <span class="nx">closeEntry</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">openEntry</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">closeEntry</span><span class="p">():</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">openEntry</span><span class="p">():</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Entry</span> <span class="kr">implements</span> <span class="nx">EntrySensor</span> <span class="p">{</span>
-  <span class="nx">closeEntry</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">openEntry</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">closeEntry</span><span class="p">():</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">openEntry</span><span class="p">():</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
 <blockquote>
@@ -3536,9 +3595,9 @@ Entry represents devices that can open and close barriers, such as garage doors.
 
 </aside>
 <h3 id='closeentry'>closeEntry</h3>
-<p>void closeEntry()</p>
+<p>Promise&lt;void&gt; closeEntry()</p>
 <h3 id='openentry'>openEntry</h3>
-<p>void openEntry()</p>
+<p>Promise&lt;void&gt; openEntry()</p>
 <h2 id='entrysensor'>EntrySensor</h2>
 <blockquote>
 <p>Definition</p>
@@ -3595,18 +3654,18 @@ Battery retrieves the battery level of battery powered devices.
 <p>Definition</p>
 </blockquote>
 <pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">MediaPlayer</span> <span class="k">implements</span> <span class="nx">StartStop</span><span class="p">,</span> <span class="nx">Pause</span> <span class="p">{</span>
-  <span class="nx">getMediaStatus</span><span class="p">():</span> <span class="nx">MediaStatus</span><span class="p">;</span>
-  <span class="nx">load</span><span class="p">(</span><span class="nx">media</span><span class="p">:</span> <span class="nx">URL</span><span class="o">|</span><span class="nx">MediaObject</span><span class="p">,</span> <span class="nx">options</span><span class="p">:</span> <span class="nx">MediaPlayerOptions</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">seek</span><span class="p">(</span><span class="nx">milliseconds</span><span class="p">:</span> <span class="kr">number</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">skipNext</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">skipPrevious</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">getMediaStatus</span><span class="p">():</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">MediaStatus</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">load</span><span class="p">(</span><span class="nx">media</span><span class="p">:</span> <span class="kr">string</span><span class="o">|</span><span class="nx">MediaObject</span><span class="p">,</span> <span class="nx">options</span><span class="p">:</span> <span class="nx">MediaPlayerOptions</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">seek</span><span class="p">(</span><span class="nx">milliseconds</span><span class="p">:</span> <span class="kr">number</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">skipNext</span><span class="p">():</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">skipPrevious</span><span class="p">():</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">MediaPlayer</span> <span class="kr">implements</span> <span class="nx">StartStop</span><span class="p">,</span> <span class="nx">Pause</span> <span class="p">{</span>
-  <span class="nx">getMediaStatus</span><span class="p">():</span> <span class="nx">MediaStatus</span><span class="p">;</span>
-  <span class="nx">load</span><span class="p">(</span><span class="nx">media</span><span class="p">:</span> <span class="nx">URL</span><span class="o">|</span><span class="nx">MediaObject</span><span class="p">,</span> <span class="nx">options</span><span class="p">:</span> <span class="nx">MediaPlayerOptions</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">seek</span><span class="p">(</span><span class="nx">milliseconds</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">skipNext</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">skipPrevious</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
+  <span class="nx">getMediaStatus</span><span class="p">():</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">MediaStatus</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">load</span><span class="p">(</span><span class="nx">media</span><span class="p">:</span> <span class="nx">string</span><span class="o">|</span><span class="nx">MediaObject</span><span class="p">,</span> <span class="nx">options</span><span class="p">:</span> <span class="nx">MediaPlayerOptions</span><span class="p">):</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">seek</span><span class="p">(</span><span class="nx">milliseconds</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">skipNext</span><span class="p">():</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">skipPrevious</span><span class="p">():</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
 <aside class="notice">
@@ -3616,15 +3675,550 @@ MediaPlayer allows media playback on screen or speaker devices, such as Chromeca
 
 </aside>
 <h3 id='getmediastatus'>getMediaStatus</h3>
-<p><a href='#mediastatus'>MediaStatus</a> getMediaStatus()</p>
+<p>Promise&lt;<a href='#mediastatus'>MediaStatus</a>&gt; getMediaStatus()</p>
 <h3 id='load'>load</h3>
-<p>void load(URL|<a href='#mediaobject'>MediaObject</a> media, <a href='#mediaplayeroptions'>MediaPlayerOptions</a> options)</p>
+<p>Promise&lt;void&gt; load(string|<a href='#mediaobject'>MediaObject</a> media, <a href='#mediaplayeroptions'>MediaPlayerOptions</a> options)</p>
 <h3 id='seek'>seek</h3>
-<p>void seek(number milliseconds)</p>
+<p>Promise&lt;void&gt; seek(number milliseconds)</p>
 <h3 id='skipnext'>skipNext</h3>
-<p>void skipNext()</p>
+<p>Promise&lt;void&gt; skipNext()</p>
 <h3 id='skipprevious'>skipPrevious</h3>
-<p>void skipPrevious()</p>
+<p>Promise&lt;void&gt; skipPrevious()</p>
+<h2 id='mediaplayeroptions'>MediaPlayerOptions</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">MediaPlayerOptions</span>  <span class="p">{</span>
+  <span class="nl">autoplay</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
+  <span class="nl">mimeType</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+  <span class="nl">title</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">MediaPlayerOptions</span>  <span class="p">{</span>
+  <span class="nl">autoplay</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
+  <span class="nl">mimeType</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nl">title</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+<aside class="notice">
+
+Used by <a href='#mediaplayer'>MediaPlayer</a>.
+
+
+</aside>
+<h3 id='properties-27'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>autoplay</td>
+<td>boolean</td>
+</tr>
+<tr>
+<td>mimeType</td>
+<td>string</td>
+</tr>
+<tr>
+<td>title</td>
+<td>string</td>
+</tr>
+</tbody></table>
+<h2 id='online'>Online</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">Online</span>  <span class="p">{</span>
+  <span class="nl">online</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Online</span>  <span class="p">{</span>
+  <span class="nl">online</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+<aside class="notice">
+
+
+Online denotes whether the device is online or unresponsive. It may be unresponsive due to being unplugged, network error, etc.
+
+</aside>
+<h3 id='properties-28'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>online</td>
+<td>boolean</td>
+</tr>
+</tbody></table>
+<h2 id='program'>Program</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">Program</span>  <span class="p">{</span>
+  <span class="nx">run</span><span class="p">(</span><span class="nx">args</span><span class="p">:</span> <span class="kr">any</span><span class="p">[]):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="kr">any</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Program</span>  <span class="p">{</span>
+  <span class="nx">run</span><span class="p">(</span><span class="nx">args</span><span class="p">:</span> <span class="nx">any</span><span class="p">[]):</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><h3 id='run'>run</h3>
+<p>Promise&lt;any&gt; run(any[] args)</p>
+
+<p>Asynchronously run a script given the provided arguments.</p>
+<h2 id='softwareupdate'>SoftwareUpdate</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">SoftwareUpdate</span>  <span class="p">{</span>
+  <span class="nl">updateAvailable</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
+
+  <span class="nx">checkForUpdate</span><span class="p">():</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">installUpdate</span><span class="p">():</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">SoftwareUpdate</span>  <span class="p">{</span>
+  <span class="nl">updateAvailable</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
+
+  <span class="nx">checkForUpdate</span><span class="p">():</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">installUpdate</span><span class="p">():</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+<aside class="notice">
+
+
+SoftwareUpdate provides a way to check for updates and install them. This may be a Scrypted Plugin or device firmware.
+
+</aside>
+<h3 id='properties-29'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>updateAvailable</td>
+<td>boolean</td>
+</tr>
+</tbody></table>
+<h3 id='checkforupdate'>checkForUpdate</h3>
+<p>Promise&lt;void&gt; checkForUpdate()</p>
+<h3 id='installupdate'>installUpdate</h3>
+<p>Promise&lt;void&gt; installUpdate()</p>
+<h2 id='bufferconverter'>BufferConverter</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">BufferConverter</span>  <span class="p">{</span>
+  <span class="nl">fromMimeType</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+  <span class="nl">toMimeType</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+
+  <span class="nx">convert</span><span class="p">(</span><span class="nx">data</span><span class="p">:</span> <span class="kr">string</span><span class="o">|</span><span class="nx">Buffer</span><span class="p">,</span> <span class="nx">fromMimeType</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">Buffer</span><span class="o">|</span><span class="kr">string</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">BufferConverter</span>  <span class="p">{</span>
+  <span class="nl">fromMimeType</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nl">toMimeType</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+
+  <span class="nx">convert</span><span class="p">(</span><span class="nx">data</span><span class="p">:</span> <span class="nx">string</span><span class="o">|</span><span class="nx">Buffer</span><span class="p">,</span> <span class="nx">fromMimeType</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">Buffer</span><span class="o">|</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+<aside class="notice">
+
+
+Add a converter to be used by Scrypted to convert buffers from one mime type to another mime type. May optionally accept string urls if accept-url is a fromMimeType parameter.
+
+</aside>
+<h3 id='properties-30'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>fromMimeType</td>
+<td>string</td>
+</tr>
+<tr>
+<td>toMimeType</td>
+<td>string</td>
+</tr>
+</tbody></table>
+<h3 id='convert'>convert</h3>
+<p>Promise&lt;Buffer|string&gt; convert(string|Buffer data, string fromMimeType)</p>
+<h2 id='settings'>Settings</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">Settings</span>  <span class="p">{</span>
+  <span class="nx">getSettings</span><span class="p">():</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">Setting</span><span class="p">[]</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">putSetting</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="kr">string</span><span class="p">,</span> <span class="nx">value</span><span class="p">:</span> <span class="kr">boolean</span><span class="o">|</span><span class="kr">number</span><span class="o">|</span><span class="kr">string</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Settings</span>  <span class="p">{</span>
+  <span class="nx">getSettings</span><span class="p">():</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">Setting</span><span class="p">[]</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">putSetting</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">value</span><span class="p">:</span> <span class="kr">boolean</span><span class="o">|</span><span class="nx">number</span><span class="o">|</span><span class="nx">string</span><span class="p">):</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+<aside class="notice">
+
+
+Settings viewing and editing of device configurations that describe or modify behavior.
+
+</aside>
+<h3 id='getsettings'>getSettings</h3>
+<p>Promise&lt;<a href='#setting'>Setting</a>[]&gt; getSettings()</p>
+<h3 id='putsetting'>putSetting</h3>
+<p>Promise&lt;void&gt; putSetting(string key, boolean|number|string value)</p>
+<h2 id='binarysensor'>BinarySensor</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">BinarySensor</span>  <span class="p">{</span>
+  <span class="nl">binaryState</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">BinarySensor</span>  <span class="p">{</span>
+  <span class="nl">binaryState</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><h3 id='properties-31'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>binaryState</td>
+<td>boolean</td>
+</tr>
+</tbody></table>
+<h2 id='intrusionsensor'>IntrusionSensor</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">IntrusionSensor</span>  <span class="p">{</span>
+  <span class="nl">intrusionDetected</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">IntrusionSensor</span>  <span class="p">{</span>
+  <span class="nl">intrusionDetected</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><h3 id='properties-32'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>intrusionDetected</td>
+<td>boolean</td>
+</tr>
+</tbody></table>
+<h2 id='powersensor'>PowerSensor</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">PowerSensor</span>  <span class="p">{</span>
+  <span class="nl">powerDetected</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">PowerSensor</span>  <span class="p">{</span>
+  <span class="nl">powerDetected</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><h3 id='properties-33'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>powerDetected</td>
+<td>boolean</td>
+</tr>
+</tbody></table>
+<h2 id='audiosensor'>AudioSensor</h2><h2 id='motionsensor'>MotionSensor</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">MotionSensor</span>  <span class="p">{</span>
+  <span class="nl">motionDetected</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">MotionSensor</span>  <span class="p">{</span>
+  <span class="nl">motionDetected</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><h3 id='properties-34'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>motionDetected</td>
+<td>boolean</td>
+</tr>
+</tbody></table>
+<h2 id='occupancysensor'>OccupancySensor</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">OccupancySensor</span>  <span class="p">{</span>
+  <span class="nl">occupied</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">OccupancySensor</span>  <span class="p">{</span>
+  <span class="nl">occupied</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><h3 id='properties-35'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>occupied</td>
+<td>boolean</td>
+</tr>
+</tbody></table>
+<h2 id='floodsensor'>FloodSensor</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">FloodSensor</span>  <span class="p">{</span>
+  <span class="nl">flooded</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">FloodSensor</span>  <span class="p">{</span>
+  <span class="nl">flooded</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><h3 id='properties-36'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>flooded</td>
+<td>boolean</td>
+</tr>
+</tbody></table>
+<h2 id='ultravioletsensor'>UltravioletSensor</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">UltravioletSensor</span>  <span class="p">{</span>
+  <span class="nl">ultraviolet</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">UltravioletSensor</span>  <span class="p">{</span>
+  <span class="nl">ultraviolet</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><h3 id='properties-37'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ultraviolet</td>
+<td>number</td>
+</tr>
+</tbody></table>
+<h2 id='luminancesensor'>LuminanceSensor</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">LuminanceSensor</span>  <span class="p">{</span>
+  <span class="nl">luminance</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">LuminanceSensor</span>  <span class="p">{</span>
+  <span class="nl">luminance</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><h3 id='properties-38'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>luminance</td>
+<td>number</td>
+</tr>
+</tbody></table>
+<h2 id='positionsensor'>PositionSensor</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">PositionSensor</span>  <span class="p">{</span>
+  <span class="nl">position</span><span class="p">:</span> <span class="nx">Position</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">PositionSensor</span>  <span class="p">{</span>
+  <span class="nl">position</span><span class="p">:</span> <span class="nx">Position</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><h3 id='properties-39'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>position</td>
+<td><a href='#position'>Position</a></td>
+</tr>
+</tbody></table>
+<h2 id='position'>Position</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">Position</span>  <span class="p">{</span>
+  <span class="nl">accuracyRadius</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
+  <span class="nl">latitude</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
+  <span class="nl">longitude</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Position</span>  <span class="p">{</span>
+  <span class="nl">accuracyRadius</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
+  <span class="nl">latitude</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
+  <span class="nl">longitude</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+<aside class="notice">
+
+Used by <a href='#positionsensor'>PositionSensor</a>.
+
+
+</aside>
+<h3 id='properties-40'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>accuracyRadius</td>
+<td>number</td>
+</tr>
+<tr>
+<td>latitude</td>
+<td>number</td>
+</tr>
+<tr>
+<td>longitude</td>
+<td>number</td>
+</tr>
+</tbody></table>
+<h2 id='mediasource'>MediaSource</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">MediaSource</span>  <span class="p">{</span>
+  <span class="nx">getMedia</span><span class="p">():</span> <span class="nx">MediaObject</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">MediaSource</span>  <span class="p">{</span>
+  <span class="nx">getMedia</span><span class="p">():</span> <span class="nx">MediaObject</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><h3 id='getmedia'>getMedia</h3>
+<p><a href='#mediaobject'>MediaObject</a> getMedia()</p>
+
+<p>Get a MediaObject that will be automatically converted for playback on other devices.</p>
+<h2 id='messagingendpoint'>MessagingEndpoint</h2><h2 id='oauthclient'>OauthClient</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">OauthClient</span>  <span class="p">{</span>
+  <span class="nx">getOauthUrl</span><span class="p">():</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="kr">string</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">onOauthCallback</span><span class="p">(</span><span class="nx">callbackUrl</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">OauthClient</span>  <span class="p">{</span>
+  <span class="nx">getOauthUrl</span><span class="p">():</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="nx">onOauthCallback</span><span class="p">(</span><span class="nx">callbackUrl</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+<aside class="notice">
+
+
+The OauthClient can be implemented to perform the browser based Oauth process from within a plugin.
+
+</aside>
+<h3 id='getoauthurl'>getOauthUrl</h3>
+<p>Promise&lt;string&gt; getOauthUrl()</p>
+
+<p>Get the Oauth URL to navigate to in the browser. The redirect_uri parameter is not needed and will be automatically set by Scrypted.</p>
+<h3 id='onoauthcallback'>onOauthCallback</h3>
+<p>Promise&lt;void&gt; onOauthCallback(string callbackUrl)</p>
+
+<p>When an oauth request by a plugin completes, the callback url, with the code/token, will be passed to this method.</p>
+<h2 id='ffmpeginput'>FFMpegInput</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">FFMpegInput</span>  <span class="p">{</span>
+  <span class="nl">inputArguments</span><span class="p">:</span> <span class="kr">string</span><span class="p">[];</span>
+<span class="p">}</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">FFMpegInput</span>  <span class="p">{</span>
+  <span class="nl">inputArguments</span><span class="p">:</span> <span class="nx">string</span><span class="p">[];</span>
+<span class="p">}</span>
+</code></pre>
+<aside class="notice">
+
+Used by <a href='#mediamanager'>MediaManager</a>.
+
+
+</aside>
+<h3 id='properties-41'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>inputArguments</td>
+<td>string[]</td>
+</tr>
+</tbody></table>
+<h2 id='mixinprovider'>MixinProvider</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">MixinProvider</span>  <span class="p">{</span>
+  <span class="nx">canMixin</span><span class="p">(</span><span class="nx">device</span><span class="p">:</span> <span class="nx">ScryptedDevice</span><span class="p">):</span> <span class="kr">string</span><span class="p">[];</span>
+  <span class="nx">getMixin</span><span class="p">(</span><span class="nx">device</span><span class="p">:</span> <span class="nx">ScryptedDevice</span><span class="p">):</span> <span class="kr">any</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">MixinProvider</span>  <span class="p">{</span>
+  <span class="nx">canMixin</span><span class="p">(</span><span class="nx">device</span><span class="p">:</span> <span class="nx">ScryptedDevice</span><span class="p">):</span> <span class="nx">string</span><span class="p">[];</span>
+  <span class="nx">getMixin</span><span class="p">(</span><span class="nx">device</span><span class="p">:</span> <span class="nx">ScryptedDevice</span><span class="p">):</span> <span class="nx">any</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+<aside class="notice">
+
+
+MixinProviders can add and intercept interfaces to other devices to add or augment their behavior.
+
+</aside>
+<h3 id='canmixin'>canMixin</h3>
+<p>string[] canMixin(<a href='#scrypteddevice'>ScryptedDevice</a> device)</p>
+
+<p>Called by the system to determine if this provider can create a mixin for the supplied device. Returns null if a mixin can not be created, otherwise returns a list of new interfaces (which may be an empty list) that are provided by the mixin.</p>
+<h3 id='getmixin'>getMixin</h3>
+<p>any getMixin(<a href='#scrypteddevice'>ScryptedDevice</a> device)</p>
+
+<p>Create a mixin that can be applied to the supplied device.</p>
+<h2 id='engineiohandler'>EngineIOHandler</h2>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">EngineIOHandler</span>  <span class="p">{</span>
+  <span class="nx">onConnection</span><span class="p">(</span><span class="nx">request</span><span class="p">:</span> <span class="nx">HttpRequest</span><span class="p">,</span> <span class="nx">webSocketUrl</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">EngineIOHandler</span>  <span class="p">{</span>
+  <span class="nx">onConnection</span><span class="p">(</span><span class="nx">request</span><span class="p">:</span> <span class="nx">HttpRequest</span><span class="p">,</span> <span class="nx">webSocketUrl</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><h3 id='onconnection'>onConnection</h3>
+<p>Promise&lt;void&gt; onConnection(<a href='#httprequest'>HttpRequest</a> request, string webSocketUrl)</p>
 <h2 id='mediastatus'>MediaStatus</h2>
 <blockquote>
 <p>Definition</p>
@@ -3641,14 +4235,7 @@ MediaPlayer allows media playback on screen or speaker devices, such as Chromeca
   <span class="nl">metadata</span><span class="p">:</span> <span class="nx">any</span><span class="p">;</span>
   <span class="nl">position</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre>
-<aside class="notice">
-
-Used by <a href='#mediaplayer'>MediaPlayer</a>.
-
-
-</aside>
-<h3 id='properties-27'>Properties</h3>
+</code></pre><h3 id='properties-42'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3710,529 +4297,6 @@ Used by <a href='#mediastatus'>MediaStatus</a>.
 <td>&quot;Buffering&quot;</td>
 </tr>
 </tbody></table>
-<h2 id='mediaplayeroptions'>MediaPlayerOptions</h2>
-<blockquote>
-<p>Definition</p>
-</blockquote>
-<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">MediaPlayerOptions</span>  <span class="p">{</span>
-  <span class="nl">autoplay</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
-  <span class="nl">mimeType</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">MediaPlayerOptions</span>  <span class="p">{</span>
-  <span class="nl">autoplay</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
-  <span class="nl">mimeType</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre>
-<aside class="notice">
-
-Used by <a href='#mediaplayer'>MediaPlayer</a>.
-
-
-</aside>
-<h3 id='properties-28'>Properties</h3>
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>autoplay</td>
-<td>boolean</td>
-</tr>
-<tr>
-<td>mimeType</td>
-<td>string</td>
-</tr>
-</tbody></table>
-<h2 id='online'>Online</h2>
-<blockquote>
-<p>Definition</p>
-</blockquote>
-<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">Online</span>  <span class="p">{</span>
-  <span class="nl">online</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Online</span>  <span class="p">{</span>
-  <span class="nl">online</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre>
-<aside class="notice">
-
-
-Online denotes whether the device is online or unresponsive. It may be unresponsive due to being unplugged, network error, etc.
-
-</aside>
-<h3 id='properties-29'>Properties</h3>
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>online</td>
-<td>boolean</td>
-</tr>
-</tbody></table>
-<h2 id='program'>Program</h2>
-<blockquote>
-<p>Definition</p>
-</blockquote>
-<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">Program</span>  <span class="p">{</span>
-  <span class="nx">run</span><span class="p">(</span><span class="nx">args</span><span class="p">:</span> <span class="kr">any</span><span class="p">[]):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="kr">any</span><span class="o">&gt;</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Program</span>  <span class="p">{</span>
-  <span class="nx">run</span><span class="p">(</span><span class="nx">args</span><span class="p">:</span> <span class="nx">any</span><span class="p">[]):</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre><h3 id='run'>run</h3>
-<p>Promise&lt;any&gt; run(any[] args)</p>
-
-<p>Asynchronously run a script given the provided arguments.</p>
-<h2 id='softwareupdate'>SoftwareUpdate</h2>
-<blockquote>
-<p>Definition</p>
-</blockquote>
-<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">SoftwareUpdate</span>  <span class="p">{</span>
-  <span class="nl">updateAvailable</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
-
-  <span class="nx">checkForUpdate</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">installUpdate</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">SoftwareUpdate</span>  <span class="p">{</span>
-  <span class="nl">updateAvailable</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
-
-  <span class="nx">checkForUpdate</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">installUpdate</span><span class="p">():</span> <span class="k">void</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre>
-<aside class="notice">
-
-
-SoftwareUpdate provides a way to check for updates and install them. This may be a Scrypted Plugin or device firmware.
-
-</aside>
-<h3 id='properties-30'>Properties</h3>
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>updateAvailable</td>
-<td>boolean</td>
-</tr>
-</tbody></table>
-<h3 id='checkforupdate'>checkForUpdate</h3>
-<p>void checkForUpdate()</p>
-<h3 id='installupdate'>installUpdate</h3>
-<p>void installUpdate()</p>
-<h2 id='bufferconverter'>BufferConverter</h2>
-<blockquote>
-<p>Definition</p>
-</blockquote>
-<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">BufferConverter</span>  <span class="p">{</span>
-  <span class="nl">fromMimeType</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
-  <span class="nl">toMimeType</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
-
-  <span class="nx">convert</span><span class="p">(</span><span class="nx">buffer</span><span class="p">:</span> <span class="nx">Buffer</span><span class="p">,</span> <span class="nx">fromMimeType</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">Buffer</span><span class="o">&gt;</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">BufferConverter</span>  <span class="p">{</span>
-  <span class="nl">fromMimeType</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
-  <span class="nl">toMimeType</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
-
-  <span class="nx">convert</span><span class="p">(</span><span class="nx">buffer</span><span class="p">:</span> <span class="nx">Buffer</span><span class="p">,</span> <span class="nx">fromMimeType</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">Buffer</span><span class="o">&gt;</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre>
-<aside class="notice">
-
-
-Add a converter to be used by Scrypted to convert buffers from one mime type to another mime type.
-
-</aside>
-<h3 id='properties-31'>Properties</h3>
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>fromMimeType</td>
-<td>string</td>
-</tr>
-<tr>
-<td>toMimeType</td>
-<td>string</td>
-</tr>
-</tbody></table>
-<h3 id='convert'>convert</h3>
-<p>Promise&lt;Buffer&gt; convert(Buffer buffer, string fromMimeType)</p>
-<h2 id='settings'>Settings</h2>
-<blockquote>
-<p>Definition</p>
-</blockquote>
-<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">Settings</span>  <span class="p">{</span>
-  <span class="nx">getSettings</span><span class="p">():</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">Setting</span><span class="p">[]</span><span class="o">&gt;</span><span class="p">;</span>
-  <span class="nx">putSetting</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="kr">string</span><span class="p">,</span> <span class="nx">value</span><span class="p">:</span> <span class="kr">boolean</span><span class="o">|</span><span class="kr">number</span><span class="o">|</span><span class="kr">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Settings</span>  <span class="p">{</span>
-  <span class="nx">getSettings</span><span class="p">():</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">Setting</span><span class="p">[]</span><span class="o">&gt;</span><span class="p">;</span>
-  <span class="nx">putSetting</span><span class="p">(</span><span class="nx">key</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">value</span><span class="p">:</span> <span class="kr">boolean</span><span class="o">|</span><span class="nx">number</span><span class="o">|</span><span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre>
-<aside class="notice">
-
-
-Settings viewing and editing of device configurations that describe or modify behavior.
-
-</aside>
-<h3 id='getsettings'>getSettings</h3>
-<p>Promise&lt;<a href='#setting'>Setting</a>[]&gt; getSettings()</p>
-<h3 id='putsetting'>putSetting</h3>
-<p>void putSetting(string key, boolean|number|string value)</p>
-<h2 id='binarysensor'>BinarySensor</h2>
-<blockquote>
-<p>Definition</p>
-</blockquote>
-<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">BinarySensor</span>  <span class="p">{</span>
-  <span class="nl">binaryState</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">BinarySensor</span>  <span class="p">{</span>
-  <span class="nl">binaryState</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre><h3 id='properties-32'>Properties</h3>
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>binaryState</td>
-<td>boolean</td>
-</tr>
-</tbody></table>
-<h2 id='intrusionsensor'>IntrusionSensor</h2>
-<blockquote>
-<p>Definition</p>
-</blockquote>
-<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">IntrusionSensor</span>  <span class="p">{</span>
-  <span class="nl">intrusionDetected</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">IntrusionSensor</span>  <span class="p">{</span>
-  <span class="nl">intrusionDetected</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre><h3 id='properties-33'>Properties</h3>
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>intrusionDetected</td>
-<td>boolean</td>
-</tr>
-</tbody></table>
-<h2 id='powersensor'>PowerSensor</h2>
-<blockquote>
-<p>Definition</p>
-</blockquote>
-<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">PowerSensor</span>  <span class="p">{</span>
-  <span class="nl">powerDetected</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">PowerSensor</span>  <span class="p">{</span>
-  <span class="nl">powerDetected</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre><h3 id='properties-34'>Properties</h3>
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>powerDetected</td>
-<td>boolean</td>
-</tr>
-</tbody></table>
-<h2 id='audiosensor'>AudioSensor</h2><h2 id='motionsensor'>MotionSensor</h2>
-<blockquote>
-<p>Definition</p>
-</blockquote>
-<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">MotionSensor</span>  <span class="p">{</span>
-  <span class="nl">motionDetected</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">MotionSensor</span>  <span class="p">{</span>
-  <span class="nl">motionDetected</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre><h3 id='properties-35'>Properties</h3>
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>motionDetected</td>
-<td>boolean</td>
-</tr>
-</tbody></table>
-<h2 id='occupancysensor'>OccupancySensor</h2>
-<blockquote>
-<p>Definition</p>
-</blockquote>
-<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">OccupancySensor</span>  <span class="p">{</span>
-  <span class="nl">occupied</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">OccupancySensor</span>  <span class="p">{</span>
-  <span class="nl">occupied</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre><h3 id='properties-36'>Properties</h3>
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>occupied</td>
-<td>boolean</td>
-</tr>
-</tbody></table>
-<h2 id='floodsensor'>FloodSensor</h2>
-<blockquote>
-<p>Definition</p>
-</blockquote>
-<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">FloodSensor</span>  <span class="p">{</span>
-  <span class="nl">flooded</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">FloodSensor</span>  <span class="p">{</span>
-  <span class="nl">flooded</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre><h3 id='properties-37'>Properties</h3>
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>flooded</td>
-<td>boolean</td>
-</tr>
-</tbody></table>
-<h2 id='ultravioletsensor'>UltravioletSensor</h2>
-<blockquote>
-<p>Definition</p>
-</blockquote>
-<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">UltravioletSensor</span>  <span class="p">{</span>
-  <span class="nl">ultraviolet</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">UltravioletSensor</span>  <span class="p">{</span>
-  <span class="nl">ultraviolet</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre><h3 id='properties-38'>Properties</h3>
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>ultraviolet</td>
-<td>number</td>
-</tr>
-</tbody></table>
-<h2 id='luminancesensor'>LuminanceSensor</h2>
-<blockquote>
-<p>Definition</p>
-</blockquote>
-<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">LuminanceSensor</span>  <span class="p">{</span>
-  <span class="nl">luminance</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">LuminanceSensor</span>  <span class="p">{</span>
-  <span class="nl">luminance</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre><h3 id='properties-39'>Properties</h3>
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>luminance</td>
-<td>number</td>
-</tr>
-</tbody></table>
-<h2 id='positionsensor'>PositionSensor</h2>
-<blockquote>
-<p>Definition</p>
-</blockquote>
-<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">PositionSensor</span>  <span class="p">{</span>
-  <span class="nl">position</span><span class="p">:</span> <span class="nx">Position</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">PositionSensor</span>  <span class="p">{</span>
-  <span class="nl">position</span><span class="p">:</span> <span class="nx">Position</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre><h3 id='properties-40'>Properties</h3>
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>position</td>
-<td><a href='#position'>Position</a></td>
-</tr>
-</tbody></table>
-<h2 id='position'>Position</h2>
-<blockquote>
-<p>Definition</p>
-</blockquote>
-<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">Position</span>  <span class="p">{</span>
-  <span class="nl">accuracyRadius</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
-  <span class="nl">latitude</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
-  <span class="nl">longitude</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">Position</span>  <span class="p">{</span>
-  <span class="nl">accuracyRadius</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
-  <span class="nl">latitude</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
-  <span class="nl">longitude</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre>
-<aside class="notice">
-
-Used by <a href='#positionsensor'>PositionSensor</a>.
-
-
-</aside>
-<h3 id='properties-41'>Properties</h3>
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>accuracyRadius</td>
-<td>number</td>
-</tr>
-<tr>
-<td>latitude</td>
-<td>number</td>
-</tr>
-<tr>
-<td>longitude</td>
-<td>number</td>
-</tr>
-</tbody></table>
-<h2 id='mediasource'>MediaSource</h2>
-<blockquote>
-<p>Definition</p>
-</blockquote>
-<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">MediaSource</span>  <span class="p">{</span>
-  <span class="nx">getMedia</span><span class="p">():</span> <span class="nx">MediaObject</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">MediaSource</span>  <span class="p">{</span>
-  <span class="nx">getMedia</span><span class="p">():</span> <span class="nx">MediaObject</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre><h3 id='getmedia'>getMedia</h3>
-<p><a href='#mediaobject'>MediaObject</a> getMedia()</p>
-
-<p>Get a MediaObject that will be automatically converted for playback on other devices.</p>
-<h2 id='messagingendpoint'>MessagingEndpoint</h2><h2 id='oauthclient'>OauthClient</h2>
-<blockquote>
-<p>Definition</p>
-</blockquote>
-<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">OauthClient</span>  <span class="p">{</span>
-  <span class="nx">getOauthUrl</span><span class="p">():</span> <span class="kr">string</span><span class="p">;</span>
-  <span class="nx">onOauthCallback</span><span class="p">(</span><span class="nx">callbackUrl</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">OauthClient</span>  <span class="p">{</span>
-  <span class="nx">getOauthUrl</span><span class="p">():</span> <span class="nx">string</span><span class="p">;</span>
-  <span class="nx">onOauthCallback</span><span class="p">(</span><span class="nx">callbackUrl</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre>
-<aside class="notice">
-
-
-The OauthClient can be implemented to perform the browser based Oauth process from within a plugin.
-
-</aside>
-<h3 id='getoauthurl'>getOauthUrl</h3>
-<p>string getOauthUrl()</p>
-
-<p>Get the Oauth URL to navigate to in the browser. The redirect_uri parameter is not needed and will be automatically set by Scrypted.</p>
-<h3 id='onoauthcallback'>onOauthCallback</h3>
-<p>void onOauthCallback(string callbackUrl)</p>
-
-<p>When an oauth request by a plugin completes, the callback url, with the code/token, will be passed to this method.</p>
-<h2 id='ffmpeginput'>FFMpegInput</h2>
-<blockquote>
-<p>Definition</p>
-</blockquote>
-<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">FFMpegInput</span>  <span class="p">{</span>
-  <span class="nl">inputArguments</span><span class="p">:</span> <span class="kr">string</span><span class="p">[];</span>
-<span class="p">}</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">FFMpegInput</span>  <span class="p">{</span>
-  <span class="nl">inputArguments</span><span class="p">:</span> <span class="nx">string</span><span class="p">[];</span>
-<span class="p">}</span>
-</code></pre>
-<aside class="notice">
-
-Used by <a href='#mediamanager'>MediaManager</a>.
-
-
-</aside>
-<h3 id='properties-42'>Properties</h3>
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>inputArguments</td>
-<td>string[]</td>
-</tr>
-</tbody></table>
-<h2 id='endpointhandler'>EndpointHandler</h2>
-<blockquote>
-<p>Definition</p>
-</blockquote>
-<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">EndpointHandler</span>  <span class="p">{</span>
-  <span class="nx">getEndpoint</span><span class="p">():</span> <span class="kr">string</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">EndpointHandler</span>  <span class="p">{</span>
-  <span class="nx">getEndpoint</span><span class="p">():</span> <span class="nx">string</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre>
-<aside class="notice">
-
-Used by <a href='#httprequesthandler'>HttpRequestHandler</a>.
-
-
-</aside>
-<h3 id='getendpoint'>getEndpoint</h3>
-<p>string getEndpoint()</p>
-
-<p>Get the preferred endpoint of this HTTP/Push/EngineIO handler. Local/development scripts can set this to any value. This is ignored if the plugin is installed via npm: the endpoint will always be the npm package name.</p>
-<h2 id='engineiohandler'>EngineIOHandler</h2>
-<blockquote>
-<p>Definition</p>
-</blockquote>
-<pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">EngineIOHandler</span> <span class="k">implements</span> <span class="nx">EndpointHandler</span> <span class="p">{</span>
-  <span class="nx">onConnection</span><span class="p">(</span><span class="nx">request</span><span class="p">:</span> <span class="nx">HttpRequest</span><span class="p">,</span> <span class="nx">webSocketUrl</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">EngineIOHandler</span> <span class="kr">implements</span> <span class="nx">EndpointHandler</span> <span class="p">{</span>
-  <span class="nx">onConnection</span><span class="p">(</span><span class="nx">request</span><span class="p">:</span> <span class="nx">HttpRequest</span><span class="p">,</span> <span class="nx">webSocketUrl</span><span class="p">:</span> <span class="nx">string</span><span class="p">):</span> <span class="k">void</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre><h3 id='onconnection'>onConnection</h3>
-<p>void onConnection(<a href='#httprequest'>HttpRequest</a> request, string webSocketUrl)</p>
 <h2 id='setting'>Setting</h2>
 <blockquote>
 <p>Definition</p>

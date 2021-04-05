@@ -53,3 +53,13 @@ module.exports.ScryptedInterfaceProperty = {
   {%- endif %}
   {%- endfor %}
 }
+
+module.exports.ScryptedMimeTypes = {
+  AcceptUrlParameter: 'accept-url',
+  Url: 'text/x-uri',
+  InsecureLocalUrl: 'text/x-insecure-local-uri',
+  LocalUrl: 'text/x-local-uri',
+  FFmpegInput: 'x-scrypted/x-ffmpeg-input',
+  RTCAVOffer: 'x-scrypted/x-rtc-av-offer',
+  RTCAVAnswer: 'x-scrypted/x-rtc-av-answer',
+}

@@ -30,16 +30,18 @@ interface ScryptedDevice  {
   interfaces: string[];
   metadata: any;
   name: string;
+  providedInterfaces: string[];
   providedName: ScryptedDeviceType;
+  providedRoom: string;
   providedType: ScryptedDeviceType;
   providerId: string;
   room: string;
   type: ScryptedDeviceType;
 
   listen(event: ScryptedInterface|string|EventListenerOptions, callback: (eventSource: ScryptedDevice|null, eventDetails: EventDetails, eventData: any) => void): EventListenerRegister;
-  setName(name: string): void;
-  setRoom(room: string): void;
-  setType(type: ScryptedDeviceType): void;
+  setName(name: string): Promise<void>;
+  setRoom(room: string): Promise<void>;
+  setType(type: ScryptedDeviceType): Promise<void>;
 }
 ```
 
@@ -64,7 +66,9 @@ id | string
 interfaces | string[]
 metadata | any
 name | string
+providedInterfaces | string[]
 providedName | ScryptedDeviceType
+providedRoom | string
 providedType | ScryptedDeviceType
 providerId | string
 room | string
@@ -81,17 +85,17 @@ type | ScryptedDeviceType
 Subscribe to events from a specific interface on a device, such as 'OnOff' or 'Brightness'.
 
 ### setName
-void setName(string name)
+Promise\<void> setName(string name)
 
 
 
 ### setRoom
-void setRoom(string room)
+Promise\<void> setRoom(string room)
 
 
 
 ### setType
-void setType(ScryptedDeviceType type)
+Promise\<void> setType(ScryptedDeviceType type)
 
 
 
@@ -115,7 +119,7 @@ interface SystemManager  {
   getSystemState(): {[id: string]: {[property: string]: SystemDeviceState}};
   listen(EventListener: (eventSource: ScryptedDevice|null, eventDetails: EventDetails, eventData: any) => void): EventListenerRegister;
   listenDevice(id: string, event: ScryptedInterface|string|EventListenerOptions, callback: (eventSource: ScryptedDevice|null, eventDetails: EventDetails, eventData: any) => void): EventListenerRegister;
-  removeDevice(id: string): void;
+  removeDevice(id: string): Promise<void>;
 }
 ```
 
@@ -172,7 +176,7 @@ Passively (without polling) listen to property changed events.
 Subscribe to events from a specific interface on a device id, such as 'OnOff' or 'Brightness'. This is a convenience method for ScryptedDevice.listen.
 
 ### removeDevice
-void removeDevice(string id)
+Promise\<void> removeDevice(string id)
 
 Remove a device from Scrypted. Plugins should use DeviceManager.onDevicesChanged or DeviceManager.onDeviceRemoved to remove their own devices
 
@@ -210,6 +214,7 @@ enum ScryptedDeviceType {
   DeviceProvider = "DeviceProvider",
   DataSource = "DataSource",
   API = "API",
+  Doorbell = "Doorbell",
   Unknown = "Unknown",
 }
 ```
@@ -256,6 +261,7 @@ Enum |
 "DeviceProvider" |
 "DataSource" |
 "API" |
+"Doorbell" |
 "Unknown" |
 
 
@@ -268,7 +274,7 @@ Enum |
 
 ```ecmascript
 interface EventListener  {
-  onEvent(eventSource: ScryptedDevice|null, eventDetails: EventDetails, eventData: any): void;
+  onEvent(eventSource: ScryptedDevice|null, eventDetails: EventDetails, eventData: any): Promise<void>;
 }
 ```
 
@@ -283,7 +289,7 @@ interface EventListener  {
 
 
 ### onEvent
-void onEvent(ScryptedDevice|null eventSource, <a href='#eventdetails'>EventDetails</a> eventDetails, any eventData)
+Promise\<void> onEvent(ScryptedDevice|null eventSource, <a href='#eventdetails'>EventDetails</a> eventDetails, any eventData)
 
 This device type can be hooked by Automation actions to handle events. The event source, event details (interface, time, property), and event data are all passed to the listener as arguments.
 
@@ -560,7 +566,7 @@ onDevicesChanged is used to sync Scrypted with devices that are attached to a hu
 
 ```ecmascript
 interface DeviceProvider  {
-  discoverDevices(duration: number): void;
+  discoverDevices(duration: number): Promise<void>;
   getDevice(nativeId: string): any;
 }
 ```
@@ -583,7 +589,7 @@ DeviceProvider acts as a controller/hub and exposes multiple devices to Scrypted
 
 
 ### discoverDevices
-void discoverDevices(number duration)
+Promise\<void> discoverDevices(number duration)
 
 Perform device discovery for the specified duration in seconds.
 
@@ -696,7 +702,7 @@ type | ScryptedDeviceType
 ```ecmascript
 interface Refresh  {
   getRefreshFrequency(): Promise<number>;
-  refresh(refreshInterface: string, userInitiated: boolean): void;
+  refresh(refreshInterface: string, userInitiated: boolean): Promise<void>;
 }
 ```
 
@@ -723,7 +729,7 @@ Promise\<number> getRefreshFrequency()
 Get the recommended refresh/poll frequency in seconds for this device.
 
 ### refresh
-void refresh(string refreshInterface, boolean userInitiated)
+Promise\<void> refresh(string refreshInterface, boolean userInitiated)
 
 This method is called by Scrypted when the properties of the device need to be refreshed. When the device has completed the refresh, the appropriate DeviceState properties should be set. The parameters provide the specific interface that needs to be refreshed and whether it was user initiated (via UI or voice).
 
@@ -745,7 +751,9 @@ interface DeviceState  {
   interfaces: string[];
   metadata: any;
   name: string;
+  providedInterfaces: string[];
   providedName: ScryptedDeviceType;
+  providedRoom: string;
   providedType: ScryptedDeviceType;
   providerId: string;
   room: string;
@@ -806,7 +814,9 @@ id | string
 interfaces | string[]
 metadata | any
 name | string
+providedInterfaces | string[]
 providedName | ScryptedDeviceType
+providedRoom | string
 providedType | ScryptedDeviceType
 providerId | string
 room | string
@@ -864,11 +874,11 @@ position | <a href='#position'>Position</a>
 
 ```ecmascript
 interface MediaManager  {
-  convertMediaObjectToBuffer(mediaObject: MediaObject, toMimeType: string): Promise<Buffer>;
-  convertMediaObjectToInsecureLocalUrl(mediaObject: MediaObject, toMimeType: string): Promise<string>;
-  convertMediaObjectToLocalUrl(mediaObject: MediaObject, toMimeType: string): Promise<string>;
-  convertMediaObjectToUrl(mediaObject: MediaObject, toMimeType: string): Promise<string>;
-  createFFmpegMediaObject(ffMpegInput: FFMpegInput): MediaObject;
+  convertMediaObjectToBuffer(mediaObject: string|MediaObject, toMimeType: string): Promise<Buffer>;
+  convertMediaObjectToInsecureLocalUrl(mediaObject: string|MediaObject, toMimeType: string): Promise<string>;
+  convertMediaObjectToLocalUrl(mediaObject: string|MediaObject, toMimeType: string): Promise<string>;
+  convertMediaObjectToUrl(mediaObject: string|MediaObject, toMimeType: string): Promise<string>;
+  createFFmpegMediaObject(ffmpegInput: FFMpegInput): MediaObject;
   createMediaObject(data: string|Buffer|Promise<string|Buffer>, mimeType: string): MediaObject;
 }
 ```
@@ -884,27 +894,27 @@ interface MediaManager  {
 
 
 ### convertMediaObjectToBuffer
-Promise\<Buffer> convertMediaObjectToBuffer(<a href='#mediaobject'>MediaObject</a> mediaObject, string toMimeType)
+Promise\<Buffer> convertMediaObjectToBuffer(string|<a href='#mediaobject'>MediaObject</a> mediaObject, string toMimeType)
 
 Convert a media object to a Buffer of the given mime type.
 
 ### convertMediaObjectToInsecureLocalUrl
-Promise\<string> convertMediaObjectToInsecureLocalUrl(<a href='#mediaobject'>MediaObject</a> mediaObject, string toMimeType)
+Promise\<string> convertMediaObjectToInsecureLocalUrl(string|<a href='#mediaobject'>MediaObject</a> mediaObject, string toMimeType)
 
 Convert a media object to a locally accessible URL that serves a media file of the given mime type. If the media object is an externally accessible URL, that will be returned.
 
 ### convertMediaObjectToLocalUrl
-Promise\<string> convertMediaObjectToLocalUrl(<a href='#mediaobject'>MediaObject</a> mediaObject, string toMimeType)
+Promise\<string> convertMediaObjectToLocalUrl(string|<a href='#mediaobject'>MediaObject</a> mediaObject, string toMimeType)
 
 Convert a media object to a locally accessible URL that serves a media file of the given mime type. If the media object is an externally accessible URL, that will be returned.
 
 ### convertMediaObjectToUrl
-Promise\<string> convertMediaObjectToUrl(<a href='#mediaobject'>MediaObject</a> mediaObject, string toMimeType)
+Promise\<string> convertMediaObjectToUrl(string|<a href='#mediaobject'>MediaObject</a> mediaObject, string toMimeType)
 
 Convert a media object to a publically accessible URL that serves a media file of the given mime type.
 
 ### createFFmpegMediaObject
-<a href='#mediaobject'>MediaObject</a> createFFmpegMediaObject(<a href='#ffmpeginput'>FFMpegInput</a> ffMpegInput)
+<a href='#mediaobject'>MediaObject</a> createFFmpegMediaObject(<a href='#ffmpeginput'>FFMpegInput</a> ffmpegInput)
 
 Create a MediaObject. The media will be created from the provided FFmpeg input arguments.
 
@@ -971,10 +981,15 @@ mimeType | string
 ```ecmascript
 interface EndpointManager  {
   getAuthenticatedPath(): Promise<string>;
+  getAuthenticatedPath(nativeId: string): Promise<string>;
   getInsecurePublicLocalEndpoint(): Promise<string>;
+  getInsecurePublicLocalEndpoint(nativeId: string): Promise<string>;
   getPublicCloudEndpoint(): Promise<string>;
+  getPublicCloudEndpoint(nativeId: string): Promise<string>;
   getPublicLocalEndpoint(): Promise<string>;
+  getPublicLocalEndpoint(nativeId: string): Promise<string>;
   getPublicPushEndpoint(): Promise<string>;
+  getPublicPushEndpoint(nativeId: string): Promise<string>;
 }
 ```
 
@@ -1000,8 +1015,18 @@ Promise\<string> getAuthenticatedPath()
 
 Get an URL pathname that can be accessed on your local network or cloud while authenticated. This is an absolute path that requires cookie authentication, and generally used only in browser contexts.
 
+### getAuthenticatedPath
+Promise\<string> getAuthenticatedPath(string nativeId)
+
+Get an URL pathname that can be accessed on your local network or cloud while authenticated. This is an absolute path that requires cookie authentication, and generally used only in browser contexts.
+
 ### getInsecurePublicLocalEndpoint
 Promise\<string> getInsecurePublicLocalEndpoint()
+
+Get an URL that can only be accessed on your local network by anyone with the link. HTTP requests and responses are without any encryption. Plugin implementation is responsible for authentication.
+
+### getInsecurePublicLocalEndpoint
+Promise\<string> getInsecurePublicLocalEndpoint(string nativeId)
 
 Get an URL that can only be accessed on your local network by anyone with the link. HTTP requests and responses are without any encryption. Plugin implementation is responsible for authentication.
 
@@ -1010,13 +1035,28 @@ Promise\<string> getPublicCloudEndpoint()
 
 Get an URL that can be externally accessed by anyone with the link. Plugin implementation is responsible for authentication.
 
+### getPublicCloudEndpoint
+Promise\<string> getPublicCloudEndpoint(string nativeId)
+
+Get an URL that can be externally accessed by anyone with the link. Plugin implementation is responsible for authentication.
+
 ### getPublicLocalEndpoint
 Promise\<string> getPublicLocalEndpoint()
 
 Get an URL that can only be accessed on your local network by anyone with the link. HTTP requests and responses are over SSL with a self signed certificate. Plugin implementation is responsible for authentication.
 
+### getPublicLocalEndpoint
+Promise\<string> getPublicLocalEndpoint(string nativeId)
+
+Get an URL that can only be accessed on your local network by anyone with the link. HTTP requests and responses are over SSL with a self signed certificate. Plugin implementation is responsible for authentication.
+
 ### getPublicPushEndpoint
 Promise\<string> getPublicPushEndpoint()
+
+Get an URL that can be used to send a push message to the client. This differs from a cloud endpoint, in that, the Plugin does not send a response back. Plugin implementation is responsible for authentication.
+
+### getPublicPushEndpoint
+Promise\<string> getPublicPushEndpoint(string nativeId)
 
 Get an URL that can be used to send a push message to the client. This differs from a cloud endpoint, in that, the Plugin does not send a response back. Plugin implementation is responsible for authentication.
 
@@ -1032,8 +1072,8 @@ Get an URL that can be used to send a push message to the client. This differs f
 > Definition
 
 ```ecmascript
-interface HttpRequestHandler implements EndpointHandler {
-  onRequest(request: HttpRequest, response: HttpResponse): void;
+interface HttpRequestHandler  {
+  onRequest(request: HttpRequest, response: HttpResponse): Promise<void>;
 }
 ```
 
@@ -1055,7 +1095,7 @@ The HttpRequestHandler allows handling of web requests under the endpoint path: 
 
 
 ### onRequest
-void onRequest(<a href='#httprequest'>HttpRequest</a> request, <a href='#httpresponse'>HttpResponse</a> response)
+Promise\<void> onRequest(<a href='#httprequest'>HttpRequest</a> request, <a href='#httpresponse'>HttpResponse</a> response)
 
 Callback to handle an incoming request.
 
@@ -1071,8 +1111,8 @@ Callback to handle an incoming request.
 > Definition
 
 ```ecmascript
-interface PushHandler implements EndpointHandler {
-  onPush(request: HttpRequest): void;
+interface PushHandler  {
+  onPush(request: HttpRequest): Promise<void>;
 }
 ```
 
@@ -1087,7 +1127,7 @@ interface PushHandler implements EndpointHandler {
 
 
 ### onPush
-void onPush(<a href='#httprequest'>HttpRequest</a> request)
+Promise\<void> onPush(<a href='#httprequest'>HttpRequest</a> request)
 
 Callback to handle an incoming push.
 
@@ -1268,9 +1308,9 @@ headers | object
 ```ecmascript
 interface Android  {
   newIntent(): Intent;
-  sendBroadcast(intent: Intent): void;
-  startActivity(intent: Intent): void;
-  startService(intent: Intent): void;
+  sendBroadcast(intent: Intent): Promise<void>;
+  startActivity(intent: Intent): Promise<void>;
+  startService(intent: Intent): Promise<void>;
 }
 ```
 
@@ -1297,17 +1337,17 @@ Intent newIntent()
 Create a new Intent. Use one of the send methods to send broadcasts, start activities, or start services.
 
 ### sendBroadcast
-void sendBroadcast(Intent intent)
+Promise\<void> sendBroadcast(Intent intent)
 
 
 
 ### startActivity
-void startActivity(Intent intent)
+Promise\<void> startActivity(Intent intent)
 
 
 
 ### startService
-void startService(Intent intent)
+Promise\<void> startService(Intent intent)
 
 
 
@@ -1414,8 +1454,8 @@ property | string
 interface OnOff  {
   on: boolean;
 
-  turnOff(): void;
-  turnOn(): void;
+  turnOff(): Promise<void>;
+  turnOn(): Promise<void>;
 }
 ```
 
@@ -1443,12 +1483,12 @@ on | boolean
 
 
 ### turnOff
-void turnOff()
+Promise\<void> turnOff()
 
 
 
 ### turnOn
-void turnOn()
+Promise\<void> turnOn()
 
 
 
@@ -1467,7 +1507,7 @@ void turnOn()
 interface Brightness  {
   brightness: number;
 
-  setBrightness(brightness: number): void;
+  setBrightness(brightness: number): Promise<void>;
 }
 ```
 
@@ -1495,7 +1535,7 @@ brightness | number
 
 
 ### setBrightness
-void setBrightness(number brightness)
+Promise\<void> setBrightness(number brightness)
 
 
 
@@ -1514,9 +1554,9 @@ void setBrightness(number brightness)
 interface ColorSettingTemperature  {
   colorTemperature: number;
 
-  getTemperatureMaxK(): number;
-  getTemperatureMinK(): number;
-  setColorTemperature(kelvin: number): void;
+  getTemperatureMaxK(): Promise<number>;
+  getTemperatureMinK(): Promise<number>;
+  setColorTemperature(kelvin: number): Promise<void>;
 }
 ```
 
@@ -1544,17 +1584,17 @@ colorTemperature | number
 
 
 ### getTemperatureMaxK
-number getTemperatureMaxK()
+Promise\<number> getTemperatureMaxK()
 
 
 
 ### getTemperatureMinK
-number getTemperatureMinK()
+Promise\<number> getTemperatureMinK()
 
 
 
 ### setColorTemperature
-void setColorTemperature(number kelvin)
+Promise\<void> setColorTemperature(number kelvin)
 
 
 
@@ -1573,7 +1613,7 @@ void setColorTemperature(number kelvin)
 interface ColorSettingRgb  {
   rgb: ColorRgb;
 
-  setRgb(r: number, g: number, b: number): void;
+  setRgb(r: number, g: number, b: number): Promise<void>;
 }
 ```
 
@@ -1601,7 +1641,7 @@ rgb | <a href='#colorrgb'>ColorRgb</a>
 
 
 ### setRgb
-void setRgb(number r, number g, number b)
+Promise\<void> setRgb(number r, number g, number b)
 
 
 
@@ -1662,7 +1702,7 @@ r | number
 interface ColorSettingHsv  {
   hsv: ColorHsv;
 
-  setHsv(hue: number, saturation: number, value: number): void;
+  setHsv(hue: number, saturation: number, value: number): Promise<void>;
 }
 ```
 
@@ -1690,7 +1730,7 @@ hsv | <a href='#colorhsv'>ColorHsv</a>
 
 
 ### setHsv
-void setHsv(number hue, number saturation, number value)
+Promise\<void> setHsv(number hue, number saturation, number value)
 
 
 
@@ -1749,7 +1789,7 @@ v | number
 
 ```ecmascript
 interface Notifier  {
-  sendNotification(title: string, body: string, media: URL|MediaObject, mimeType: string): void;
+  sendNotification(title: string, body: string, media: string|MediaObject, mimeType: string): Promise<void>;
 }
 ```
 
@@ -1771,7 +1811,7 @@ Notifier can be any endpoint that can receive messages, such as speakers, phone 
 
 
 ### sendNotification
-void sendNotification(string title, string body, URL|<a href='#mediaobject'>MediaObject</a> media, string mimeType)
+Promise\<void> sendNotification(string title, string body, string|<a href='#mediaobject'>MediaObject</a> media, string mimeType)
 
 If a the media parameter is supplied, the mime type denotes how to send the media within notification. For example, specify 'image/*' to send a video MediaObject as an image.
 Passing null uses the native type of the MediaObject. If that is not supported by the notifier, the media will be converted to a compatible type.
@@ -1791,8 +1831,8 @@ Passing null uses the native type of the MediaObject. If that is not supported b
 interface StartStop  {
   running: boolean;
 
-  start(): void;
-  stop(): void;
+  start(): Promise<void>;
+  stop(): Promise<void>;
 }
 ```
 
@@ -1820,12 +1860,12 @@ running | boolean
 
 
 ### start
-void start()
+Promise\<void> start()
 
 
 
 ### stop
-void stop()
+Promise\<void> stop()
 
 
 
@@ -1844,8 +1884,8 @@ void stop()
 interface Pause  {
   paused: boolean;
 
-  pause(): void;
-  resume(): void;
+  pause(): Promise<void>;
+  resume(): Promise<void>;
 }
 ```
 
@@ -1866,12 +1906,12 @@ paused | boolean
 
 
 ### pause
-void pause()
+Promise\<void> pause()
 
 
 
 ### resume
-void resume()
+Promise\<void> resume()
 
 
 
@@ -1890,7 +1930,7 @@ void resume()
 interface Dock  {
   docked: boolean;
 
-  dock(): void;
+  dock(): Promise<void>;
 }
 ```
 
@@ -1918,7 +1958,7 @@ docked | boolean
 
 
 ### dock
-void dock()
+Promise\<void> dock()
 
 
 
@@ -1941,10 +1981,10 @@ interface TemperatureSetting implements Thermometer, HumiditySensor {
   thermostatSetpointHigh: number;
   thermostatSetpointLow: number;
 
-  setThermostatMode(mode: ThermostatMode): void;
-  setThermostatSetpoint(degrees: number): void;
-  setThermostatSetpointHigh(high: number): void;
-  setThermostatSetpointLow(low: number): void;
+  setThermostatMode(mode: ThermostatMode): Promise<void>;
+  setThermostatSetpoint(degrees: number): Promise<void>;
+  setThermostatSetpointHigh(high: number): Promise<void>;
+  setThermostatSetpointLow(low: number): Promise<void>;
 }
 ```
 
@@ -1976,22 +2016,22 @@ thermostatSetpointLow | number
 
 
 ### setThermostatMode
-void setThermostatMode(<a href='#thermostatmode'>ThermostatMode</a> mode)
+Promise\<void> setThermostatMode(<a href='#thermostatmode'>ThermostatMode</a> mode)
 
 
 
 ### setThermostatSetpoint
-void setThermostatSetpoint(number degrees)
+Promise\<void> setThermostatSetpoint(number degrees)
 
 
 
 ### setThermostatSetpointHigh
-void setThermostatSetpointHigh(number high)
+Promise\<void> setThermostatSetpointHigh(number high)
 
 
 
 ### setThermostatSetpointLow
-void setThermostatSetpointLow(number low)
+Promise\<void> setThermostatSetpointLow(number low)
 
 
 
@@ -2154,7 +2194,7 @@ Enum |
 
 ```ecmascript
 interface Camera  {
-  takePicture(): MediaObject;
+  takePicture(): Promise<MediaObject>;
 }
 ```
 
@@ -2176,7 +2216,7 @@ Camera devices can take still photos.
 
 
 ### takePicture
-<a href='#mediaobject'>MediaObject</a> takePicture()
+Promise\<<a href='#mediaobject'>MediaObject</a>> takePicture()
 
 
 
@@ -2193,7 +2233,7 @@ Camera devices can take still photos.
 
 ```ecmascript
 interface VideoCamera  {
-  getVideoStream(): MediaObject;
+  getVideoStream(): Promise<MediaObject>;
 }
 ```
 
@@ -2215,7 +2255,7 @@ VideoCamera devices can capture video streams.
 
 
 ### getVideoStream
-<a href='#mediaobject'>MediaObject</a> getVideoStream()
+Promise\<<a href='#mediaobject'>MediaObject</a>> getVideoStream()
 
 
 
@@ -2234,8 +2274,8 @@ VideoCamera devices can capture video streams.
 interface Lock  {
   lockState: LockState;
 
-  lock(): void;
-  unlock(): void;
+  lock(): Promise<void>;
+  unlock(): Promise<void>;
 }
 ```
 
@@ -2263,12 +2303,12 @@ lockState | <a href='#lockstate'>LockState</a>
 
 
 ### lock
-void lock()
+Promise\<void> lock()
 
 
 
 ### unlock
-void unlock()
+Promise\<void> unlock()
 
 
 
@@ -2322,9 +2362,9 @@ Enum |
 
 ```ecmascript
 interface PasswordStore implements Authenticator {
-  addPassword(password: string): void;
+  addPassword(password: string): Promise<void>;
   getPasswords(): Promise<string[]>;
-  removePassword(password: string): void;
+  removePassword(password: string): Promise<void>;
 }
 ```
 
@@ -2346,7 +2386,7 @@ PasswordControl represents devices that authorize users via a passcode or pin co
 
 
 ### addPassword
-void addPassword(string password)
+Promise\<void> addPassword(string password)
 
 
 
@@ -2356,7 +2396,7 @@ Promise\<string[]> getPasswords()
 
 
 ### removePassword
-void removePassword(string password)
+Promise\<void> removePassword(string password)
 
 
 
@@ -2412,8 +2452,8 @@ Promise\<boolean> checkPassword(string password)
 
 ```ecmascript
 interface Scene  {
-  activate(): void;
-  deactivate(): void;
+  activate(): Promise<void>;
+  deactivate(): Promise<void>;
   isReversible(): boolean;
 }
 ```
@@ -2436,12 +2476,12 @@ Scenes control multiple different devices into a given state.
 
 
 ### activate
-void activate()
+Promise\<void> activate()
 
 
 
 ### deactivate
-void deactivate()
+Promise\<void> deactivate()
 
 
 
@@ -2463,8 +2503,8 @@ If a scene can be reversed, isReversible should return true. Otherwise deactivat
 
 ```ecmascript
 interface Entry implements EntrySensor {
-  closeEntry(): void;
-  openEntry(): void;
+  closeEntry(): Promise<void>;
+  openEntry(): Promise<void>;
 }
 ```
 
@@ -2486,12 +2526,12 @@ Entry represents devices that can open and close barriers, such as garage doors.
 
 
 ### closeEntry
-void closeEntry()
+Promise\<void> closeEntry()
 
 
 
 ### openEntry
-void openEntry()
+Promise\<void> openEntry()
 
 
 
@@ -2573,11 +2613,11 @@ batteryLevel | number
 
 ```ecmascript
 interface MediaPlayer implements StartStop, Pause {
-  getMediaStatus(): MediaStatus;
-  load(media: URL|MediaObject, options: MediaPlayerOptions): void;
-  seek(milliseconds: number): void;
-  skipNext(): void;
-  skipPrevious(): void;
+  getMediaStatus(): Promise<MediaStatus>;
+  load(media: string|MediaObject, options: MediaPlayerOptions): Promise<void>;
+  seek(milliseconds: number): Promise<void>;
+  skipNext(): Promise<void>;
+  skipPrevious(): Promise<void>;
 }
 ```
 
@@ -2599,113 +2639,32 @@ MediaPlayer allows media playback on screen or speaker devices, such as Chromeca
 
 
 ### getMediaStatus
-<a href='#mediastatus'>MediaStatus</a> getMediaStatus()
+Promise\<<a href='#mediastatus'>MediaStatus</a>> getMediaStatus()
 
 
 
 ### load
-void load(URL|<a href='#mediaobject'>MediaObject</a> media, <a href='#mediaplayeroptions'>MediaPlayerOptions</a> options)
+Promise\<void> load(string|<a href='#mediaobject'>MediaObject</a> media, <a href='#mediaplayeroptions'>MediaPlayerOptions</a> options)
 
 
 
 ### seek
-void seek(number milliseconds)
+Promise\<void> seek(number milliseconds)
 
 
 
 ### skipNext
-void skipNext()
+Promise\<void> skipNext()
 
 
 
 ### skipPrevious
-void skipPrevious()
+Promise\<void> skipPrevious()
 
 
 
 
 
-
-
-
-
-## MediaStatus
-
-
-> Definition
-
-```ecmascript
-interface MediaStatus  {
-  duration: number;
-  mediaPlayerState: MediaPlayerState;
-  metadata: any;
-  position: number;
-}
-```
-
-
-<%= partial "includes/scrypted/MediaStatus.md.erb" %>
-
-
-<aside class="notice">
-
-Used by <a href='#mediaplayer'>MediaPlayer</a>.
-
-
-</aside>
-
-
-
-### Properties
-Name      | Type
---------- | ----
-duration | number
-mediaPlayerState | <a href='#mediaplayerstate'>MediaPlayerState</a>
-metadata | any
-position | number
-
-
-
-
-
-
-
-
-## MediaPlayerState
-
-
-```ecmascript
-enum MediaPlayerState {
-  Idle = "Idle",
-  Playing = "Playing",
-  Paused = "Paused",
-  Buffering = "Buffering",
-}
-```
-
-
-<%= partial "includes/scrypted/MediaPlayerState.md.erb" %>
-
-
-<aside class="notice">
-
-Used by <a href='#mediastatus'>MediaStatus</a>.
-
-
-</aside>
-
-
-
-
-
-
-
-Enum |
-----
-"Idle" |
-"Playing" |
-"Paused" |
-"Buffering" |
 
 
 
@@ -2719,6 +2678,7 @@ Enum |
 interface MediaPlayerOptions  {
   autoplay: boolean;
   mimeType: string;
+  title: string;
 }
 ```
 
@@ -2740,6 +2700,7 @@ Name      | Type
 --------- | ----
 autoplay | boolean
 mimeType | string
+title | string
 
 
 
@@ -2825,8 +2786,8 @@ Asynchronously run a script given the provided arguments.
 interface SoftwareUpdate  {
   updateAvailable: boolean;
 
-  checkForUpdate(): void;
-  installUpdate(): void;
+  checkForUpdate(): Promise<void>;
+  installUpdate(): Promise<void>;
 }
 ```
 
@@ -2854,12 +2815,12 @@ updateAvailable | boolean
 
 
 ### checkForUpdate
-void checkForUpdate()
+Promise\<void> checkForUpdate()
 
 
 
 ### installUpdate
-void installUpdate()
+Promise\<void> installUpdate()
 
 
 
@@ -2879,7 +2840,7 @@ interface BufferConverter  {
   fromMimeType: string;
   toMimeType: string;
 
-  convert(buffer: Buffer, fromMimeType: string): Promise<Buffer>;
+  convert(data: string|Buffer, fromMimeType: string): Promise<Buffer|string>;
 }
 ```
 
@@ -2890,7 +2851,7 @@ interface BufferConverter  {
 <aside class="notice">
 
 
-Add a converter to be used by Scrypted to convert buffers from one mime type to another mime type.
+Add a converter to be used by Scrypted to convert buffers from one mime type to another mime type. May optionally accept string urls if accept-url is a fromMimeType parameter.
 
 </aside>
 
@@ -2908,7 +2869,7 @@ toMimeType | string
 
 
 ### convert
-Promise\<Buffer> convert(Buffer buffer, string fromMimeType)
+Promise\<Buffer|string> convert(string|Buffer data, string fromMimeType)
 
 
 
@@ -2926,7 +2887,7 @@ Promise\<Buffer> convert(Buffer buffer, string fromMimeType)
 ```ecmascript
 interface Settings  {
   getSettings(): Promise<Setting[]>;
-  putSetting(key: string, value: boolean|number|string): void;
+  putSetting(key: string, value: boolean|number|string): Promise<void>;
 }
 ```
 
@@ -2953,7 +2914,7 @@ Promise\<<a href='#setting'>Setting</a>[]> getSettings()
 
 
 ### putSetting
-void putSetting(string key, boolean|number|string value)
+Promise\<void> putSetting(string key, boolean|number|string value)
 
 
 
@@ -3333,8 +3294,8 @@ Get a MediaObject that will be automatically converted for playback on other dev
 
 ```ecmascript
 interface OauthClient  {
-  getOauthUrl(): string;
-  onOauthCallback(callbackUrl: string): void;
+  getOauthUrl(): Promise<string>;
+  onOauthCallback(callbackUrl: string): Promise<void>;
 }
 ```
 
@@ -3356,12 +3317,12 @@ The OauthClient can be implemented to perform the browser based Oauth process fr
 
 
 ### getOauthUrl
-string getOauthUrl()
+Promise\<string> getOauthUrl()
 
 Get the Oauth URL to navigate to in the browser. The redirect_uri parameter is not needed and will be automatically set by Scrypted.
 
 ### onOauthCallback
-void onOauthCallback(string callbackUrl)
+Promise\<void> onOauthCallback(string callbackUrl)
 
 When an oauth request by a plugin completes, the callback url, with the code/token, will be passed to this method.
 
@@ -3407,25 +3368,26 @@ inputArguments | string[]
 
 
 
-## EndpointHandler
+## MixinProvider
 
 
 > Definition
 
 ```ecmascript
-interface EndpointHandler  {
-  getEndpoint(): string;
+interface MixinProvider  {
+  canMixin(device: ScryptedDevice): string[];
+  getMixin(device: ScryptedDevice): any;
 }
 ```
 
 
-<%= partial "includes/scrypted/EndpointHandler.md.erb" %>
+<%= partial "includes/scrypted/MixinProvider.md.erb" %>
 
 
 <aside class="notice">
 
-Used by <a href='#httprequesthandler'>HttpRequestHandler</a>.
 
+MixinProviders can add and intercept interfaces to other devices to add or augment their behavior.
 
 </aside>
 
@@ -3435,10 +3397,15 @@ Used by <a href='#httprequesthandler'>HttpRequestHandler</a>.
 
 
 
-### getEndpoint
-string getEndpoint()
+### canMixin
+string[] canMixin(<a href='#scrypteddevice'>ScryptedDevice</a> device)
 
-Get the preferred endpoint of this HTTP/Push/EngineIO handler. Local/development scripts can set this to any value. This is ignored if the plugin is installed via npm: the endpoint will always be the npm package name.
+Called by the system to determine if this provider can create a mixin for the supplied device. Returns null if a mixin can not be created, otherwise returns a list of new interfaces (which may be an empty list) that are provided by the mixin.
+
+### getMixin
+any getMixin(<a href='#scrypteddevice'>ScryptedDevice</a> device)
+
+Create a mixin that can be applied to the supplied device.
 
 
 
@@ -3452,8 +3419,8 @@ Get the preferred endpoint of this HTTP/Push/EngineIO handler. Local/development
 > Definition
 
 ```ecmascript
-interface EngineIOHandler implements EndpointHandler {
-  onConnection(request: HttpRequest, webSocketUrl: string): void;
+interface EngineIOHandler  {
+  onConnection(request: HttpRequest, webSocketUrl: string): Promise<void>;
 }
 ```
 
@@ -3468,12 +3435,86 @@ interface EngineIOHandler implements EndpointHandler {
 
 
 ### onConnection
-void onConnection(<a href='#httprequest'>HttpRequest</a> request, string webSocketUrl)
+Promise\<void> onConnection(<a href='#httprequest'>HttpRequest</a> request, string webSocketUrl)
 
 
 
 
 
+
+
+
+
+## MediaStatus
+
+
+> Definition
+
+```ecmascript
+interface MediaStatus  {
+  duration: number;
+  mediaPlayerState: MediaPlayerState;
+  metadata: any;
+  position: number;
+}
+```
+
+
+<%= partial "includes/scrypted/MediaStatus.md.erb" %>
+
+
+
+
+### Properties
+Name      | Type
+--------- | ----
+duration | number
+mediaPlayerState | <a href='#mediaplayerstate'>MediaPlayerState</a>
+metadata | any
+position | number
+
+
+
+
+
+
+
+
+## MediaPlayerState
+
+
+```ecmascript
+enum MediaPlayerState {
+  Idle = "Idle",
+  Playing = "Playing",
+  Paused = "Paused",
+  Buffering = "Buffering",
+}
+```
+
+
+<%= partial "includes/scrypted/MediaPlayerState.md.erb" %>
+
+
+<aside class="notice">
+
+Used by <a href='#mediastatus'>MediaStatus</a>.
+
+
+</aside>
+
+
+
+
+
+
+
+Enum |
+----
+"Idle" |
+"Playing" |
+"Paused" |
+"Buffering" |
 
 
 

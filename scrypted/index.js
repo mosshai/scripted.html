@@ -92,10 +92,17 @@ const TypeMap = {
     double: 'number',
     Double: 'number',
     Any: 'any',
+    URL: 'string',
 };
 
 const FunctionalInterfaces = [
     'EventListener',
+];
+
+const PromiseVoidExempt = [
+    'EventListenerRegister',
+    'Logger',
+    'HttpResponse',
 ];
 
 (async function () {
@@ -124,6 +131,13 @@ const FunctionalInterfaces = [
             entry.methods = [];
             for (var m of methods) {
                 if (!m.property) {
+                    if (m.type === 'void' && !m.types && !PromiseVoidExempt.includes(name)) {
+                        m.types = ['Promise', 'void']
+                    }
+
+                    if (m.type !== 'void' && m.types?.[0] !== 'Promise') {
+                        console.warn('possibly unsupported non-async return type on ', name, m.name, m.type);
+                    }
                     entry.methods.push(m);
                     continue;
                 }
@@ -133,7 +147,7 @@ const FunctionalInterfaces = [
                 }
                 entry.fields.push(m);
                 m.name = m.property;
-        }
+            }
         }
     }
     json = copy;
@@ -175,7 +189,7 @@ const FunctionalInterfaces = [
     }
 
     function mapType(typed) {
-        var {type, types} = typed;
+        var { type, types } = typed;
         if (!types) {
             return mapOneType(type);
         }
@@ -217,7 +231,7 @@ const FunctionalInterfaces = [
     }
 
     function linkifyType(typed) {
-        var {type, types} = typed;
+        var { type, types } = typed;
         if (!types) {
             return linkifyOneType(type);
         }
@@ -248,13 +262,13 @@ const FunctionalInterfaces = [
             var method = interfaceType.methods[0];
             return `${arg.name}: (${mapMethodArguments(method.arguments).join(', ')}) => void`;
         }
-        var optional = arg.optional ? '?': '';
+        var optional = arg.optional ? '?' : '';
         return `${arg.name}${optional}: ${mapType(arg)}`;
     }
 
     function massageCallback(arg) {
         if (arg.type == 'JavaScriptObject') {
-            return `${linkifyType({type: arg.name})} callback`
+            return `${linkifyType({ type: arg.name })} callback`
         }
         return `${linkifyType(arg)} ${arg.name}`;
     }
@@ -269,7 +283,7 @@ const FunctionalInterfaces = [
 
     const nunjucks = require('nunjucks');
     nunjucks.configure(__dirname, { autoescape: false });
-    var template = fs.readFileSync(path.join(__dirname,'./index.html.md.j2')).toString();
+    var template = fs.readFileSync(path.join(__dirname, './index.html.md.j2')).toString();
     var output = nunjucks.renderString(template, {
         data,
         mapSupers,
