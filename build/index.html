@@ -4185,12 +4185,12 @@ Used by <a href='#mediamanager'>MediaManager</a>.
 <p>Definition</p>
 </blockquote>
 <pre class="highlight typescript tab-typescript"><code><span class="kr">interface</span> <span class="nx">MixinProvider</span>  <span class="p">{</span>
-  <span class="nx">canMixin</span><span class="p">(</span><span class="nx">device</span><span class="p">:</span> <span class="nx">ScryptedDevice</span><span class="p">):</span> <span class="kr">string</span><span class="p">[];</span>
-  <span class="nx">getMixin</span><span class="p">(</span><span class="nx">device</span><span class="p">:</span> <span class="nx">ScryptedDevice</span><span class="p">):</span> <span class="kr">any</span><span class="p">;</span>
+  <span class="nx">canMixin</span><span class="p">(</span><span class="kd">type</span><span class="p">:</span> <span class="nx">ScryptedDeviceType</span><span class="p">,</span> <span class="nx">interfaces</span><span class="p">:</span> <span class="kr">string</span><span class="p">[]):</span> <span class="kr">string</span><span class="p">[];</span>
+  <span class="nx">getMixin</span><span class="p">(</span><span class="nx">device</span><span class="p">:</span> <span class="nx">ScryptedDevice</span><span class="p">,</span> <span class="nx">deviceState</span><span class="p">:</span> <span class="kr">any</span><span class="p">):</span> <span class="kr">any</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">interface</span> <span class="nx">MixinProvider</span>  <span class="p">{</span>
-  <span class="nx">canMixin</span><span class="p">(</span><span class="nx">device</span><span class="p">:</span> <span class="nx">ScryptedDevice</span><span class="p">):</span> <span class="nx">string</span><span class="p">[];</span>
-  <span class="nx">getMixin</span><span class="p">(</span><span class="nx">device</span><span class="p">:</span> <span class="nx">ScryptedDevice</span><span class="p">):</span> <span class="nx">any</span><span class="p">;</span>
+  <span class="nx">canMixin</span><span class="p">(</span><span class="nx">type</span><span class="p">:</span> <span class="nx">ScryptedDeviceType</span><span class="p">,</span> <span class="nx">interfaces</span><span class="p">:</span> <span class="nx">string</span><span class="p">[]):</span> <span class="nx">string</span><span class="p">[];</span>
+  <span class="nx">getMixin</span><span class="p">(</span><span class="nx">device</span><span class="p">:</span> <span class="nx">ScryptedDevice</span><span class="p">,</span> <span class="nx">deviceState</span><span class="p">:</span> <span class="nx">any</span><span class="p">):</span> <span class="nx">any</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
 <aside class="notice">
@@ -4200,11 +4200,11 @@ MixinProviders can add and intercept interfaces to other devices to add or augme
 
 </aside>
 <h3 id='canmixin'>canMixin</h3>
-<p>string[] canMixin(<a href='#scrypteddevice'>ScryptedDevice</a> device)</p>
+<p>string[] canMixin(ScryptedDeviceType type, string[] interfaces)</p>
 
 <p>Called by the system to determine if this provider can create a mixin for the supplied device. Returns null if a mixin can not be created, otherwise returns a list of new interfaces (which may be an empty list) that are provided by the mixin.</p>
 <h3 id='getmixin'>getMixin</h3>
-<p>any getMixin(<a href='#scrypteddevice'>ScryptedDevice</a> device)</p>
+<p>any getMixin(<a href='#scrypteddevice'>ScryptedDevice</a> device, any deviceState)</p>
 
 <p>Create a mixin that can be applied to the supplied device.</p>
 <h2 id='engineiohandler'>EngineIOHandler</h2>

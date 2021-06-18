@@ -15,6 +15,19 @@ export class ScryptedDeviceBase implements DeviceState {
 {%- endfor %}
 }
 
+
+export class MixinDeviceBase implements DeviceState {
+  constructor(mixinDevice: any, deviceState: any);
+  mixinDevice: any;
+{%- for field in classes['DeviceState'].fields %}
+  {% if field.description -%}
+  /**
+   * {{ field.description }}
+   */
+  {% endif -%}  {{ field.name }}?: {{ mapType(field) }};
+{%- endfor %}
+}
+
 declare const Scrypted: ScryptedStatic;
 
 export default Scrypted;

@@ -3375,8 +3375,8 @@ inputArguments | string[]
 
 ```ecmascript
 interface MixinProvider  {
-  canMixin(device: ScryptedDevice): string[];
-  getMixin(device: ScryptedDevice): any;
+  canMixin(type: ScryptedDeviceType, interfaces: string[]): string[];
+  getMixin(device: ScryptedDevice, deviceState: any): any;
 }
 ```
 
@@ -3398,12 +3398,12 @@ MixinProviders can add and intercept interfaces to other devices to add or augme
 
 
 ### canMixin
-string[] canMixin(<a href='#scrypteddevice'>ScryptedDevice</a> device)
+string[] canMixin(ScryptedDeviceType type, string[] interfaces)
 
 Called by the system to determine if this provider can create a mixin for the supplied device. Returns null if a mixin can not be created, otherwise returns a list of new interfaces (which may be an empty list) that are provided by the mixin.
 
 ### getMixin
-any getMixin(<a href='#scrypteddevice'>ScryptedDevice</a> device)
+any getMixin(<a href='#scrypteddevice'>ScryptedDevice</a> device, any deviceState)
 
 Create a mixin that can be applied to the supplied device.
 
